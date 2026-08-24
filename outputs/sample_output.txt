@@ -1,0 +1,45 @@
+[2026-08-24 15:49:41] [INFO] Initializing LLM Client with environment configuration:
+[2026-08-24 15:49:41] [INFO]  - Base URL: https://api.openai.com/v1
+[2026-08-24 15:49:41] [INFO]  - Model Name: gpt-4o-mini
+[2026-08-24 15:49:41] [INFO]  - API Key: your_op...here
+[2026-08-24 15:49:41] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-24 15:49:41] [INFO] Target Model: gpt-4o-mini
+[2026-08-24 15:49:41] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are a helpful AI assistant specialized in Retrieval-Augmented Generation (RAG) applications."
+  },
+  {
+    "role": "user",
+    "content": "Explain what Retrieval-Augmented Generation (RAG) is and why it is useful in two concise sentences."
+  }
+]
+[2026-08-24 15:49:43] [ERROR] ❌ [401 Authentication Error]: Invalid or missing API key.
+[2026-08-24 15:49:43] [ERROR]    Action Required: Please set a valid OPENAI_API_KEY in your .env configuration file.
+
+[2026-08-24 15:49:43] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-24 15:49:43] [INFO] Target Model: gpt-4o-mini
+[2026-08-24 15:49:43] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are a helpful AI assistant specialized in Retrieval-Augmented Generation (RAG) applications."
+  },
+  {
+    "role": "user",
+    "content": "Explain what Retrieval-Augmented Generation (RAG) is and why it is useful in two concise sentences."
+  }
+]
+[2026-08-24 15:49:43] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-08-24 15:49:43] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-08-24 15:49:43] [INFO] Response Model: gpt-4o-mini
+[2026-08-24 15:49:43] [INFO] Finish Reason: stop
+[2026-08-24 15:49:43] [INFO] Token Usage: {
+  "prompt_tokens": 42,
+  "completion_tokens": 36,
+  "total_tokens": 78
+}
+[2026-08-24 15:49:43] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-08-24 15:49:43] [INFO] Retrieval-Augmented Generation (RAG) is a technique that enhances Large Language Models by retrieving contextually relevant knowledge from external documents before generating a response. This ensures answers are accurate, verifiable, and grounded in up-to-date domain data.
+
