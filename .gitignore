@@ -1,0 +1,29 @@
+# Virtual environment
+.venv/
+venv/
+ENV/
+
+# Dependencies
+node_modules/
+
+# Environment configuration & secrets
+.env
+.env.local
+.env.*.local
+
+# Data directory contents (keep folder structure via .gitkeep)
+data/*
+!data/.gitkeep
+
+# Python cache & build outputs
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+.DS_Store
