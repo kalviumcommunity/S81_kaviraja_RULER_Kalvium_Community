@@ -16,3 +16,17 @@ To maintain a clean and understandable history, we follow Conventional Commits:
 - **Format**: `[type]: [description]`
   - Example: `feat: add data validation function`
 - **Why**: This approach enables automated changelog generation, makes git history clear, and helps developers understand what a commit does at a glance.
+
+## PR Review Process
+
+Code reviews are a critical part of our workflow to maintain code quality:
+- **Approvals**: Pull Requests require at least one approval from a team member before they can be merged.
+- **Review Focus**: Code review focuses on correctness, code clarity, data integrity, and adequate test coverage.
+- **Commit Messages**: Commit messages are reviewed as part of the PR to ensure they follow our convention.
+
+## GitHub Issue Tracking
+
+We use GitHub Issues to plan and track our work:
+- **Issue Driven**: Every new feature or bug fix must start with an issue.
+- **Details**: Issues must have appropriate labels, assignees, and clear, actionable descriptions.
+- **Closing**: Issues are automatically closed when the corresponding Pull Request is merged.
