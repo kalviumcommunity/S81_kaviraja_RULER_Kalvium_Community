@@ -1,45 +1,348 @@
-[2026-08-24 15:49:41] [INFO] Initializing LLM Client with environment configuration:
-[2026-08-24 15:49:41] [INFO]  - Base URL: https://api.openai.com/v1
-[2026-08-24 15:49:41] [INFO]  - Model Name: gpt-4o-mini
-[2026-08-24 15:49:41] [INFO]  - API Key: your_op...here
-[2026-08-24 15:49:41] [INFO] --- OUTGOING REQUEST PAYLOAD ---
-[2026-08-24 15:49:41] [INFO] Target Model: gpt-4o-mini
-[2026-08-24 15:49:41] [INFO] Outgoing Messages:
+[2026-08-27 10:54:24] [INFO] Initializing LLM Client with environment configuration:
+[2026-08-27 10:54:24] [INFO]  - Base URL: https://api.openai.com/v1
+[2026-08-27 10:54:24] [INFO]  - Model Name: gpt-4o-mini
+[2026-08-27 10:54:24] [INFO]  - API Key: test-ke...mmit
+[2026-08-27 10:54:24] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:54:24] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:54:24] [INFO] Parameters: temperature=0.0, max_tokens=None, top_p=None, stop=None
+[2026-08-27 10:54:24] [INFO] Outgoing Messages:
 [
   {
     "role": "system",
-    "content": "You are a helpful AI assistant specialized in Retrieval-Augmented Generation (RAG) applications."
+    "content": "You are an expert regulatory compliance analyst for enterprise data governance. Your responses must be precise, grounded, and factual based strictly on regulatory requirements."
   },
   {
     "role": "user",
-    "content": "Explain what Retrieval-Augmented Generation (RAG) is and why it is useful in two concise sentences."
+    "content": "Explain the mandatory data retention guidelines for audit logs and user activity records under regulatory compliance."
   }
 ]
-[2026-08-24 15:49:43] [ERROR] ❌ [401 Authentication Error]: Invalid or missing API key.
-[2026-08-24 15:49:43] [ERROR]    Action Required: Please set a valid OPENAI_API_KEY in your .env configuration file.
+[2026-08-27 10:54:33] [ERROR] ❌ [401 Authentication Error]: Invalid or missing API key.
+[2026-08-27 10:54:33] [ERROR]    Action Required: Please set a valid OPENAI_API_KEY in your .env configuration file.
 
-[2026-08-24 15:49:43] [INFO] --- OUTGOING REQUEST PAYLOAD ---
-[2026-08-24 15:49:43] [INFO] Target Model: gpt-4o-mini
-[2026-08-24 15:49:43] [INFO] Outgoing Messages:
+[2026-08-27 10:54:33] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:54:33] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:54:33] [INFO] Parameters: temperature=0.0, max_tokens=None, top_p=None, stop=None
+[2026-08-27 10:54:33] [INFO] Outgoing Messages:
 [
   {
     "role": "system",
-    "content": "You are a helpful AI assistant specialized in Retrieval-Augmented Generation (RAG) applications."
+    "content": "You are an expert regulatory compliance analyst for enterprise data governance. Your responses must be precise, grounded, and factual based strictly on regulatory requirements."
   },
   {
     "role": "user",
-    "content": "Explain what Retrieval-Augmented Generation (RAG) is and why it is useful in two concise sentences."
+    "content": "Explain the mandatory data retention guidelines for audit logs and user activity records under regulatory compliance."
   }
 ]
-[2026-08-24 15:49:43] [INFO] --- INCOMING RESPONSE PAYLOAD ---
-[2026-08-24 15:49:43] [INFO] Response ID: chatcmpl-mock-987654321
-[2026-08-24 15:49:43] [INFO] Response Model: gpt-4o-mini
-[2026-08-24 15:49:43] [INFO] Finish Reason: stop
-[2026-08-24 15:49:43] [INFO] Token Usage: {
+[2026-08-27 10:54:33] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-08-27 10:54:33] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-08-27 10:54:33] [INFO] Response Model: gpt-4o-mini
+[2026-08-27 10:54:33] [INFO] Finish Reason: stop
+[2026-08-27 10:54:33] [INFO] Token Usage: {
   "prompt_tokens": 42,
   "completion_tokens": 36,
   "total_tokens": 78
 }
-[2026-08-24 15:49:43] [INFO] --- MODEL REPLY (choices[0].message.content) ---
-[2026-08-24 15:49:43] [INFO] Retrieval-Augmented Generation (RAG) is a technique that enhances Large Language Models by retrieving contextually relevant knowledge from external documents before generating a response. This ensures answers are accurate, verifiable, and grounded in up-to-date domain data.
+[2026-08-27 10:54:33] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-08-27 10:54:33] [INFO] Under enterprise regulatory compliance, mandatory data retention guidelines require that all audit logs and user activity records be securely stored with end-to-end encryption for a minimum period of seven years. Access logs must undergo automated quarterly audits, and records must be anonymized after the retention threshold unless placed under legal hold.
+
+[2026-08-27 10:54:33] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:54:33] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:54:33] [INFO] Parameters: temperature=0.7, max_tokens=None, top_p=None, stop=None
+[2026-08-27 10:54:33] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert regulatory compliance analyst for enterprise data governance. Your responses must be precise, grounded, and factual based strictly on regulatory requirements."
+  },
+  {
+    "role": "user",
+    "content": "Explain the mandatory data retention guidelines for audit logs and user activity records under regulatory compliance."
+  }
+]
+[2026-08-27 10:54:35] [ERROR] ❌ [401 Authentication Error]: Invalid or missing API key.
+[2026-08-27 10:54:35] [ERROR]    Action Required: Please set a valid OPENAI_API_KEY in your .env configuration file.
+
+[2026-08-27 10:54:35] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:54:35] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:54:35] [INFO] Parameters: temperature=0.7, max_tokens=None, top_p=None, stop=None
+[2026-08-27 10:54:35] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert regulatory compliance analyst for enterprise data governance. Your responses must be precise, grounded, and factual based strictly on regulatory requirements."
+  },
+  {
+    "role": "user",
+    "content": "Explain the mandatory data retention guidelines for audit logs and user activity records under regulatory compliance."
+  }
+]
+[2026-08-27 10:54:35] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-08-27 10:54:35] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-08-27 10:54:35] [INFO] Response Model: gpt-4o-mini
+[2026-08-27 10:54:35] [INFO] Finish Reason: stop
+[2026-08-27 10:54:35] [INFO] Token Usage: {
+  "prompt_tokens": 42,
+  "completion_tokens": 36,
+  "total_tokens": 78
+}
+[2026-08-27 10:54:35] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-08-27 10:54:35] [INFO] Data retention regulations mandate that organizations archive audit logs and user activity tracking for at least 7 years. Security controls such as immutability and quarterly access reviews are essential, while obsolete records must be safely purged or anonymized.
+
+[2026-08-27 10:54:35] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:54:35] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:54:35] [INFO] Parameters: temperature=1.3, max_tokens=None, top_p=None, stop=None
+[2026-08-27 10:54:35] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert regulatory compliance analyst for enterprise data governance. Your responses must be precise, grounded, and factual based strictly on regulatory requirements."
+  },
+  {
+    "role": "user",
+    "content": "Explain the mandatory data retention guidelines for audit logs and user activity records under regulatory compliance."
+  }
+]
+[2026-08-27 10:54:35] [ERROR] ❌ [401 Authentication Error]: Invalid or missing API key.
+[2026-08-27 10:54:35] [ERROR]    Action Required: Please set a valid OPENAI_API_KEY in your .env configuration file.
+
+[2026-08-27 10:54:35] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:54:35] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:54:35] [INFO] Parameters: temperature=1.3, max_tokens=None, top_p=None, stop=None
+[2026-08-27 10:54:35] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert regulatory compliance analyst for enterprise data governance. Your responses must be precise, grounded, and factual based strictly on regulatory requirements."
+  },
+  {
+    "role": "user",
+    "content": "Explain the mandatory data retention guidelines for audit logs and user activity records under regulatory compliance."
+  }
+]
+[2026-08-27 10:54:35] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-08-27 10:54:35] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-08-27 10:54:35] [INFO] Response Model: gpt-4o-mini
+[2026-08-27 10:54:35] [INFO] Finish Reason: stop
+[2026-08-27 10:54:35] [INFO] Token Usage: {
+  "prompt_tokens": 42,
+  "completion_tokens": 36,
+  "total_tokens": 78
+}
+[2026-08-27 10:54:35] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-08-27 10:54:35] [INFO] When considering regulatory policy nuances! Audit records and event logs necessitate robust long-term archival strategies - typically extending across a multi-year timeframe like 7 years. Organizations should dynamically balance compliance posture, cryptographically signing log digests, and exploring proactive telemetry telemetry streams!
+
+[2026-08-27 10:54:35] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:54:35] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:54:35] [INFO] Parameters: temperature=0.0, max_tokens=25, top_p=None, stop=None
+[2026-08-27 10:54:35] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert regulatory compliance analyst for enterprise data governance. Your responses must be precise, grounded, and factual based strictly on regulatory requirements."
+  },
+  {
+    "role": "user",
+    "content": "Explain the mandatory data retention guidelines for audit logs and user activity records under regulatory compliance."
+  }
+]
+[2026-08-27 10:54:35] [ERROR] ❌ [401 Authentication Error]: Invalid or missing API key.
+[2026-08-27 10:54:35] [ERROR]    Action Required: Please set a valid OPENAI_API_KEY in your .env configuration file.
+
+[2026-08-27 10:54:35] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:54:35] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:54:35] [INFO] Parameters: temperature=0.0, max_tokens=25, top_p=None, stop=None
+[2026-08-27 10:54:35] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert regulatory compliance analyst for enterprise data governance. Your responses must be precise, grounded, and factual based strictly on regulatory requirements."
+  },
+  {
+    "role": "user",
+    "content": "Explain the mandatory data retention guidelines for audit logs and user activity records under regulatory compliance."
+  }
+]
+[2026-08-27 10:54:35] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-08-27 10:54:35] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-08-27 10:54:35] [INFO] Response Model: gpt-4o-mini
+[2026-08-27 10:54:35] [INFO] Finish Reason: length
+[2026-08-27 10:54:35] [INFO] Token Usage: {
+  "prompt_tokens": 42,
+  "completion_tokens": 25,
+  "total_tokens": 67
+}
+[2026-08-27 10:54:35] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-08-27 10:54:35] [INFO] Under enterprise regulatory compliance, mandatory data...
+
+[2026-08-27 10:54:35] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:54:35] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:54:35] [INFO] Parameters: temperature=0.0, max_tokens=150, top_p=None, stop=None
+[2026-08-27 10:54:35] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert regulatory compliance analyst for enterprise data governance. Your responses must be precise, grounded, and factual based strictly on regulatory requirements."
+  },
+  {
+    "role": "user",
+    "content": "Explain the mandatory data retention guidelines for audit logs and user activity records under regulatory compliance."
+  }
+]
+[2026-08-27 10:54:36] [ERROR] ❌ [401 Authentication Error]: Invalid or missing API key.
+[2026-08-27 10:54:36] [ERROR]    Action Required: Please set a valid OPENAI_API_KEY in your .env configuration file.
+
+[2026-08-27 10:54:36] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:54:36] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:54:36] [INFO] Parameters: temperature=0.0, max_tokens=150, top_p=None, stop=None
+[2026-08-27 10:54:36] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert regulatory compliance analyst for enterprise data governance. Your responses must be precise, grounded, and factual based strictly on regulatory requirements."
+  },
+  {
+    "role": "user",
+    "content": "Explain the mandatory data retention guidelines for audit logs and user activity records under regulatory compliance."
+  }
+]
+[2026-08-27 10:54:36] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-08-27 10:54:36] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-08-27 10:54:36] [INFO] Response Model: gpt-4o-mini
+[2026-08-27 10:54:36] [INFO] Finish Reason: stop
+[2026-08-27 10:54:36] [INFO] Token Usage: {
+  "prompt_tokens": 42,
+  "completion_tokens": 36,
+  "total_tokens": 78
+}
+[2026-08-27 10:54:36] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-08-27 10:54:36] [INFO] Under enterprise regulatory compliance, mandatory data retention guidelines require that all audit logs and user activity records be securely stored for a minimum period of seven years with mandatory access controls.
+
+[2026-08-27 10:54:36] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:54:36] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:54:36] [INFO] Parameters: temperature=0.7, max_tokens=None, top_p=0.1, stop=None
+[2026-08-27 10:54:36] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert regulatory compliance analyst for enterprise data governance. Your responses must be precise, grounded, and factual based strictly on regulatory requirements."
+  },
+  {
+    "role": "user",
+    "content": "Explain the mandatory data retention guidelines for audit logs and user activity records under regulatory compliance."
+  }
+]
+[2026-08-27 10:54:36] [ERROR] ❌ [401 Authentication Error]: Invalid or missing API key.
+[2026-08-27 10:54:36] [ERROR]    Action Required: Please set a valid OPENAI_API_KEY in your .env configuration file.
+
+[2026-08-27 10:54:36] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:54:36] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:54:36] [INFO] Parameters: temperature=0.7, max_tokens=None, top_p=0.1, stop=None
+[2026-08-27 10:54:36] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert regulatory compliance analyst for enterprise data governance. Your responses must be precise, grounded, and factual based strictly on regulatory requirements."
+  },
+  {
+    "role": "user",
+    "content": "Explain the mandatory data retention guidelines for audit logs and user activity records under regulatory compliance."
+  }
+]
+[2026-08-27 10:54:36] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-08-27 10:54:36] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-08-27 10:54:36] [INFO] Response Model: gpt-4o-mini
+[2026-08-27 10:54:36] [INFO] Finish Reason: stop
+[2026-08-27 10:54:36] [INFO] Token Usage: {
+  "prompt_tokens": 42,
+  "completion_tokens": 36,
+  "total_tokens": 78
+}
+[2026-08-27 10:54:36] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-08-27 10:54:36] [INFO] [top_p=0.1] Regulatory compliance guidelines dictate strict audit log retention.
+
+[2026-08-27 10:54:36] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:54:36] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:54:36] [INFO] Parameters: temperature=0.7, max_tokens=None, top_p=0.9, stop=None
+[2026-08-27 10:54:36] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert regulatory compliance analyst for enterprise data governance. Your responses must be precise, grounded, and factual based strictly on regulatory requirements."
+  },
+  {
+    "role": "user",
+    "content": "Explain the mandatory data retention guidelines for audit logs and user activity records under regulatory compliance."
+  }
+]
+[2026-08-27 10:54:37] [ERROR] ❌ [401 Authentication Error]: Invalid or missing API key.
+[2026-08-27 10:54:37] [ERROR]    Action Required: Please set a valid OPENAI_API_KEY in your .env configuration file.
+
+[2026-08-27 10:54:37] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:54:37] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:54:37] [INFO] Parameters: temperature=0.7, max_tokens=None, top_p=0.9, stop=None
+[2026-08-27 10:54:37] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert regulatory compliance analyst for enterprise data governance. Your responses must be precise, grounded, and factual based strictly on regulatory requirements."
+  },
+  {
+    "role": "user",
+    "content": "Explain the mandatory data retention guidelines for audit logs and user activity records under regulatory compliance."
+  }
+]
+[2026-08-27 10:54:37] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-08-27 10:54:37] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-08-27 10:54:37] [INFO] Response Model: gpt-4o-mini
+[2026-08-27 10:54:37] [INFO] Finish Reason: stop
+[2026-08-27 10:54:37] [INFO] Token Usage: {
+  "prompt_tokens": 42,
+  "completion_tokens": 36,
+  "total_tokens": 78
+}
+[2026-08-27 10:54:37] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-08-27 10:54:37] [INFO] [top_p=0.9] Regulatory compliance guidelines dictate strict audit log retention.
+
+[2026-08-27 10:54:37] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:54:37] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:54:37] [INFO] Parameters: temperature=0.0, max_tokens=None, top_p=None, stop=['.']
+[2026-08-27 10:54:37] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert regulatory compliance analyst for enterprise data governance. Your responses must be precise, grounded, and factual based strictly on regulatory requirements."
+  },
+  {
+    "role": "user",
+    "content": "Explain the mandatory data retention guidelines for audit logs and user activity records under regulatory compliance."
+  }
+]
+[2026-08-27 10:54:37] [ERROR] ❌ [401 Authentication Error]: Invalid or missing API key.
+[2026-08-27 10:54:37] [ERROR]    Action Required: Please set a valid OPENAI_API_KEY in your .env configuration file.
+
+[2026-08-27 10:54:37] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:54:37] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:54:37] [INFO] Parameters: temperature=0.0, max_tokens=None, top_p=None, stop=['.']
+[2026-08-27 10:54:37] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert regulatory compliance analyst for enterprise data governance. Your responses must be precise, grounded, and factual based strictly on regulatory requirements."
+  },
+  {
+    "role": "user",
+    "content": "Explain the mandatory data retention guidelines for audit logs and user activity records under regulatory compliance."
+  }
+]
+[2026-08-27 10:54:37] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-08-27 10:54:37] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-08-27 10:54:37] [INFO] Response Model: gpt-4o-mini
+[2026-08-27 10:54:37] [INFO] Finish Reason: stop
+[2026-08-27 10:54:37] [INFO] Token Usage: {
+  "prompt_tokens": 42,
+  "completion_tokens": 36,
+  "total_tokens": 78
+}
+[2026-08-27 10:54:37] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-08-27 10:54:37] [INFO] Audit log retention guidelines require secure 7-year storage.
 
