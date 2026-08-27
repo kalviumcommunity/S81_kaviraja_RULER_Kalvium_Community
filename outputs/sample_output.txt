@@ -1,45 +1,396 @@
-[2026-08-24 15:49:41] [INFO] Initializing LLM Client with environment configuration:
-[2026-08-24 15:49:41] [INFO]  - Base URL: https://api.openai.com/v1
-[2026-08-24 15:49:41] [INFO]  - Model Name: gpt-4o-mini
-[2026-08-24 15:49:41] [INFO]  - API Key: your_op...here
-[2026-08-24 15:49:41] [INFO] --- OUTGOING REQUEST PAYLOAD ---
-[2026-08-24 15:49:41] [INFO] Target Model: gpt-4o-mini
-[2026-08-24 15:49:41] [INFO] Outgoing Messages:
+[2026-08-27 10:43:29] [INFO] Initializing LLM Client with environment configuration:
+[2026-08-27 10:43:29] [INFO]  - Base URL: https://api.openai.com/v1
+[2026-08-27 10:43:29] [INFO]  - Model Name: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO]  - API Key: test-ke...mmit
+[2026-08-27 10:43:29] [INFO] [TOKEN MEASUREMENT] History contains 2 messages | Current Tokens: 141 | Budget Limit: 500
+[2026-08-27 10:43:29] [INFO] [WITHIN BUDGET] Token count (141) is within budget (500). No action required.
+[2026-08-27 10:43:29] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:43:29] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO] Outgoing Messages (2 items):
 [
   {
     "role": "system",
-    "content": "You are a helpful AI assistant specialized in Retrieval-Augmented Generation (RAG) applications."
+    "content": "You are an expert AI assistant specializing in analyzing regulatory compliance and Community Standard guidelines for organizational policies."
   },
   {
     "role": "user",
-    "content": "Explain what Retrieval-Augmented Generation (RAG) is and why it is useful in two concise sentences."
+    "content": "--- RETRIEVED DOCUMENT CONTEXT ---\n[Chunk 1]: Document Regulatory Ref #101: All organizations processing user data must maintain strict end-to-end encryption at rest and in transit. Access permissions must follow the principle of least privilege, requiring quarterly access reviews.\n[Chunk 2]: Document Compliance Ref #102: Data retention policies specify that user identification log files must be scrubbed or anonymized after 90 days unless subject to a legal legal hold.\n--- END CONTEXT ---\n\nUser Query: What are the core requirements for data privacy compliance?"
   }
 ]
-[2026-08-24 15:49:43] [ERROR] ❌ [401 Authentication Error]: Invalid or missing API key.
-[2026-08-24 15:49:43] [ERROR]    Action Required: Please set a valid OPENAI_API_KEY in your .env configuration file.
-
-[2026-08-24 15:49:43] [INFO] --- OUTGOING REQUEST PAYLOAD ---
-[2026-08-24 15:49:43] [INFO] Target Model: gpt-4o-mini
-[2026-08-24 15:49:43] [INFO] Outgoing Messages:
-[
-  {
-    "role": "system",
-    "content": "You are a helpful AI assistant specialized in Retrieval-Augmented Generation (RAG) applications."
-  },
-  {
-    "role": "user",
-    "content": "Explain what Retrieval-Augmented Generation (RAG) is and why it is useful in two concise sentences."
-  }
-]
-[2026-08-24 15:49:43] [INFO] --- INCOMING RESPONSE PAYLOAD ---
-[2026-08-24 15:49:43] [INFO] Response ID: chatcmpl-mock-987654321
-[2026-08-24 15:49:43] [INFO] Response Model: gpt-4o-mini
-[2026-08-24 15:49:43] [INFO] Finish Reason: stop
-[2026-08-24 15:49:43] [INFO] Token Usage: {
+[2026-08-27 10:43:29] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-08-27 10:43:29] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-08-27 10:43:29] [INFO] Response Model: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO] Finish Reason: stop
+[2026-08-27 10:43:29] [INFO] Token Usage: {
   "prompt_tokens": 42,
   "completion_tokens": 36,
   "total_tokens": 78
 }
-[2026-08-24 15:49:43] [INFO] --- MODEL REPLY (choices[0].message.content) ---
-[2026-08-24 15:49:43] [INFO] Retrieval-Augmented Generation (RAG) is a technique that enhances Large Language Models by retrieving contextually relevant knowledge from external documents before generating a response. This ensures answers are accurate, verifiable, and grounded in up-to-date domain data.
+[2026-08-27 10:43:29] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-08-27 10:43:29] [INFO] Core data privacy requirements include end-to-end encryption at rest and in transit, least-privilege access control with quarterly reviews, and anonymization of user logs after 90 days.
+
+[2026-08-27 10:43:29] [INFO] [TOKEN MEASUREMENT] History contains 4 messages | Current Tokens: 294 | Budget Limit: 500
+[2026-08-27 10:43:29] [INFO] [WITHIN BUDGET] Token count (294) is within budget (500). No action required.
+[2026-08-27 10:43:29] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:43:29] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO] Outgoing Messages (4 items):
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specializing in analyzing regulatory compliance and Community Standard guidelines for organizational policies."
+  },
+  {
+    "role": "user",
+    "content": "--- RETRIEVED DOCUMENT CONTEXT ---\n[Chunk 1]: Document Regulatory Ref #101: All organizations processing user data must maintain strict end-to-end encryption at rest and in transit. Access permissions must follow the principle of least privilege, requiring quarterly access reviews.\n[Chunk 2]: Document Compliance Ref #102: Data retention policies specify that user identification log files must be scrubbed or anonymized after 90 days unless subject to a legal legal hold.\n--- END CONTEXT ---\n\nUser Query: What are the core requirements for data privacy compliance?"
+  },
+  {
+    "role": "assistant",
+    "content": "Core data privacy requirements include end-to-end encryption at rest and in transit, least-privilege access control with quarterly reviews, and anonymization of user logs after 90 days."
+  },
+  {
+    "role": "user",
+    "content": "--- RETRIEVED DOCUMENT CONTEXT ---\n[Chunk 1]: Incident Response Clause #201: Any suspected or confirmed data breach must be reported to the compliance officer within 24 hours of discovery. Affected users and relevant authorities must be notified within 72 hours.\n[Chunk 2]: Incident Response Clause #202: A post-incident post-mortem root cause analysis report must be finalized within 14 business days of incident resolution.\n--- END CONTEXT ---\n\nUser Query: How are security breaches reported and handled under these standards?"
+  }
+]
+[2026-08-27 10:43:29] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-08-27 10:43:29] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-08-27 10:43:29] [INFO] Response Model: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO] Finish Reason: stop
+[2026-08-27 10:43:29] [INFO] Token Usage: {
+  "prompt_tokens": 42,
+  "completion_tokens": 36,
+  "total_tokens": 78
+}
+[2026-08-27 10:43:29] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-08-27 10:43:29] [INFO] Security breaches must be reported to the compliance officer within 24 hours and affected users within 72 hours. A full post-mortem report is required within 14 business days.
+
+[2026-08-27 10:43:29] [INFO] [TOKEN MEASUREMENT] History contains 6 messages | Current Tokens: 451 | Budget Limit: 500
+[2026-08-27 10:43:29] [INFO] [WITHIN BUDGET] Token count (451) is within budget (500). No action required.
+[2026-08-27 10:43:29] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:43:29] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO] Outgoing Messages (6 items):
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specializing in analyzing regulatory compliance and Community Standard guidelines for organizational policies."
+  },
+  {
+    "role": "user",
+    "content": "--- RETRIEVED DOCUMENT CONTEXT ---\n[Chunk 1]: Document Regulatory Ref #101: All organizations processing user data must maintain strict end-to-end encryption at rest and in transit. Access permissions must follow the principle of least privilege, requiring quarterly access reviews.\n[Chunk 2]: Document Compliance Ref #102: Data retention policies specify that user identification log files must be scrubbed or anonymized after 90 days unless subject to a legal legal hold.\n--- END CONTEXT ---\n\nUser Query: What are the core requirements for data privacy compliance?"
+  },
+  {
+    "role": "assistant",
+    "content": "Core data privacy requirements include end-to-end encryption at rest and in transit, least-privilege access control with quarterly reviews, and anonymization of user logs after 90 days."
+  },
+  {
+    "role": "user",
+    "content": "--- RETRIEVED DOCUMENT CONTEXT ---\n[Chunk 1]: Incident Response Clause #201: Any suspected or confirmed data breach must be reported to the compliance officer within 24 hours of discovery. Affected users and relevant authorities must be notified within 72 hours.\n[Chunk 2]: Incident Response Clause #202: A post-incident post-mortem root cause analysis report must be finalized within 14 business days of incident resolution.\n--- END CONTEXT ---\n\nUser Query: How are security breaches reported and handled under these standards?"
+  },
+  {
+    "role": "assistant",
+    "content": "Security breaches must be reported to the compliance officer within 24 hours and affected users within 72 hours. A full post-mortem report is required within 14 business days."
+  },
+  {
+    "role": "user",
+    "content": "--- RETRIEVED DOCUMENT CONTEXT ---\n[Chunk 1]: Audit Enforcement Policy #301: Failure to conduct quarterly access reviews results in a Tier-2 compliance violation. Organizations face mandatory mandatory remediation within 30 days and temporary suspension of administrative API access.\n[Chunk 2]: Audit Enforcement Policy #302: Repeated non-compliance across two consecutive audit cycles escalates the penalty to Tier-1, resulting in formal regulatory review and potential certification revocation.\n--- END CONTEXT ---\n\nUser Query: What are the audit penalties for failing quarterly access reviews?"
+  }
+]
+[2026-08-27 10:43:29] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-08-27 10:43:29] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-08-27 10:43:29] [INFO] Response Model: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO] Finish Reason: stop
+[2026-08-27 10:43:29] [INFO] Token Usage: {
+  "prompt_tokens": 42,
+  "completion_tokens": 36,
+  "total_tokens": 78
+}
+[2026-08-27 10:43:29] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-08-27 10:43:29] [INFO] Failing quarterly access reviews results in a Tier-2 violation requiring remediation within 30 days and temporary API suspension. Repeated failure escalates to Tier-1 with potential certification revocation.
+
+[2026-08-27 10:43:29] [INFO] [TOKEN MEASUREMENT] History contains 8 messages | Current Tokens: 576 | Budget Limit: 500
+[2026-08-27 10:43:29] [WARNING] [BUDGET EXCEEDED] Token budget exceeded (576 > 500). Applying strategy 'TRIM'...
+[2026-08-27 10:43:29] [INFO] [TRIM STRATEGY] Removed message role 'user' (111 tokens) to stay within budget.
+[2026-08-27 10:43:29] [INFO] [TRIMMING APPLIED]: Preserved system message. Tokens reduced from 576 -> 461 (Budget limit: 500).
+[2026-08-27 10:43:29] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:43:29] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO] Outgoing Messages (7 items):
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specializing in analyzing regulatory compliance and Community Standard guidelines for organizational policies."
+  },
+  {
+    "role": "assistant",
+    "content": "Core data privacy requirements include end-to-end encryption at rest and in transit, least-privilege access control with quarterly reviews, and anonymization of user logs after 90 days."
+  },
+  {
+    "role": "user",
+    "content": "--- RETRIEVED DOCUMENT CONTEXT ---\n[Chunk 1]: Incident Response Clause #201: Any suspected or confirmed data breach must be reported to the compliance officer within 24 hours of discovery. Affected users and relevant authorities must be notified within 72 hours.\n[Chunk 2]: Incident Response Clause #202: A post-incident post-mortem root cause analysis report must be finalized within 14 business days of incident resolution.\n--- END CONTEXT ---\n\nUser Query: How are security breaches reported and handled under these standards?"
+  },
+  {
+    "role": "assistant",
+    "content": "Security breaches must be reported to the compliance officer within 24 hours and affected users within 72 hours. A full post-mortem report is required within 14 business days."
+  },
+  {
+    "role": "user",
+    "content": "--- RETRIEVED DOCUMENT CONTEXT ---\n[Chunk 1]: Audit Enforcement Policy #301: Failure to conduct quarterly access reviews results in a Tier-2 compliance violation. Organizations face mandatory mandatory remediation within 30 days and temporary suspension of administrative API access.\n[Chunk 2]: Audit Enforcement Policy #302: Repeated non-compliance across two consecutive audit cycles escalates the penalty to Tier-1, resulting in formal regulatory review and potential certification revocation.\n--- END CONTEXT ---\n\nUser Query: What are the audit penalties for failing quarterly access reviews?"
+  },
+  {
+    "role": "assistant",
+    "content": "Failing quarterly access reviews results in a Tier-2 violation requiring remediation within 30 days and temporary API suspension. Repeated failure escalates to Tier-1 with potential certification revocation."
+  },
+  {
+    "role": "user",
+    "content": "--- RETRIEVED DOCUMENT CONTEXT ---\n[Chunk 1]: Summary Query Context: User requests cross-turn synthesis of breach reporting timelines (24h internal, 72h external) and audit failure escalation steps (Tier-2 30-day fix vs Tier-1 revocation).\n--- END CONTEXT ---\n\nUser Query: Can you summarize our discussion on incident reporting times and audit penalties?"
+  }
+]
+[2026-08-27 10:43:29] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-08-27 10:43:29] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-08-27 10:43:29] [INFO] Response Model: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO] Finish Reason: stop
+[2026-08-27 10:43:29] [INFO] Token Usage: {
+  "prompt_tokens": 42,
+  "completion_tokens": 36,
+  "total_tokens": 78
+}
+[2026-08-27 10:43:29] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-08-27 10:43:29] [INFO] In summary: Incidents require internal notification in 24h and external in 72h. Failing access reviews starts at Tier-2 (30-day fix + API pause) and escalates to Tier-1 (revocation) if repeated.
+
+[2026-08-27 10:43:29] [INFO] [TOKEN MEASUREMENT] History contains 9 messages | Current Tokens: 589 | Budget Limit: 500
+[2026-08-27 10:43:29] [WARNING] [BUDGET EXCEEDED] Token budget exceeded (589 > 500). Applying strategy 'TRIM'...
+[2026-08-27 10:43:29] [INFO] [TRIM STRATEGY] Removed message role 'assistant' (36 tokens) to stay within budget.
+[2026-08-27 10:43:29] [INFO] [TRIM STRATEGY] Removed message role 'user' (109 tokens) to stay within budget.
+[2026-08-27 10:43:29] [INFO] [TRIMMING APPLIED]: Preserved system message. Tokens reduced from 589 -> 436 (Budget limit: 500).
+[2026-08-27 10:43:29] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:43:29] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO] Outgoing Messages (7 items):
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specializing in analyzing regulatory compliance and Community Standard guidelines for organizational policies."
+  },
+  {
+    "role": "assistant",
+    "content": "Security breaches must be reported to the compliance officer within 24 hours and affected users within 72 hours. A full post-mortem report is required within 14 business days."
+  },
+  {
+    "role": "user",
+    "content": "--- RETRIEVED DOCUMENT CONTEXT ---\n[Chunk 1]: Audit Enforcement Policy #301: Failure to conduct quarterly access reviews results in a Tier-2 compliance violation. Organizations face mandatory mandatory remediation within 30 days and temporary suspension of administrative API access.\n[Chunk 2]: Audit Enforcement Policy #302: Repeated non-compliance across two consecutive audit cycles escalates the penalty to Tier-1, resulting in formal regulatory review and potential certification revocation.\n--- END CONTEXT ---\n\nUser Query: What are the audit penalties for failing quarterly access reviews?"
+  },
+  {
+    "role": "assistant",
+    "content": "Failing quarterly access reviews results in a Tier-2 violation requiring remediation within 30 days and temporary API suspension. Repeated failure escalates to Tier-1 with potential certification revocation."
+  },
+  {
+    "role": "user",
+    "content": "--- RETRIEVED DOCUMENT CONTEXT ---\n[Chunk 1]: Summary Query Context: User requests cross-turn synthesis of breach reporting timelines (24h internal, 72h external) and audit failure escalation steps (Tier-2 30-day fix vs Tier-1 revocation).\n--- END CONTEXT ---\n\nUser Query: Can you summarize our discussion on incident reporting times and audit penalties?"
+  },
+  {
+    "role": "assistant",
+    "content": "In summary: Incidents require internal notification in 24h and external in 72h. Failing access reviews starts at Tier-2 (30-day fix + API pause) and escalates to Tier-1 (revocation) if repeated."
+  },
+  {
+    "role": "user",
+    "content": "--- RETRIEVED DOCUMENT CONTEXT ---\n[Chunk 1]: Audit Enforcement Policy #303: Unresolved Tier-1 violations lead to immediate revocation of operational credentials, mandatory public disclosure, and referral to statutory enforcement agencies.\n--- END CONTEXT ---\n\nUser Query: What is the final escalation step if Tier-1 violations are not addressed?"
+  }
+]
+[2026-08-27 10:43:29] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-08-27 10:43:29] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-08-27 10:43:29] [INFO] Response Model: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO] Finish Reason: stop
+[2026-08-27 10:43:29] [INFO] Token Usage: {
+  "prompt_tokens": 42,
+  "completion_tokens": 36,
+  "total_tokens": 78
+}
+[2026-08-27 10:43:29] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-08-27 10:43:29] [INFO] If Tier-1 violations remain unresolved, final escalation involves immediate revocation of operational credentials, mandatory public disclosure, and statutory enforcement referral.
+
+[2026-08-27 10:43:29] [INFO] Initializing LLM Client with environment configuration:
+[2026-08-27 10:43:29] [INFO]  - Base URL: https://api.openai.com/v1
+[2026-08-27 10:43:29] [INFO]  - Model Name: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO]  - API Key: test-ke...mmit
+[2026-08-27 10:43:29] [INFO] [TOKEN MEASUREMENT] History contains 2 messages | Current Tokens: 141 | Budget Limit: 500
+[2026-08-27 10:43:29] [INFO] [WITHIN BUDGET] Token count (141) is within budget (500). No action required.
+[2026-08-27 10:43:29] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:43:29] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO] Outgoing Messages (2 items):
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specializing in analyzing regulatory compliance and Community Standard guidelines for organizational policies."
+  },
+  {
+    "role": "user",
+    "content": "--- RETRIEVED DOCUMENT CONTEXT ---\n[Chunk 1]: Document Regulatory Ref #101: All organizations processing user data must maintain strict end-to-end encryption at rest and in transit. Access permissions must follow the principle of least privilege, requiring quarterly access reviews.\n[Chunk 2]: Document Compliance Ref #102: Data retention policies specify that user identification log files must be scrubbed or anonymized after 90 days unless subject to a legal legal hold.\n--- END CONTEXT ---\n\nUser Query: What are the core requirements for data privacy compliance?"
+  }
+]
+[2026-08-27 10:43:29] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-08-27 10:43:29] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-08-27 10:43:29] [INFO] Response Model: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO] Finish Reason: stop
+[2026-08-27 10:43:29] [INFO] Token Usage: {
+  "prompt_tokens": 42,
+  "completion_tokens": 36,
+  "total_tokens": 78
+}
+[2026-08-27 10:43:29] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-08-27 10:43:29] [INFO] Core data privacy requirements include end-to-end encryption at rest and in transit, least-privilege access control with quarterly reviews, and anonymization of user logs after 90 days.
+
+[2026-08-27 10:43:29] [INFO] [TOKEN MEASUREMENT] History contains 4 messages | Current Tokens: 294 | Budget Limit: 500
+[2026-08-27 10:43:29] [INFO] [WITHIN BUDGET] Token count (294) is within budget (500). No action required.
+[2026-08-27 10:43:29] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:43:29] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO] Outgoing Messages (4 items):
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specializing in analyzing regulatory compliance and Community Standard guidelines for organizational policies."
+  },
+  {
+    "role": "user",
+    "content": "--- RETRIEVED DOCUMENT CONTEXT ---\n[Chunk 1]: Document Regulatory Ref #101: All organizations processing user data must maintain strict end-to-end encryption at rest and in transit. Access permissions must follow the principle of least privilege, requiring quarterly access reviews.\n[Chunk 2]: Document Compliance Ref #102: Data retention policies specify that user identification log files must be scrubbed or anonymized after 90 days unless subject to a legal legal hold.\n--- END CONTEXT ---\n\nUser Query: What are the core requirements for data privacy compliance?"
+  },
+  {
+    "role": "assistant",
+    "content": "Core data privacy requirements include end-to-end encryption at rest and in transit, least-privilege access control with quarterly reviews, and anonymization of user logs after 90 days."
+  },
+  {
+    "role": "user",
+    "content": "--- RETRIEVED DOCUMENT CONTEXT ---\n[Chunk 1]: Incident Response Clause #201: Any suspected or confirmed data breach must be reported to the compliance officer within 24 hours of discovery. Affected users and relevant authorities must be notified within 72 hours.\n[Chunk 2]: Incident Response Clause #202: A post-incident post-mortem root cause analysis report must be finalized within 14 business days of incident resolution.\n--- END CONTEXT ---\n\nUser Query: How are security breaches reported and handled under these standards?"
+  }
+]
+[2026-08-27 10:43:29] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-08-27 10:43:29] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-08-27 10:43:29] [INFO] Response Model: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO] Finish Reason: stop
+[2026-08-27 10:43:29] [INFO] Token Usage: {
+  "prompt_tokens": 42,
+  "completion_tokens": 36,
+  "total_tokens": 78
+}
+[2026-08-27 10:43:29] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-08-27 10:43:29] [INFO] Security breaches must be reported to the compliance officer within 24 hours and affected users within 72 hours. A full post-mortem report is required within 14 business days.
+
+[2026-08-27 10:43:29] [INFO] [TOKEN MEASUREMENT] History contains 6 messages | Current Tokens: 451 | Budget Limit: 500
+[2026-08-27 10:43:29] [INFO] [WITHIN BUDGET] Token count (451) is within budget (500). No action required.
+[2026-08-27 10:43:29] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:43:29] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO] Outgoing Messages (6 items):
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specializing in analyzing regulatory compliance and Community Standard guidelines for organizational policies."
+  },
+  {
+    "role": "user",
+    "content": "--- RETRIEVED DOCUMENT CONTEXT ---\n[Chunk 1]: Document Regulatory Ref #101: All organizations processing user data must maintain strict end-to-end encryption at rest and in transit. Access permissions must follow the principle of least privilege, requiring quarterly access reviews.\n[Chunk 2]: Document Compliance Ref #102: Data retention policies specify that user identification log files must be scrubbed or anonymized after 90 days unless subject to a legal legal hold.\n--- END CONTEXT ---\n\nUser Query: What are the core requirements for data privacy compliance?"
+  },
+  {
+    "role": "assistant",
+    "content": "Core data privacy requirements include end-to-end encryption at rest and in transit, least-privilege access control with quarterly reviews, and anonymization of user logs after 90 days."
+  },
+  {
+    "role": "user",
+    "content": "--- RETRIEVED DOCUMENT CONTEXT ---\n[Chunk 1]: Incident Response Clause #201: Any suspected or confirmed data breach must be reported to the compliance officer within 24 hours of discovery. Affected users and relevant authorities must be notified within 72 hours.\n[Chunk 2]: Incident Response Clause #202: A post-incident post-mortem root cause analysis report must be finalized within 14 business days of incident resolution.\n--- END CONTEXT ---\n\nUser Query: How are security breaches reported and handled under these standards?"
+  },
+  {
+    "role": "assistant",
+    "content": "Security breaches must be reported to the compliance officer within 24 hours and affected users within 72 hours. A full post-mortem report is required within 14 business days."
+  },
+  {
+    "role": "user",
+    "content": "--- RETRIEVED DOCUMENT CONTEXT ---\n[Chunk 1]: Audit Enforcement Policy #301: Failure to conduct quarterly access reviews results in a Tier-2 compliance violation. Organizations face mandatory mandatory remediation within 30 days and temporary suspension of administrative API access.\n[Chunk 2]: Audit Enforcement Policy #302: Repeated non-compliance across two consecutive audit cycles escalates the penalty to Tier-1, resulting in formal regulatory review and potential certification revocation.\n--- END CONTEXT ---\n\nUser Query: What are the audit penalties for failing quarterly access reviews?"
+  }
+]
+[2026-08-27 10:43:29] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-08-27 10:43:29] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-08-27 10:43:29] [INFO] Response Model: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO] Finish Reason: stop
+[2026-08-27 10:43:29] [INFO] Token Usage: {
+  "prompt_tokens": 42,
+  "completion_tokens": 36,
+  "total_tokens": 78
+}
+[2026-08-27 10:43:29] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-08-27 10:43:29] [INFO] Failing quarterly access reviews results in a Tier-2 violation requiring remediation within 30 days and temporary API suspension. Repeated failure escalates to Tier-1 with potential certification revocation.
+
+[2026-08-27 10:43:29] [INFO] [TOKEN MEASUREMENT] History contains 8 messages | Current Tokens: 576 | Budget Limit: 500
+[2026-08-27 10:43:29] [WARNING] [BUDGET EXCEEDED] Token budget exceeded (576 > 500). Applying strategy 'SUMMARIZE'...
+[2026-08-27 10:43:29] [INFO] [SUMMARISATION APPLIED]: Preserved system message. Summarised 5 older messages. Tokens reduced from 576 -> 271 (Budget limit: 500).
+[2026-08-27 10:43:29] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:43:29] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO] Outgoing Messages (4 items):
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specializing in analyzing regulatory compliance and Community Standard guidelines for organizational policies."
+  },
+  {
+    "role": "user",
+    "content": "[SUMMARY OF PRIOR CONVERSATION TURNS]:\nUser: What are the core requirements for data privacy compliance?...\nAssistant: Core data privacy requirements include end-to-end encryption at rest and in transit, least-privilege access control with...\nUser: How are security breaches reported and handled under these standards?...\nAssistant: Security breaches must be reported to the compliance officer within 24 hours and affected users within 72 hours. A full ...\nUser: What are the audit penalties for failing quarterly access reviews?...\n(System note: Older detailed document context was condensed to maintain context budget)."
+  },
+  {
+    "role": "assistant",
+    "content": "Failing quarterly access reviews results in a Tier-2 violation requiring remediation within 30 days and temporary API suspension. Repeated failure escalates to Tier-1 with potential certification revocation."
+  },
+  {
+    "role": "user",
+    "content": "--- RETRIEVED DOCUMENT CONTEXT ---\n[Chunk 1]: Summary Query Context: User requests cross-turn synthesis of breach reporting timelines (24h internal, 72h external) and audit failure escalation steps (Tier-2 30-day fix vs Tier-1 revocation).\n--- END CONTEXT ---\n\nUser Query: Can you summarize our discussion on incident reporting times and audit penalties?"
+  }
+]
+[2026-08-27 10:43:29] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-08-27 10:43:29] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-08-27 10:43:29] [INFO] Response Model: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO] Finish Reason: stop
+[2026-08-27 10:43:29] [INFO] Token Usage: {
+  "prompt_tokens": 42,
+  "completion_tokens": 36,
+  "total_tokens": 78
+}
+[2026-08-27 10:43:29] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-08-27 10:43:29] [INFO] In summary: Incidents require internal notification in 24h and external in 72h. Failing access reviews starts at Tier-2 (30-day fix + API pause) and escalates to Tier-1 (revocation) if repeated.
+
+[2026-08-27 10:43:29] [INFO] [TOKEN MEASUREMENT] History contains 6 messages | Current Tokens: 399 | Budget Limit: 500
+[2026-08-27 10:43:29] [INFO] [WITHIN BUDGET] Token count (399) is within budget (500). No action required.
+[2026-08-27 10:43:29] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 10:43:29] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO] Outgoing Messages (6 items):
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specializing in analyzing regulatory compliance and Community Standard guidelines for organizational policies."
+  },
+  {
+    "role": "user",
+    "content": "[SUMMARY OF PRIOR CONVERSATION TURNS]:\nUser: What are the core requirements for data privacy compliance?...\nAssistant: Core data privacy requirements include end-to-end encryption at rest and in transit, least-privilege access control with...\nUser: How are security breaches reported and handled under these standards?...\nAssistant: Security breaches must be reported to the compliance officer within 24 hours and affected users within 72 hours. A full ...\nUser: What are the audit penalties for failing quarterly access reviews?...\n(System note: Older detailed document context was condensed to maintain context budget)."
+  },
+  {
+    "role": "assistant",
+    "content": "Failing quarterly access reviews results in a Tier-2 violation requiring remediation within 30 days and temporary API suspension. Repeated failure escalates to Tier-1 with potential certification revocation."
+  },
+  {
+    "role": "user",
+    "content": "--- RETRIEVED DOCUMENT CONTEXT ---\n[Chunk 1]: Summary Query Context: User requests cross-turn synthesis of breach reporting timelines (24h internal, 72h external) and audit failure escalation steps (Tier-2 30-day fix vs Tier-1 revocation).\n--- END CONTEXT ---\n\nUser Query: Can you summarize our discussion on incident reporting times and audit penalties?"
+  },
+  {
+    "role": "assistant",
+    "content": "In summary: Incidents require internal notification in 24h and external in 72h. Failing access reviews starts at Tier-2 (30-day fix + API pause) and escalates to Tier-1 (revocation) if repeated."
+  },
+  {
+    "role": "user",
+    "content": "--- RETRIEVED DOCUMENT CONTEXT ---\n[Chunk 1]: Audit Enforcement Policy #303: Unresolved Tier-1 violations lead to immediate revocation of operational credentials, mandatory public disclosure, and referral to statutory enforcement agencies.\n--- END CONTEXT ---\n\nUser Query: What is the final escalation step if Tier-1 violations are not addressed?"
+  }
+]
+[2026-08-27 10:43:29] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-08-27 10:43:29] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-08-27 10:43:29] [INFO] Response Model: gpt-4o-mini
+[2026-08-27 10:43:29] [INFO] Finish Reason: stop
+[2026-08-27 10:43:29] [INFO] Token Usage: {
+  "prompt_tokens": 42,
+  "completion_tokens": 36,
+  "total_tokens": 78
+}
+[2026-08-27 10:43:29] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-08-27 10:43:29] [INFO] If Tier-1 violations remain unresolved, final escalation involves immediate revocation of operational credentials, mandatory public disclosure, and statutory enforcement referral.
 
