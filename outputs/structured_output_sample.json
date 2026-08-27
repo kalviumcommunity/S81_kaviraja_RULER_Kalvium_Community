@@ -1,0 +1,51 @@
+{
+  "task_1_and_2_structured_parse": {
+    "status": "success",
+    "response_format_mode": {
+      "type": "json_object"
+    },
+    "required_fields_schema": [
+      "answer",
+      "source",
+      "confidence"
+    ],
+    "parsed_object": {
+      "answer": "Retrieval-Augmented Generation (RAG) enhances LLMs by retrieving relevant document context before generating answers.",
+      "source": "RAG_Technical_Spec_v1.pdf",
+      "confidence": 0.98
+    },
+    "token_usage": {
+      "prompt_tokens": 42,
+      "completion_tokens": 36,
+      "total_tokens": 78
+    }
+  },
+  "task_3_malformed_json_recovered": {
+    "status": "recovered",
+    "raw_input": "```json\n{\n  \"answer\": \"Retrieval-Augmented Generation (RAG) enhances LLMs by retrieving relevant document snippets.\",\n  \"source\": \"RAG_Architecture_Doc.pdf\",\n}\n```",
+    "was_recovered": true,
+    "parsed_object": {
+      "answer": "Retrieval-Augmented Generation (RAG) enhances LLMs by retrieving relevant document snippets.",
+      "source": "RAG_Architecture_Doc.pdf"
+    }
+  },
+  "task_3_unrecoverable_malformed_json": {
+    "status": "handled_gracefully_without_crash",
+    "raw_input": "INTERNAL_SERVER_ERROR: Fatal crash occurred while generating JSON response {{{...",
+    "parsed_object": null,
+    "error_message": "Failed to parse JSON after recovery attempts: Expecting value: line 1 column 1 (char 0)"
+  },
+  "task_4_missing_field_recovered": {
+    "status": "recovered_missing_field",
+    "original_input": {
+      "answer": "RAG grounds model completions in custom knowledge bases to prevent hallucinations."
+    },
+    "missing_fields": [
+      "source"
+    ],
+    "validated_recovered_object": {
+      "answer": "RAG grounds model completions in custom knowledge bases to prevent hallucinations.",
+      "source": "Fallback_Knowledge_Store"
+    }
+  }
+}
