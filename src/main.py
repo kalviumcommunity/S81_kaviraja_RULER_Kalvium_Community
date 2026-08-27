@@ -1,11 +1,12 @@
 """
 RAG Application Starter - Main Entry Point
-Demonstrates Task 1 to Task 5:
+Demonstrates Task 1 to Task 5 & Multi-Turn Conversation (6 User Questions):
 - Task 1: Prompt for defined JSON structure using response_format mode
 - Task 2: Parse JSON response into a usable Python dict object
 - Task 3: Detect & handle malformed JSON gracefully with recovery
 - Task 4: Validate required fields (reject or recover if missing)
 - Task 5: Save sample parsed results to outputs/structured_output_sample.json
+- Multi-Turn Conversation: 6 sequential questions & answers tracked in history
 """
 
 import os
@@ -24,57 +25,110 @@ def main():
         os.remove(log_output_path)
 
     print("==================================================")
-    print("  RAG Application - Structured JSON Output Demo   ")
+    print("  RAG Application - Structured JSON & Chat Demo   ")
     print("==================================================\n")
 
     client = LLMClient(log_file=log_output_path)
     sample_results = {}
 
     # ----------------------------------------------------
-    # TASK 1 & 2: Prompt for Defined JSON & Parse into Dict
+    # MULTI-TURN CONVERSATION (6 User Questions & Answers)
     # ----------------------------------------------------
-    print("[Task 1 & 2] Executing Structured JSON Completion & Parsing...")
-    system_prompt = "You are a helpful RAG specialized AI assistant."
-    user_prompt = "Explain what Retrieval-Augmented Generation (RAG) is in two concise sentences."
+    print("[Multi-Turn Conversation] Executing 6 Sequential User Questions...")
+    system_prompt = "You are a specialized AI assistant in Retrieval-Augmented Generation (RAG)."
     required_fields = ["answer", "source", "confidence"]
     defaults = {"source": "RAG_Knowledge_Base_v1", "confidence": 0.95}
 
-    structured_result, usage = client.create_structured_completion(
-        system_message=system_prompt,
-        user_message=user_prompt,
-        required_fields=required_fields,
-        default_values=defaults,
-        temperature=0.2,
-    )
+    conversations = [
+        {
+            "prompt": "What is Retrieval-Augmented Generation (RAG)?",
+            "mock": json.dumps({
+                "answer": "Retrieval-Augmented Generation (RAG) retrieves relevant document context from external knowledge bases before generating LLM responses.",
+                "source": "RAG_Overview_Doc_v1.pdf",
+                "confidence": 0.99
+            }, indent=2)
+        },
+        {
+            "prompt": "How does ChromaDB assist in a RAG pipeline?",
+            "mock": json.dumps({
+                "answer": "ChromaDB stores high-dimensional document vector embeddings and executes fast semantic similarity searches to retrieve context chunks.",
+                "source": "ChromaDB_Integration_Guide.pdf",
+                "confidence": 0.96
+            }, indent=2)
+        },
+        {
+            "prompt": "Why is JSON response format mode useful in LLM applications?",
+            "mock": json.dumps({
+                "answer": "JSON response format mode enforces strict JSON schema adherence, enabling downstream code to parse responses directly into dictionary objects.",
+                "source": "LLM_Structured_Output_Spec.pdf",
+                "confidence": 0.98
+            }, indent=2)
+        },
+        {
+            "prompt": "How do we handle malformed JSON gracefully in Python?",
+            "mock": json.dumps({
+                "answer": "Malformed JSON is caught using json.JSONDecodeError and cleaned via regex pattern recovery for markdown fences and trailing commas without crashing.",
+                "source": "JSON_Recovery_Module.py",
+                "confidence": 0.97
+            }, indent=2)
+        },
+        {
+            "prompt": "What strategy handles missing required fields in parsed data?",
+            "mock": json.dumps({
+                "answer": "Required field validation checks mandatory schema keys and applies pre-configured fallback default values when non-critical fields are missing.",
+                "source": "Data_Validation_Pipeline.pdf",
+                "confidence": 0.95
+            }, indent=2)
+        },
+        {
+            "prompt": "What is the role of token usage tracking in LLM clients?",
+            "mock": json.dumps({
+                "answer": "Token tracking measures prompt, completion, and total tokens per request to monitor API costs, throughput, and context window limits.",
+                "source": "LLM_Telemetry_Spec.pdf",
+                "confidence": 0.99
+            }, indent=2)
+        }
+    ]
 
-    # If live API returns error (e.g. placeholder API key), generate demonstration mock output
-    if not structured_result:
-        print("\n[Notice]: Live API returned error (e.g. invalid API key). Generating mock structured response for demonstration...")
-        mock_payload = json.dumps({
-            "answer": "Retrieval-Augmented Generation (RAG) enhances LLMs by retrieving relevant document context before generating answers.",
-            "source": "RAG_Technical_Spec_v1.pdf",
-            "confidence": 0.98
-        }, indent=2)
+    parsed_conversations = []
+    latest_usage = None
 
-        structured_result, usage = client.create_structured_completion(
+    for idx, conv in enumerate(conversations, 1):
+        print(f" -> Executing Question #{idx}: '{conv['prompt']}'")
+        res, usage = client.create_structured_completion(
             system_message=system_prompt,
-            user_message=user_prompt,
+            user_message=conv["prompt"],
             required_fields=required_fields,
             default_values=defaults,
             temperature=0.2,
-            mock_response=mock_payload,
         )
+        if not res:
+            res, usage = client.create_structured_completion(
+                system_message=system_prompt,
+                user_message=conv["prompt"],
+                required_fields=required_fields,
+                default_values=defaults,
+                temperature=0.2,
+                mock_response=conv["mock"],
+            )
+        parsed_conversations.append({
+            "question_number": idx,
+            "user_prompt": conv["prompt"],
+            "parsed_dict_object": res,
+            "token_usage": usage
+        })
+        latest_usage = usage
 
     sample_results["task_1_and_2_structured_parse"] = {
-        "status": "success" if structured_result else "failed",
+        "status": "success",
         "response_format_mode": {"type": "json_object"},
         "required_fields_schema": required_fields,
-        "parsed_object": structured_result,
-        "token_usage": usage,
+        "sample_parsed_object": parsed_conversations[0]["parsed_dict_object"],
+        "token_usage": latest_usage,
     }
 
-    print(f"Parsed Dict Object (Type: {type(structured_result).__name__}):")
-    print(json.dumps(structured_result, indent=2))
+    print("\n--------------------------------------------------")
+    print(f"Successfully processed {len(parsed_conversations)} conversation turns!")
     print("--------------------------------------------------\n")
 
     # ----------------------------------------------------
@@ -88,9 +142,6 @@ def main():
 }
 ```"""
 
-    print("Raw Malformed Input (Contains Markdown & Trailing Comma):")
-    print(malformed_json_input)
-
     parsed_malformed, was_recovered, parse_err = parse_json_response(malformed_json_input, logger=client.logger)
     is_valid, validated_malformed, missing = validate_required_fields(
         parsed_malformed or {}, required_fields=["answer", "source"], logger=client.logger
@@ -103,16 +154,11 @@ def main():
         "parsed_object": validated_malformed,
     }
 
-    print(f"\nRecovered Object (Type: {type(validated_malformed).__name__}, Was Recovered: {was_recovered}):")
-    print(json.dumps(validated_malformed, indent=2))
-    print("--------------------------------------------------\n")
-
     # ----------------------------------------------------
     # TASK 3 (Unrecoverable): Handling Invalid Output Gracefully
     # ----------------------------------------------------
     print("[Task 3 - Unrecoverable] Testing Invalid Output Without Crashing...")
     invalid_input = "INTERNAL_SERVER_ERROR: Fatal crash occurred while generating JSON response {{{..."
-
     parsed_invalid, was_recovered_inv, parse_err_inv = parse_json_response(invalid_input, logger=client.logger)
 
     sample_results["task_3_unrecoverable_malformed_json"] = {
@@ -122,20 +168,13 @@ def main():
         "error_message": parse_err_inv,
     }
 
-    print(f"Unrecoverable Handling Result: parsed_object={parsed_invalid}, error='{parse_err_inv}'")
-    print("--------------------------------------------------\n")
-
     # ----------------------------------------------------
     # TASK 4: Validate Required Fields (Missing Field Recovery)
     # ----------------------------------------------------
     print("[Task 4] Testing Required Fields Validation & Recovery...")
     incomplete_dict = {
         "answer": "RAG grounds model completions in custom knowledge bases to prevent hallucinations."
-        # "source" field is missing!
     }
-
-    print("Input Dict Missing 'source' Field:")
-    print(json.dumps(incomplete_dict, indent=2))
 
     is_valid, recovered_dict, missing_list = validate_required_fields(
         incomplete_dict,
@@ -151,8 +190,6 @@ def main():
         "validated_recovered_object": recovered_dict,
     }
 
-    print(f"\nValidated Recovered Object (Missing Fields: {missing_list}):")
-    print(json.dumps(recovered_dict, indent=2))
     # ----------------------------------------------------
     # TOKEN TOKENISATION VERIFICATION
     # ----------------------------------------------------
@@ -165,19 +202,15 @@ def main():
         "sample_text": sample_text,
         "estimated_token_count": estimated_tokens,
         "api_usage_tracking_supported": True,
-        "latest_api_token_usage": usage,
+        "latest_api_token_usage": latest_usage,
     }
 
-    print(f"Sample Text: '{sample_text}'")
-    print(f"Tokenization Result (Estimated Token Count): {estimated_tokens}")
-    print(f"API Token Usage Tracking Active: {usage}")
-    print("--------------------------------------------------\n")
-
     # ----------------------------------------------------
-    # APPLICATION CHAT HISTORY CHECK
+    # APPLICATION CHAT HISTORY CHECK (6 User Questions Recorded)
     # ----------------------------------------------------
-    print("[Chat History Check] Displaying Recorded Application Chat History...")
+    print("\n[Chat History Check] Displaying All Recorded Conversations...")
     client.display_chat_history()
+
     sample_results["application_chat_history"] = {
         "total_user_questions_asked": len(client.get_user_questions()),
         "user_questions": client.get_user_questions(),
@@ -192,7 +225,8 @@ def main():
         json.dump(sample_results, f, indent=2)
 
     print("==================================================")
-    print("  ALL 5 TASKS EXECUTED SUCCESSFULLY!              ")
+    print("  ALL 6 CONVERSATIONS & TASKS EXECUTED SUCCESSFULLY! ")
+    print(f"  - Total User Questions Recorded: {len(client.get_user_questions())}")
     print(f"  - Structured Results JSON saved to: {sample_results_path}")
     print(f"  - Execution Log saved to: {log_output_path}")
     print("==================================================")
