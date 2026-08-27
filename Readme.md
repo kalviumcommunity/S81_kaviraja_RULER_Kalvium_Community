@@ -105,11 +105,15 @@ python src/main.py
 ```text
 rag-app-starter/
 ├── data/               # Documents and knowledge-base source data
-├── docs/               # Technical documentation & extraction specs
-├── outputs/            # Generated outputs and processing results
+├── docs/               # Technical documentation, extraction specs & parameter settings
+│   └── llm_parameter_settings.md # Grounded RAG LLM parameter guidelines
+├── outputs/            # Generated outputs, logs, and experiment comparisons
 ├── prompts/            # LLM prompts and instruction templates
 ├── src/                # Application source code
+│   ├── llm_client.py   # LLM API Client with parameter logging & token tracking
+│   ├── parameter_experiments.py # Hyperparameter tuning experiment suite
 │   └── main.py         # Entry point script
+
 ├── .env.example        # Template for environment configuration
 ├── .gitignore          # Files and folders excluded from Git
 ├── README.md           # Workspace documentation

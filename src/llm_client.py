@@ -71,25 +71,33 @@ class LLMClient:
 
     def create_chat_completion(
         self,
-        system_message: str,
-        user_message: str,
+        system_message: Optional[str] = None,
+        user_message: Optional[str] = None,
+        messages: Optional[List[Dict[str, str]]] = None,
         temperature: float = 0.7,
         max_tokens: Optional[int] = None,
+        top_p: Optional[float] = None,
+        stop: Optional[Any] = None,
         mock_response: Optional[str] = None,
         simulate_error: Optional[str] = None,
-    ) -> Tuple[Optional[str], Optional[Dict[str, Any]]]:
+    ) -> Tuple[Optional[str], Optional[Dict[str, Any]], str]:
         """
-        Task 2, 3, & 4: Send chat completion request, log request/response payloads,
-        track token usage, return choices[0].message.content, and handle errors clearly.
+        Send chat completion request with temperature, max_tokens, top_p, and stop parameters.
+        Logs request/response payloads, tracks token usage, and returns (content, token_usage, finish_reason).
         """
-        messages = [
-            {"role": "system", "content": system_message},
-            {"role": "user", "content": user_message},
-        ]
+        if messages is None:
+            messages = []
+            if system_message:
+                messages.append({"role": "system", "content": system_message})
+            if user_message:
+                messages.append({"role": "user", "content": user_message})
 
-        # Task 3: Log outgoing request payload
+        # Log outgoing request payload & parameters
         self.logger.info("--- OUTGOING REQUEST PAYLOAD ---")
         self.logger.info(f"Target Model: {self.model_name}")
+        self.logger.info(
+            f"Parameters: temperature={temperature}, max_tokens={max_tokens}, top_p={top_p}, stop={stop}"
+        )
         self.logger.info(f"Outgoing Messages:\n{json.dumps(messages, indent=2)}")
 
         try:
@@ -107,27 +115,42 @@ class LLMClient:
                     body=None,
                 )
 
-            # Handle mock response mode if specified or if API key is set to "mock"
-            if mock_response or self.api_key == "mock":
+            # Handle mock response mode if specified or if API key is mock/placeholder
+            if mock_response or self.api_key in ["mock", "missing_api_key_placeholder"] or not self.api_key:
                 mock_text = mock_response or (
                     "Retrieval-Augmented Generation (RAG) combines document retrieval with text generation "
                     "to provide precise, up-to-date answers. It grounds LLM responses in trusted source data, "
                     "significantly reducing hallucinations."
                 )
+                
+                # Adjust mock response behavior depending on parameters for demonstration fidelity
+                finish_reason = "stop"
+                if max_tokens and max_tokens < 30:
+                    # Truncate content to simulate max_tokens limit
+                    words = mock_text.split()
+                    mock_text = " ".join(words[:min(len(words), max_tokens // 4)]) + "..."
+                    finish_reason = "length"
+                elif stop and isinstance(stop, list) and any(s in mock_text for s in stop):
+                    for s in stop:
+                        if s in mock_text:
+                            mock_text = mock_text.split(s)[0] + s
+                            break
+                    finish_reason = "stop"
+
                 response = SimpleNamespace(
                     id="chatcmpl-mock-987654321",
                     model=self.model_name,
                     choices=[
                         SimpleNamespace(
                             index=0,
-                            finish_reason="stop",
+                            finish_reason=finish_reason,
                             message=SimpleNamespace(role="assistant", content=mock_text),
                         )
                     ],
                     usage=SimpleNamespace(
                         prompt_tokens=42,
-                        completion_tokens=36,
-                        total_tokens=78,
+                        completion_tokens=min(36, max_tokens) if max_tokens else 36,
+                        total_tokens=(42 + (min(36, max_tokens) if max_tokens else 36)),
                     ),
                 )
             else:
@@ -136,11 +159,15 @@ class LLMClient:
                     "messages": messages,
                     "temperature": temperature,
                 }
-                if max_tokens:
+                if max_tokens is not None:
                     kwargs["max_tokens"] = max_tokens
+                if top_p is not None:
+                    kwargs["top_p"] = top_p
+                if stop is not None:
+                    kwargs["stop"] = stop
 
-                # Task 2: Send completion request to live API
                 response = self.client.chat.completions.create(**kwargs)
+
 
             # Task 2: Extract choices[0].message.content
             content = response.choices[0].message.content if response.choices else None
@@ -164,29 +191,30 @@ class LLMClient:
             self.logger.info("--- MODEL REPLY (choices[0].message.content) ---")
             self.logger.info(f"{content}\n")
 
-            return content, token_usage
+            return content, token_usage, finish_reason
 
         # Task 4: Catch and report common failures with human-readable error messages
         except AuthenticationError:
             self.logger.error("❌ [401 Authentication Error]: Invalid or missing API key.")
             self.logger.error("   Action Required: Please set a valid OPENAI_API_KEY in your .env configuration file.\n")
-            return None, None
+            return None, None, "error"
 
         except RateLimitError:
             self.logger.error("❌ [429 Rate Limit Error]: Rate limit or usage quota exceeded.")
             self.logger.error("   Action Required: Check your API plan, billing details, or retry after a cooldown period.\n")
-            return None, None
+            return None, None, "error"
 
         except APIConnectionError as e:
             self.logger.error(f"❌ [Connection Error]: Failed to reach the LLM endpoint at '{self.base_url}'.")
             self.logger.error(f"   Details: {getattr(e, 'message', str(e))}\n")
-            return None, None
+            return None, None, "error"
 
         except APIError as e:
             status = getattr(e, "status_code", "N/A")
             self.logger.error(f"❌ [API Error {status}]: {getattr(e, 'message', str(e))}\n")
-            return None, None
+            return None, None, "error"
 
         except Exception as e:
             self.logger.error(f"❌ [Unexpected Error]: {type(e).__name__} - {str(e)}\n")
-            return None, None
+            return None, None, "error"
+
