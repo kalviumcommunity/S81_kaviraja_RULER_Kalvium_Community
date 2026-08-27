@@ -47,5 +47,16 @@
       "answer": "RAG grounds model completions in custom knowledge bases to prevent hallucinations.",
       "source": "Fallback_Knowledge_Store"
     }
+  },
+  "token_tokenisation_verification": {
+    "status": "working",
+    "sample_text": "Retrieval-Augmented Generation (RAG) grounds model outputs on external document context.",
+    "estimated_token_count": 13,
+    "api_usage_tracking_supported": true,
+    "latest_api_token_usage": {
+      "prompt_tokens": 42,
+      "completion_tokens": 36,
+      "total_tokens": 78
+    }
   }
 }

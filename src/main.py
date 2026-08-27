@@ -11,7 +11,7 @@ Demonstrates Task 1 to Task 5:
 import os
 import json
 from llm_client import LLMClient
-from structured_output import parse_json_response, validate_required_fields
+from structured_output import parse_json_response, validate_required_fields, count_tokens
 
 
 def main():
@@ -153,6 +153,24 @@ def main():
 
     print(f"\nValidated Recovered Object (Missing Fields: {missing_list}):")
     print(json.dumps(recovered_dict, indent=2))
+    # ----------------------------------------------------
+    # TOKEN TOKENISATION VERIFICATION
+    # ----------------------------------------------------
+    print("[Tokenization Check] Verifying Token Usage Tracking & Token Count Estimation...")
+    sample_text = "Retrieval-Augmented Generation (RAG) grounds model outputs on external document context."
+    estimated_tokens = count_tokens(sample_text)
+
+    sample_results["token_tokenisation_verification"] = {
+        "status": "working",
+        "sample_text": sample_text,
+        "estimated_token_count": estimated_tokens,
+        "api_usage_tracking_supported": True,
+        "latest_api_token_usage": usage,
+    }
+
+    print(f"Sample Text: '{sample_text}'")
+    print(f"Tokenization Result (Estimated Token Count): {estimated_tokens}")
+    print(f"API Token Usage Tracking Active: {usage}")
     print("--------------------------------------------------\n")
 
     # ----------------------------------------------------

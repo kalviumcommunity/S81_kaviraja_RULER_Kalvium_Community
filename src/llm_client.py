@@ -11,7 +11,12 @@ from types import SimpleNamespace
 from typing import Dict, Any, List, Optional, Tuple
 from dotenv import load_dotenv
 from openai import OpenAI, APIError, AuthenticationError, RateLimitError, APIConnectionError
-from structured_output import parse_json_response, validate_required_fields
+try:
+    from structured_output import parse_json_response, validate_required_fields
+except ImportError:
+    from src.structured_output import parse_json_response, validate_required_fields
+
+
 
 
 def setup_logger(log_file_path: Optional[str] = None) -> logging.Logger:
