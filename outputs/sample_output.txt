@@ -1,14 +1,14 @@
-[2026-08-27 13:53:42] [INFO] Initializing LLM Client with environment configuration:
-[2026-08-27 13:53:42] [INFO]  - Base URL: https://api.openai.com/v1
-[2026-08-27 13:53:42] [INFO]  - Model Name: gpt-4o-mini
-[2026-08-27 13:53:42] [INFO]  - API Key: your_op...here
-[2026-08-27 13:53:43] [INFO] ==================================================
-[2026-08-27 13:53:43] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
-[2026-08-27 13:53:43] [INFO] ==================================================
-[2026-08-27 13:53:43] [INFO] --- OUTGOING REQUEST PAYLOAD ---
-[2026-08-27 13:53:43] [INFO] Target Model: gpt-4o-mini
-[2026-08-27 13:53:43] [INFO] Response Format Mode: {'type': 'json_object'}
-[2026-08-27 13:53:43] [INFO] Outgoing Messages:
+[2026-08-27 14:08:26] [INFO] Initializing LLM Client with environment configuration:
+[2026-08-27 14:08:26] [INFO]  - Base URL: https://api.openai.com/v1
+[2026-08-27 14:08:26] [INFO]  - Model Name: gpt-4o-mini
+[2026-08-27 14:08:26] [INFO]  - API Key: sk-or-v...27bf
+[2026-08-27 14:08:26] [INFO] ==================================================
+[2026-08-27 14:08:26] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
+[2026-08-27 14:08:26] [INFO] ==================================================
+[2026-08-27 14:08:26] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 14:08:26] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 14:08:26] [INFO] Response Format Mode: {'type': 'json_object'}
+[2026-08-27 14:08:26] [INFO] Outgoing Messages:
 [
   {
     "role": "system",
@@ -19,16 +19,16 @@
     "content": "Explain what Retrieval-Augmented Generation (RAG) is in two concise sentences."
   }
 ]
-[2026-08-27 13:53:46] [ERROR] ❌ [401 Authentication Error]: Invalid or missing API key.
-[2026-08-27 13:53:46] [ERROR]    Action Required: Please set a valid OPENAI_API_KEY in your .env configuration file.
+[2026-08-27 14:08:28] [ERROR] ❌ [401 Authentication Error]: Invalid or missing API key.
+[2026-08-27 14:08:28] [ERROR]    Action Required: Please set a valid OPENAI_API_KEY in your .env configuration file.
 
-[2026-08-27 13:53:46] [INFO] ==================================================
-[2026-08-27 13:53:46] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
-[2026-08-27 13:53:46] [INFO] ==================================================
-[2026-08-27 13:53:46] [INFO] --- OUTGOING REQUEST PAYLOAD ---
-[2026-08-27 13:53:46] [INFO] Target Model: gpt-4o-mini
-[2026-08-27 13:53:46] [INFO] Response Format Mode: {'type': 'json_object'}
-[2026-08-27 13:53:46] [INFO] Outgoing Messages:
+[2026-08-27 14:08:28] [INFO] ==================================================
+[2026-08-27 14:08:28] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
+[2026-08-27 14:08:28] [INFO] ==================================================
+[2026-08-27 14:08:28] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-08-27 14:08:28] [INFO] Target Model: gpt-4o-mini
+[2026-08-27 14:08:28] [INFO] Response Format Mode: {'type': 'json_object'}
+[2026-08-27 14:08:28] [INFO] Outgoing Messages:
 [
   {
     "role": "system",
@@ -39,29 +39,38 @@
     "content": "Explain what Retrieval-Augmented Generation (RAG) is in two concise sentences."
   }
 ]
-[2026-08-27 13:53:46] [INFO] --- INCOMING RESPONSE PAYLOAD ---
-[2026-08-27 13:53:46] [INFO] Response ID: chatcmpl-mock-987654321
-[2026-08-27 13:53:46] [INFO] Response Model: gpt-4o-mini
-[2026-08-27 13:53:46] [INFO] Finish Reason: stop
-[2026-08-27 13:53:46] [INFO] Token Usage: {
+[2026-08-27 14:08:28] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-08-27 14:08:28] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-08-27 14:08:28] [INFO] Response Model: gpt-4o-mini
+[2026-08-27 14:08:28] [INFO] Finish Reason: stop
+[2026-08-27 14:08:28] [INFO] Token Usage: {
   "prompt_tokens": 42,
   "completion_tokens": 36,
   "total_tokens": 78
 }
-[2026-08-27 13:53:46] [INFO] --- MODEL REPLY (choices[0].message.content) ---
-[2026-08-27 13:53:46] [INFO] {
+[2026-08-27 14:08:28] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-08-27 14:08:28] [INFO] {
   "answer": "Retrieval-Augmented Generation (RAG) enhances LLMs by retrieving relevant document context before generating answers.",
   "source": "RAG_Technical_Spec_v1.pdf",
   "confidence": 0.98
 }
 
-[2026-08-27 13:53:46] [INFO] ✅ [JSON Parse Success]: Raw response successfully parsed into Python dict.
-[2026-08-27 13:53:46] [INFO] ✅ [Validation Passed]: All required fields present: ['answer', 'source', 'confidence']
-[2026-08-27 13:53:46] [INFO] 🎉 [Structured Output Success]: JSON parsed, recovered, and validated successfully.
-[2026-08-27 13:53:46] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
-[2026-08-27 13:53:46] [INFO] ✅ [Malformed JSON Recovered]: Successfully cleaned and parsed malformed JSON object.
-[2026-08-27 13:53:46] [INFO] ✅ [Validation Passed]: All required fields present: ['answer', 'source']
-[2026-08-27 13:53:46] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
-[2026-08-27 13:53:46] [ERROR] ❌ [Malformed JSON Error]: Failed to parse JSON after recovery attempts: Expecting value: line 1 column 1 (char 0)
-[2026-08-27 13:53:46] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['source']
-[2026-08-27 13:53:46] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'source': 'Fallback_Knowledge_Store'}
+[2026-08-27 14:08:28] [INFO] ✅ [JSON Parse Success]: Raw response successfully parsed into Python dict.
+[2026-08-27 14:08:28] [INFO] ✅ [Validation Passed]: All required fields present: ['answer', 'source', 'confidence']
+[2026-08-27 14:08:28] [INFO] 🎉 [Structured Output Success]: JSON parsed, recovered, and validated successfully.
+[2026-08-27 14:08:28] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
+[2026-08-27 14:08:28] [INFO] ✅ [Malformed JSON Recovered]: Successfully cleaned and parsed malformed JSON object.
+[2026-08-27 14:08:28] [INFO] ✅ [Validation Passed]: All required fields present: ['answer', 'source']
+[2026-08-27 14:08:28] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
+[2026-08-27 14:08:28] [ERROR] ❌ [Malformed JSON Error]: Failed to parse JSON after recovery attempts: Expecting value: line 1 column 1 (char 0)
+[2026-08-27 14:08:28] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['source']
+[2026-08-27 14:08:28] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'source': 'Fallback_Knowledge_Store'}
+[2026-08-27 14:08:28] [INFO] ==================================================
+[2026-08-27 14:08:28] [INFO]    APPLICATION CHAT HISTORY (1 Questions Asked)
+[2026-08-27 14:08:28] [INFO] ==================================================
+[2026-08-27 14:08:28] [INFO] [Question #1 - USER]: Explain what Retrieval-Augmented Generation (RAG) is in two concise sentences.
+[2026-08-27 14:08:28] [INFO] [Answer #1 - ASSISTANT]: {
+  "answer": "Retrieval-Augmented Generation (RAG) enhances LLMs by retrieving relevant document context before generating answers.",
+  "source": "RAG_Technical_Spec_v1.pdf",
+  "confidence": 0.98
+}

@@ -174,6 +174,17 @@ def main():
     print("--------------------------------------------------\n")
 
     # ----------------------------------------------------
+    # APPLICATION CHAT HISTORY CHECK
+    # ----------------------------------------------------
+    print("[Chat History Check] Displaying Recorded Application Chat History...")
+    client.display_chat_history()
+    sample_results["application_chat_history"] = {
+        "total_user_questions_asked": len(client.get_user_questions()),
+        "user_questions": client.get_user_questions(),
+        "full_chat_history": client.get_chat_history(),
+    }
+
+    # ----------------------------------------------------
     # TASK 5: Save Sample Parsed Results
     # ----------------------------------------------------
     print(f"[Task 5] Writing Sample Parsed Results to '{sample_results_path}'...")

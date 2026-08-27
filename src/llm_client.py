@@ -74,6 +74,8 @@ class LLMClient:
             client_kwargs["api_key"] = "missing_api_key_placeholder"
 
         self.client = OpenAI(**client_kwargs)
+        self.history: List[Dict[str, str]] = []
+
 
     def create_chat_completion(
         self,
@@ -185,7 +187,12 @@ class LLMClient:
             self.logger.info("--- MODEL REPLY (choices[0].message.content) ---")
             self.logger.info(f"{content}\n")
 
+            if content:
+                self.history.append({"role": "user", "content": user_message})
+                self.history.append({"role": "assistant", "content": content})
+
             return content, token_usage
+
 
         # Task 4: Catch and report common failures with human-readable error messages
         except AuthenticationError:
@@ -271,4 +278,42 @@ class LLMClient:
         else:
             self.logger.error("❌ [Structured Output Failed]: Payload rejected due to unrecoverable missing required fields.")
             return None, token_usage
+
+    def get_chat_history(self) -> List[Dict[str, str]]:
+        """Returns the complete list of all message payloads recorded in the chat session history."""
+        return self.history
+
+    def get_user_questions(self) -> List[str]:
+        """Returns the list of all N questions/prompts asked by the user in this application session."""
+        return [msg["content"] for msg in self.history if msg.get("role") == "user"]
+
+    def display_chat_history(self):
+        """Prints and logs all N user questions and assistant replies recorded in the application."""
+        user_questions = self.get_user_questions()
+        print("\n==================================================")
+        print(f"   APPLICATION CHAT HISTORY ({len(user_questions)} Questions Asked)")
+        print("==================================================")
+        self.logger.info("==================================================")
+        self.logger.info(f"   APPLICATION CHAT HISTORY ({len(user_questions)} Questions Asked)")
+        self.logger.info("==================================================")
+
+        if not self.history:
+            print("No chat history recorded.")
+            return
+
+        q_num = 0
+        for msg in self.history:
+            role = msg.get("role", "").upper()
+            content = msg.get("content", "")
+            if role == "USER":
+                q_num += 1
+                print(f"\n[Question #{q_num} - USER]:")
+                print(content)
+                self.logger.info(f"[Question #{q_num} - USER]: {content}")
+            elif role == "ASSISTANT":
+                print(f"[Answer #{q_num} - ASSISTANT]:")
+                print(content)
+                self.logger.info(f"[Answer #{q_num} - ASSISTANT]: {content}")
+        print("==================================================\n")
+
 

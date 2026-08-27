@@ -58,5 +58,21 @@
       "completion_tokens": 36,
       "total_tokens": 78
     }
+  },
+  "application_chat_history": {
+    "total_user_questions_asked": 1,
+    "user_questions": [
+      "Explain what Retrieval-Augmented Generation (RAG) is in two concise sentences."
+    ],
+    "full_chat_history": [
+      {
+        "role": "user",
+        "content": "Explain what Retrieval-Augmented Generation (RAG) is in two concise sentences."
+      },
+      {
+        "role": "assistant",
+        "content": "{\n  \"answer\": \"Retrieval-Augmented Generation (RAG) enhances LLMs by retrieving relevant document context before generating answers.\",\n  \"source\": \"RAG_Technical_Spec_v1.pdf\",\n  \"confidence\": 0.98\n}"
+      }
+    ]
   }
 }
