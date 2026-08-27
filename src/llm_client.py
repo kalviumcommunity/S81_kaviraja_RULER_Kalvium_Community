@@ -71,8 +71,9 @@ class LLMClient:
 
     def create_chat_completion(
         self,
-        system_message: str,
-        user_message: str,
+        system_message: Optional[str] = None,
+        user_message: Optional[str] = None,
+        messages: Optional[List[Dict[str, str]]] = None,
         temperature: float = 0.7,
         max_tokens: Optional[int] = None,
         mock_response: Optional[str] = None,
@@ -81,16 +82,19 @@ class LLMClient:
         """
         Task 2, 3, & 4: Send chat completion request, log request/response payloads,
         track token usage, return choices[0].message.content, and handle errors clearly.
+        Supports both single-turn (system_message + user_message) and multi-turn (messages list).
         """
-        messages = [
-            {"role": "system", "content": system_message},
-            {"role": "user", "content": user_message},
-        ]
+        if messages is None:
+            messages = []
+            if system_message:
+                messages.append({"role": "system", "content": system_message})
+            if user_message:
+                messages.append({"role": "user", "content": user_message})
 
         # Task 3: Log outgoing request payload
         self.logger.info("--- OUTGOING REQUEST PAYLOAD ---")
         self.logger.info(f"Target Model: {self.model_name}")
-        self.logger.info(f"Outgoing Messages:\n{json.dumps(messages, indent=2)}")
+        self.logger.info(f"Outgoing Messages ({len(messages)} items):\n{json.dumps(messages, indent=2)}")
 
         try:
             # Handle simulated errors for testing error handlers cleanly

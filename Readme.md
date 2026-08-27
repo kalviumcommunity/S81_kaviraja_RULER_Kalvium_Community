@@ -109,7 +109,8 @@ rag-app-starter/
 ├── outputs/            # Generated outputs and processing results
 ├── prompts/            # LLM prompts and instruction templates
 ├── src/                # Application source code
-│   └── main.py         # Entry point script
+│   ├── history_manager.py # Multi-turn history tracking & token budget manager
+│   └── main.py         # Main entry point and demonstration script
 ├── .env.example        # Template for environment configuration
 ├── .gitignore          # Files and folders excluded from Git
 ├── README.md           # Workspace documentation
