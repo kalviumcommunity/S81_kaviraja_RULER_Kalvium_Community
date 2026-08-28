@@ -119,5 +119,48 @@
         "content": "{\n  \"answer\": \"Token tracking measures prompt, completion, and total tokens per request to monitor API costs, throughput, and context window limits.\",\n  \"source\": \"LLM_Telemetry_Spec.pdf\",\n  \"confidence\": 0.99\n}"
       }
     ]
+  },
+  "chunk_metadata_and_source_tracking": {
+    "status": "success",
+    "total_chunks": 8,
+    "consistency_check": {
+      "total_chunks_checked": 8,
+      "consistent_chunks_count": 8,
+      "is_fully_consistent": true,
+      "expected_metadata_schema": [
+        "chunk_index",
+        "doc_id",
+        "end_char",
+        "filename",
+        "page_number",
+        "section",
+        "source_path",
+        "start_char",
+        "total_chunks"
+      ],
+      "inconsistencies": []
+    },
+    "tracing_demo": {
+      "chunk_id": "DOC_BRCF_2026_001#chunk_002",
+      "is_traced_successfully": true,
+      "source_metadata": {
+        "doc_id": "DOC_BRCF_2026_001",
+        "filename": "sample_banking_regulation.txt",
+        "source_path": "data\\sample_banking_regulation.txt",
+        "section": "Section 1: Executive Overview and Scope",
+        "page_number": 1,
+        "chunk_index": 1,
+        "total_chunks": 8,
+        "start_char": 379,
+        "end_char": 544
+      },
+      "tracing_verification": {
+        "extracted_source_snippet": "tablished by regulatory authorities.\nFailure to maintain compliance may result in administrative penalties, operational suspension, or revocation of b...",
+        "chunk_text_preview": "ablished by regulatory authorities.\nFailure to maintain compliance may result in administrative penalties, operational suspension, or revocation of ba...",
+        "exact_text_match": true,
+        "verification_status": "VERIFIED_100_PERCENT_MATCH"
+      }
+    },
+    "sample_output_file": "outputs\\sample_chunks_with_metadata.json"
   }
 }

@@ -13,6 +13,7 @@ import os
 import json
 from llm_client import LLMClient
 from structured_output import parse_json_response, validate_required_fields, count_tokens
+from chunk_metadata import DocumentChunker, trace_chunk_to_source, verify_metadata_consistency
 
 
 def main():
@@ -216,6 +217,65 @@ def main():
         "user_questions": client.get_user_questions(),
         "full_chat_history": client.get_chat_history(),
     }
+
+    # ----------------------------------------------------
+    # TASKS 1 to 5: CHUNK METADATA & SOURCE TRACKING PIPELINE
+    # ----------------------------------------------------
+    print("\n[Tasks 1-5] Executing Chunk Metadata Tagging & Source Tracking Pipeline...")
+    doc_path = os.path.join("data", "sample_banking_regulation.txt")
+
+    if os.path.exists(doc_path):
+        with open(doc_path, "r", encoding="utf-8") as f:
+            doc_content = f.read()
+
+        doc_id = "DOC_BRCF_2026_001"
+        filename = "sample_banking_regulation.txt"
+
+        chunker = DocumentChunker(chunk_size=350, chunk_overlap=40)
+        chunks = chunker.chunk_document(
+            content=doc_content,
+            doc_id=doc_id,
+            filename=filename,
+            source_path=doc_path
+        )
+
+        # Task 3: Verify consistent structure across all chunks
+        consistency_report = verify_metadata_consistency(chunks)
+        print(f" -> Generated {len(chunks)} chunks with consistent metadata schema.")
+        print(f" -> Metadata Consistency Status: {'PASSED (100% Consistent)' if consistency_report['is_fully_consistent'] else 'FAILED'}")
+
+        # Task 4: Trace retrieved chunk back to exact source
+        sample_chunk = chunks[1] if len(chunks) > 1 else chunks[0]
+        tracing_result = trace_chunk_to_source(sample_chunk, {doc_id: doc_content})
+        print(f" -> Source Tracing Demonstration for Chunk '{sample_chunk.chunk_id}':")
+        print(f"    - Target Document: {tracing_result['source_metadata']['filename']}")
+        print(f"    - Section: {tracing_result['source_metadata']['section']}")
+        print(f"    - Page Number: {tracing_result['source_metadata']['page_number']}")
+        print(f"    - Char Range: [{tracing_result['source_metadata']['start_char']}, {tracing_result['source_metadata']['end_char']}]")
+        print(f"    - Status: {tracing_result['tracing_verification']['verification_status']}")
+
+        # Task 5: Save sample chunks showing text + metadata to outputs/sample_chunks_with_metadata.json
+        chunk_sample_output_path = os.path.join("outputs", "sample_chunks_with_metadata.json")
+        output_payload = {
+            "metadata_tagging_summary": {
+                "total_chunks_processed": len(chunks),
+                "consistent_schema_enforced": consistency_report["is_fully_consistent"],
+                "schema_fields": consistency_report["expected_metadata_schema"]
+            },
+            "source_tracing_demonstration": tracing_result,
+            "sample_chunks": [c.to_dict() for c in chunks]
+        }
+        with open(chunk_sample_output_path, "w", encoding="utf-8") as f:
+            json.dump(output_payload, f, indent=2)
+
+        sample_results["chunk_metadata_and_source_tracking"] = {
+            "status": "success",
+            "total_chunks": len(chunks),
+            "consistency_check": consistency_report,
+            "tracing_demo": tracing_result,
+            "sample_output_file": chunk_sample_output_path
+        }
+        print(f" -> Sample chunks with metadata written to: '{chunk_sample_output_path}'")
 
     # ----------------------------------------------------
     # TASK 5: Save Sample Parsed Results
