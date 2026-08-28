@@ -10,6 +10,24 @@ import logging
 from typing import Dict, Any, List, Optional, Tuple
 
 
+def count_tokens(text: str) -> int:
+    """
+    Estimates or calculates the token count for a text payload.
+    Uses tiktoken if installed; otherwise falls back to standard LLM token estimation heuristic (~1.3 tokens per word).
+    """
+    if not text or not isinstance(text, str):
+        return 0
+    try:
+        import tiktoken
+        encoding = tiktoken.get_encoding("cl100k_base")
+        return len(encoding.encode(text))
+    except Exception:
+        # Standard tokenization heuristic: ~4 characters per token or ~1.3 tokens per word
+        words = text.split()
+        return max(1, int(len(words) * 1.3))
+
+
+
 def parse_json_response(
     raw_text: str, logger: Optional[logging.Logger] = None
 ) -> Tuple[Optional[Dict[str, Any]], bool, Optional[str]]:
