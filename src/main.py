@@ -14,6 +14,11 @@ import json
 from llm_client import LLMClient
 from structured_output import parse_json_response, validate_required_fields, count_tokens
 from chunk_metadata import DocumentChunker, trace_chunk_to_source, verify_metadata_consistency
+try:
+    from prompts.templates import RAG_SYSTEM_PROMPT, RAG_USER_PROMPT
+except ImportError:
+    RAG_SYSTEM_PROMPT = None
+    RAG_USER_PROMPT = None
 
 
 def main():
@@ -36,7 +41,10 @@ def main():
     # MULTI-TURN CONVERSATION (6 User Questions & Answers)
     # ----------------------------------------------------
     print("[Multi-Turn Conversation] Executing 6 Sequential User Questions...")
-    system_prompt = "You are a specialized AI assistant in Retrieval-Augmented Generation (RAG)."
+    if RAG_SYSTEM_PROMPT and hasattr(RAG_SYSTEM_PROMPT, "render"):
+        system_prompt = RAG_SYSTEM_PROMPT.render(role="RAG")
+    else:
+        system_prompt = "You are a specialized AI assistant in Retrieval-Augmented Generation (RAG)."
     required_fields = ["answer", "source", "confidence"]
     defaults = {"source": "RAG_Knowledge_Base_v1", "confidence": 0.95}
 
@@ -283,6 +291,18 @@ def main():
     print(f"[Task 5] Writing Sample Parsed Results to '{sample_results_path}'...")
     with open(sample_results_path, "w", encoding="utf-8") as f:
         json.dump(sample_results, f, indent=2)
+
+    # ----------------------------------------------------
+    # BATCH/CLI PATH (Task 3 Reuse & Task 5 Render Example)
+    # ----------------------------------------------------
+    print("\n[Batch/CLI Path] Rendering templates for multiple topics...")
+    topics = ["Large Language Models (LLMs)", "Vector Databases"]
+    for idx, t in enumerate(topics, 1):
+        rendered_sys = RAG_SYSTEM_PROMPT.render(role="Batch")
+        rendered_user = RAG_USER_PROMPT.render(topic=t, length="three")
+        print(f"\n--- Batch Request {idx} ---")
+        print(f"System Prompt: {rendered_sys}")
+        print(f"User Prompt: {rendered_user}")
 
     print("==================================================")
     print("  ALL 6 CONVERSATIONS & TASKS EXECUTED SUCCESSFULLY! ")
