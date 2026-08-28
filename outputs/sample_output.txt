@@ -1,67 +1,56 @@
-[2026-08-27 13:06:51] [INFO] Initializing LLM Client with environment configuration:
-[2026-08-27 13:06:51] [INFO]  - Base URL: https://api.openai.com/v1
-[2026-08-27 13:06:51] [INFO]  - Model Name: gpt-4o-mini
-[2026-08-27 13:06:51] [INFO]  - API Key: your_op...here
-[2026-08-27 13:06:51] [INFO] ==================================================
-[2026-08-27 13:06:51] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
-[2026-08-27 13:06:51] [INFO] ==================================================
-[2026-08-27 13:06:51] [INFO] --- OUTGOING REQUEST PAYLOAD ---
-[2026-08-27 13:06:51] [INFO] Target Model: gpt-4o-mini
-[2026-08-27 13:06:51] [INFO] Response Format Mode: {'type': 'json_object'}
-[2026-08-27 13:06:51] [INFO] Outgoing Messages:
-[
-  {
-    "role": "system",
-    "content": "You are a helpful RAG specialized AI assistant.\n\nCRITICAL OUTPUT REQUIREMENT: You MUST return a JSON object matching this structure: {\"answer\": \"<answer_value>\", \"source\": \"<source_value>\", \"confidence\": \"<confidence_value>\"}. Required keys: [\"answer\", \"source\", \"confidence\"]."
-  },
-  {
-    "role": "user",
-    "content": "Explain what Retrieval-Augmented Generation (RAG) is in two concise sentences."
-  }
-]
-[2026-08-27 13:06:53] [ERROR] ❌ [401 Authentication Error]: Invalid or missing API key.
-[2026-08-27 13:06:53] [ERROR]    Action Required: Please set a valid OPENAI_API_KEY in your .env configuration file.
+RAG DOCUMENT LOADER EXECUTION LOG
+==================================================
 
-[2026-08-27 13:06:53] [INFO] ==================================================
-[2026-08-27 13:06:53] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
-[2026-08-27 13:06:53] [INFO] ==================================================
-[2026-08-27 13:06:53] [INFO] --- OUTGOING REQUEST PAYLOAD ---
-[2026-08-27 13:06:53] [INFO] Target Model: gpt-4o-mini
-[2026-08-27 13:06:53] [INFO] Response Format Mode: {'type': 'json_object'}
-[2026-08-27 13:06:53] [INFO] Outgoing Messages:
-[
-  {
-    "role": "system",
-    "content": "You are a helpful RAG specialized AI assistant.\n\nCRITICAL OUTPUT REQUIREMENT: You MUST return a JSON object matching this structure: {\"answer\": \"<answer_value>\", \"source\": \"<source_value>\", \"confidence\": \"<confidence_value>\"}. Required keys: [\"answer\", \"source\", \"confidence\"]."
-  },
-  {
-    "role": "user",
-    "content": "Explain what Retrieval-Augmented Generation (RAG) is in two concise sentences."
-  }
-]
-[2026-08-27 13:06:53] [INFO] --- INCOMING RESPONSE PAYLOAD ---
-[2026-08-27 13:06:53] [INFO] Response ID: chatcmpl-mock-987654321
-[2026-08-27 13:06:53] [INFO] Response Model: gpt-4o-mini
-[2026-08-27 13:06:53] [INFO] Finish Reason: stop
-[2026-08-27 13:06:53] [INFO] Token Usage: {
-  "prompt_tokens": 42,
-  "completion_tokens": 36,
-  "total_tokens": 78
-}
-[2026-08-27 13:06:53] [INFO] --- MODEL REPLY (choices[0].message.content) ---
-[2026-08-27 13:06:53] [INFO] {
-  "answer": "Retrieval-Augmented Generation (RAG) enhances LLMs by retrieving relevant document context before generating answers.",
-  "source": "RAG_Technical_Spec_v1.pdf",
-  "confidence": 0.98
-}
+Source: data/sample_corpus/banking_policy.pdf
+Filename: banking_policy.pdf
+Format: pdf
+Status: success
+Length: 721 chars, 103 words
+Preview: Global Banking Regulatory Compliance Framework 2026 1. Capital Adequacy Ratio (CAR) Commercial finan...
+--------------------------------------------------
 
-[2026-08-27 13:06:53] [INFO] ✅ [JSON Parse Success]: Raw response successfully parsed into Python dict.
-[2026-08-27 13:06:53] [INFO] ✅ [Validation Passed]: All required fields present: ['answer', 'source', 'confidence']
-[2026-08-27 13:06:53] [INFO] 🎉 [Structured Output Success]: JSON parsed, recovered, and validated successfully.
-[2026-08-27 13:06:53] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
-[2026-08-27 13:06:53] [INFO] ✅ [Malformed JSON Recovered]: Successfully cleaned and parsed malformed JSON object.
-[2026-08-27 13:06:53] [INFO] ✅ [Validation Passed]: All required fields present: ['answer', 'source']
-[2026-08-27 13:06:53] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
-[2026-08-27 13:06:53] [ERROR] ❌ [Malformed JSON Error]: Failed to parse JSON after recovery attempts: Expecting value: line 1 column 1 (char 0)
-[2026-08-27 13:06:53] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['source']
-[2026-08-27 13:06:53] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'source': 'Fallback_Knowledge_Store'}
+Source: data/sample_corpus/compliance_faq.html
+Filename: compliance_faq.html
+Format: html
+Status: success
+Length: 487 chars, 63 words
+Preview: Compliance FAQ & Operational Guidelines Data Governance & Privacy All sensitive customer financial r...
+--------------------------------------------------
+
+Source: data/sample_corpus/rag_architecture.md
+Filename: rag_architecture.md
+Format: markdown
+Status: success
+Length: 733 chars, 93 words
+Preview: # RAG Assistant Architecture Overview ## Executive Summary This document specifies the technical arc...
+--------------------------------------------------
+
+Source: data/sample_corpus/system_notes.txt
+Filename: system_notes.txt
+Format: txt
+Status: success
+Length: 382 chars, 48 words
+Preview: RAG Application System Notes & Operations Log 1. Operational Status: All core indexing microservices...
+--------------------------------------------------
+
+Source: data/sample_corpus/corrupt_doc.pdf
+Filename: corrupt_doc.pdf
+Format: pdf
+Status: error
+Error: Corrupt or invalid PDF file (PdfStreamError): Stream has ended unexpectedly
+--------------------------------------------------
+
+Source: data/sample_corpus/unsupported_doc.docx
+Filename: unsupported_doc.docx
+Format: docx
+Status: skipped
+Error: Unsupported file extension '.docx'. Supported extensions: [.htm, .html, .markdown, .md, .pdf, .txt].
+--------------------------------------------------
+
+Source: data/sample_corpus/non_existent_file.pdf
+Filename: non_existent_file.pdf
+Format: pdf
+Status: skipped
+Error: Missing file: Path 'data\sample_corpus\non_existent_file.pdf' does not exist.
+--------------------------------------------------
+

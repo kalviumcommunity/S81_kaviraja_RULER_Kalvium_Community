@@ -2,3 +2,7 @@
 openai==3.3.1
 chromadb==1.5.9
 python-dotenv==1.2.3
+
+# Document Extraction Dependencies
+pypdf>=5.0.0
+beautifulsoup4>=4.12.0

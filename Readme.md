@@ -6,6 +6,19 @@ This project provides the foundation and structure for building a Retrieval-Augm
 
 ---
 
+## Features & Implementation
+
+### Multi-Format Document Loader (`src/document_loader.py`)
+Parses heterogeneous source document formats into a common plain-text representation tagged with source metadata identity and robust exception handling.
+
+- **Supported Formats**: PDF (`.pdf`), HTML (`.html`, `.htm`), Markdown (`.md`, `.markdown`), and Plain Text (`.txt`).
+- **Graceful Failure Handling**: Survives missing files (`FileNotFoundError`), corrupt binary PDFs (`PdfReadError`), and unsupported extensions (`.docx`, `.xyz`) with explicit status logging and clear warnings instead of crashing.
+- **Source Identity Preservation**: Attaches source file path, filename, format, word/character counts, and format-specific metadata to every extracted document.
+- **Intake Confirmation**: Prints formatted text character length, word count, status summary, and sample text previews.
+- **Sample Corpus**: Includes a pre-populated test corpus in `data/sample_corpus/` featuring valid documents alongside corrupt and unsupported test files.
+
+---
+
 ## Prerequisites
 
 - **Python**: Version 3.10 or higher
@@ -88,14 +101,22 @@ EMBEDDING_MODEL=text-embedding-3-small
 
 ---
 
-## Running the Application
+## Running the Application & Loader
 
-### 6. Execute the Starter Application
+### 6. Execute the Main Document Loader Demo
 
-Run the entry point script to verify your setup:
+Run the main entry point to execute multi-format intake across the sample corpus:
 
 ```bash
 python src/main.py
+```
+
+### 7. Run Unit Tests
+
+Execute the automated test suite covering all document formats and failure modes:
+
+```bash
+python -m unittest discover tests
 ```
 
 ---
@@ -104,12 +125,18 @@ python src/main.py
 
 ```text
 rag-app-starter/
-├── data/               # Documents and knowledge-base source data
+├── data/
+│   └── sample_corpus/  # Multi-format sample corpus (PDF, HTML, MD, TXT, corrupt PDF)
 ├── docs/               # Technical documentation & extraction specs
-├── outputs/            # Generated outputs and processing results
+├── outputs/            # Generated outputs and document loader JSON logs
 ├── prompts/            # LLM prompts and instruction templates
+├── scripts/
+│   └── generate_sample_corpus.py # Script to populate sample corpus
 ├── src/                # Application source code
+│   ├── document_loader.py # Multi-format document loader engine
 │   └── main.py         # Entry point script
+├── tests/
+│   └── test_document_loader.py # Unit tests for document loader
 ├── .env.example        # Template for environment configuration
 ├── .gitignore          # Files and folders excluded from Git
 ├── README.md           # Workspace documentation
@@ -121,4 +148,4 @@ rag-app-starter/
 ## Setup Verification Note
 
 > **Verification Status: PASSED**
-> The workspace setup, virtual environment creation (`.venv`), dependency installation (`openai`, `chromadb`, `python-dotenv`), package imports, and script execution (`python src/main.py`) were tested and verified in a clean isolated Python environment.
+> Multi-format document intake (PDF, HTML, Markdown, Plain Text), graceful error handling (missing/corrupt/unsupported files), source identity metadata, and unit test execution (`python -m unittest discover tests`) were tested and verified in a clean isolated Python environment.

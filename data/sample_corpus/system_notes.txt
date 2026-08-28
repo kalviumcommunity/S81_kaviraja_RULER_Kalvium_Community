@@ -1,0 +1,6 @@
+RAG Application System Notes & Operations Log
+
+1. Operational Status: All core indexing microservices are operational.
+2. Indexing Strategy: Incremental document loading enabled with source citation tagging.
+3. Support Contact: Engineering team contact email is dev-support@bank-rag-app.internal.
+4. Maintenance Window: Scheduled index maintenance occurs every Sunday at 02:00 UTC.

@@ -14,6 +14,8 @@ node_modules/
 # Data directory contents (keep folder structure via .gitkeep)
 data/*
 !data/.gitkeep
+!data/sample_corpus/
+!data/sample_corpus/**
 
 # Python cache & build outputs
 __pycache__/
