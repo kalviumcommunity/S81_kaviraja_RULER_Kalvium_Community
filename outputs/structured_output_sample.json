@@ -10,14 +10,14 @@
       "confidence"
     ],
     "parsed_object": {
-      "answer": "Retrieval-Augmented Generation (RAG) enhances LLMs by retrieving relevant document context before generating answers.",
-      "source": "RAG_Technical_Spec_v1.pdf",
-      "confidence": 0.98
+      "answer": "Retrieval-Augmented Generation (RAG) is a model architecture that combines retrieval of relevant documents from a knowledge base with generative capabilities to produce coherent and contextually relevant text. It enhances the generative process by providing the model with external information, allowing it to generate more accurate and informative responses.",
+      "source": "OpenAI Research Papers",
+      "confidence": "high"
     },
     "token_usage": {
-      "prompt_tokens": 42,
-      "completion_tokens": 36,
-      "total_tokens": 78
+      "prompt_tokens": 87,
+      "completion_tokens": 80,
+      "total_tokens": 167
     }
   },
   "task_3_malformed_json_recovered": {

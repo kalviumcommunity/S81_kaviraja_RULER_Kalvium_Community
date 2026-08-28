@@ -12,6 +12,7 @@ import os
 import json
 from llm_client import LLMClient
 from structured_output import parse_json_response, validate_required_fields
+from prompts.templates import RAG_SYSTEM_PROMPT, RAG_USER_PROMPT
 
 
 def main():
@@ -31,11 +32,11 @@ def main():
     sample_results = {}
 
     # ----------------------------------------------------
-    # TASK 1 & 2: Prompt for Defined JSON & Parse into Dict
+    # TASK 1 & 2: Prompt for Defined JSON & Parse into Dict (Chat Path)
     # ----------------------------------------------------
-    print("[Task 1 & 2] Executing Structured JSON Completion & Parsing...")
-    system_prompt = "You are a helpful RAG specialized AI assistant."
-    user_prompt = "Explain what Retrieval-Augmented Generation (RAG) is in two concise sentences."
+    print("[Task 1 & 2] Executing Structured JSON Completion & Parsing (Chat Path)...")
+    system_prompt = RAG_SYSTEM_PROMPT.render(role="RAG")
+    user_prompt = RAG_USER_PROMPT.render(topic="Retrieval-Augmented Generation (RAG)", length="two")
     required_fields = ["answer", "source", "confidence"]
     defaults = {"source": "RAG_Knowledge_Base_v1", "confidence": 0.95}
 
@@ -161,6 +162,18 @@ def main():
     print(f"[Task 5] Writing Sample Parsed Results to '{sample_results_path}'...")
     with open(sample_results_path, "w", encoding="utf-8") as f:
         json.dump(sample_results, f, indent=2)
+
+    # ----------------------------------------------------
+    # BATCH/CLI PATH (Task 3 Reuse & Task 5 Render Example)
+    # ----------------------------------------------------
+    print("\n[Batch/CLI Path] Rendering templates for multiple topics...")
+    topics = ["Large Language Models (LLMs)", "Vector Databases"]
+    for idx, t in enumerate(topics, 1):
+        rendered_sys = RAG_SYSTEM_PROMPT.render(role="Batch")
+        rendered_user = RAG_USER_PROMPT.render(topic=t, length="three")
+        print(f"\n--- Batch Request {idx} ---")
+        print(f"System Prompt: {rendered_sys}")
+        print(f"User Prompt: {rendered_user}")
 
     print("==================================================")
     print("  ALL 5 TASKS EXECUTED SUCCESSFULLY!              ")
