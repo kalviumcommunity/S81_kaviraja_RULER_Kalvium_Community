@@ -1,0 +1,106 @@
+[
+  {
+    "source": "data/sample_corpus/banking_policy.pdf",
+    "filename": "banking_policy.pdf",
+    "format": "pdf",
+    "char_count": 721,
+    "word_count": 103,
+    "status": "success",
+    "error_message": null,
+    "sample_preview": "Global Banking Regulatory Compliance Framework 2026 1. Capital Adequacy Ratio (CAR) Commercial financial institutions must maintain a minimum Common E...",
+    "metadata": {
+      "page_count": 1,
+      "encrypted": false,
+      "file_size_bytes": 2128
+    },
+    "content": "Global Banking Regulatory Compliance Framework 2026\n1. Capital Adequacy Ratio (CAR)\nCommercial financial institutions must maintain a minimum Common Equity Tier 1 (CET1)\ncapital ratio of 4.5% of risk-weighted assets at all times to absorb unexpected losses.\n2. Anti-Money Laundering (AML) Protocols\nCustomer Due Diligence (CDD) and Enhanced Due Diligence (EDD) must be conducted\nfor all high-risk accounts. Suspicious Activity Reports (SARs) must be submitted\nto regulatory authorities within 30 days of initial detection.\n3. Liquidity Coverage Ratio (LCR)\nFinancial institutions are required to hold unencumbered High Quality Liquid Assets (HQLA)\nsufficient to cover net cash outflows over a 30-day severe stress period."
+  },
+  {
+    "source": "data/sample_corpus/compliance_faq.html",
+    "filename": "compliance_faq.html",
+    "format": "html",
+    "char_count": 487,
+    "word_count": 63,
+    "status": "success",
+    "error_message": null,
+    "sample_preview": "Compliance FAQ & Operational Guidelines Data Governance & Privacy All sensitive customer financial records must be encrypted at rest using AES-256 sta...",
+    "metadata": {
+      "html_title": "compliance_faq.html",
+      "raw_html_length": 870,
+      "file_size_bytes": 893
+    },
+    "content": "Compliance FAQ & Operational Guidelines\nData Governance & Privacy\nAll sensitive customer financial records must be encrypted at rest using AES-256 standards. Access is strictly granted based on Least Privilege principles.\nAudit Protocols\nInternal compliance audits are mandated bi-annually. External third-party security assessments must be performed annually.\nQuarterly access log reviews\nIncident response drills every six months\nReal-time transaction monitoring for anomalous behavior"
+  },
+  {
+    "source": "data/sample_corpus/rag_architecture.md",
+    "filename": "rag_architecture.md",
+    "format": "markdown",
+    "char_count": 733,
+    "word_count": 93,
+    "status": "success",
+    "error_message": null,
+    "sample_preview": "# RAG Assistant Architecture Overview ## Executive Summary This document specifies the technical architecture of our Retrieval-Augmented Generation (R...",
+    "metadata": {
+      "header_count": 4,
+      "sections": [
+        "RAG Assistant Architecture Overview",
+        "Executive Summary",
+        "Key Subsystems",
+        "Performance Metrics"
+      ],
+      "file_size_bytes": 746
+    },
+    "content": "# RAG Assistant Architecture Overview\n\n## Executive Summary\nThis document specifies the technical architecture of our Retrieval-Augmented Generation (RAG) assistant.\n\n## Key Subsystems\n1. **Document Extraction Engine**: Parses heterogeneous source documents (PDF, HTML, Markdown, TXT) into plain text representations tagged with source metadata.\n2. **Vector Store & Indexing**: Employs dense vector embeddings stored in ChromaDB for high-dimensional semantic search.\n3. **LLM Orchestration**: Combines retrieved context with structured system prompts to generate grounded, fact-checked responses.\n\n## Performance Metrics\n- **Retrieval Latency Target**: < 150ms per query\n- **Context Groundedness Score**: > 0.95 factuality threshold\n"
+  },
+  {
+    "source": "data/sample_corpus/system_notes.txt",
+    "filename": "system_notes.txt",
+    "format": "txt",
+    "char_count": 382,
+    "word_count": 48,
+    "status": "success",
+    "error_message": null,
+    "sample_preview": "RAG Application System Notes & Operations Log 1. Operational Status: All core indexing microservices are operational. 2. Indexing Strategy: Incrementa...",
+    "metadata": {
+      "lines_count": 6,
+      "file_size_bytes": 388
+    },
+    "content": "RAG Application System Notes & Operations Log\n\n1. Operational Status: All core indexing microservices are operational.\n2. Indexing Strategy: Incremental document loading enabled with source citation tagging.\n3. Support Contact: Engineering team contact email is dev-support@bank-rag-app.internal.\n4. Maintenance Window: Scheduled index maintenance occurs every Sunday at 02:00 UTC.\n"
+  },
+  {
+    "source": "data/sample_corpus/corrupt_doc.pdf",
+    "filename": "corrupt_doc.pdf",
+    "format": "pdf",
+    "char_count": 0,
+    "word_count": 0,
+    "status": "error",
+    "error_message": "Corrupt or invalid PDF file (PdfStreamError): Stream has ended unexpectedly",
+    "sample_preview": "[No Content]",
+    "metadata": {},
+    "content": ""
+  },
+  {
+    "source": "data/sample_corpus/unsupported_doc.docx",
+    "filename": "unsupported_doc.docx",
+    "format": "docx",
+    "char_count": 0,
+    "word_count": 0,
+    "status": "skipped",
+    "error_message": "Unsupported file extension '.docx'. Supported extensions: [.htm, .html, .markdown, .md, .pdf, .txt].",
+    "sample_preview": "[No Content]",
+    "metadata": {},
+    "content": ""
+  },
+  {
+    "source": "data/sample_corpus/non_existent_file.pdf",
+    "filename": "non_existent_file.pdf",
+    "format": "pdf",
+    "char_count": 0,
+    "word_count": 0,
+    "status": "skipped",
+    "error_message": "Missing file: Path 'data\\sample_corpus\\non_existent_file.pdf' does not exist.",
+    "sample_preview": "[No Content]",
+    "metadata": {},
+    "content": ""
+  }
+]
