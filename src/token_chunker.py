@@ -57,6 +57,28 @@ class TokenChunk:
             }
         }
 
+    def to_chunk(self):
+        """Converts TokenChunk to standard Chunk object from chunk_metadata module."""
+        try:
+            from chunk_metadata import Chunk, ChunkMetadata
+        except ImportError:
+            from src.chunk_metadata import Chunk, ChunkMetadata
+
+        metadata = ChunkMetadata(
+            doc_id=self.doc_id,
+            filename=self.filename,
+            source_path=self.source_path,
+            section=self.section,
+            page_number=self.page_number,
+            chunk_index=self.chunk_index,
+            total_chunks=self.total_chunks,
+            start_char=self.start_char,
+            end_char=self.end_char
+        )
+        return Chunk(chunk_id=self.chunk_id, text=self.text, metadata=metadata)
+
+
+
 
 class TokenAwareChunker:
     """
