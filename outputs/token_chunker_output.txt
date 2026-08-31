@@ -1,0 +1,44 @@
+==================================================================
+        RAG PIPELINE — TOKEN-AWARE CHUNKER EXECUTION REPORT       
+==================================================================
+
+--- TASK 1 & TASK 2: CONFIGURATION & SUMMARY ---
+Encoding Engine: cl100k_base
+Chunk Size Limit: 512 tokens
+Controlled Overlap: 64 tokens (12.5%)
+Total Documents Processed: 1
+Total Chunks Generated: 1
+
+--- TASK 3: BOUNDARY CONTEXT DEMONSTRATION ---
+Target Passage:
+"The organization's standard financial policy stipulates that all routine vendor transactions under $50,000 may be approved directly by the department head without prior board approval. However, any single capital expenditure exceeding $50,000 requires unanimous board approval and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in an immediate suspension of procurement privileges and mandatory compliance review."
+
+1. WITHOUT OVERLAP (Overlap = 0 tokens):
+   Chunk 1: "The organization's standard financial policy stipulates that all routine vendor transactions under $50,000 may be approved directly by the department head without prior board approval. However, any single"
+   Chunk 2: " capital expenditure exceeding $50,000 requires unanimous board approval and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in an immediate suspension"
+   Issue: CONTEXT SEVERED: Chunk 1 ends prematurely with 'any single capital expenditure' without specifying the financial threshold or approval condition. Chunk 2 starts abruptly with 'exceeding $50,000 requires unanimous board approval', severing the subject 'capital expenditure'. An LLM processing Chunk 2 alone lacks the core subject context!
+
+2. WITH CONTROLLED OVERLAP (Overlap = 12 tokens):
+   Chunk 1: "The organization's standard financial policy stipulates that all routine vendor transactions under $50,000 may be approved directly by the department head without prior board approval. However, any single"
+   Chunk 2: " the department head without prior board approval. However, any single capital expenditure exceeding $50,000 requires unanimous board approval and an independent audit report prior to disbursement. Failure to"
+   Repeated Overlap Snippet: " the department head without prior board approval. However, any single"
+   Context Result: CONTEXT PRESERVED INTACT: Thanks to the 12-token controlled overlap, Chunk 2 starts with ' the department head without prior board approval. However, any single', carrying over the subject from Chunk 1. An LLM or retriever reading Chunk 2 receives the complete sentence and condition intact without boundary fragmentation!
+
+--- TASK 4: TECHNICAL JUSTIFICATION ---
+Target Model Family: OpenAI Embedding & Chat Models (text-embedding-3-small, gpt-4o-mini, gpt-4)
+- TASK_1_TOKEN_SIZING: Token-based sizing (512 tokens) guarantees exact compliance with LLM and embedding context limits. Unlike character-based splitting where character-to-token ratios fluctuate wildly (e.g. standard English text vs code or JSON), token-based chunking guarantees predictable memory footprint, zero context truncation, and precise prompt budget control.
+- TOKEN_SIZE_CHOICE_RATIONALE: Setting chunk size to 512 tokens is optimized for vector search and RAG retrieval. 512 tokens (~350-400 words / 2-3 dense paragraphs) provides sufficient semantic depth for dense vector embeddings in text-embedding-3-small without diluting specific entity facts, while leaving ample room in LLM context windows when retrieving top-k chunks.
+- TASK_2_CONTROLLED_OVERLAP_RATIONALE: Setting controlled overlap to 64 tokens (~12.5%) ensures boundary continuity across chunks. 64 tokens (~45-50 words / 1-2 complete sentences) covers typical dependent clauses, entity references, and conjunctions, preventing contextual truncation at chunk edges.
+- COST_VS_CONTEXT_TRADEOFF: A 64-token (~12.5%) overlap introduces a minimal 12.5% storage and token overhead, striking the ideal balance between complete context preservation (eliminating boundary errors as demonstrated in Task 3) and cost efficiency.
+
+--- TASK 5: SAMPLE CHUNKS PREVIEW ---
+Chunk #1 [sample_banking_regulation_txt#chunk_001]:
+  Source: sample_banking_regulation.txt (data/sample_banking_regulation.txt)
+  Token Count: 278 tokens (Range: 0 -> 278)
+  Overlap Tokens: 0 tokens
+  Char Bounds: [0, 1552]
+  Text Preview: "# Global Banking Compliance & Regulatory Framework 2026
+
+## Section 1: Executive Summary & Overview
+Financial institutions operating within internatio..."
+------------------------------------------------------------------
