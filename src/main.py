@@ -17,8 +17,11 @@ from chunk_metadata import DocumentChunker, trace_chunk_to_source, verify_metada
 try:
     from prompts.templates import RAG_SYSTEM_PROMPT, RAG_USER_PROMPT
 except ImportError:
-    RAG_SYSTEM_PROMPT = None
-    RAG_USER_PROMPT = None
+    try:
+        from src.prompts.templates import RAG_SYSTEM_PROMPT, RAG_USER_PROMPT
+    except ImportError:
+        RAG_SYSTEM_PROMPT = None
+        RAG_USER_PROMPT = None
 
 
 def main():
@@ -298,8 +301,8 @@ def main():
     print("\n[Batch/CLI Path] Rendering templates for multiple topics...")
     topics = ["Large Language Models (LLMs)", "Vector Databases"]
     for idx, t in enumerate(topics, 1):
-        rendered_sys = RAG_SYSTEM_PROMPT.render(role="Batch")
-        rendered_user = RAG_USER_PROMPT.render(topic=t, length="three")
+        rendered_sys = RAG_SYSTEM_PROMPT.render(role="Batch") if RAG_SYSTEM_PROMPT and hasattr(RAG_SYSTEM_PROMPT, "render") else "You are a helpful Batch specialized AI assistant."
+        rendered_user = RAG_USER_PROMPT.render(topic=t, length="three") if RAG_USER_PROMPT and hasattr(RAG_USER_PROMPT, "render") else f"Explain what {t} is in three concise sentences."
         print(f"\n--- Batch Request {idx} ---")
         print(f"System Prompt: {rendered_sys}")
         print(f"User Prompt: {rendered_user}")

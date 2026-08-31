@@ -10,14 +10,14 @@
       "confidence"
     ],
     "sample_parsed_object": {
-      "answer": "Retrieval-Augmented Generation (RAG) retrieves relevant document context from external knowledge bases before generating LLM responses.",
-      "source": "RAG_Overview_Doc_v1.pdf",
-      "confidence": 0.99
+      "answer": "Retrieval-Augmented Generation (RAG) is a model architecture that combines retrieval-based methods with generative models to enhance the quality of generated text. It retrieves relevant documents or information from a large corpus and uses this information to inform and improve the generation of responses, making the output more accurate and contextually relevant. RAG typically involves two main components: a retriever that fetches pertinent documents and a generator that produces text based on the retrieved information.",
+      "source": "OpenAI documentation and research papers on RAG",
+      "confidence": "high"
     },
     "token_usage": {
-      "prompt_tokens": 42,
-      "completion_tokens": 36,
-      "total_tokens": 78
+      "prompt_tokens": 84,
+      "completion_tokens": 100,
+      "total_tokens": 184
     }
   },
   "task_3_malformed_json_recovered": {
@@ -54,9 +54,9 @@
     "estimated_token_count": 13,
     "api_usage_tracking_supported": true,
     "latest_api_token_usage": {
-      "prompt_tokens": 42,
-      "completion_tokens": 36,
-      "total_tokens": 78
+      "prompt_tokens": 84,
+      "completion_tokens": 100,
+      "total_tokens": 184
     }
   },
   "application_chat_history": {
@@ -76,7 +76,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\n  \"answer\": \"Retrieval-Augmented Generation (RAG) retrieves relevant document context from external knowledge bases before generating LLM responses.\",\n  \"source\": \"RAG_Overview_Doc_v1.pdf\",\n  \"confidence\": 0.99\n}"
+        "content": "{\"answer\": \"Retrieval-Augmented Generation (RAG) is a model architecture that combines retrieval-based methods with generative models to enhance the quality of generated text. It retrieves relevant documents or information from a large corpus and uses this information to inform and improve the generation of responses, making the output more accurate and contextually relevant. RAG typically involves two main components: a retriever that fetches pertinent documents and a generator that produces text based on the retrieved information.\", \"source\": \"OpenAI documentation and research papers on RAG\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -84,7 +84,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\n  \"answer\": \"ChromaDB stores high-dimensional document vector embeddings and executes fast semantic similarity searches to retrieve context chunks.\",\n  \"source\": \"ChromaDB_Integration_Guide.pdf\",\n  \"confidence\": 0.96\n}"
+        "content": "{\"answer\": \"ChromaDB assists in a RAG (Retrieval-Augmented Generation) pipeline by providing a vector database that enables efficient storage and retrieval of embeddings generated from documents. It allows for fast similarity searches, which helps in retrieving relevant information from large datasets to augment the generative model's responses. This integration enhances the quality and relevance of the generated content by ensuring that the model has access to pertinent information during the generation process.\", \"source\": \"ChromaDB documentation and RAG pipeline literature\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -92,7 +92,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\n  \"answer\": \"JSON response format mode enforces strict JSON schema adherence, enabling downstream code to parse responses directly into dictionary objects.\",\n  \"source\": \"LLM_Structured_Output_Spec.pdf\",\n  \"confidence\": 0.98\n}"
+        "content": "{\"answer\": \"The JSON response format is useful in LLM applications because it provides a structured way to organize data, making it easier to parse and integrate into applications. JSON allows for clear separation of different types of information (like answers, sources, and confidence levels), which enhances readability and usability. Additionally, its lightweight nature and compatibility with various programming languages facilitate seamless data exchange between systems.\", \"source\": \"General knowledge on JSON and its applications in software development.\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -100,7 +100,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\n  \"answer\": \"Malformed JSON is caught using json.JSONDecodeError and cleaned via regex pattern recovery for markdown fences and trailing commas without crashing.\",\n  \"source\": \"JSON_Recovery_Module.py\",\n  \"confidence\": 0.97\n}"
+        "content": "{\"answer\": \"To handle malformed JSON gracefully in Python, you can use a try-except block when parsing JSON data with the `json` module. If the JSON is malformed, the `json.loads()` function will raise a `json.JSONDecodeError`, which you can catch and handle appropriately. Here's an example:\\n\\n```python\\nimport json\\n\\ndef parse_json(json_string):\\n    try:\\n        data = json.loads(json_string)\\n        return data\\n    except json.JSONDecodeError as e:\\n        print(f'Invalid JSON: {e}')\\n        return None\\n\\n# Example usage\\nmalformed_json = '{\\\"name\\\": \\\"John\\\", \\\"age\\\": 30,}'  # Note the trailing comma\\nresult = parse_json(malformed_json)\\nif result is not None:\\n    print(result)\\nelse:\\n    print('Failed to parse JSON.')\\n```\", \"source\": \"Python Official Documentation\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -108,7 +108,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\n  \"answer\": \"Required field validation checks mandatory schema keys and applies pre-configured fallback default values when non-critical fields are missing.\",\n  \"source\": \"Data_Validation_Pipeline.pdf\",\n  \"confidence\": 0.95\n}"
+        "content": "{\"answer\": \"One common strategy for handling missing required fields in parsed data is to implement a validation and error handling mechanism. This can include setting default values for missing fields, logging errors for further analysis, and returning informative error messages to the user or system. Additionally, data validation rules can be established to ensure that all required fields are present before processing the data further.\", \"source\": \"Data Processing Best Practices\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -116,7 +116,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\n  \"answer\": \"Token tracking measures prompt, completion, and total tokens per request to monitor API costs, throughput, and context window limits.\",\n  \"source\": \"LLM_Telemetry_Spec.pdf\",\n  \"confidence\": 0.99\n}"
+        "content": "{\"answer\": \"Token usage tracking in LLM clients plays a crucial role in managing and optimizing the interaction with language models. It helps in monitoring the number of tokens consumed during requests and responses, which is essential for cost management, ensuring compliance with usage limits, and improving performance by analyzing usage patterns. Additionally, it aids in resource allocation and can inform users about their consumption to prevent unexpected charges.\", \"source\": \"General knowledge on LLM operations and token management practices.\", \"confidence\": \"high\"}"
       }
     ]
   },

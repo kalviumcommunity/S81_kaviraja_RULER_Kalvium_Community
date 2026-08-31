@@ -54,7 +54,9 @@ class Chunk:
     def from_dict(cls, data: Dict[str, Any]) -> "Chunk":
         """Instantiates a Chunk object from a dictionary."""
         meta_dict = data.get("metadata", {})
-        metadata = ChunkMetadata(**meta_dict)
+        valid_keys = {f.name for f in ChunkMetadata.__dataclass_fields__.values()}
+        filtered_meta = {k: v for k, v in meta_dict.items() if k in valid_keys}
+        metadata = ChunkMetadata(**filtered_meta)
         return cls(
             chunk_id=data.get("chunk_id", ""),
             text=data.get("text", ""),
@@ -220,7 +222,9 @@ def trace_chunk_to_source(
     source_path = metadata.source_path
 
     # Retrieve source document text
-    source_text = corpus_documents.get(doc_id) or corpus_documents.get(source_path) or corpus_documents.get(filename)
+    source_text = None
+    if corpus_documents and isinstance(corpus_documents, dict):
+        source_text = corpus_documents.get(doc_id) or corpus_documents.get(source_path) or corpus_documents.get(filename)
 
     if not source_text and os.path.exists(source_path):
         try:

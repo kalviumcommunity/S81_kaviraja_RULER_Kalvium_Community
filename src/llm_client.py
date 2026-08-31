@@ -59,6 +59,12 @@ class LLMClient:
         self.api_key = os.getenv("OPENAI_API_KEY", "").strip()
         self.model_name = os.getenv("CHAT_MODEL", "gpt-4o-mini").strip()
 
+        # Auto-detect OpenRouter API key format (sk-or-v1-...) to avoid 401 errors
+        if self.api_key.startswith("sk-or-") and "api.openai.com" in self.base_url:
+            self.base_url = "https://openrouter.ai/api/v1"
+            if not self.model_name.startswith("openai/"):
+                self.model_name = f"openai/{self.model_name}"
+
         self.logger.info("Initializing LLM Client with environment configuration:")
         self.logger.info(f" - Base URL: {self.base_url}")
         self.logger.info(f" - Model Name: {self.model_name}")
@@ -72,6 +78,12 @@ class LLMClient:
             client_kwargs["api_key"] = self.api_key
         else:
             client_kwargs["api_key"] = "missing_api_key_placeholder"
+
+        if "openrouter.ai" in self.base_url:
+            client_kwargs["default_headers"] = {
+                "HTTP-Referer": "https://kalvium.community",
+                "X-Title": "Kalvium RAG Application",
+            }
 
         self.client = OpenAI(**client_kwargs)
         self.history: List[Dict[str, str]] = []

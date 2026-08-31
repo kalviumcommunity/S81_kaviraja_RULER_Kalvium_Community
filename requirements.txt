@@ -1,4 +1,4 @@
 # RAG Application Core Dependencies
-openai==3.3.1
-chromadb==1.5.9
-python-dotenv==1.2.3
+openai>=1.0.0
+chromadb>=0.4.0
+python-dotenv>=1.0.0
