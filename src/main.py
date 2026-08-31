@@ -14,6 +14,7 @@ import json
 from llm_client import LLMClient
 from structured_output import parse_json_response, validate_required_fields, count_tokens
 from chunk_metadata import DocumentChunker, trace_chunk_to_source, verify_metadata_consistency
+from token_chunker import TokenAwareChunker, TokenChunk
 try:
     from prompts.templates import RAG_SYSTEM_PROMPT, RAG_USER_PROMPT
 except ImportError:
@@ -284,6 +285,58 @@ def main():
             "sample_output_file": chunk_sample_output_path
         }
         print(f" -> Sample chunks with metadata written to: '{chunk_sample_output_path}'")
+
+    # ----------------------------------------------------
+    # TOKEN-AWARE CHUNKER PIPELINE (Tasks 1 to 5)
+    # ----------------------------------------------------
+    print("\n[Token-Aware Chunker] Executing Token Sizing, Overlap, & Boundary Context Pipeline...")
+    token_chunker = TokenAwareChunker(chunk_size_tokens=512, chunk_overlap_tokens=64)
+
+    # Task 1 & 2: Token-aware chunking on loaded text
+    sample_text_for_tokens = doc_content if 'doc_content' in locals() else (
+        "Under financial regulatory guidelines, all vendor transactions under $50,000 may be approved directly. "
+        "However, any capital expenditure exceeding $50,000 requires unanimous board authorization and audit."
+    )
+    token_chunks = token_chunker.chunk_text(
+        text=sample_text_for_tokens,
+        doc_id="DOC_TOKEN_AWARE_001",
+        filename="banking_regulation_tokens.txt",
+        source_path="data/sample_banking_regulation.txt"
+    )
+
+    # Task 3: Boundary Context Demonstration
+    boundary_demo_result = token_chunker.demonstrate_boundary_context()
+    print(" -> Task 3: Boundary context preservation demonstration executed.")
+
+    # Task 4: Settings Justification
+    settings_justification_result = token_chunker.justify_settings()
+    print(" -> Task 4: Settings justification report generated.")
+
+    token_chunker_json_path = os.path.join("outputs", "token_chunker_results.json")
+    token_chunker_payload = {
+        "settings_justification": settings_justification_result,
+        "boundary_context_demonstration": boundary_demo_result,
+        "token_chunking_summary": {
+            "total_chunks_generated": len(token_chunks),
+            "chunk_size_tokens": 512,
+            "chunk_overlap_tokens": 64,
+            "encoding": "cl100k_base"
+        },
+        "sample_chunks": [c.to_dict() for c in token_chunks]
+    }
+    with open(token_chunker_json_path, "w", encoding="utf-8") as f:
+        json.dump(token_chunker_payload, f, indent=2)
+
+    sample_results["token_aware_chunker"] = {
+        "status": "success",
+        "total_chunks": len(token_chunks),
+        "chunk_size_tokens": 512,
+        "chunk_overlap_tokens": 64,
+        "boundary_context_demo": boundary_demo_result["with_overlap"]["preserved_boundary_context"],
+        "justification_summary": settings_justification_result["justifications"],
+        "output_file": token_chunker_json_path
+    }
+    print(f" -> Task 5: Token-aware chunker results saved to: '{token_chunker_json_path}'")
 
     # ----------------------------------------------------
     # TASK 5: Save Sample Parsed Results

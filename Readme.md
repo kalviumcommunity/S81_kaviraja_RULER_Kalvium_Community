@@ -6,6 +6,17 @@ This project provides the foundation and structure for building a Retrieval-Augm
 
 ---
 
+## Token-Aware Chunker Engine (`src/token_chunker.py`)
+
+A token-aware document chunker that sizes chunks by exact token count using `tiktoken` (`cl100k_base`) and maintains controlled token overlap between adjacent chunks.
+
+- **Task 1 — Token-Based Sizing**: Sizes chunks strictly in tokens (`512 tokens` target), preventing token budget overflow in LLMs and embedding models.
+- **Task 2 — Controlled Overlap**: Enforces a `64 token` controlled overlap (~12.5%) between adjacent chunks, repeating trailing tokens from previous chunks.
+- **Task 3 — Boundary Context Preservation**: Prevents context fragmentation across chunk boundaries (e.g. preserves authorization thresholds and subject clauses intact).
+- **Task 4 — Justified Settings**: Technical justification for `512 token` size and `64 token` overlap tuned for `text-embedding-3-small` / `gpt-4o-mini`.
+- **Task 5 — Output Artifacts**: Outputs detailed chunk logs to `outputs/token_chunker_results.json` and `outputs/token_chunker_output.txt`.
+
+
 ## Prerequisites
 
 - **Python**: Version 3.10 or higher
