@@ -10,14 +10,14 @@
       "confidence"
     ],
     "parsed_object": {
-      "answer": "Retrieval-Augmented Generation (RAG) is a model architecture that combines retrieval of relevant documents from a knowledge base with generative capabilities to produce coherent and contextually relevant text. It enhances the generative process by providing the model with external information, allowing it to generate more accurate and informative responses.",
-      "source": "OpenAI Research Papers",
+      "answer": "Retrieval-Augmented Generation (RAG) is a machine learning framework that combines retrieval-based methods with generative models to enhance the quality of generated responses. It retrieves relevant information from a knowledge base to inform and improve the context of the generated text, leading to more accurate and contextually relevant outputs.",
+      "source": "OpenAI Research Papers and Documentation",
       "confidence": "high"
     },
     "token_usage": {
       "prompt_tokens": 87,
-      "completion_tokens": 80,
-      "total_tokens": 167
+      "completion_tokens": 81,
+      "total_tokens": 168
     }
   },
   "task_3_malformed_json_recovered": {
