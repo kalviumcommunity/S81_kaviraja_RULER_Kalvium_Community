@@ -1,0 +1,53 @@
+{
+  "document": "data\\doc1.txt",
+  "strategy_a_fixed_size": [
+    {
+      "strategy": "Fixed-size with overlap",
+      "text": "# Document 1: Introduction to AI\n\nArtificial Intelligence (AI) refers to the simulation of human intelligence in machines that are programmed to think",
+      "char_length": 150
+    },
+    {
+      "strategy": "Fixed-size with overlap",
+      "text": "s that are programmed to think like humans and mimic their actions. The term may also be applied to any machine that exhibits traits associated with a",
+      "char_length": 150
+    },
+    {
+      "strategy": "Fixed-size with overlap",
+      "text": "ibits traits associated with a human mind such as learning and problem-solving.\n\nThe ideal characteristic of artificial intelligence is its ability to",
+      "char_length": 150
+    },
+    {
+      "strategy": "Fixed-size with overlap",
+      "text": "intelligence is its ability to rationalize and take actions that have the best chance of achieving a specific goal. A subset of artificial intelligenc",
+      "char_length": 150
+    },
+    {
+      "strategy": "Fixed-size with overlap",
+      "text": "bset of artificial intelligence is machine learning, which refers to the concept that computer programs can automatically learn from and adapt to new ",
+      "char_length": 150
+    },
+    {
+      "strategy": "Fixed-size with overlap",
+      "text": "y learn from and adapt to new data without being assisted by humans.\n",
+      "char_length": 69
+    }
+  ],
+  "strategy_b_paragraph_based": [
+    {
+      "strategy": "Paragraph-based",
+      "text": "# Document 1: Introduction to AI",
+      "char_length": 32
+    },
+    {
+      "strategy": "Paragraph-based",
+      "text": "Artificial Intelligence (AI) refers to the simulation of human intelligence in machines that are programmed to think like humans and mimic their actions. The term may also be applied to any machine that exhibits traits associated with a human mind such as learning and problem-solving.",
+      "char_length": 285
+    },
+    {
+      "strategy": "Paragraph-based",
+      "text": "The ideal characteristic of artificial intelligence is its ability to rationalize and take actions that have the best chance of achieving a specific goal. A subset of artificial intelligence is machine learning, which refers to the concept that computer programs can automatically learn from and adapt to new data without being assisted by humans.",
+      "char_length": 347
+    }
+  ],
+  "justification": "Chosen Strategy: Strategy B (Paragraph-based Grouping).\n\nWhy it fits this corpus:\n1. Semantic Preservation: Fixed-size chunking blindly cuts sentences in half, leaving critical context dangling (e.g., separating a subject from its verb). Paragraph chunking respects natural semantic boundaries authored by the writer.\n2. Retrieval Accuracy: Retrieving half a sentence reduces the LLM's ability to ground its generation properly. The paragraph-based approach ensures entire concepts are retrieved together.\n3. Less Redundancy: Fixed-overlap causes duplicated context in the index, whereas clean paragraph splitting minimizes token waste during generation."
+}
