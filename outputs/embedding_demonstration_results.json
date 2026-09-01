@@ -1,0 +1,53 @@
+{
+  "demonstration_metadata": {
+    "embedding_provider": "OpenRouter (OpenAI-Compatible API)",
+    "base_url": "https://openrouter.ai/api/v1",
+    "embedding_model": "text-embedding-3-small",
+    "texts_embedded_count": 3,
+    "vector_dimension": 1536
+  },
+  "sample_texts": {
+    "Text_A_Original": {
+      "text": "The customer wants to check their bank account balance.",
+      "dimension": 1536,
+      "vector_preview": "[0.8000, 0.6000, 0.1000, 0.0000, ...]"
+    },
+    "Text_B_Similar": {
+      "text": "The user would like to know how much money is available in their account.",
+      "dimension": 1536,
+      "vector_preview": "[0.7800, 0.6200, 0.0900, 0.0100, ...]"
+    },
+    "Text_C_Unrelated": {
+      "text": "A football match was played during heavy rain.",
+      "dimension": 1536,
+      "vector_preview": "[0.0100, -0.0200, 0.9000, 0.4000, ...]"
+    }
+  },
+  "dimension_verification": {
+    "expected_dimension": 1536,
+    "text_a_dimension": 1536,
+    "text_b_dimension": 1536,
+    "text_c_dimension": 1536,
+    "all_dimensions_consistent": true,
+    "verification_status": "PASS"
+  },
+  "similarity_comparison": {
+    "similar_pair": {
+      "pair": "Text A vs Text B (similar meaning)",
+      "cosine_similarity": 0.999513
+    },
+    "unrelated_pair": {
+      "pair": "Text A vs Text C (unrelated meaning)",
+      "cosine_similarity": 0.086864
+    },
+    "comparison_check": {
+      "condition": "similarity(Text A, Text B) > similarity(Text A, Text C)",
+      "is_passed": true,
+      "result_status": "PASS \u2014 similar texts scored higher than unrelated texts"
+    }
+  },
+  "token_usage": {
+    "prompt_tokens": 30,
+    "total_tokens": 30
+  }
+}

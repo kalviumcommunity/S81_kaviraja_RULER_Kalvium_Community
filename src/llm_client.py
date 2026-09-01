@@ -54,14 +54,16 @@ class LLMClient:
 
         self.logger = setup_logger(log_file)
 
-        # Read base URL, API key, and model name from environment config
+        # Read base URL, API key, and model names from environment config
         self.base_url = os.getenv("OPENAI_API_BASE_URL", "https://api.openai.com/v1").strip()
         self.api_key = os.getenv("OPENAI_API_KEY", "").strip()
         self.model_name = os.getenv("CHAT_MODEL", "gpt-4o-mini").strip()
+        self.embedding_model = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small").strip()
 
         self.logger.info("Initializing LLM Client with environment configuration:")
         self.logger.info(f" - Base URL: {self.base_url}")
-        self.logger.info(f" - Model Name: {self.model_name}")
+        self.logger.info(f" - Chat Model Name: {self.model_name}")
+        self.logger.info(f" - Embedding Model Name: {self.embedding_model}")
         masked_key = f"{self.api_key[:7]}...{self.api_key[-4:]}" if len(self.api_key) > 10 else ("Set" if self.api_key else "NOT SET")
         self.logger.info(f" - API Key: {masked_key}")
 
@@ -278,6 +280,83 @@ class LLMClient:
         else:
             self.logger.error("❌ [Structured Output Failed]: Payload rejected due to unrecoverable missing required fields.")
             return None, token_usage
+
+    def generate_embeddings(
+        self,
+        texts: List[str],
+        model: Optional[str] = None,
+        mock_embeddings: Optional[List[List[float]]] = None,
+    ) -> Tuple[Optional[List[List[float]]], Optional[Dict[str, Any]]]:
+        """
+        Generate actual embedding vectors for a list of input texts.
+        Reuses the existing OpenAI client & environment configuration.
+        Returns a tuple of (list_of_vectors, token_usage).
+        """
+        target_model = model or self.embedding_model
+        self.logger.info("--- GENERATING EMBEDDINGS ---")
+        self.logger.info(f"Target Model: {target_model}")
+        self.logger.info(f"Input Texts Count: {len(texts)}")
+
+        if not texts:
+            self.logger.warning("Empty input list provided to generate_embeddings.")
+            return [], {"prompt_tokens": 0, "total_tokens": 0}
+
+        try:
+            if mock_embeddings is not None or self.api_key == "mock":
+                if mock_embeddings is not None:
+                    embeddings = mock_embeddings
+                else:
+                    import random
+                    embeddings = []
+                    for t in texts:
+                        # Deterministic pseudo-vector for mock mode
+                        seed_val = sum(ord(c) for c in t)
+                        rng = random.Random(seed_val)
+                        vec = [rng.uniform(-0.1, 0.1) for _ in range(1536)]
+                        embeddings.append(vec)
+                token_usage = {
+                    "prompt_tokens": sum(len(t.split()) for t in texts),
+                    "total_tokens": sum(len(t.split()) for t in texts),
+                }
+                return embeddings, token_usage
+
+            response = self.client.embeddings.create(
+                input=texts,
+                model=target_model
+            )
+
+            embeddings = [item.embedding for item in response.data]
+
+            token_usage = {}
+            if hasattr(response, "usage") and response.usage:
+                token_usage = {
+                    "prompt_tokens": getattr(response.usage, "prompt_tokens", 0),
+                    "total_tokens": getattr(response.usage, "total_tokens", 0),
+                }
+
+            self.logger.info(f"Successfully generated {len(embeddings)} embedding vectors.")
+            if embeddings:
+                self.logger.info(f"Vector Dimension: {len(embeddings[0])}")
+
+            return embeddings, token_usage
+
+        except AuthenticationError:
+            self.logger.error("❌ [401 Authentication Error]: Invalid or missing API key for embeddings.")
+            return None, None
+        except RateLimitError:
+            self.logger.error("❌ [429 Rate Limit Error]: Rate limit exceeded for embeddings.")
+            return None, None
+        except APIConnectionError as e:
+            self.logger.error(f"❌ [Connection Error]: Failed to reach embedding endpoint at '{self.base_url}'. Details: {str(e)}")
+            return None, None
+        except APIError as e:
+            status = getattr(e, "status_code", "N/A")
+            self.logger.error(f"❌ [API Error {status}]: {getattr(e, 'message', str(e))}")
+            return None, None
+        except Exception as e:
+            self.logger.error(f"❌ [Unexpected Error]: {type(e).__name__} - {str(e)}")
+            return None, None
+
 
     def get_chat_history(self) -> List[Dict[str, str]]:
         """Returns the complete list of all message payloads recorded in the chat session history."""

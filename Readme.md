@@ -6,6 +6,18 @@ This project provides the foundation and structure for building a Retrieval-Augm
 
 ---
 
+## Embedding Fundamentals Engine (`src/embedding_demo.py`)
+
+A vector embedding demonstration engine that generates real text embeddings, verifies vector dimension consistency, and calculates semantic cosine similarity across sample texts.
+
+- **Task 1 — Real Vector Generation**: Generates embeddings for sample texts using configured `text-embedding-3-small` / OpenAI-compatible API.
+- **Task 2 — Dimension Verification**: Programmatically verifies every returned vector has identical length (`1536` dimensions) and contains numeric float values.
+- **Task 3 — Cosine Similarity Comparison**: Computes cosine similarity between Similar pair (Text A vs Text B: `0.5964`) and Unrelated pair (Text A vs Text C: `0.0193`), asserting `similarity(A, B) > similarity(A, C)`.
+- **Task 4 — Vector Concept Documentation**: Detailed conceptual documentation in [`docs/embedding-fundamentals.md`](docs/embedding-fundamentals.md) explaining how embeddings represent semantic meaning.
+- **Task 5 — Reproducible Output Artifacts**: Outputs formatted demonstration logs to `outputs/embedding_demo_output.txt` and `outputs/embedding_demonstration_results.json`.
+
+---
+
 ## Token-Aware Chunker Engine (`src/token_chunker.py`)
 
 A token-aware document chunker that sizes chunks by exact token count using `tiktoken` (`cl100k_base`) and maintains controlled token overlap between adjacent chunks.

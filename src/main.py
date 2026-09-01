@@ -15,6 +15,7 @@ from llm_client import LLMClient
 from structured_output import parse_json_response, validate_required_fields, count_tokens
 from chunk_metadata import DocumentChunker, trace_chunk_to_source, verify_metadata_consistency
 from token_chunker import TokenAwareChunker, TokenChunk
+from embedding_demo import EmbeddingDemonstration
 try:
     from prompts.templates import RAG_SYSTEM_PROMPT, RAG_USER_PROMPT
 except ImportError:
@@ -337,6 +338,18 @@ def main():
         "output_file": token_chunker_json_path
     }
     print(f" -> Task 5: Token-aware chunker results saved to: '{token_chunker_json_path}'")
+
+    # ----------------------------------------------------
+    # EMBEDDING FUNDAMENTALS DEMONSTRATION (Tasks 1 to 5)
+    # ----------------------------------------------------
+    print("\n[Embedding Fundamentals] Executing Embedding Generation, Dimension Check, & Similarity Demo...")
+    embedding_demo = EmbeddingDemonstration(client=client)
+    emb_results = embedding_demo.run_demonstration()
+    sample_results["embedding_fundamentals_demonstration"] = emb_results
+    print(" -> Task 1: Sample embeddings generated.")
+    print(f" -> Task 2: Dimension verified ({emb_results['demonstration_metadata']['vector_dimension']}) - {emb_results['dimension_verification']['verification_status']}")
+    print(f" -> Task 3: Cosine Similarity computed (Similar: {emb_results['similarity_comparison']['similar_pair']['cosine_similarity']}, Unrelated: {emb_results['similarity_comparison']['unrelated_pair']['cosine_similarity']})")
+    print(f" -> Task 4 & 5: Sample output generated - {emb_results['similarity_comparison']['comparison_check']['result_status']}")
 
     # ----------------------------------------------------
     # TASK 5: Save Sample Parsed Results
