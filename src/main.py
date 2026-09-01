@@ -16,6 +16,7 @@ from structured_output import parse_json_response, validate_required_fields, cou
 from chunk_metadata import DocumentChunker, trace_chunk_to_source, verify_metadata_consistency
 from token_chunker import TokenAwareChunker, TokenChunk
 from embedding_demo import EmbeddingDemonstration
+from chunk_embedding_pipeline import ChunkEmbeddingPipeline, EmbeddedChunk
 try:
     from prompts.templates import RAG_SYSTEM_PROMPT, RAG_USER_PROMPT
 except ImportError:
@@ -350,6 +351,22 @@ def main():
     print(f" -> Task 2: Dimension verified ({emb_results['demonstration_metadata']['vector_dimension']}) - {emb_results['dimension_verification']['verification_status']}")
     print(f" -> Task 3: Cosine Similarity computed (Similar: {emb_results['similarity_comparison']['similar_pair']['cosine_similarity']}, Unrelated: {emb_results['similarity_comparison']['unrelated_pair']['cosine_similarity']})")
     print(f" -> Task 4 & 5: Sample output generated - {emb_results['similarity_comparison']['comparison_check']['result_status']}")
+
+    # ----------------------------------------------------
+    # CHUNK EMBEDDING PIPELINE (API-Based Chunk Embeddings)
+    # ----------------------------------------------------
+    print("\n[Chunk Embedding Pipeline] Executing API-Based Embedding Generation on Text Chunks...")
+    chunk_emb_pipeline = ChunkEmbeddingPipeline(client=client)
+    embedded_chunks_list, chunk_emb_results = chunk_emb_pipeline.run_pipeline(
+        output_txt_path=os.path.join("outputs", "chunk_embeddings_output.txt"),
+        output_json_path=os.path.join("outputs", "chunk_embeddings_results.json")
+    )
+    sample_results["api_chunk_embeddings_pipeline"] = chunk_emb_results
+    print(f" -> Prepared Chunks Received: {chunk_emb_results['pipeline_metadata']['chunks_received']}")
+    print(f" -> Chunks Successfully Embedded: {chunk_emb_results['pipeline_metadata']['chunks_embedded']}")
+    print(f" -> Vector Dimension: {chunk_emb_results['pipeline_metadata']['vector_dimension']}")
+    print(f" -> Dimension Consistency: {chunk_emb_results['pipeline_metadata']['dimension_consistency']}")
+
 
     # ----------------------------------------------------
     # TASK 5: Save Sample Parsed Results

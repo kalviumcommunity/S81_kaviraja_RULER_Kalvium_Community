@@ -1,0 +1,117 @@
+RAG Embedding Verification
+==========================
+
+Embedding Provider:
+OpenRouter (OpenAI-Compatible API)
+
+Embedding Model:
+text-embedding-3-small
+
+Source Documents:
+1
+
+Chunks Received:
+4
+
+Chunks Successfully Embedded:
+4
+
+Vector Dimension:
+1536
+
+Dimension Consistency:
+PASS
+
+==========================
+Sample Embedded Chunks Output
+==========================
+--------------------------------------
+Chunk Index:
+0
+
+Source:
+sample_banking_regulation.txt
+
+Metadata:
+{
+  "doc_id": "sample_banking_regulation_txt",
+  "filename": "sample_banking_regulation.txt",
+  "source_path": "data/sample_banking_regulation.txt",
+  "section": "Document Content",
+  "page_number": 1,
+  "chunk_index": 0,
+  "total_chunks": 4,
+  "start_char": 0,
+  "end_char": 565,
+  "token_count": 100
+}
+
+Text:
+"# Global Banking Compliance & Regulatory Framework 2026  ## Section 1: Executive Summary & Overview Financial institutio..."
+
+Vector Length:
+1536
+
+Vector Preview:
+[-0.0087, 0.0298, 0.0931, 0.0206, ...]
+--------------------------------------
+--------------------------------------
+Chunk Index:
+1
+
+Source:
+sample_banking_regulation.txt
+
+Metadata:
+{
+  "doc_id": "sample_banking_regulation_txt",
+  "filename": "sample_banking_regulation.txt",
+  "source_path": "data/sample_banking_regulation.txt",
+  "section": "Document Content",
+  "page_number": 1,
+  "chunk_index": 1,
+  "total_chunks": 4,
+  "start_char": 474,
+  "end_char": 925,
+  "token_count": 100
+}
+
+Text:
+" lists in real time prior to authorization.  ## Section 2: Capital Reserves & Liquidity Ratios Under Basel IV capital ad..."
+
+Vector Length:
+1536
+
+Vector Preview:
+[-0.0141, 0.0483, 0.1158, 0.0175, ...]
+--------------------------------------
+--------------------------------------
+Chunk Index:
+2
+
+Source:
+sample_banking_regulation.txt
+
+Metadata:
+{
+  "doc_id": "sample_banking_regulation_txt",
+  "filename": "sample_banking_regulation.txt",
+  "source_path": "data/sample_banking_regulation.txt",
+  "section": "Document Content",
+  "page_number": 1,
+  "chunk_index": 2,
+  "total_chunks": 4,
+  "start_char": 830,
+  "end_char": 1413,
+  "token_count": 100
+}
+
+Text:
+"30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial re..."
+
+Vector Length:
+1536
+
+Vector Preview:
+[-0.0132, 0.0157, 0.0560, 0.0023, ...]
+--------------------------------------
