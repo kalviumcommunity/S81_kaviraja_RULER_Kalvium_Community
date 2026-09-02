@@ -469,9 +469,39 @@ class SimilarityRanker:
 if __name__ == "__main__":
     ranker = SimilarityRanker()
     results = ranker.run_demonstration()
-    print("\nSimilarity Ranking Demonstration Completed Successfully!")
+    
+    # Load and print Vector Matrix Summary directly in Terminal
+    matrix_file = os.path.join("outputs", "vector_matrix_output.json")
+    if os.path.exists(matrix_file):
+        with open(matrix_file, "r", encoding="utf-8") as f:
+            matrix_data = json.load(f)
+        meta = matrix_data["matrix_metadata"]
+        pairwise = matrix_data["pairwise_similarity_matrix"]
+        
+        print("\n==================================================")
+        print("           VECTOR MATRIX TERMINAL DISPLAY         ")
+        print("==================================================")
+        print(f"Matrix Shape: {meta['matrix_shape'][0]} Chunks x {meta['matrix_shape'][1]} Dimensions")
+        print(f"Total Float Elements: {meta['matrix_shape'][0] * meta['matrix_shape'][1]}")
+        print("\n--- Pairwise Chunk Cosine Similarity Matrix ---")
+        header = "Row \\ Col | " + " | ".join([f"  C{i}  " for i in range(len(pairwise))])
+        print(header)
+        print("-" * len(header))
+        for idx, row in enumerate(pairwise):
+            vals = " | ".join([f"{v:.4f}" for v in row])
+            print(f"   C{idx}   | {vals}")
+
+        print("\n--- Vector Matrix Sample Rows ---")
+        for chunk_meta in matrix_data["chunk_catalog"]:
+            print(f"Row Matrix Index [{chunk_meta['row_index']}]: Chunk ID '{chunk_meta['chunk_id']}'")
+            print(f"  Head [0:4]: {[round(x, 4) for x in chunk_meta['first_4_dimensions']]}")
+            print(f"  Snippet: \"{chunk_meta['source_text_snippet'][:70]}...\"")
+
+    print("\n==================================================")
+    print("      SIMILARITY RANKING DEMO COMPLETED           ")
+    print("==================================================")
     print(f"Query: \"{results['query']}\"")
-    print(f"Metric: {results['metric']}")
+    print(f"Metric: {results['metric'].upper()}")
     print(f"Total Chunks Scored: {results['total_chunks_compared']}")
     print("\n--- Top Most Similar Result ---")
     top_res = results['most_similar'][0]
@@ -481,3 +511,4 @@ if __name__ == "__main__":
     bottom_res = results['least_similar'][0]
     print(f"Rank #{bottom_res['rank']} | Score: {bottom_res['score']:.6f} | Chunk ID: {bottom_res['chunk_id']}")
     print(f"Text Preview: \"{bottom_res['source_text'][:100]}...\"")
+
