@@ -8,3 +8,23 @@
 [2026-09-02 13:00:31] [INFO]  - Base URL: https://openrouter.ai/api/v1
 [2026-09-02 13:00:31] [INFO]  - Model Name: openai/gpt-4o-mini
 [2026-09-02 13:00:31] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-02 13:05:18] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-02 13:05:18] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-02 13:05:18] [INFO]  - Model Name: openai/gpt-4o-mini
+[2026-09-02 13:05:18] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-02 13:06:00] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-02 13:06:00] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-02 13:06:00] [INFO]  - Model Name: openai/gpt-4o-mini
+[2026-09-02 13:06:00] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-02 13:06:39] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-02 13:06:39] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-02 13:06:39] [INFO]  - Model Name: openai/gpt-4o-mini
+[2026-09-02 13:06:39] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-02 13:06:39] [INFO] --- REQUESTING EMBEDDINGS (Batch Size: 4) ---
+[2026-09-02 13:06:41] [INFO] --- EMBEDDINGS SUCCESS (Generated 4 embeddings, Tokens used: 243) ---
+[2026-09-02 13:07:05] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-02 13:07:05] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-02 13:07:05] [INFO]  - Model Name: openai/gpt-4o-mini
+[2026-09-02 13:07:05] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-02 13:07:05] [INFO] --- REQUESTING EMBEDDINGS (Batch Size: 4) ---
+[2026-09-02 13:07:06] [INFO] --- EMBEDDINGS SUCCESS (Generated 4 embeddings, Tokens used: 243) ---
