@@ -17,6 +17,7 @@ from chunk_metadata import DocumentChunker, trace_chunk_to_source, verify_metada
 from token_chunker import TokenAwareChunker, TokenChunk
 from embedding_demo import EmbeddingDemonstration
 from chunk_embedding_pipeline import ChunkEmbeddingPipeline, EmbeddedChunk
+from similarity_ranker import SimilarityRanker
 try:
     from prompts.templates import RAG_SYSTEM_PROMPT, RAG_USER_PROMPT
 except ImportError:
@@ -366,6 +367,30 @@ def main():
     print(f" -> Chunks Successfully Embedded: {chunk_emb_results['pipeline_metadata']['chunks_embedded']}")
     print(f" -> Vector Dimension: {chunk_emb_results['pipeline_metadata']['vector_dimension']}")
     print(f" -> Dimension Consistency: {chunk_emb_results['pipeline_metadata']['dimension_consistency']}")
+
+    # ----------------------------------------------------
+    # SIMILARITY METRIC & QUERY-CHUNK RANKING (Tasks 1 to 5)
+    # ----------------------------------------------------
+    print("\n[Similarity Ranker] Executing Metric Computation, Query Comparison, & Ranking Pipeline...")
+    similarity_ranker = SimilarityRanker(client=client, metric="cosine")
+    query_text = "What are the rules and approval thresholds for high-value transaction payments?"
+    ranking_results = similarity_ranker.rank_chunks(
+        query=query_text,
+        embedded_chunks=embedded_chunks_list,
+        top_k=2
+    )
+    similarity_ranker.generate_ranking_reports(
+        ranking_results=ranking_results,
+        output_txt_path=os.path.join("outputs", "similarity_ranking_output.txt"),
+        output_json_path=os.path.join("outputs", "similarity_ranking_results.json")
+    )
+    sample_results["similarity_ranking_pipeline"] = ranking_results
+    print(f" -> Query: \"{query_text}\"")
+    print(f" -> Metric: {ranking_results['metric'].upper()} ({ranking_results['metric_justification']['metric_name']})")
+    print(f" -> Total Chunks Scored & Ranked: {ranking_results['total_chunks_compared']}")
+    print(f" -> Top Most Similar Chunk ID: {ranking_results['most_similar'][0]['chunk_id']} (Score: {ranking_results['most_similar'][0]['score']:.4f})")
+    print(f" -> Top Least Similar Chunk ID: {ranking_results['least_similar'][0]['chunk_id']} (Score: {ranking_results['least_similar'][0]['score']:.4f})")
+
 
 
     # ----------------------------------------------------
