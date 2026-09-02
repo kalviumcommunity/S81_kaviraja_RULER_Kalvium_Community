@@ -11,6 +11,7 @@ from types import SimpleNamespace
 from typing import Dict, Any, List, Optional, Tuple
 from dotenv import load_dotenv
 from openai import OpenAI, APIError, AuthenticationError, RateLimitError, APIConnectionError
+from tenacity import retry, wait_exponential, stop_after_attempt, retry_if_exception_type
 from structured_output import parse_json_response, validate_required_fields
 
 
@@ -266,4 +267,39 @@ class LLMClient:
         else:
             self.logger.error("❌ [Structured Output Failed]: Payload rejected due to unrecoverable missing required fields.")
             return None, token_usage
+
+    @retry(
+        wait=wait_exponential(multiplier=1, min=4, max=10),
+        stop=stop_after_attempt(3),
+        retry=retry_if_exception_type((RateLimitError, APIConnectionError)),
+        reraise=True
+    )
+    def create_embeddings(self, texts: List[str], model: str = "text-embedding-3-small") -> Tuple[List[List[float]], Dict[str, int]]:
+        """
+        Send a batch of texts to the embeddings API.
+        Automatically retries on rate limits and connection errors with exponential backoff.
+        """
+        self.logger.info(f"--- REQUESTING EMBEDDINGS (Batch Size: {len(texts)}) ---")
+        try:
+            response = self.client.embeddings.create(
+                input=texts,
+                model=model
+            )
+            
+            embeddings = [item.embedding for item in response.data]
+            
+            token_usage = {
+                "prompt_tokens": getattr(response.usage, "prompt_tokens", 0),
+                "total_tokens": getattr(response.usage, "total_tokens", 0),
+            }
+            
+            self.logger.info(f"--- EMBEDDINGS SUCCESS (Generated {len(embeddings)} embeddings, Tokens used: {token_usage['total_tokens']}) ---")
+            return embeddings, token_usage
+            
+        except AuthenticationError:
+            self.logger.error("❌ [401 Authentication Error]: Invalid or missing API key.")
+            raise
+        except Exception as e:
+            self.logger.error(f"❌ [Embedding Error]: {type(e).__name__} - {str(e)}")
+            raise
 
