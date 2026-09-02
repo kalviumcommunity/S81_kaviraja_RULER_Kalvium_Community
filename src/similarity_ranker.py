@@ -318,6 +318,103 @@ class SimilarityRanker:
 
         return ranking_results
 
+    def export_vector_matrix(
+        self,
+        embedded_chunks: List[EmbeddedChunk],
+        query_vec: Optional[List[float]] = None,
+        output_json_path: str = os.path.join("outputs", "vector_matrix_output.json"),
+        output_txt_path: str = os.path.join("outputs", "vector_matrix_output.txt")
+    ) -> Dict[str, Any]:
+        """
+        Exports explicit 2D Vector Matrix (N x D) and Chunk-by-Chunk Pairwise Similarity Matrix.
+        """
+        if not embedded_chunks:
+            return {}
+
+        num_chunks = len(embedded_chunks)
+        dim = embedded_chunks[0].dimension
+        matrix_data = [chunk.embedding for chunk in embedded_chunks]
+        chunk_ids = [chunk.chunk_id for chunk in embedded_chunks]
+
+        # Calculate N x N pairwise similarity matrix between chunks
+        pairwise_sim_matrix = []
+        for i in range(num_chunks):
+            row = []
+            for j in range(num_chunks):
+                sim = self.compute_similarity(embedded_chunks[i].embedding, embedded_chunks[j].embedding, metric="cosine")
+                row.append(round(sim, 6))
+            pairwise_sim_matrix.append(row)
+
+        matrix_export = {
+            "matrix_metadata": {
+                "rows_chunk_count": num_chunks,
+                "columns_dimension": dim,
+                "matrix_shape": [num_chunks, dim],
+                "chunk_ids": chunk_ids,
+                "has_query_vector": query_vec is not None,
+                "query_vector_dimension": len(query_vec) if query_vec else 0
+            },
+            "query_vector": query_vec or [],
+            "vector_matrix": matrix_data,
+            "pairwise_similarity_matrix": pairwise_sim_matrix,
+            "chunk_catalog": [
+                {
+                    "row_index": idx,
+                    "chunk_id": chunk.chunk_id,
+                    "source_text_snippet": chunk.source_text[:100],
+                    "vector_dimension": chunk.dimension,
+                    "first_4_dimensions": chunk.embedding[:4]
+                }
+                for idx, chunk in enumerate(embedded_chunks)
+            ]
+        }
+
+        os.makedirs(os.path.dirname(output_json_path), exist_ok=True)
+        with open(output_json_path, "w", encoding="utf-8") as f:
+            json.dump(matrix_export, f, indent=2)
+
+        # Build readable text report showing full matrix layout & pairwise table
+        txt_lines = [
+            "Vector Matrix & Pairwise Similarity Export",
+            "==========================================",
+            "",
+            f"Matrix Dimensions: {num_chunks} Chunks x {dim} Embedding Dimensions",
+            f"Total Floating-Point Matrix Values: {num_chunks * dim}",
+            "",
+            "==========================================",
+            "Pairwise Chunk Similarity Matrix (Cosine)",
+            "==========================================",
+            "Row Chunk ID \\ Column Chunk ID | " + " | ".join([f"C{i}" for i in range(num_chunks)]),
+            "-" * 80
+        ]
+
+        for i, row in enumerate(pairwise_sim_matrix):
+            sim_str = " | ".join([f"{val:.4f}" for val in row])
+            txt_lines.append(f"C{i} ({chunk_ids[i][:25]}...) | {sim_str}")
+
+        txt_lines.extend([
+            "",
+            "==========================================",
+            "Vector Matrix Row Details",
+            "==========================================",
+        ])
+
+        for idx, chunk in enumerate(embedded_chunks):
+            txt_lines.extend([
+                f"Row Matrix Index [{idx}]: Chunk ID '{chunk.chunk_id}'",
+                f"Text Snippet: \"{chunk.source_text[:90]}...\"",
+                f"Vector Dimension: {chunk.dimension}",
+                f"Vector Head [0:8]: {[round(x, 5) for x in chunk.embedding[:8]]}",
+                f"Vector Tail [-8:]: {[round(x, 5) for x in chunk.embedding[-8:]]}",
+                "------------------------------------------"
+            ])
+
+        os.makedirs(os.path.dirname(output_txt_path), exist_ok=True)
+        with open(output_txt_path, "w", encoding="utf-8") as f:
+            f.write("\n".join(txt_lines) + "\n")
+
+        return matrix_export
+
     def run_demonstration(
         self,
         query: str = "What are the rules and approval thresholds for high-value transaction payments?",
@@ -358,7 +455,15 @@ class SimilarityRanker:
             output_json_path=output_json_path
         )
 
+        # Step 6: Export explicit Vector Matrix (N x D) output files
+        self.export_vector_matrix(
+            embedded_chunks=embedded_chunks,
+            output_json_path=os.path.join("outputs", "vector_matrix_output.json"),
+            output_txt_path=os.path.join("outputs", "vector_matrix_output.txt")
+        )
+
         return ranking_results
+
 
 
 if __name__ == "__main__":

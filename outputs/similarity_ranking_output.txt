@@ -5,7 +5,7 @@ Query: "What are the rules and approval thresholds for high-value transaction pa
 Metric Used: Cosine Similarity
 Total Chunks Scored: 4
 Query Dimension: 1536
-Query Vector Preview: [-0.0272, -0.0041, 0.0385, -0.0204, ...]
+Query Vector Preview: [-0.0273, -0.0041, 0.0385, -0.0204, ...]
 
 ================================
 Metric Justification (Task 4)
@@ -21,7 +21,7 @@ Verdict: Cosine similarity is the industry standard metric for comparing text em
 ================================
 Most Similar Chunks (Top Ranked)
 ================================
-Rank #1 | Score: 0.584555 | Chunk ID: sample_banking_regulation_txt#chunk_003
+Rank #1 | Score: 0.584822 | Chunk ID: sample_banking_regulation_txt#chunk_003
 Source Path: data/sample_banking_regulation.txt
 Filename: sample_banking_regulation.txt
 Section: Document Content
@@ -29,9 +29,9 @@ Text: "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculat
 
 ## Section 3: High-Value Transaction Authorization Thresholds
 Standard retail banking policies mandate that routine vendor payments under $50,000 may be approved directly by designated department heads without requiring senior executive approval. However, any single capital expenditure or vendor disbursement exceeding $50,000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board"
-Vector Preview: [-0.0133, 0.0157, 0.0560, 0.0024, ...]
+Vector Preview: [-0.0133, 0.0157, 0.0560, 0.0023, ...]
 --------------------------------------------------
-Rank #2 | Score: 0.495270 | Chunk ID: sample_banking_regulation_txt#chunk_004
+Rank #2 | Score: 0.495251 | Chunk ID: sample_banking_regulation_txt#chunk_004
 Source Path: data/sample_banking_regulation.txt
 Filename: sample_banking_regulation.txt
 Section: Document Content
@@ -42,7 +42,7 @@ Vector Preview: [-0.0163, 0.0081, 0.0813, 0.0109, ...]
 ================================
 Least Similar Chunks (Bottom Ranked)
 ================================
-Rank #4 | Score: 0.356025 | Chunk ID: sample_banking_regulation_txt#chunk_002
+Rank #4 | Score: 0.356001 | Chunk ID: sample_banking_regulation_txt#chunk_002
 Source Path: data/sample_banking_regulation.txt
 Filename: sample_banking_regulation.txt
 Section: Document Content
@@ -50,9 +50,9 @@ Text: " lists in real time prior to authorization.
 
 ## Section 2: Capital Reserves & Liquidity Ratios
 Under Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times. In addition, institutions must hold high-quality liquid assets (HQLA) sufficient to cover total net cash outflows over a 30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted"
-Vector Preview: [-0.0141, 0.0482, 0.1158, 0.0175, ...]
+Vector Preview: [-0.0141, 0.0483, 0.1158, 0.0176, ...]
 --------------------------------------------------
-Rank #3 | Score: 0.366079 | Chunk ID: sample_banking_regulation_txt#chunk_001
+Rank #3 | Score: 0.366196 | Chunk ID: sample_banking_regulation_txt#chunk_001
 Source Path: data/sample_banking_regulation.txt
 Filename: sample_banking_regulation.txt
 Section: Document Content
@@ -62,5 +62,5 @@ Text: "# Global Banking Compliance & Regulatory Framework 2026
 Financial institutions operating within international jurisdictions must establish automated compliance monitoring systems to detect, prevent, and report suspicious transactions under Anti-Money Laundering (AML) and Counter-Terrorism Financing (CTF) directives. All automated systems must evaluate transaction velocities, beneficiary country risk scores, and entity sanction lists in real time prior to authorization.
 
 ## Section 2: Capital Reserves & Liquidity Rat"
-Vector Preview: [-0.0087, 0.0297, 0.0931, 0.0206, ...]
+Vector Preview: [-0.0087, 0.0298, 0.0931, 0.0206, ...]
 --------------------------------------------------

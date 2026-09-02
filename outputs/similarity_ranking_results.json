@@ -1,13 +1,13 @@
 {
   "query": "What are the rules and approval thresholds for high-value transaction payments?",
   "query_vector_dimension": 1536,
-  "query_vector_preview": "[-0.0272, -0.0041, 0.0385, -0.0204, ...]",
+  "query_vector_preview": "[-0.0273, -0.0041, 0.0385, -0.0204, ...]",
   "metric": "cosine",
   "total_chunks_compared": 4,
   "ranked_chunks": [
     {
       "rank": 1,
-      "score": 0.584555,
+      "score": 0.584822,
       "chunk_id": "sample_banking_regulation_txt#chunk_003",
       "source_text": "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial regulatory bodies.\n\n## Section 3: High-Value Transaction Authorization Thresholds\nStandard retail banking policies mandate that routine vendor payments under $50,000 may be approved directly by designated department heads without requiring senior executive approval. However, any single capital expenditure or vendor disbursement exceeding $50,000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board",
       "metadata": {
@@ -22,11 +22,11 @@
         "end_char": 1413,
         "token_count": 100
       },
-      "vector_preview": "[-0.0133, 0.0157, 0.0560, 0.0024, ...]"
+      "vector_preview": "[-0.0133, 0.0157, 0.0560, 0.0023, ...]"
     },
     {
       "rank": 2,
-      "score": 0.49527,
+      "score": 0.495251,
       "chunk_id": "sample_banking_regulation_txt#chunk_004",
       "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
       "metadata": {
@@ -45,7 +45,7 @@
     },
     {
       "rank": 3,
-      "score": 0.366079,
+      "score": 0.366196,
       "chunk_id": "sample_banking_regulation_txt#chunk_001",
       "source_text": "# Global Banking Compliance & Regulatory Framework 2026\n\n## Section 1: Executive Summary & Overview\nFinancial institutions operating within international jurisdictions must establish automated compliance monitoring systems to detect, prevent, and report suspicious transactions under Anti-Money Laundering (AML) and Counter-Terrorism Financing (CTF) directives. All automated systems must evaluate transaction velocities, beneficiary country risk scores, and entity sanction lists in real time prior to authorization.\n\n## Section 2: Capital Reserves & Liquidity Rat",
       "metadata": {
@@ -60,11 +60,11 @@
         "end_char": 565,
         "token_count": 100
       },
-      "vector_preview": "[-0.0087, 0.0297, 0.0931, 0.0206, ...]"
+      "vector_preview": "[-0.0087, 0.0298, 0.0931, 0.0206, ...]"
     },
     {
       "rank": 4,
-      "score": 0.356025,
+      "score": 0.356001,
       "chunk_id": "sample_banking_regulation_txt#chunk_002",
       "source_text": " lists in real time prior to authorization.\n\n## Section 2: Capital Reserves & Liquidity Ratios\nUnder Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times. In addition, institutions must hold high-quality liquid assets (HQLA) sufficient to cover total net cash outflows over a 30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted",
       "metadata": {
@@ -79,13 +79,13 @@
         "end_char": 925,
         "token_count": 100
       },
-      "vector_preview": "[-0.0141, 0.0482, 0.1158, 0.0175, ...]"
+      "vector_preview": "[-0.0141, 0.0483, 0.1158, 0.0176, ...]"
     }
   ],
   "most_similar": [
     {
       "rank": 1,
-      "score": 0.584555,
+      "score": 0.584822,
       "chunk_id": "sample_banking_regulation_txt#chunk_003",
       "source_text": "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial regulatory bodies.\n\n## Section 3: High-Value Transaction Authorization Thresholds\nStandard retail banking policies mandate that routine vendor payments under $50,000 may be approved directly by designated department heads without requiring senior executive approval. However, any single capital expenditure or vendor disbursement exceeding $50,000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board",
       "metadata": {
@@ -100,11 +100,11 @@
         "end_char": 1413,
         "token_count": 100
       },
-      "vector_preview": "[-0.0133, 0.0157, 0.0560, 0.0024, ...]"
+      "vector_preview": "[-0.0133, 0.0157, 0.0560, 0.0023, ...]"
     },
     {
       "rank": 2,
-      "score": 0.49527,
+      "score": 0.495251,
       "chunk_id": "sample_banking_regulation_txt#chunk_004",
       "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
       "metadata": {
@@ -125,7 +125,7 @@
   "least_similar": [
     {
       "rank": 4,
-      "score": 0.356025,
+      "score": 0.356001,
       "chunk_id": "sample_banking_regulation_txt#chunk_002",
       "source_text": " lists in real time prior to authorization.\n\n## Section 2: Capital Reserves & Liquidity Ratios\nUnder Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times. In addition, institutions must hold high-quality liquid assets (HQLA) sufficient to cover total net cash outflows over a 30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted",
       "metadata": {
@@ -140,11 +140,11 @@
         "end_char": 925,
         "token_count": 100
       },
-      "vector_preview": "[-0.0141, 0.0482, 0.1158, 0.0175, ...]"
+      "vector_preview": "[-0.0141, 0.0483, 0.1158, 0.0176, ...]"
     },
     {
       "rank": 3,
-      "score": 0.366079,
+      "score": 0.366196,
       "chunk_id": "sample_banking_regulation_txt#chunk_001",
       "source_text": "# Global Banking Compliance & Regulatory Framework 2026\n\n## Section 1: Executive Summary & Overview\nFinancial institutions operating within international jurisdictions must establish automated compliance monitoring systems to detect, prevent, and report suspicious transactions under Anti-Money Laundering (AML) and Counter-Terrorism Financing (CTF) directives. All automated systems must evaluate transaction velocities, beneficiary country risk scores, and entity sanction lists in real time prior to authorization.\n\n## Section 2: Capital Reserves & Liquidity Rat",
       "metadata": {
@@ -159,7 +159,7 @@
         "end_char": 565,
         "token_count": 100
       },
-      "vector_preview": "[-0.0087, 0.0297, 0.0931, 0.0206, ...]"
+      "vector_preview": "[-0.0087, 0.0298, 0.0931, 0.0206, ...]"
     }
   ],
   "metric_justification": {

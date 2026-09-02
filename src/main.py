@@ -384,6 +384,11 @@ def main():
         output_txt_path=os.path.join("outputs", "similarity_ranking_output.txt"),
         output_json_path=os.path.join("outputs", "similarity_ranking_results.json")
     )
+    similarity_ranker.export_vector_matrix(
+        embedded_chunks=embedded_chunks_list,
+        output_json_path=os.path.join("outputs", "vector_matrix_output.json"),
+        output_txt_path=os.path.join("outputs", "vector_matrix_output.txt")
+    )
     sample_results["similarity_ranking_pipeline"] = ranking_results
     print(f" -> Query: \"{query_text}\"")
     print(f" -> Metric: {ranking_results['metric'].upper()} ({ranking_results['metric_justification']['metric_name']})")
