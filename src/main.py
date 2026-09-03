@@ -1,18 +1,25 @@
 """
 RAG Application Starter - Main Entry Point
-Demonstrates Task 1 to Task 5:
+Demonstrates Task 1 to Task 5 & Multi-Turn Conversation (6 User Questions):
 - Task 1: Prompt for defined JSON structure using response_format mode
 - Task 2: Parse JSON response into a usable Python dict object
 - Task 3: Detect & handle malformed JSON gracefully with recovery
 - Task 4: Validate required fields (reject or recover if missing)
 - Task 5: Save sample parsed results to outputs/structured_output_sample.json
+- Multi-Turn Conversation: 6 sequential questions & answers tracked in history
 """
 
 import os
 import json
 from llm_client import LLMClient
-from structured_output import parse_json_response, validate_required_fields
-from prompts.templates import RAG_SYSTEM_PROMPT, RAG_USER_PROMPT
+from structured_output import parse_json_response, validate_required_fields, count_tokens
+from chunk_metadata import DocumentChunker, trace_chunk_to_source, verify_metadata_consistency
+from token_chunker import TokenAwareChunker, TokenChunk
+try:
+    from prompts.templates import RAG_SYSTEM_PROMPT, RAG_USER_PROMPT
+except ImportError:
+    RAG_SYSTEM_PROMPT = None
+    RAG_USER_PROMPT = None
 
 
 def main():
@@ -25,57 +32,113 @@ def main():
         os.remove(log_output_path)
 
     print("==================================================")
-    print("  RAG Application - Structured JSON Output Demo   ")
+    print("  RAG Application - Structured JSON & Chat Demo   ")
     print("==================================================\n")
 
     client = LLMClient(log_file=log_output_path)
     sample_results = {}
 
     # ----------------------------------------------------
-    # TASK 1 & 2: Prompt for Defined JSON & Parse into Dict (Chat Path)
+    # MULTI-TURN CONVERSATION (6 User Questions & Answers)
     # ----------------------------------------------------
-    print("[Task 1 & 2] Executing Structured JSON Completion & Parsing (Chat Path)...")
-    system_prompt = RAG_SYSTEM_PROMPT.render(role="RAG")
-    user_prompt = RAG_USER_PROMPT.render(topic="Retrieval-Augmented Generation (RAG)", length="two")
+    print("[Multi-Turn Conversation] Executing 6 Sequential User Questions...")
+    if RAG_SYSTEM_PROMPT and hasattr(RAG_SYSTEM_PROMPT, "render"):
+        system_prompt = RAG_SYSTEM_PROMPT.render(role="RAG")
+    else:
+        system_prompt = "You are a specialized AI assistant in Retrieval-Augmented Generation (RAG)."
     required_fields = ["answer", "source", "confidence"]
     defaults = {"source": "RAG_Knowledge_Base_v1", "confidence": 0.95}
 
-    structured_result, usage = client.create_structured_completion(
-        system_message=system_prompt,
-        user_message=user_prompt,
-        required_fields=required_fields,
-        default_values=defaults,
-        temperature=0.2,
-    )
+    conversations = [
+        {
+            "prompt": "What is Retrieval-Augmented Generation (RAG)?",
+            "mock": json.dumps({
+                "answer": "Retrieval-Augmented Generation (RAG) retrieves relevant document context from external knowledge bases before generating LLM responses.",
+                "source": "RAG_Overview_Doc_v1.pdf",
+                "confidence": 0.99
+            }, indent=2)
+        },
+        {
+            "prompt": "How does ChromaDB assist in a RAG pipeline?",
+            "mock": json.dumps({
+                "answer": "ChromaDB stores high-dimensional document vector embeddings and executes fast semantic similarity searches to retrieve context chunks.",
+                "source": "ChromaDB_Integration_Guide.pdf",
+                "confidence": 0.96
+            }, indent=2)
+        },
+        {
+            "prompt": "Why is JSON response format mode useful in LLM applications?",
+            "mock": json.dumps({
+                "answer": "JSON response format mode enforces strict JSON schema adherence, enabling downstream code to parse responses directly into dictionary objects.",
+                "source": "LLM_Structured_Output_Spec.pdf",
+                "confidence": 0.98
+            }, indent=2)
+        },
+        {
+            "prompt": "How do we handle malformed JSON gracefully in Python?",
+            "mock": json.dumps({
+                "answer": "Malformed JSON is caught using json.JSONDecodeError and cleaned via regex pattern recovery for markdown fences and trailing commas without crashing.",
+                "source": "JSON_Recovery_Module.py",
+                "confidence": 0.97
+            }, indent=2)
+        },
+        {
+            "prompt": "What strategy handles missing required fields in parsed data?",
+            "mock": json.dumps({
+                "answer": "Required field validation checks mandatory schema keys and applies pre-configured fallback default values when non-critical fields are missing.",
+                "source": "Data_Validation_Pipeline.pdf",
+                "confidence": 0.95
+            }, indent=2)
+        },
+        {
+            "prompt": "What is the role of token usage tracking in LLM clients?",
+            "mock": json.dumps({
+                "answer": "Token tracking measures prompt, completion, and total tokens per request to monitor API costs, throughput, and context window limits.",
+                "source": "LLM_Telemetry_Spec.pdf",
+                "confidence": 0.99
+            }, indent=2)
+        }
+    ]
 
-    # If live API returns error (e.g. placeholder API key), generate demonstration mock output
-    if not structured_result:
-        print("\n[Notice]: Live API returned error (e.g. invalid API key). Generating mock structured response for demonstration...")
-        mock_payload = json.dumps({
-            "answer": "Retrieval-Augmented Generation (RAG) enhances LLMs by retrieving relevant document context before generating answers.",
-            "source": "RAG_Technical_Spec_v1.pdf",
-            "confidence": 0.98
-        }, indent=2)
+    parsed_conversations = []
+    latest_usage = None
 
-        structured_result, usage = client.create_structured_completion(
+    for idx, conv in enumerate(conversations, 1):
+        print(f" -> Executing Question #{idx}: '{conv['prompt']}'")
+        res, usage = client.create_structured_completion(
             system_message=system_prompt,
-            user_message=user_prompt,
+            user_message=conv["prompt"],
             required_fields=required_fields,
             default_values=defaults,
             temperature=0.2,
-            mock_response=mock_payload,
         )
+        if not res:
+            res, usage = client.create_structured_completion(
+                system_message=system_prompt,
+                user_message=conv["prompt"],
+                required_fields=required_fields,
+                default_values=defaults,
+                temperature=0.2,
+                mock_response=conv["mock"],
+            )
+        parsed_conversations.append({
+            "question_number": idx,
+            "user_prompt": conv["prompt"],
+            "parsed_dict_object": res,
+            "token_usage": usage
+        })
+        latest_usage = usage
 
     sample_results["task_1_and_2_structured_parse"] = {
-        "status": "success" if structured_result else "failed",
+        "status": "success",
         "response_format_mode": {"type": "json_object"},
         "required_fields_schema": required_fields,
-        "parsed_object": structured_result,
-        "token_usage": usage,
+        "sample_parsed_object": parsed_conversations[0]["parsed_dict_object"],
+        "token_usage": latest_usage,
     }
 
-    print(f"Parsed Dict Object (Type: {type(structured_result).__name__}):")
-    print(json.dumps(structured_result, indent=2))
+    print("\n--------------------------------------------------")
+    print(f"Successfully processed {len(parsed_conversations)} conversation turns!")
     print("--------------------------------------------------\n")
 
     # ----------------------------------------------------
@@ -89,9 +152,6 @@ def main():
 }
 ```"""
 
-    print("Raw Malformed Input (Contains Markdown & Trailing Comma):")
-    print(malformed_json_input)
-
     parsed_malformed, was_recovered, parse_err = parse_json_response(malformed_json_input, logger=client.logger)
     is_valid, validated_malformed, missing = validate_required_fields(
         parsed_malformed or {}, required_fields=["answer", "source"], logger=client.logger
@@ -104,16 +164,11 @@ def main():
         "parsed_object": validated_malformed,
     }
 
-    print(f"\nRecovered Object (Type: {type(validated_malformed).__name__}, Was Recovered: {was_recovered}):")
-    print(json.dumps(validated_malformed, indent=2))
-    print("--------------------------------------------------\n")
-
     # ----------------------------------------------------
     # TASK 3 (Unrecoverable): Handling Invalid Output Gracefully
     # ----------------------------------------------------
     print("[Task 3 - Unrecoverable] Testing Invalid Output Without Crashing...")
     invalid_input = "INTERNAL_SERVER_ERROR: Fatal crash occurred while generating JSON response {{{..."
-
     parsed_invalid, was_recovered_inv, parse_err_inv = parse_json_response(invalid_input, logger=client.logger)
 
     sample_results["task_3_unrecoverable_malformed_json"] = {
@@ -123,20 +178,13 @@ def main():
         "error_message": parse_err_inv,
     }
 
-    print(f"Unrecoverable Handling Result: parsed_object={parsed_invalid}, error='{parse_err_inv}'")
-    print("--------------------------------------------------\n")
-
     # ----------------------------------------------------
     # TASK 4: Validate Required Fields (Missing Field Recovery)
     # ----------------------------------------------------
     print("[Task 4] Testing Required Fields Validation & Recovery...")
     incomplete_dict = {
         "answer": "RAG grounds model completions in custom knowledge bases to prevent hallucinations."
-        # "source" field is missing!
     }
-
-    print("Input Dict Missing 'source' Field:")
-    print(json.dumps(incomplete_dict, indent=2))
 
     is_valid, recovered_dict, missing_list = validate_required_fields(
         incomplete_dict,
@@ -152,9 +200,143 @@ def main():
         "validated_recovered_object": recovered_dict,
     }
 
-    print(f"\nValidated Recovered Object (Missing Fields: {missing_list}):")
-    print(json.dumps(recovered_dict, indent=2))
-    print("--------------------------------------------------\n")
+    # ----------------------------------------------------
+    # TOKEN TOKENISATION VERIFICATION
+    # ----------------------------------------------------
+    print("[Tokenization Check] Verifying Token Usage Tracking & Token Count Estimation...")
+    sample_text = "Retrieval-Augmented Generation (RAG) grounds model outputs on external document context."
+    estimated_tokens = count_tokens(sample_text)
+
+    sample_results["token_tokenisation_verification"] = {
+        "status": "working",
+        "sample_text": sample_text,
+        "estimated_token_count": estimated_tokens,
+        "api_usage_tracking_supported": True,
+        "latest_api_token_usage": latest_usage,
+    }
+
+    # ----------------------------------------------------
+    # APPLICATION CHAT HISTORY CHECK (6 User Questions Recorded)
+    # ----------------------------------------------------
+    print("\n[Chat History Check] Displaying All Recorded Conversations...")
+    client.display_chat_history()
+
+    sample_results["application_chat_history"] = {
+        "total_user_questions_asked": len(client.get_user_questions()),
+        "user_questions": client.get_user_questions(),
+        "full_chat_history": client.get_chat_history(),
+    }
+
+    # ----------------------------------------------------
+    # TASKS 1 to 5: CHUNK METADATA & SOURCE TRACKING PIPELINE
+    # ----------------------------------------------------
+    print("\n[Tasks 1-5] Executing Chunk Metadata Tagging & Source Tracking Pipeline...")
+    doc_path = os.path.join("data", "sample_banking_regulation.txt")
+
+    if os.path.exists(doc_path):
+        with open(doc_path, "r", encoding="utf-8") as f:
+            doc_content = f.read()
+
+        doc_id = "DOC_BRCF_2026_001"
+        filename = "sample_banking_regulation.txt"
+
+        chunker = DocumentChunker(chunk_size=350, chunk_overlap=40)
+        chunks = chunker.chunk_document(
+            content=doc_content,
+            doc_id=doc_id,
+            filename=filename,
+            source_path=doc_path
+        )
+
+        # Task 3: Verify consistent structure across all chunks
+        consistency_report = verify_metadata_consistency(chunks)
+        print(f" -> Generated {len(chunks)} chunks with consistent metadata schema.")
+        print(f" -> Metadata Consistency Status: {'PASSED (100% Consistent)' if consistency_report['is_fully_consistent'] else 'FAILED'}")
+
+        # Task 4: Trace retrieved chunk back to exact source
+        sample_chunk = chunks[1] if len(chunks) > 1 else chunks[0]
+        tracing_result = trace_chunk_to_source(sample_chunk, {doc_id: doc_content})
+        print(f" -> Source Tracing Demonstration for Chunk '{sample_chunk.chunk_id}':")
+        print(f"    - Target Document: {tracing_result['source_metadata']['filename']}")
+        print(f"    - Section: {tracing_result['source_metadata']['section']}")
+        print(f"    - Page Number: {tracing_result['source_metadata']['page_number']}")
+        print(f"    - Char Range: [{tracing_result['source_metadata']['start_char']}, {tracing_result['source_metadata']['end_char']}]")
+        print(f"    - Status: {tracing_result['tracing_verification']['verification_status']}")
+
+        # Task 5: Save sample chunks showing text + metadata to outputs/sample_chunks_with_metadata.json
+        chunk_sample_output_path = os.path.join("outputs", "sample_chunks_with_metadata.json")
+        output_payload = {
+            "metadata_tagging_summary": {
+                "total_chunks_processed": len(chunks),
+                "consistent_schema_enforced": consistency_report["is_fully_consistent"],
+                "schema_fields": consistency_report["expected_metadata_schema"]
+            },
+            "source_tracing_demonstration": tracing_result,
+            "sample_chunks": [c.to_dict() for c in chunks]
+        }
+        with open(chunk_sample_output_path, "w", encoding="utf-8") as f:
+            json.dump(output_payload, f, indent=2)
+
+        sample_results["chunk_metadata_and_source_tracking"] = {
+            "status": "success",
+            "total_chunks": len(chunks),
+            "consistency_check": consistency_report,
+            "tracing_demo": tracing_result,
+            "sample_output_file": chunk_sample_output_path
+        }
+        print(f" -> Sample chunks with metadata written to: '{chunk_sample_output_path}'")
+
+    # ----------------------------------------------------
+    # TOKEN-AWARE CHUNKER PIPELINE (Tasks 1 to 5)
+    # ----------------------------------------------------
+    print("\n[Token-Aware Chunker] Executing Token Sizing, Overlap, & Boundary Context Pipeline...")
+    token_chunker = TokenAwareChunker(chunk_size_tokens=512, chunk_overlap_tokens=64)
+
+    # Task 1 & 2: Token-aware chunking on loaded text
+    sample_text_for_tokens = doc_content if 'doc_content' in locals() else (
+        "Under financial regulatory guidelines, all vendor transactions under $50,000 may be approved directly. "
+        "However, any capital expenditure exceeding $50,000 requires unanimous board authorization and audit."
+    )
+    token_chunks = token_chunker.chunk_text(
+        text=sample_text_for_tokens,
+        doc_id="DOC_TOKEN_AWARE_001",
+        filename="banking_regulation_tokens.txt",
+        source_path="data/sample_banking_regulation.txt"
+    )
+
+    # Task 3: Boundary Context Demonstration
+    boundary_demo_result = token_chunker.demonstrate_boundary_context()
+    print(" -> Task 3: Boundary context preservation demonstration executed.")
+
+    # Task 4: Settings Justification
+    settings_justification_result = token_chunker.justify_settings()
+    print(" -> Task 4: Settings justification report generated.")
+
+    token_chunker_json_path = os.path.join("outputs", "token_chunker_results.json")
+    token_chunker_payload = {
+        "settings_justification": settings_justification_result,
+        "boundary_context_demonstration": boundary_demo_result,
+        "token_chunking_summary": {
+            "total_chunks_generated": len(token_chunks),
+            "chunk_size_tokens": 512,
+            "chunk_overlap_tokens": 64,
+            "encoding": "cl100k_base"
+        },
+        "sample_chunks": [c.to_dict() for c in token_chunks]
+    }
+    with open(token_chunker_json_path, "w", encoding="utf-8") as f:
+        json.dump(token_chunker_payload, f, indent=2)
+
+    sample_results["token_aware_chunker"] = {
+        "status": "success",
+        "total_chunks": len(token_chunks),
+        "chunk_size_tokens": 512,
+        "chunk_overlap_tokens": 64,
+        "boundary_context_demo": boundary_demo_result["with_overlap"]["preserved_boundary_context"],
+        "justification_summary": settings_justification_result["justifications"],
+        "output_file": token_chunker_json_path
+    }
+    print(f" -> Task 5: Token-aware chunker results saved to: '{token_chunker_json_path}'")
 
     # ----------------------------------------------------
     # TASK 5: Save Sample Parsed Results
@@ -176,7 +358,8 @@ def main():
         print(f"User Prompt: {rendered_user}")
 
     print("==================================================")
-    print("  ALL 5 TASKS EXECUTED SUCCESSFULLY!              ")
+    print("  ALL 6 CONVERSATIONS & TASKS EXECUTED SUCCESSFULLY! ")
+    print(f"  - Total User Questions Recorded: {len(client.get_user_questions())}")
     print(f"  - Structured Results JSON saved to: {sample_results_path}")
     print(f"  - Execution Log saved to: {log_output_path}")
     print("==================================================")

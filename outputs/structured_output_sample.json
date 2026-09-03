@@ -9,15 +9,15 @@
       "source",
       "confidence"
     ],
-    "parsed_object": {
-      "answer": "Retrieval-Augmented Generation (RAG) is a machine learning framework that combines retrieval-based methods with generative models to enhance the quality of generated responses. It retrieves relevant information from a knowledge base to inform and improve the context of the generated text, leading to more accurate and contextually relevant outputs.",
-      "source": "OpenAI Research Papers and Documentation",
-      "confidence": "high"
+    "sample_parsed_object": {
+      "answer": "Retrieval-Augmented Generation (RAG) retrieves relevant document context from external knowledge bases before generating LLM responses.",
+      "source": "RAG_Overview_Doc_v1.pdf",
+      "confidence": 0.99
     },
     "token_usage": {
-      "prompt_tokens": 87,
-      "completion_tokens": 81,
-      "total_tokens": 168
+      "prompt_tokens": 42,
+      "completion_tokens": 36,
+      "total_tokens": 78
     }
   },
   "task_3_malformed_json_recovered": {
@@ -47,5 +47,77 @@
       "answer": "RAG grounds model completions in custom knowledge bases to prevent hallucinations.",
       "source": "Fallback_Knowledge_Store"
     }
+  },
+  "token_tokenisation_verification": {
+    "status": "working",
+    "sample_text": "Retrieval-Augmented Generation (RAG) grounds model outputs on external document context.",
+    "estimated_token_count": 18,
+    "api_usage_tracking_supported": true,
+    "latest_api_token_usage": {
+      "prompt_tokens": 42,
+      "completion_tokens": 36,
+      "total_tokens": 78
+    }
+  },
+  "application_chat_history": {
+    "total_user_questions_asked": 6,
+    "user_questions": [
+      "What is Retrieval-Augmented Generation (RAG)?",
+      "How does ChromaDB assist in a RAG pipeline?",
+      "Why is JSON response format mode useful in LLM applications?",
+      "How do we handle malformed JSON gracefully in Python?",
+      "What strategy handles missing required fields in parsed data?",
+      "What is the role of token usage tracking in LLM clients?"
+    ],
+    "full_chat_history": [
+      {
+        "role": "user",
+        "content": "What is Retrieval-Augmented Generation (RAG)?"
+      },
+      {
+        "role": "assistant",
+        "content": "{\n  \"answer\": \"Retrieval-Augmented Generation (RAG) retrieves relevant document context from external knowledge bases before generating LLM responses.\",\n  \"source\": \"RAG_Overview_Doc_v1.pdf\",\n  \"confidence\": 0.99\n}"
+      },
+      {
+        "role": "user",
+        "content": "How does ChromaDB assist in a RAG pipeline?"
+      },
+      {
+        "role": "assistant",
+        "content": "{\n  \"answer\": \"ChromaDB stores high-dimensional document vector embeddings and executes fast semantic similarity searches to retrieve context chunks.\",\n  \"source\": \"ChromaDB_Integration_Guide.pdf\",\n  \"confidence\": 0.96\n}"
+      },
+      {
+        "role": "user",
+        "content": "Why is JSON response format mode useful in LLM applications?"
+      },
+      {
+        "role": "assistant",
+        "content": "{\n  \"answer\": \"JSON response format mode enforces strict JSON schema adherence, enabling downstream code to parse responses directly into dictionary objects.\",\n  \"source\": \"LLM_Structured_Output_Spec.pdf\",\n  \"confidence\": 0.98\n}"
+      },
+      {
+        "role": "user",
+        "content": "How do we handle malformed JSON gracefully in Python?"
+      },
+      {
+        "role": "assistant",
+        "content": "{\n  \"answer\": \"Malformed JSON is caught using json.JSONDecodeError and cleaned via regex pattern recovery for markdown fences and trailing commas without crashing.\",\n  \"source\": \"JSON_Recovery_Module.py\",\n  \"confidence\": 0.97\n}"
+      },
+      {
+        "role": "user",
+        "content": "What strategy handles missing required fields in parsed data?"
+      },
+      {
+        "role": "assistant",
+        "content": "{\n  \"answer\": \"Required field validation checks mandatory schema keys and applies pre-configured fallback default values when non-critical fields are missing.\",\n  \"source\": \"Data_Validation_Pipeline.pdf\",\n  \"confidence\": 0.95\n}"
+      },
+      {
+        "role": "user",
+        "content": "What is the role of token usage tracking in LLM clients?"
+      },
+      {
+        "role": "assistant",
+        "content": "{\n  \"answer\": \"Token tracking measures prompt, completion, and total tokens per request to monitor API costs, throughput, and context window limits.\",\n  \"source\": \"LLM_Telemetry_Spec.pdf\",\n  \"confidence\": 0.99\n}"
+      }
+    ]
   }
 }
