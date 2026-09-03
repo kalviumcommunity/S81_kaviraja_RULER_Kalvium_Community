@@ -18,6 +18,7 @@ from token_chunker import TokenAwareChunker, TokenChunk
 from embedding_demo import EmbeddingDemonstration
 from chunk_embedding_pipeline import ChunkEmbeddingPipeline, EmbeddedChunk
 from similarity_ranker import SimilarityRanker
+from relevance_checker import RelevanceSanityChecker
 try:
     from prompts.templates import RAG_SYSTEM_PROMPT, RAG_USER_PROMPT
 except ImportError:
@@ -395,6 +396,22 @@ def main():
     print(f" -> Total Chunks Scored & Ranked: {ranking_results['total_chunks_compared']}")
     print(f" -> Top Most Similar Chunk ID: {ranking_results['most_similar'][0]['chunk_id']} (Score: {ranking_results['most_similar'][0]['score']:.4f})")
     print(f" -> Top Least Similar Chunk ID: {ranking_results['least_similar'][0]['chunk_id']} (Score: {ranking_results['least_similar'][0]['score']:.4f})")
+
+    # ----------------------------------------------------
+    # RELEVANCE QUALITY CHECK & SANITY SUITE (Tasks 1 to 5)
+    # ----------------------------------------------------
+    print("\n[Relevance Checker] Executing Known Relevance Tests & Sanity Suite...")
+    relevance_checker = RelevanceSanityChecker(ranker=similarity_ranker, pipeline=chunk_emb_pipeline)
+    sanity_summary = relevance_checker.run_sanity_check(embedded_chunks=embedded_chunks_list)
+    relevance_checker.generate_sanity_report(
+        sanity_summary=sanity_summary,
+        output_txt_path=os.path.join("outputs", "relevance_sanity_report.txt"),
+        output_json_path=os.path.join("outputs", "relevance_sanity_results.json")
+    )
+    sample_results["relevance_sanity_suite"] = sanity_summary
+    print(f" -> Total Test Cases: {sanity_summary['total_test_count']}")
+    print(f" -> Standard Relevance Pass Rate: {sanity_summary['standard_passes']}/{sanity_summary['standard_tests_count']} ({sanity_summary['pass_rate_percentage']}%)")
+    print(f" -> Surprising/Failing Cases Identified: {sanity_summary['surprising_cases_count']}")
 
 
 

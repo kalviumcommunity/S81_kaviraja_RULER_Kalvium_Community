@@ -28,6 +28,19 @@ A token-aware document chunker that sizes chunks by exact token count using `tik
 - **Task 4 — Justified Settings**: Technical justification for `512 token` size and `64 token` overlap tuned for `text-embedding-3-small` / `gpt-4o-mini`.
 - **Task 5 — Output Artifacts**: Outputs detailed chunk logs to `outputs/token_chunker_results.json` and `outputs/token_chunker_output.txt`.
 
+---
+
+## Relevance Quality & Sanity Suite (`src/relevance_checker.py`)
+
+A vector search relevance evaluation engine that executes known query-chunk test cases, verifies ranking order, diagnoses model blindspots, and compiles comprehensive sanity reports.
+
+- **Task 1 — Known Relevance Test Suite**: Defines structured query-chunk pairs with expected section targets (AML, Basel IV Liquidity, Payment Thresholds).
+- **Task 2 — Ranking Order Verification**: Confirms that related document chunks rank strictly above unrelated corpus chunks with positive score margins.
+- **Task 3 — Failing / Surprising Case Diagnosis**: Identifies vector embedding negation blindspots (e.g. query asking for disbursements that 'do NOT require unanimous board approval' ranking positive approval requirement chunk #1 due to topic keyword density).
+- **Task 4 — Sanity Report Summary**: Compiles test counts, pass rates (100% on standard relevance), top-ranked sources, similarity scores, and pipeline recommendations.
+- **Task 5 — Output Artifacts & Reproducibility**: Exports structured JSON results to `outputs/relevance_sanity_results.json` and human-readable text logs to `outputs/relevance_sanity_report.txt`.
+
+
 
 ## Prerequisites
 
