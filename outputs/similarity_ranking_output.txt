@@ -31,12 +31,12 @@ Text: "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculat
 Standard retail banking policies mandate that routine vendor payments under $50,000 may be approved directly by designated department heads without requiring senior executive approval. However, any single capital expenditure or vendor disbursement exceeding $50,000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board"
 Vector Preview: [-0.0133, 0.0157, 0.0560, 0.0023, ...]
 --------------------------------------------------
-Rank #2 | Score: 0.495266 | Chunk ID: sample_banking_regulation_txt#chunk_004
+Rank #2 | Score: 0.495288 | Chunk ID: sample_banking_regulation_txt#chunk_004
 Source Path: data/sample_banking_regulation.txt
 Filename: sample_banking_regulation.txt
 Section: Section 3: High-Value Transaction Authorization Thresholds
 Text: ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review."
-Vector Preview: [-0.0163, 0.0081, 0.0812, 0.0109, ...]
+Vector Preview: [-0.0163, 0.0081, 0.0813, 0.0109, ...]
 --------------------------------------------------
 
 ================================

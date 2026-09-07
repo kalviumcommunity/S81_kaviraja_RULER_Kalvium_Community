@@ -24,6 +24,10 @@ try:
 except ImportError:
     from src.filtered_search import FilteredSearchEngine, MetadataFilter
 try:
+    from retrieval_evaluator import RetrievalEvaluator, load_labelled_queries
+except ImportError:
+    from src.retrieval_evaluator import RetrievalEvaluator, load_labelled_queries
+try:
     from prompts.templates import RAG_SYSTEM_PROMPT, RAG_USER_PROMPT
 except ImportError:
     RAG_SYSTEM_PROMPT = None
@@ -493,6 +497,38 @@ def main():
         "precision_demonstration": precision_demo
     }
     print(" -> Task 5: Sample filtered-search results and precision reports exported to outputs/.")
+
+    # ----------------------------------------------------
+    # RETRIEVAL EVALUATION SUITE (Tasks 1 to 5)
+    # ----------------------------------------------------
+    print("\n[Retrieval Evaluator] Executing Benchmark Evaluation (Recall@K, Precision@K, MRR, Failure Inspection)...")
+    evaluator = RetrievalEvaluator(ranker=similarity_ranker, filtered_engine=filtered_engine, client=client)
+    eval_queries = load_labelled_queries()
+
+    eval_summary = evaluator.run_evaluation_suite(
+        embedded_chunks=embedded_chunks_list,
+        queries=eval_queries,
+        mode="vector",
+        k_values=[1, 2, 3, 5]
+    )
+
+    evaluator.export_evaluation_reports(
+        eval_summary=eval_summary,
+        output_txt_path=os.path.join("outputs", "retrieval_evaluation_report.txt"),
+        output_json_path=os.path.join("outputs", "retrieval_evaluation_results.json"),
+        failure_txt_path=os.path.join("outputs", "retrieval_failure_analysis.txt"),
+        failure_json_path=os.path.join("outputs", "retrieval_failure_analysis.json")
+    )
+
+    sample_results["retrieval_evaluation_suite"] = eval_summary
+    agg_d = eval_summary["aggregate_metrics"]["metrics_by_depth"]
+    print(f" -> Total Labelled Queries: {eval_summary['evaluation_metadata']['total_queries_evaluated']}")
+    print(f" -> Overall Pass Rate:      {eval_summary['evaluation_metadata']['overall_pass_rate_percentage']}%")
+    print(f" -> Mean Reciprocal Rank:   {eval_summary['aggregate_metrics']['mean_reciprocal_rank_mrr']:.4f}")
+    print(f" -> Recall@1: {agg_d['k_1']['mean_recall']:.4f} | Precision@1: {agg_d['k_1']['mean_precision']:.4f} | Hit@1: {agg_d['k_1']['hit_rate_percentage']}%")
+    print(f" -> Recall@3: {agg_d['k_3']['mean_recall']:.4f} | Precision@3: {agg_d['k_3']['mean_precision']:.4f} | Hit@3: {agg_d['k_3']['hit_rate_percentage']}%")
+    print(f" -> Failure Cases Identified & Diagnosed: {eval_summary['failure_inspection_summary']['total_failures']}")
+    print(" -> Task 5: Retrieval evaluation reports & failure analysis exported to outputs/.")
 
     # ----------------------------------------------------
     # TASK 5: Save Sample Parsed Results

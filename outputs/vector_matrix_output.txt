@@ -9,10 +9,10 @@ Pairwise Chunk Similarity Matrix (Cosine)
 ==========================================
 Row Chunk ID \ Column Chunk ID | C0 | C1 | C2 | C3
 --------------------------------------------------------------------------------
-C0 (sample_banking_regulation...) | 1.0000 | 0.5440 | 0.4789 | 0.3090
+C0 (sample_banking_regulation...) | 1.0000 | 0.5440 | 0.4789 | 0.3091
 C1 (sample_banking_regulation...) | 0.5440 | 1.0000 | 0.6389 | 0.3008
 C2 (sample_banking_regulation...) | 0.4789 | 0.6389 | 1.0000 | 0.5752
-C3 (sample_banking_regulation...) | 0.3090 | 0.3008 | 0.5752 | 1.0000
+C3 (sample_banking_regulation...) | 0.3091 | 0.3008 | 0.5752 | 1.0000
 
 ==========================================
 Vector Matrix Row Details
@@ -42,6 +42,6 @@ Vector Tail [-8:]: [-0.00085, -0.00792, -0.02914, 0.02347, 0.01083, -0.01023, 0.
 Row Matrix Index [3]: Chunk ID 'sample_banking_regulation_txt#chunk_004'
 Text Snippet: ",000 requires unanimous board authorization and an independent audit report prior to disbu..."
 Vector Dimension: 1536
-Vector Head [0:8]: [-0.01634, 0.00814, 0.08124, 0.01093, -0.01398, 0.02292, -0.02075, -0.01666]
-Vector Tail [-8:]: [0.0152, 0.00168, -0.02544, 0.01247, -0.00113, -0.00692, 0.01315, 0.01488]
+Vector Head [0:8]: [-0.01633, 0.00811, 0.0813, 0.01091, -0.01398, 0.02289, -0.02078, -0.01666]
+Vector Tail [-8:]: [0.01517, 0.00171, -0.02547, 0.01248, -0.00114, -0.00694, 0.01314, 0.01486]
 ------------------------------------------

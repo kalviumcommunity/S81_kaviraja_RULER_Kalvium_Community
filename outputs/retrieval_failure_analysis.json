@@ -1,0 +1,56 @@
+{
+  "total_failures": 3,
+  "failure_cases": [
+    {
+      "query_id": "Q-004",
+      "query": "Which vendor disbursements do NOT require unanimous board approval?",
+      "category": "Negation Blindspot (Known Failure)",
+      "is_failure": true,
+      "top_rank_achieved": 2,
+      "min_acceptable_rank": 1,
+      "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_004",
+      "actual_top_section": "Section 3: High-Value Transaction Authorization Thresholds",
+      "expected_chunk_ids": [
+        "sample_banking_regulation_txt#chunk_003"
+      ],
+      "expected_section": "Section 3: High-Value Transaction Authorization Thresholds",
+      "failure_type": "EMBEDDING_NEGATION_BLINDSPOT",
+      "root_cause": "Dense embedding models map queries by topic keywords and fail to invert vector direction for logical negation. The model matched positive topic tokens ('disbursements', 'board approval') and mistakenly ranked 'sample_banking_regulation_txt#chunk_004' at rank #1.",
+      "pipeline_remediation": "Implement query transformation/rewriting to rephrase negative constraints, or apply structured metadata filtering on authorization tiers prior to vector search."
+    },
+    {
+      "query_id": "Q-006",
+      "query": "How often must institutions calculate and submit the Liquidity Coverage Ratio (LCR)?",
+      "category": "Specific Entity / Threshold",
+      "is_failure": true,
+      "top_rank_achieved": 2,
+      "min_acceptable_rank": 1,
+      "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_003",
+      "actual_top_section": "Section 3: High-Value Transaction Authorization Thresholds",
+      "expected_chunk_ids": [
+        "sample_banking_regulation_txt#chunk_002"
+      ],
+      "expected_section": "Section 2: Capital Reserves & Liquidity Ratios",
+      "failure_type": "VOCABULARY_OR_EMBEDDING_MISMATCH",
+      "root_cause": "Query phrasing had a wide semantic distance from the exact terminology used in the regulatory corpus, causing the embedding model to assign suboptimal similarity.",
+      "pipeline_remediation": "Expand queries using LLM query expansion (HyDE) or inject domain-specific synonyms into hybrid search."
+    },
+    {
+      "query_id": "Q-008",
+      "query": "What automated screening protocols verify transaction velocity and entity sanction status?",
+      "category": "Semantic Paraphrase",
+      "is_failure": true,
+      "top_rank_achieved": 2,
+      "min_acceptable_rank": 1,
+      "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_003",
+      "actual_top_section": "Section 3: High-Value Transaction Authorization Thresholds",
+      "expected_chunk_ids": [
+        "sample_banking_regulation_txt#chunk_001"
+      ],
+      "expected_section": "Section 1: Executive Summary & Overview",
+      "failure_type": "VOCABULARY_OR_EMBEDDING_MISMATCH",
+      "root_cause": "Query phrasing had a wide semantic distance from the exact terminology used in the regulatory corpus, causing the embedding model to assign suboptimal similarity.",
+      "pipeline_remediation": "Expand queries using LLM query expansion (HyDE) or inject domain-specific synonyms into hybrid search."
+    }
+  ]
+}

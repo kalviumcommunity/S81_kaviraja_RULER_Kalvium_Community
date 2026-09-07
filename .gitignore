@@ -14,6 +14,7 @@ node_modules/
 # Data directory contents (keep folder structure via .gitkeep)
 data/*
 !data/.gitkeep
+!data/labelled_queries.json
 
 # Python cache & build outputs
 __pycache__/

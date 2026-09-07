@@ -13,8 +13,8 @@
     "top_k_results": [
       {
         "rank": 1,
-        "hybrid_score": 0.580241,
-        "vector_score": 0.584817,
+        "hybrid_score": 0.580256,
+        "vector_score": 0.584842,
         "keyword_score": 0.573377,
         "chunk_id": "sample_banking_regulation_txt#chunk_003",
         "source_text": "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial regulatory bodies.\n\n## Section 3: High-Value Transaction Authorization Thresholds\nStandard retail banking policies mandate that routine vendor payments under $50,000 may be approved directly by designated department heads without requiring senior executive approval. However, any single capital expenditure or vendor disbursement exceeding $50,000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board",
@@ -33,20 +33,20 @@
           "doc_type": "Regulatory Framework"
         },
         "matched_keywords": [
+          "transaction",
+          "the",
           "and",
           "high-value",
           "payments",
           "approval",
-          "transaction",
-          "the",
           "thresholds"
         ],
         "vector_preview": "[-0.0133, 0.0157, 0.0560, 0.0023, ...]"
       },
       {
         "rank": 2,
-        "hybrid_score": 0.444422,
-        "vector_score": 0.495248,
+        "hybrid_score": 0.444446,
+        "vector_score": 0.495288,
         "keyword_score": 0.368182,
         "chunk_id": "sample_banking_regulation_txt#chunk_004",
         "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
@@ -65,11 +65,11 @@
           "doc_type": "Regulatory Framework"
         },
         "matched_keywords": [
-          "high-value",
           "and",
+          "high-value",
           "for"
         ],
-        "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
+        "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
       }
     ]
   },
@@ -99,20 +99,20 @@
           "doc_type": "Regulatory Framework"
         },
         "matched_keywords": [
+          "transaction",
+          "the",
           "and",
           "high-value",
           "payments",
           "approval",
-          "transaction",
-          "the",
           "thresholds"
         ],
         "vector_preview": "[-0.0133, 0.0157, 0.0560, 0.0023, ...]"
       },
       {
         "rank": 2,
-        "hybrid_score": 0.444432,
-        "vector_score": 0.495266,
+        "hybrid_score": 0.444446,
+        "vector_score": 0.495288,
         "keyword_score": 0.368182,
         "chunk_id": "sample_banking_regulation_txt#chunk_004",
         "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
@@ -131,11 +131,11 @@
           "doc_type": "Regulatory Framework"
         },
         "matched_keywords": [
-          "high-value",
           "and",
+          "high-value",
           "for"
         ],
-        "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
+        "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
       }
     ]
   },

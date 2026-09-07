@@ -8,16 +8,16 @@ Filter Applied: Section 3: High-Value Transaction Authorization Thresholds
 --------------------------------------------------------------------------------
 UNFILTERED RETRIEVAL RESULTS (All Corpus Chunks Considered)
 --------------------------------------------------------------------------------
-Rank #1 | Hybrid Score: 0.5802 (Vec: 0.5848, KW: 0.5734)
+Rank #1 | Hybrid Score: 0.5803 (Vec: 0.5848, KW: 0.5734)
 Chunk ID: sample_banking_regulation_txt#chunk_003
 Section:  Section 3: High-Value Transaction Authorization Thresholds
-Matched Keywords: ['and', 'high-value', 'payments', 'approval', 'transaction', 'the', 'thresholds']
+Matched Keywords: ['transaction', 'the', 'and', 'high-value', 'payments', 'approval', 'thresholds']
 Text: "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial re..."
 ----------------------------------------
-Rank #2 | Hybrid Score: 0.4444 (Vec: 0.4952, KW: 0.3682)
+Rank #2 | Hybrid Score: 0.4444 (Vec: 0.4953, KW: 0.3682)
 Chunk ID: sample_banking_regulation_txt#chunk_004
 Section:  Section 3: High-Value Transaction Authorization Thresholds
-Matched Keywords: ['high-value', 'and', 'for']
+Matched Keywords: ['and', 'high-value', 'for']
 Text: ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain boa..."
 ----------------------------------------
 
@@ -29,13 +29,13 @@ Chunks Filtered Out: 2
 Rank #1 | Hybrid Score: 0.5803 (Vec: 0.5848, KW: 0.5734)
 Chunk ID: sample_banking_regulation_txt#chunk_003
 Section:  Section 3: High-Value Transaction Authorization Thresholds
-Matched Keywords: ['and', 'high-value', 'payments', 'approval', 'transaction', 'the', 'thresholds']
+Matched Keywords: ['transaction', 'the', 'and', 'high-value', 'payments', 'approval', 'thresholds']
 Text: "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial re..."
 ----------------------------------------
 Rank #2 | Hybrid Score: 0.4444 (Vec: 0.4953, KW: 0.3682)
 Chunk ID: sample_banking_regulation_txt#chunk_004
 Section:  Section 3: High-Value Transaction Authorization Thresholds
-Matched Keywords: ['high-value', 'and', 'for']
+Matched Keywords: ['and', 'high-value', 'for']
 Text: ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain boa..."
 ----------------------------------------
 

@@ -54,6 +54,18 @@ A high-precision retrieval engine combining pre-retrieval metadata filtering, Ok
 
 ---
 
+## Retrieval Evaluation Suite (`src/retrieval_evaluator.py`)
+
+A quantitative evaluation engine that benchmarks retrieval recall, precision, MRR, hit rates, and graded quality signals against a gold-standard labelled query dataset, with automated failure diagnostics.
+
+- **Task 1 — Prepare Labelled Queries**: Defines and loads a structured 8-query benchmark dataset ([`data/labelled_queries.json`](data/labelled_queries.json)) with ground-truth relevant chunk IDs and difficulty tags.
+- **Task 2 — Measure Recall@K**: Evaluates exact set Recall@K and Hit@K across multiple candidate depths ($K \in \{1, 2, 3, 5\}$), achieving 100% Recall and 100% Hit Rate at $K \ge 2$.
+- **Task 3 — Report Precision@K & Quality Signals**: Measures Precision@K, Mean Reciprocal Rank (MRR: `0.8125`), F1@K, and graded relevance judgments (Highly Relevant: 2, Partially Relevant: 1, Irrelevant: 0).
+- **Task 4 — Inspect Failures & Root Causes**: Categorizes failure modes (e.g. `EMBEDDING_NEGATION_BLINDSPOT`, `CROSS_SECTION_LEXICAL_DISTRACTION`, `CHUNK_BOUNDARY_FRAGMENTATION`) and provides actionable remediation guidance.
+- **Task 5 — Output Artifacts & Reproducibility**: Exports structured evaluation results to `outputs/retrieval_evaluation_results.json`, `outputs/retrieval_failure_analysis.json`, and text reports to `outputs/retrieval_evaluation_report.txt` and `outputs/retrieval_failure_analysis.txt`.
+
+---
+
 
 
 ## Prerequisites

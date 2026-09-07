@@ -41,7 +41,7 @@ Query: "What are the rules and approval thresholds for high-value transaction pa
 Expected Target Section: Section 3: High-Value Transaction Authorization Thresholds
 Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_003
 Top Ranked Score: 0.584842
-Score Margin Over Runner-Up: +0.089576
+Score Margin Over Runner-Up: +0.089554
 Top Text Snippet: "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial re..."
 Diagnostic Note: PASS: Related text ranked #1 (Score: 0.5848). Outranked runner-up by margin of +0.0896.
 --------------------------------------------------
@@ -51,10 +51,10 @@ Category: Failing / Surprising Case (Negation)
 Query: "Which vendor disbursements do NOT require unanimous board approval?"
 Expected Target Section: Section 3: High-Value Transaction Authorization Thresholds (Under $50k Clause)
 Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_004
-Top Ranked Score: 0.627572
-Score Margin Over Runner-Up: +0.149398
+Top Ranked Score: 0.627524
+Score Margin Over Runner-Up: +0.149328
 Top Text Snippet: ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain boa..."
-Diagnostic Note: SURPRISING / FAILING CASE REVEALED: Vector Negation Blindspot. Query requested disbursements that 'do NOT require unanimous board approval', but Top Rank #1 was Chunk 'sample_banking_regulation_txt#chunk_004' (Score: 0.6276) which specifies disbursements that DO require board approval. Reason: Dense embedding models map queries by topic keywords ('vendor disbursements', 'unanimous board approval') and fail to invert vector direction for logical negation ('NOT').
+Diagnostic Note: SURPRISING / FAILING CASE REVEALED: Vector Negation Blindspot. Query requested disbursements that 'do NOT require unanimous board approval', but Top Rank #1 was Chunk 'sample_banking_regulation_txt#chunk_004' (Score: 0.6275) which specifies disbursements that DO require board approval. Reason: Dense embedding models map queries by topic keywords ('vendor disbursements', 'unanimous board approval') and fail to invert vector direction for logical negation ('NOT').
 --------------------------------------------------
 
 Test ID: TEST-005 [PASS]
@@ -74,7 +74,7 @@ TASK 3: FAILING OR SURPRISING CASE DETAILED ANALYSIS
 Case ID: TEST-004
 Title: Vector Embedding Negation Blindspot
 Query: "Which vendor disbursements do NOT require unanimous board approval?"
-Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_004 (Score: 0.6276)
+Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_004 (Score: 0.6275)
 
 Relevance Finding:
   Cosine similarity on dense embeddings fails to enforce boolean negation ('NOT'). The model matches key topic tokens ('vendor disbursements', 'unanimous board approval') and ranks the positive requirement chunk top with a high similarity score (0.6275).

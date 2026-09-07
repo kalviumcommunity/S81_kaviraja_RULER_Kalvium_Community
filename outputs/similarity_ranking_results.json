@@ -30,7 +30,7 @@
     },
     {
       "rank": 2,
-      "score": 0.495266,
+      "score": 0.495288,
       "chunk_id": "sample_banking_regulation_txt#chunk_004",
       "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
       "metadata": {
@@ -47,7 +47,7 @@
         "category": "Compliance & Regulation",
         "doc_type": "Regulatory Framework"
       },
-      "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
+      "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
     },
     {
       "rank": 3,
@@ -116,7 +116,7 @@
     },
     {
       "rank": 2,
-      "score": 0.495266,
+      "score": 0.495288,
       "chunk_id": "sample_banking_regulation_txt#chunk_004",
       "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
       "metadata": {
@@ -133,7 +133,7 @@
         "category": "Compliance & Regulation",
         "doc_type": "Regulatory Framework"
       },
-      "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
+      "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
     }
   ],
   "least_similar": [

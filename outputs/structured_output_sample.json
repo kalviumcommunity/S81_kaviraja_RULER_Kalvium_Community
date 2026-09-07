@@ -10,14 +10,14 @@
       "confidence"
     ],
     "sample_parsed_object": {
-      "answer": "Retrieval-Augmented Generation (RAG) is a framework that combines retrieval-based and generative approaches in natural language processing. It utilizes a retriever to fetch relevant documents or information from a large corpus and then employs a generator to produce coherent and contextually relevant responses based on the retrieved data. This method enhances the quality and accuracy of generated text by grounding it in factual information.",
+      "answer": "Retrieval-Augmented Generation (RAG) is a framework that combines retrieval-based and generative approaches to improve the performance of natural language processing tasks. It utilizes a retriever to fetch relevant documents or information from a large corpus and then employs a generator to produce coherent and contextually relevant responses based on the retrieved data. This method enhances the model's ability to generate accurate and informative answers by grounding its responses in real-world knowledge.",
       "source": "OpenAI Research Papers and Documentation",
       "confidence": "high"
     },
     "token_usage": {
       "prompt_tokens": 84,
-      "completion_tokens": 84,
-      "total_tokens": 168
+      "completion_tokens": 91,
+      "total_tokens": 175
     }
   },
   "task_3_malformed_json_recovered": {
@@ -55,8 +55,8 @@
     "api_usage_tracking_supported": true,
     "latest_api_token_usage": {
       "prompt_tokens": 84,
-      "completion_tokens": 84,
-      "total_tokens": 168
+      "completion_tokens": 91,
+      "total_tokens": 175
     }
   },
   "application_chat_history": {
@@ -76,7 +76,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\"answer\": \"Retrieval-Augmented Generation (RAG) is a framework that combines retrieval-based and generative approaches in natural language processing. It utilizes a retriever to fetch relevant documents or information from a large corpus and then employs a generator to produce coherent and contextually relevant responses based on the retrieved data. This method enhances the quality and accuracy of generated text by grounding it in factual information.\", \"source\": \"OpenAI Research Papers and Documentation\", \"confidence\": \"high\"}"
+        "content": "{\"answer\": \"Retrieval-Augmented Generation (RAG) is a framework that combines retrieval-based and generative approaches to improve the performance of natural language processing tasks. It utilizes a retriever to fetch relevant documents or information from a large corpus and then employs a generator to produce coherent and contextually relevant responses based on the retrieved data. This method enhances the model's ability to generate accurate and informative answers by grounding its responses in real-world knowledge.\", \"source\": \"OpenAI Research Papers and Documentation\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -84,7 +84,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\"answer\": \"ChromaDB assists in a RAG (Retrieval-Augmented Generation) pipeline by providing a vector database that enables efficient storage and retrieval of embeddings generated from documents. It allows for fast similarity searches, which helps in retrieving relevant information from large datasets to augment the generative model's responses. This enhances the overall performance of the RAG system by ensuring that the generated content is informed by the most pertinent data.\", \"source\": \"ChromaDB documentation and RAG literature\", \"confidence\": \"high\"}"
+        "content": "{\"answer\": \"ChromaDB assists in a RAG (Retrieval-Augmented Generation) pipeline by providing a vector database that enables efficient storage and retrieval of embeddings. It allows for fast similarity searches, which is crucial for retrieving relevant documents or data that can augment the generative model's responses. This integration enhances the overall performance of the RAG system by ensuring that the most pertinent information is accessed quickly, thereby improving the quality and relevance of the generated outputs.\", \"source\": \"ChromaDB Documentation and RAG Framework Overview\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -92,7 +92,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\"answer\": \"The JSON response format is useful in LLM applications because it provides a structured way to organize data, making it easier to parse and manipulate. It allows for clear separation of different types of information, such as the answer, source, and confidence level, which can enhance the usability and integration of the output in various applications. Additionally, JSON is widely supported across programming languages and platforms, facilitating interoperability.\", \"source\": \"General knowledge on JSON and LLM applications\", \"confidence\": \"high\"}"
+        "content": "{\"answer\": \"The JSON response format is useful in LLM applications because it provides a structured way to organize data, making it easier to parse and manipulate programmatically. This format allows for clear separation of different types of information, such as the main answer, source references, and confidence levels, which can enhance the usability and integration of the responses in various applications. Additionally, JSON is widely supported across programming languages and platforms, facilitating interoperability.\", \"source\": \"General knowledge on data formats and LLM applications.\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -100,7 +100,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\"answer\": \"To handle malformed JSON gracefully in Python, you can use a try-except block with the `json` module. When attempting to parse JSON, if the input is malformed, a `json.JSONDecodeError` will be raised. You can catch this exception and handle it accordingly, such as logging an error message or returning a default value. Here's an example:\\n\\n```python\\nimport json\\n\\ndef parse_json(json_string):\\n    try:\\n        return json.loads(json_string)\\n    except json.JSONDecodeError:\\n        print('Malformed JSON, returning None.')\\n        return None\\n```\\n\\nThis way, your program can continue running even if it encounters malformed JSON.\", \"source\": \"Python's json module documentation\", \"confidence\": \"high\"}"
+        "content": "{\"answer\": \"To handle malformed JSON gracefully in Python, you can use a try-except block when parsing JSON data with the `json` module. If the JSON is malformed, a `json.JSONDecodeError` will be raised, which you can catch and handle appropriately. Here's an example:\\n\\n```python\\nimport json\\n\\nmalformed_json = '{\\\"name\\\": \\\"John\\\", \\\"age\\\": 30,}'  # Note the trailing comma\\n\\ntry:\\n    data = json.loads(malformed_json)\\nexcept json.JSONDecodeError as e:\\n    print(f\\\"Failed to decode JSON: {e}\\\")\\n    data = None  # Handle the error gracefully\\n\\n# Continue with the rest of your code\\n```\\n\\nThis way, your program can continue running even if the JSON is not valid.\", \"source\": \"Python documentation on json module\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -108,7 +108,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\"answer\": \"One common strategy for handling missing required fields in parsed data is to implement validation checks during the data parsing process. If a required field is missing, the system can either throw an error, log a warning, or use default values to fill in the gaps. Additionally, data can be flagged for review or correction before further processing. Another approach is to use optional fields with fallback mechanisms, allowing the application to continue functioning even when certain data is absent.\", \"source\": \"Data Parsing Best Practices\", \"confidence\": \"high\"}"
+        "content": "{\"answer\": \"One common strategy for handling missing required fields in parsed data is to implement a validation and error handling mechanism. This can involve checking for the presence of required fields during the parsing process and either throwing an error, logging a warning, or providing default values for missing fields. Additionally, using data schemas or validation libraries can help enforce the presence of required fields and ensure data integrity.\", \"source\": \"General knowledge on data validation strategies\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -116,7 +116,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\"answer\": \"Token usage tracking in LLM clients helps monitor and manage the consumption of tokens during interactions with language models. It allows clients to keep track of how many tokens are used in requests and responses, which is crucial for managing costs, optimizing performance, and ensuring compliance with usage limits set by the service provider.\", \"source\": \"General knowledge on LLM usage and management practices\", \"confidence\": \"high\"}"
+        "content": "{\"answer\": \"Token usage tracking in LLM clients helps monitor and manage the consumption of tokens during interactions with language models. This tracking is essential for optimizing costs, ensuring compliance with usage limits, and providing insights into user behavior and model performance. It allows clients to analyze usage patterns, adjust their queries for efficiency, and manage their budgets effectively.\", \"source\": \"General knowledge on LLM operations and token management practices.\", \"confidence\": \"high\"}"
       }
     ]
   },
@@ -146,12 +146,12 @@
       "Text_A_Original": {
         "text": "The customer wants to check their bank account balance.",
         "dimension": 1536,
-        "vector_preview": "[0.0204, -0.0089, -0.0027, 0.0113, ...]"
+        "vector_preview": "[0.0205, -0.0090, -0.0027, 0.0113, ...]"
       },
       "Text_B_Similar": {
         "text": "The user would like to know how much money is available in their account.",
         "dimension": 1536,
-        "vector_preview": "[-0.0145, -0.0395, -0.0029, 0.0435, ...]"
+        "vector_preview": "[-0.0145, -0.0394, -0.0029, 0.0435, ...]"
       },
       "Text_C_Unrelated": {
         "text": "A football match was played during heavy rain.",
@@ -170,11 +170,11 @@
     "similarity_comparison": {
       "similar_pair": {
         "pair": "Text A vs Text B (similar meaning)",
-        "cosine_similarity": 0.596493
+        "cosine_similarity": 0.596381
       },
       "unrelated_pair": {
         "pair": "Text A vs Text C (unrelated meaning)",
-        "cosine_similarity": 0.019271
+        "cosine_similarity": 0.019309
       },
       "comparison_check": {
         "condition": "similarity(Text A, Text B) > similarity(Text A, Text C)",
@@ -4921,7 +4921,7 @@
       },
       {
         "rank": 2,
-        "score": 0.495266,
+        "score": 0.495288,
         "chunk_id": "sample_banking_regulation_txt#chunk_004",
         "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
         "metadata": {
@@ -4938,7 +4938,7 @@
           "category": "Compliance & Regulation",
           "doc_type": "Regulatory Framework"
         },
-        "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
+        "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
       },
       {
         "rank": 3,
@@ -5007,7 +5007,7 @@
       },
       {
         "rank": 2,
-        "score": 0.495266,
+        "score": 0.495288,
         "chunk_id": "sample_banking_regulation_txt#chunk_004",
         "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
         "metadata": {
@@ -5024,7 +5024,7 @@
           "category": "Compliance & Regulation",
           "doc_type": "Regulatory Framework"
         },
-        "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
+        "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
       }
     ],
     "least_similar": [
@@ -5153,7 +5153,7 @@
           },
           {
             "rank": 3,
-            "score": 0.334872,
+            "score": 0.334909,
             "chunk_id": "sample_banking_regulation_txt#chunk_004",
             "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
             "metadata": {
@@ -5170,7 +5170,7 @@
               "category": "Compliance & Regulation",
               "doc_type": "Regulatory Framework"
             },
-            "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
+            "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
           },
           {
             "rank": 4,
@@ -5274,7 +5274,7 @@
           },
           {
             "rank": 4,
-            "score": 0.188108,
+            "score": 0.188088,
             "chunk_id": "sample_banking_regulation_txt#chunk_004",
             "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
             "metadata": {
@@ -5291,7 +5291,7 @@
               "category": "Compliance & Regulation",
               "doc_type": "Regulatory Framework"
             },
-            "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
+            "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
           }
         ],
         "diagnostic_note": "PASS: Related text ranked #1 (Score: 0.6030). Outranked runner-up by margin of +0.2455."
@@ -5307,7 +5307,7 @@
         "actual_top_section": "Section 3: High-Value Transaction Authorization Thresholds",
         "actual_top_score": 0.584842,
         "actual_top_text_snippet": "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial re...",
-        "score_margin_over_runner_up": 0.089576,
+        "score_margin_over_runner_up": 0.089554,
         "ranked_results": [
           {
             "rank": 1,
@@ -5332,7 +5332,7 @@
           },
           {
             "rank": 2,
-            "score": 0.495266,
+            "score": 0.495288,
             "chunk_id": "sample_banking_regulation_txt#chunk_004",
             "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
             "metadata": {
@@ -5349,7 +5349,7 @@
               "category": "Compliance & Regulation",
               "doc_type": "Regulatory Framework"
             },
-            "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
+            "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
           },
           {
             "rank": 3,
@@ -5405,13 +5405,13 @@
         "expected_target_section": "Section 3: High-Value Transaction Authorization Thresholds (Under $50k Clause)",
         "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_004",
         "actual_top_section": "Section 3: High-Value Transaction Authorization Thresholds",
-        "actual_top_score": 0.627572,
+        "actual_top_score": 0.627524,
         "actual_top_text_snippet": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain boa...",
-        "score_margin_over_runner_up": 0.149398,
+        "score_margin_over_runner_up": 0.149328,
         "ranked_results": [
           {
             "rank": 1,
-            "score": 0.627572,
+            "score": 0.627524,
             "chunk_id": "sample_banking_regulation_txt#chunk_004",
             "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
             "metadata": {
@@ -5428,11 +5428,11 @@
               "category": "Compliance & Regulation",
               "doc_type": "Regulatory Framework"
             },
-            "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
+            "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
           },
           {
             "rank": 2,
-            "score": 0.478174,
+            "score": 0.478196,
             "chunk_id": "sample_banking_regulation_txt#chunk_003",
             "source_text": "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial regulatory bodies.\n\n## Section 3: High-Value Transaction Authorization Thresholds\nStandard retail banking policies mandate that routine vendor payments under $50,000 may be approved directly by designated department heads without requiring senior executive approval. However, any single capital expenditure or vendor disbursement exceeding $50,000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board",
             "metadata": {
@@ -5453,7 +5453,7 @@
           },
           {
             "rank": 3,
-            "score": 0.230178,
+            "score": 0.230171,
             "chunk_id": "sample_banking_regulation_txt#chunk_002",
             "source_text": " lists in real time prior to authorization.\n\n## Section 2: Capital Reserves & Liquidity Ratios\nUnder Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times. In addition, institutions must hold high-quality liquid assets (HQLA) sufficient to cover total net cash outflows over a 30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted",
             "metadata": {
@@ -5474,7 +5474,7 @@
           },
           {
             "rank": 4,
-            "score": 0.19708,
+            "score": 0.197074,
             "chunk_id": "sample_banking_regulation_txt#chunk_001",
             "source_text": "# Global Banking Compliance & Regulatory Framework 2026\n\n## Section 1: Executive Summary & Overview\nFinancial institutions operating within international jurisdictions must establish automated compliance monitoring systems to detect, prevent, and report suspicious transactions under Anti-Money Laundering (AML) and Counter-Terrorism Financing (CTF) directives. All automated systems must evaluate transaction velocities, beneficiary country risk scores, and entity sanction lists in real time prior to authorization.\n\n## Section 2: Capital Reserves & Liquidity Rat",
             "metadata": {
@@ -5494,7 +5494,7 @@
             "vector_preview": "[-0.0087, 0.0298, 0.0931, 0.0206, ...]"
           }
         ],
-        "diagnostic_note": "SURPRISING / FAILING CASE REVEALED: Vector Negation Blindspot. Query requested disbursements that 'do NOT require unanimous board approval', but Top Rank #1 was Chunk 'sample_banking_regulation_txt#chunk_004' (Score: 0.6276) which specifies disbursements that DO require board approval. Reason: Dense embedding models map queries by topic keywords ('vendor disbursements', 'unanimous board approval') and fail to invert vector direction for logical negation ('NOT')."
+        "diagnostic_note": "SURPRISING / FAILING CASE REVEALED: Vector Negation Blindspot. Query requested disbursements that 'do NOT require unanimous board approval', but Top Rank #1 was Chunk 'sample_banking_regulation_txt#chunk_004' (Score: 0.6275) which specifies disbursements that DO require board approval. Reason: Dense embedding models map queries by topic keywords ('vendor disbursements', 'unanimous board approval') and fail to invert vector direction for logical negation ('NOT')."
       },
       {
         "test_id": "TEST-005",
@@ -5553,7 +5553,7 @@
           },
           {
             "rank": 3,
-            "score": 0.365135,
+            "score": 0.365112,
             "chunk_id": "sample_banking_regulation_txt#chunk_004",
             "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
             "metadata": {
@@ -5570,7 +5570,7 @@
               "category": "Compliance & Regulation",
               "doc_type": "Regulatory Framework"
             },
-            "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
+            "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
           },
           {
             "rank": 4,
@@ -5602,7 +5602,7 @@
       "title": "Vector Embedding Negation Blindspot",
       "query": "Which vendor disbursements do NOT require unanimous board approval?",
       "top_ranked_chunk_id": "sample_banking_regulation_txt#chunk_004",
-      "top_ranked_score": 0.627572,
+      "top_ranked_score": 0.627524,
       "relevance_finding": "Cosine similarity on dense embeddings fails to enforce boolean negation ('NOT'). The model matches key topic tokens ('vendor disbursements', 'unanimous board approval') and ranks the positive requirement chunk top with a high similarity score (0.6275).",
       "pipeline_implication": "RAG pipelines cannot rely solely on raw embedding cosine similarity for negative constraint queries. Recommendation: Integrate structured metadata filtering or query rephrasing before retrieval."
     }
@@ -5623,8 +5623,8 @@
         "top_k_results": [
           {
             "rank": 1,
-            "hybrid_score": 0.580241,
-            "vector_score": 0.584817,
+            "hybrid_score": 0.580256,
+            "vector_score": 0.584842,
             "keyword_score": 0.573377,
             "chunk_id": "sample_banking_regulation_txt#chunk_003",
             "source_text": "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial regulatory bodies.\n\n## Section 3: High-Value Transaction Authorization Thresholds\nStandard retail banking policies mandate that routine vendor payments under $50,000 may be approved directly by designated department heads without requiring senior executive approval. However, any single capital expenditure or vendor disbursement exceeding $50,000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board",
@@ -5643,20 +5643,20 @@
               "doc_type": "Regulatory Framework"
             },
             "matched_keywords": [
+              "transaction",
+              "the",
               "and",
               "high-value",
               "payments",
               "approval",
-              "transaction",
-              "the",
               "thresholds"
             ],
             "vector_preview": "[-0.0133, 0.0157, 0.0560, 0.0023, ...]"
           },
           {
             "rank": 2,
-            "hybrid_score": 0.444422,
-            "vector_score": 0.495248,
+            "hybrid_score": 0.444446,
+            "vector_score": 0.495288,
             "keyword_score": 0.368182,
             "chunk_id": "sample_banking_regulation_txt#chunk_004",
             "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
@@ -5675,11 +5675,11 @@
               "doc_type": "Regulatory Framework"
             },
             "matched_keywords": [
-              "high-value",
               "and",
+              "high-value",
               "for"
             ],
-            "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
+            "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
           }
         ]
       },
@@ -5709,20 +5709,20 @@
               "doc_type": "Regulatory Framework"
             },
             "matched_keywords": [
+              "transaction",
+              "the",
               "and",
               "high-value",
               "payments",
               "approval",
-              "transaction",
-              "the",
               "thresholds"
             ],
             "vector_preview": "[-0.0133, 0.0157, 0.0560, 0.0023, ...]"
           },
           {
             "rank": 2,
-            "hybrid_score": 0.444432,
-            "vector_score": 0.495266,
+            "hybrid_score": 0.444446,
+            "vector_score": 0.495288,
             "keyword_score": 0.368182,
             "chunk_id": "sample_banking_regulation_txt#chunk_004",
             "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
@@ -5741,11 +5741,11 @@
               "doc_type": "Regulatory Framework"
             },
             "matched_keywords": [
-              "high-value",
               "and",
+              "high-value",
               "for"
             ],
-            "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
+            "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
           }
         ]
       },
@@ -5761,8 +5761,8 @@
       "demonstration": "Exact entity and threshold matching ($50,000, board authorization)",
       "vector_search_top_1": {
         "rank": 1,
-        "hybrid_score": 0.701252,
-        "vector_score": 0.701252,
+        "hybrid_score": 0.701288,
+        "vector_score": 0.701288,
         "keyword_score": 0.0,
         "chunk_id": "sample_banking_regulation_txt#chunk_004",
         "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
@@ -5781,7 +5781,7 @@
           "doc_type": "Regulatory Framework"
         },
         "matched_keywords": [],
-        "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
+        "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
       },
       "keyword_search_top_1": {
         "rank": 1,
@@ -5805,17 +5805,17 @@
           "doc_type": "Regulatory Framework"
         },
         "matched_keywords": [
+          "authorization",
           "$50,000",
           "board",
-          "authorization",
           "exceeding"
         ],
         "vector_preview": "[-0.0133, 0.0157, 0.0560, 0.0023, ...]"
       },
       "hybrid_search_top_1": {
         "rank": 1,
-        "hybrid_score": 0.589322,
-        "vector_score": 0.701252,
+        "hybrid_score": 0.589344,
+        "vector_score": 0.701288,
         "keyword_score": 0.421429,
         "chunk_id": "sample_banking_regulation_txt#chunk_004",
         "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
@@ -5837,7 +5837,7 @@
           "authorization",
           "board"
         ],
-        "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
+        "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
       },
       "hybrid_fusion_weights": {
         "alpha_vector": 0.6,
@@ -5875,7 +5875,7 @@
             "rank": 2,
             "chunk_id": "sample_banking_regulation_txt#chunk_004",
             "is_relevant": true,
-            "score": 0.495266,
+            "score": 0.495288,
             "section": "Section 3: High-Value Transaction Authorization Thresholds",
             "text_snippet": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. F..."
           },
@@ -5906,7 +5906,7 @@
             "rank": 2,
             "chunk_id": "sample_banking_regulation_txt#chunk_004",
             "is_relevant": true,
-            "score": 0.444432,
+            "score": 0.444446,
             "section": "Section 3: High-Value Transaction Authorization Thresholds",
             "text_snippet": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. F..."
           }
@@ -5917,6 +5917,665 @@
         "noise_chunks_removed": true,
         "verdict": "Precision improved by +33.3% (66.7% -> 100.0%). Filtering eliminated loosely related chunks from non-target sections, yielding 100% precision among retrieved candidates."
       }
+    }
+  },
+  "retrieval_evaluation_suite": {
+    "evaluation_metadata": {
+      "total_queries_evaluated": 8,
+      "retrieval_mode": "vector",
+      "filter_applied": null,
+      "k_depths_evaluated": [
+        1,
+        2,
+        3,
+        5
+      ],
+      "overall_pass_rate_percentage": 62.5,
+      "failures_detected": 3
+    },
+    "aggregate_metrics": {
+      "mean_reciprocal_rank_mrr": 0.8125,
+      "mean_graded_quality_signal": 0.6875,
+      "metrics_by_depth": {
+        "k_1": {
+          "mean_recall": 0.5,
+          "mean_precision": 0.625,
+          "hit_rate_percentage": 62.5,
+          "mean_f1_score": 0.5417
+        },
+        "k_2": {
+          "mean_recall": 1.0,
+          "mean_precision": 0.625,
+          "hit_rate_percentage": 100.0,
+          "mean_f1_score": 0.75
+        },
+        "k_3": {
+          "mean_recall": 1.0,
+          "mean_precision": 0.4166,
+          "hit_rate_percentage": 100.0,
+          "mean_f1_score": 0.575
+        },
+        "k_5": {
+          "mean_recall": 1.0,
+          "mean_precision": 0.25,
+          "hit_rate_percentage": 100.0,
+          "mean_f1_score": 0.3928
+        }
+      }
+    },
+    "query_level_evaluations": [
+      {
+        "query_id": "Q-001",
+        "query": "How are suspicious transactions and beneficiary country risk scores monitored under AML directives?",
+        "category": "Standard Relevance",
+        "difficulty": "Easy",
+        "expected_chunk_ids": [
+          "sample_banking_regulation_txt#chunk_001"
+        ],
+        "target_section": "Section 1: Executive Summary & Overview",
+        "retrieved_chunk_ids": [
+          "sample_banking_regulation_txt#chunk_001",
+          "sample_banking_regulation_txt#chunk_003",
+          "sample_banking_regulation_txt#chunk_004",
+          "sample_banking_regulation_txt#chunk_002"
+        ],
+        "reciprocal_rank": 1.0,
+        "metrics_by_k": {
+          "k_1": {
+            "recall": 1.0,
+            "precision": 1.0,
+            "hit_rate": 1,
+            "f1_score": 1.0
+          },
+          "k_2": {
+            "recall": 1.0,
+            "precision": 0.5,
+            "hit_rate": 1,
+            "f1_score": 0.6667
+          },
+          "k_3": {
+            "recall": 1.0,
+            "precision": 0.3333,
+            "hit_rate": 1,
+            "f1_score": 0.5
+          },
+          "k_5": {
+            "recall": 1.0,
+            "precision": 0.2,
+            "hit_rate": 1,
+            "f1_score": 0.3333
+          }
+        },
+        "quality_signals": {
+          "graded_relevance_scores": [
+            2,
+            0,
+            0,
+            0
+          ],
+          "average_graded_relevance": 0.5
+        },
+        "failure_analysis": {
+          "query_id": "Q-001",
+          "query": "How are suspicious transactions and beneficiary country risk scores monitored under AML directives?",
+          "category": "Standard Relevance",
+          "is_failure": false,
+          "top_rank_achieved": 1,
+          "min_acceptable_rank": 1,
+          "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_001",
+          "actual_top_section": "Section 1: Executive Summary & Overview",
+          "expected_chunk_ids": [
+            "sample_banking_regulation_txt#chunk_001"
+          ],
+          "expected_section": "Section 1: Executive Summary & Overview",
+          "failure_type": "NONE_PASS",
+          "root_cause": "Relevant chunk retrieved within acceptable rank threshold.",
+          "pipeline_remediation": "No remediation required."
+        }
+      },
+      {
+        "query_id": "Q-002",
+        "query": "What minimum Tier 1 capital adequacy ratio is required under Basel IV?",
+        "category": "Standard Relevance",
+        "difficulty": "Easy",
+        "expected_chunk_ids": [
+          "sample_banking_regulation_txt#chunk_002"
+        ],
+        "target_section": "Section 2: Capital Reserves & Liquidity Ratios",
+        "retrieved_chunk_ids": [
+          "sample_banking_regulation_txt#chunk_002",
+          "sample_banking_regulation_txt#chunk_003",
+          "sample_banking_regulation_txt#chunk_001",
+          "sample_banking_regulation_txt#chunk_004"
+        ],
+        "reciprocal_rank": 1.0,
+        "metrics_by_k": {
+          "k_1": {
+            "recall": 1.0,
+            "precision": 1.0,
+            "hit_rate": 1,
+            "f1_score": 1.0
+          },
+          "k_2": {
+            "recall": 1.0,
+            "precision": 0.5,
+            "hit_rate": 1,
+            "f1_score": 0.6667
+          },
+          "k_3": {
+            "recall": 1.0,
+            "precision": 0.3333,
+            "hit_rate": 1,
+            "f1_score": 0.5
+          },
+          "k_5": {
+            "recall": 1.0,
+            "precision": 0.2,
+            "hit_rate": 1,
+            "f1_score": 0.3333
+          }
+        },
+        "quality_signals": {
+          "graded_relevance_scores": [
+            2,
+            0,
+            0,
+            0
+          ],
+          "average_graded_relevance": 0.5
+        },
+        "failure_analysis": {
+          "query_id": "Q-002",
+          "query": "What minimum Tier 1 capital adequacy ratio is required under Basel IV?",
+          "category": "Standard Relevance",
+          "is_failure": false,
+          "top_rank_achieved": 1,
+          "min_acceptable_rank": 1,
+          "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_002",
+          "actual_top_section": "Section 2: Capital Reserves & Liquidity Ratios",
+          "expected_chunk_ids": [
+            "sample_banking_regulation_txt#chunk_002"
+          ],
+          "expected_section": "Section 2: Capital Reserves & Liquidity Ratios",
+          "failure_type": "NONE_PASS",
+          "root_cause": "Relevant chunk retrieved within acceptable rank threshold.",
+          "pipeline_remediation": "No remediation required."
+        }
+      },
+      {
+        "query_id": "Q-003",
+        "query": "What are the rules and approval thresholds for high-value transaction payments?",
+        "category": "Standard Relevance",
+        "difficulty": "Easy",
+        "expected_chunk_ids": [
+          "sample_banking_regulation_txt#chunk_003",
+          "sample_banking_regulation_txt#chunk_004"
+        ],
+        "target_section": "Section 3: High-Value Transaction Authorization Thresholds",
+        "retrieved_chunk_ids": [
+          "sample_banking_regulation_txt#chunk_003",
+          "sample_banking_regulation_txt#chunk_004",
+          "sample_banking_regulation_txt#chunk_001",
+          "sample_banking_regulation_txt#chunk_002"
+        ],
+        "reciprocal_rank": 1.0,
+        "metrics_by_k": {
+          "k_1": {
+            "recall": 0.5,
+            "precision": 1.0,
+            "hit_rate": 1,
+            "f1_score": 0.6667
+          },
+          "k_2": {
+            "recall": 1.0,
+            "precision": 1.0,
+            "hit_rate": 1,
+            "f1_score": 1.0
+          },
+          "k_3": {
+            "recall": 1.0,
+            "precision": 0.6667,
+            "hit_rate": 1,
+            "f1_score": 0.8
+          },
+          "k_5": {
+            "recall": 1.0,
+            "precision": 0.4,
+            "hit_rate": 1,
+            "f1_score": 0.5714
+          }
+        },
+        "quality_signals": {
+          "graded_relevance_scores": [
+            2,
+            2,
+            0,
+            0
+          ],
+          "average_graded_relevance": 1.0
+        },
+        "failure_analysis": {
+          "query_id": "Q-003",
+          "query": "What are the rules and approval thresholds for high-value transaction payments?",
+          "category": "Standard Relevance",
+          "is_failure": false,
+          "top_rank_achieved": 1,
+          "min_acceptable_rank": 2,
+          "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_003",
+          "actual_top_section": "Section 3: High-Value Transaction Authorization Thresholds",
+          "expected_chunk_ids": [
+            "sample_banking_regulation_txt#chunk_003",
+            "sample_banking_regulation_txt#chunk_004"
+          ],
+          "expected_section": "Section 3: High-Value Transaction Authorization Thresholds",
+          "failure_type": "NONE_PASS",
+          "root_cause": "Relevant chunk retrieved within acceptable rank threshold.",
+          "pipeline_remediation": "No remediation required."
+        }
+      },
+      {
+        "query_id": "Q-004",
+        "query": "Which vendor disbursements do NOT require unanimous board approval?",
+        "category": "Negation Blindspot (Known Failure)",
+        "difficulty": "Hard (Edge Case)",
+        "expected_chunk_ids": [
+          "sample_banking_regulation_txt#chunk_003"
+        ],
+        "target_section": "Section 3: High-Value Transaction Authorization Thresholds",
+        "retrieved_chunk_ids": [
+          "sample_banking_regulation_txt#chunk_004",
+          "sample_banking_regulation_txt#chunk_003",
+          "sample_banking_regulation_txt#chunk_002",
+          "sample_banking_regulation_txt#chunk_001"
+        ],
+        "reciprocal_rank": 0.5,
+        "metrics_by_k": {
+          "k_1": {
+            "recall": 0.0,
+            "precision": 0.0,
+            "hit_rate": 0,
+            "f1_score": 0.0
+          },
+          "k_2": {
+            "recall": 1.0,
+            "precision": 0.5,
+            "hit_rate": 1,
+            "f1_score": 0.6667
+          },
+          "k_3": {
+            "recall": 1.0,
+            "precision": 0.3333,
+            "hit_rate": 1,
+            "f1_score": 0.5
+          },
+          "k_5": {
+            "recall": 1.0,
+            "precision": 0.2,
+            "hit_rate": 1,
+            "f1_score": 0.3333
+          }
+        },
+        "quality_signals": {
+          "graded_relevance_scores": [
+            1,
+            2,
+            0,
+            0
+          ],
+          "average_graded_relevance": 0.75
+        },
+        "failure_analysis": {
+          "query_id": "Q-004",
+          "query": "Which vendor disbursements do NOT require unanimous board approval?",
+          "category": "Negation Blindspot (Known Failure)",
+          "is_failure": true,
+          "top_rank_achieved": 2,
+          "min_acceptable_rank": 1,
+          "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_004",
+          "actual_top_section": "Section 3: High-Value Transaction Authorization Thresholds",
+          "expected_chunk_ids": [
+            "sample_banking_regulation_txt#chunk_003"
+          ],
+          "expected_section": "Section 3: High-Value Transaction Authorization Thresholds",
+          "failure_type": "EMBEDDING_NEGATION_BLINDSPOT",
+          "root_cause": "Dense embedding models map queries by topic keywords and fail to invert vector direction for logical negation. The model matched positive topic tokens ('disbursements', 'board approval') and mistakenly ranked 'sample_banking_regulation_txt#chunk_004' at rank #1.",
+          "pipeline_remediation": "Implement query transformation/rewriting to rephrase negative constraints, or apply structured metadata filtering on authorization tiers prior to vector search."
+        }
+      },
+      {
+        "query_id": "Q-005",
+        "query": "What audit procedures and compliance checks are required for transaction authorization?",
+        "category": "Cross-Section Lexical Distractor",
+        "difficulty": "Medium",
+        "expected_chunk_ids": [
+          "sample_banking_regulation_txt#chunk_003",
+          "sample_banking_regulation_txt#chunk_004"
+        ],
+        "target_section": "Section 3: High-Value Transaction Authorization Thresholds",
+        "retrieved_chunk_ids": [
+          "sample_banking_regulation_txt#chunk_003",
+          "sample_banking_regulation_txt#chunk_004",
+          "sample_banking_regulation_txt#chunk_001",
+          "sample_banking_regulation_txt#chunk_002"
+        ],
+        "reciprocal_rank": 1.0,
+        "metrics_by_k": {
+          "k_1": {
+            "recall": 0.5,
+            "precision": 1.0,
+            "hit_rate": 1,
+            "f1_score": 0.6667
+          },
+          "k_2": {
+            "recall": 1.0,
+            "precision": 1.0,
+            "hit_rate": 1,
+            "f1_score": 1.0
+          },
+          "k_3": {
+            "recall": 1.0,
+            "precision": 0.6667,
+            "hit_rate": 1,
+            "f1_score": 0.8
+          },
+          "k_5": {
+            "recall": 1.0,
+            "precision": 0.4,
+            "hit_rate": 1,
+            "f1_score": 0.5714
+          }
+        },
+        "quality_signals": {
+          "graded_relevance_scores": [
+            2,
+            2,
+            0,
+            0
+          ],
+          "average_graded_relevance": 1.0
+        },
+        "failure_analysis": {
+          "query_id": "Q-005",
+          "query": "What audit procedures and compliance checks are required for transaction authorization?",
+          "category": "Cross-Section Lexical Distractor",
+          "is_failure": false,
+          "top_rank_achieved": 1,
+          "min_acceptable_rank": 2,
+          "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_003",
+          "actual_top_section": "Section 3: High-Value Transaction Authorization Thresholds",
+          "expected_chunk_ids": [
+            "sample_banking_regulation_txt#chunk_003",
+            "sample_banking_regulation_txt#chunk_004"
+          ],
+          "expected_section": "Section 3: High-Value Transaction Authorization Thresholds",
+          "failure_type": "NONE_PASS",
+          "root_cause": "Relevant chunk retrieved within acceptable rank threshold.",
+          "pipeline_remediation": "No remediation required."
+        }
+      },
+      {
+        "query_id": "Q-006",
+        "query": "How often must institutions calculate and submit the Liquidity Coverage Ratio (LCR)?",
+        "category": "Specific Entity / Threshold",
+        "difficulty": "Easy",
+        "expected_chunk_ids": [
+          "sample_banking_regulation_txt#chunk_002"
+        ],
+        "target_section": "Section 2: Capital Reserves & Liquidity Ratios",
+        "retrieved_chunk_ids": [
+          "sample_banking_regulation_txt#chunk_003",
+          "sample_banking_regulation_txt#chunk_002",
+          "sample_banking_regulation_txt#chunk_001",
+          "sample_banking_regulation_txt#chunk_004"
+        ],
+        "reciprocal_rank": 0.5,
+        "metrics_by_k": {
+          "k_1": {
+            "recall": 0.0,
+            "precision": 0.0,
+            "hit_rate": 0,
+            "f1_score": 0.0
+          },
+          "k_2": {
+            "recall": 1.0,
+            "precision": 0.5,
+            "hit_rate": 1,
+            "f1_score": 0.6667
+          },
+          "k_3": {
+            "recall": 1.0,
+            "precision": 0.3333,
+            "hit_rate": 1,
+            "f1_score": 0.5
+          },
+          "k_5": {
+            "recall": 1.0,
+            "precision": 0.2,
+            "hit_rate": 1,
+            "f1_score": 0.3333
+          }
+        },
+        "quality_signals": {
+          "graded_relevance_scores": [
+            0,
+            2,
+            0,
+            0
+          ],
+          "average_graded_relevance": 0.5
+        },
+        "failure_analysis": {
+          "query_id": "Q-006",
+          "query": "How often must institutions calculate and submit the Liquidity Coverage Ratio (LCR)?",
+          "category": "Specific Entity / Threshold",
+          "is_failure": true,
+          "top_rank_achieved": 2,
+          "min_acceptable_rank": 1,
+          "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_003",
+          "actual_top_section": "Section 3: High-Value Transaction Authorization Thresholds",
+          "expected_chunk_ids": [
+            "sample_banking_regulation_txt#chunk_002"
+          ],
+          "expected_section": "Section 2: Capital Reserves & Liquidity Ratios",
+          "failure_type": "VOCABULARY_OR_EMBEDDING_MISMATCH",
+          "root_cause": "Query phrasing had a wide semantic distance from the exact terminology used in the regulatory corpus, causing the embedding model to assign suboptimal similarity.",
+          "pipeline_remediation": "Expand queries using LLM query expansion (HyDE) or inject domain-specific synonyms into hybrid search."
+        }
+      },
+      {
+        "query_id": "Q-007",
+        "query": "What consequences follow a failure to obtain board authorization for high-value expenditures?",
+        "category": "Boundary Consequence Clause",
+        "difficulty": "Medium",
+        "expected_chunk_ids": [
+          "sample_banking_regulation_txt#chunk_004"
+        ],
+        "target_section": "Section 3: High-Value Transaction Authorization Thresholds",
+        "retrieved_chunk_ids": [
+          "sample_banking_regulation_txt#chunk_004",
+          "sample_banking_regulation_txt#chunk_003",
+          "sample_banking_regulation_txt#chunk_001",
+          "sample_banking_regulation_txt#chunk_002"
+        ],
+        "reciprocal_rank": 1.0,
+        "metrics_by_k": {
+          "k_1": {
+            "recall": 1.0,
+            "precision": 1.0,
+            "hit_rate": 1,
+            "f1_score": 1.0
+          },
+          "k_2": {
+            "recall": 1.0,
+            "precision": 0.5,
+            "hit_rate": 1,
+            "f1_score": 0.6667
+          },
+          "k_3": {
+            "recall": 1.0,
+            "precision": 0.3333,
+            "hit_rate": 1,
+            "f1_score": 0.5
+          },
+          "k_5": {
+            "recall": 1.0,
+            "precision": 0.2,
+            "hit_rate": 1,
+            "f1_score": 0.3333
+          }
+        },
+        "quality_signals": {
+          "graded_relevance_scores": [
+            2,
+            1,
+            0,
+            0
+          ],
+          "average_graded_relevance": 0.75
+        },
+        "failure_analysis": {
+          "query_id": "Q-007",
+          "query": "What consequences follow a failure to obtain board authorization for high-value expenditures?",
+          "category": "Boundary Consequence Clause",
+          "is_failure": false,
+          "top_rank_achieved": 1,
+          "min_acceptable_rank": 1,
+          "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_004",
+          "actual_top_section": "Section 3: High-Value Transaction Authorization Thresholds",
+          "expected_chunk_ids": [
+            "sample_banking_regulation_txt#chunk_004"
+          ],
+          "expected_section": "Section 3: High-Value Transaction Authorization Thresholds",
+          "failure_type": "NONE_PASS",
+          "root_cause": "Relevant chunk retrieved within acceptable rank threshold.",
+          "pipeline_remediation": "No remediation required."
+        }
+      },
+      {
+        "query_id": "Q-008",
+        "query": "What automated screening protocols verify transaction velocity and entity sanction status?",
+        "category": "Semantic Paraphrase",
+        "difficulty": "Medium",
+        "expected_chunk_ids": [
+          "sample_banking_regulation_txt#chunk_001"
+        ],
+        "target_section": "Section 1: Executive Summary & Overview",
+        "retrieved_chunk_ids": [
+          "sample_banking_regulation_txt#chunk_003",
+          "sample_banking_regulation_txt#chunk_001",
+          "sample_banking_regulation_txt#chunk_004",
+          "sample_banking_regulation_txt#chunk_002"
+        ],
+        "reciprocal_rank": 0.5,
+        "metrics_by_k": {
+          "k_1": {
+            "recall": 0.0,
+            "precision": 0.0,
+            "hit_rate": 0,
+            "f1_score": 0.0
+          },
+          "k_2": {
+            "recall": 1.0,
+            "precision": 0.5,
+            "hit_rate": 1,
+            "f1_score": 0.6667
+          },
+          "k_3": {
+            "recall": 1.0,
+            "precision": 0.3333,
+            "hit_rate": 1,
+            "f1_score": 0.5
+          },
+          "k_5": {
+            "recall": 1.0,
+            "precision": 0.2,
+            "hit_rate": 1,
+            "f1_score": 0.3333
+          }
+        },
+        "quality_signals": {
+          "graded_relevance_scores": [
+            0,
+            2,
+            0,
+            0
+          ],
+          "average_graded_relevance": 0.5
+        },
+        "failure_analysis": {
+          "query_id": "Q-008",
+          "query": "What automated screening protocols verify transaction velocity and entity sanction status?",
+          "category": "Semantic Paraphrase",
+          "is_failure": true,
+          "top_rank_achieved": 2,
+          "min_acceptable_rank": 1,
+          "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_003",
+          "actual_top_section": "Section 3: High-Value Transaction Authorization Thresholds",
+          "expected_chunk_ids": [
+            "sample_banking_regulation_txt#chunk_001"
+          ],
+          "expected_section": "Section 1: Executive Summary & Overview",
+          "failure_type": "VOCABULARY_OR_EMBEDDING_MISMATCH",
+          "root_cause": "Query phrasing had a wide semantic distance from the exact terminology used in the regulatory corpus, causing the embedding model to assign suboptimal similarity.",
+          "pipeline_remediation": "Expand queries using LLM query expansion (HyDE) or inject domain-specific synonyms into hybrid search."
+        }
+      }
+    ],
+    "failure_inspection_summary": {
+      "total_failures": 3,
+      "failure_cases": [
+        {
+          "query_id": "Q-004",
+          "query": "Which vendor disbursements do NOT require unanimous board approval?",
+          "category": "Negation Blindspot (Known Failure)",
+          "is_failure": true,
+          "top_rank_achieved": 2,
+          "min_acceptable_rank": 1,
+          "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_004",
+          "actual_top_section": "Section 3: High-Value Transaction Authorization Thresholds",
+          "expected_chunk_ids": [
+            "sample_banking_regulation_txt#chunk_003"
+          ],
+          "expected_section": "Section 3: High-Value Transaction Authorization Thresholds",
+          "failure_type": "EMBEDDING_NEGATION_BLINDSPOT",
+          "root_cause": "Dense embedding models map queries by topic keywords and fail to invert vector direction for logical negation. The model matched positive topic tokens ('disbursements', 'board approval') and mistakenly ranked 'sample_banking_regulation_txt#chunk_004' at rank #1.",
+          "pipeline_remediation": "Implement query transformation/rewriting to rephrase negative constraints, or apply structured metadata filtering on authorization tiers prior to vector search."
+        },
+        {
+          "query_id": "Q-006",
+          "query": "How often must institutions calculate and submit the Liquidity Coverage Ratio (LCR)?",
+          "category": "Specific Entity / Threshold",
+          "is_failure": true,
+          "top_rank_achieved": 2,
+          "min_acceptable_rank": 1,
+          "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_003",
+          "actual_top_section": "Section 3: High-Value Transaction Authorization Thresholds",
+          "expected_chunk_ids": [
+            "sample_banking_regulation_txt#chunk_002"
+          ],
+          "expected_section": "Section 2: Capital Reserves & Liquidity Ratios",
+          "failure_type": "VOCABULARY_OR_EMBEDDING_MISMATCH",
+          "root_cause": "Query phrasing had a wide semantic distance from the exact terminology used in the regulatory corpus, causing the embedding model to assign suboptimal similarity.",
+          "pipeline_remediation": "Expand queries using LLM query expansion (HyDE) or inject domain-specific synonyms into hybrid search."
+        },
+        {
+          "query_id": "Q-008",
+          "query": "What automated screening protocols verify transaction velocity and entity sanction status?",
+          "category": "Semantic Paraphrase",
+          "is_failure": true,
+          "top_rank_achieved": 2,
+          "min_acceptable_rank": 1,
+          "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_003",
+          "actual_top_section": "Section 3: High-Value Transaction Authorization Thresholds",
+          "expected_chunk_ids": [
+            "sample_banking_regulation_txt#chunk_001"
+          ],
+          "expected_section": "Section 1: Executive Summary & Overview",
+          "failure_type": "VOCABULARY_OR_EMBEDDING_MISMATCH",
+          "root_cause": "Query phrasing had a wide semantic distance from the exact terminology used in the regulatory corpus, causing the embedding model to assign suboptimal similarity.",
+          "pipeline_remediation": "Expand queries using LLM query expansion (HyDE) or inject domain-specific synonyms into hybrid search."
+        }
+      ]
     }
   }
 }

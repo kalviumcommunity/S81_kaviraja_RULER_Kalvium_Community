@@ -64,7 +64,7 @@
         },
         {
           "rank": 3,
-          "score": 0.334872,
+          "score": 0.334909,
           "chunk_id": "sample_banking_regulation_txt#chunk_004",
           "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
           "metadata": {
@@ -81,7 +81,7 @@
             "category": "Compliance & Regulation",
             "doc_type": "Regulatory Framework"
           },
-          "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
+          "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
         },
         {
           "rank": 4,
@@ -185,7 +185,7 @@
         },
         {
           "rank": 4,
-          "score": 0.188108,
+          "score": 0.188088,
           "chunk_id": "sample_banking_regulation_txt#chunk_004",
           "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
           "metadata": {
@@ -202,7 +202,7 @@
             "category": "Compliance & Regulation",
             "doc_type": "Regulatory Framework"
           },
-          "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
+          "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
         }
       ],
       "diagnostic_note": "PASS: Related text ranked #1 (Score: 0.6030). Outranked runner-up by margin of +0.2455."
@@ -218,7 +218,7 @@
       "actual_top_section": "Section 3: High-Value Transaction Authorization Thresholds",
       "actual_top_score": 0.584842,
       "actual_top_text_snippet": "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial re...",
-      "score_margin_over_runner_up": 0.089576,
+      "score_margin_over_runner_up": 0.089554,
       "ranked_results": [
         {
           "rank": 1,
@@ -243,7 +243,7 @@
         },
         {
           "rank": 2,
-          "score": 0.495266,
+          "score": 0.495288,
           "chunk_id": "sample_banking_regulation_txt#chunk_004",
           "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
           "metadata": {
@@ -260,7 +260,7 @@
             "category": "Compliance & Regulation",
             "doc_type": "Regulatory Framework"
           },
-          "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
+          "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
         },
         {
           "rank": 3,
@@ -316,13 +316,13 @@
       "expected_target_section": "Section 3: High-Value Transaction Authorization Thresholds (Under $50k Clause)",
       "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_004",
       "actual_top_section": "Section 3: High-Value Transaction Authorization Thresholds",
-      "actual_top_score": 0.627572,
+      "actual_top_score": 0.627524,
       "actual_top_text_snippet": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain boa...",
-      "score_margin_over_runner_up": 0.149398,
+      "score_margin_over_runner_up": 0.149328,
       "ranked_results": [
         {
           "rank": 1,
-          "score": 0.627572,
+          "score": 0.627524,
           "chunk_id": "sample_banking_regulation_txt#chunk_004",
           "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
           "metadata": {
@@ -339,11 +339,11 @@
             "category": "Compliance & Regulation",
             "doc_type": "Regulatory Framework"
           },
-          "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
+          "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
         },
         {
           "rank": 2,
-          "score": 0.478174,
+          "score": 0.478196,
           "chunk_id": "sample_banking_regulation_txt#chunk_003",
           "source_text": "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial regulatory bodies.\n\n## Section 3: High-Value Transaction Authorization Thresholds\nStandard retail banking policies mandate that routine vendor payments under $50,000 may be approved directly by designated department heads without requiring senior executive approval. However, any single capital expenditure or vendor disbursement exceeding $50,000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board",
           "metadata": {
@@ -364,7 +364,7 @@
         },
         {
           "rank": 3,
-          "score": 0.230178,
+          "score": 0.230171,
           "chunk_id": "sample_banking_regulation_txt#chunk_002",
           "source_text": " lists in real time prior to authorization.\n\n## Section 2: Capital Reserves & Liquidity Ratios\nUnder Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times. In addition, institutions must hold high-quality liquid assets (HQLA) sufficient to cover total net cash outflows over a 30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted",
           "metadata": {
@@ -385,7 +385,7 @@
         },
         {
           "rank": 4,
-          "score": 0.19708,
+          "score": 0.197074,
           "chunk_id": "sample_banking_regulation_txt#chunk_001",
           "source_text": "# Global Banking Compliance & Regulatory Framework 2026\n\n## Section 1: Executive Summary & Overview\nFinancial institutions operating within international jurisdictions must establish automated compliance monitoring systems to detect, prevent, and report suspicious transactions under Anti-Money Laundering (AML) and Counter-Terrorism Financing (CTF) directives. All automated systems must evaluate transaction velocities, beneficiary country risk scores, and entity sanction lists in real time prior to authorization.\n\n## Section 2: Capital Reserves & Liquidity Rat",
           "metadata": {
@@ -405,7 +405,7 @@
           "vector_preview": "[-0.0087, 0.0298, 0.0931, 0.0206, ...]"
         }
       ],
-      "diagnostic_note": "SURPRISING / FAILING CASE REVEALED: Vector Negation Blindspot. Query requested disbursements that 'do NOT require unanimous board approval', but Top Rank #1 was Chunk 'sample_banking_regulation_txt#chunk_004' (Score: 0.6276) which specifies disbursements that DO require board approval. Reason: Dense embedding models map queries by topic keywords ('vendor disbursements', 'unanimous board approval') and fail to invert vector direction for logical negation ('NOT')."
+      "diagnostic_note": "SURPRISING / FAILING CASE REVEALED: Vector Negation Blindspot. Query requested disbursements that 'do NOT require unanimous board approval', but Top Rank #1 was Chunk 'sample_banking_regulation_txt#chunk_004' (Score: 0.6275) which specifies disbursements that DO require board approval. Reason: Dense embedding models map queries by topic keywords ('vendor disbursements', 'unanimous board approval') and fail to invert vector direction for logical negation ('NOT')."
     },
     {
       "test_id": "TEST-005",
@@ -464,7 +464,7 @@
         },
         {
           "rank": 3,
-          "score": 0.365135,
+          "score": 0.365112,
           "chunk_id": "sample_banking_regulation_txt#chunk_004",
           "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
           "metadata": {
@@ -481,7 +481,7 @@
             "category": "Compliance & Regulation",
             "doc_type": "Regulatory Framework"
           },
-          "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
+          "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
         },
         {
           "rank": 4,
@@ -513,7 +513,7 @@
     "title": "Vector Embedding Negation Blindspot",
     "query": "Which vendor disbursements do NOT require unanimous board approval?",
     "top_ranked_chunk_id": "sample_banking_regulation_txt#chunk_004",
-    "top_ranked_score": 0.627572,
+    "top_ranked_score": 0.627524,
     "relevance_finding": "Cosine similarity on dense embeddings fails to enforce boolean negation ('NOT'). The model matches key topic tokens ('vendor disbursements', 'unanimous board approval') and ranks the positive requirement chunk top with a high similarity score (0.6275).",
     "pipeline_implication": "RAG pipelines cannot rely solely on raw embedding cosine similarity for negative constraint queries. Recommendation: Integrate structured metadata filtering or query rephrasing before retrieval."
   }
