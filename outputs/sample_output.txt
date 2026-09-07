@@ -384,3 +384,27 @@
   "source": "LLM_Telemetry_Spec.pdf",
   "confidence": 0.99
 }
+[2026-09-07 15:49:19] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-07 15:49:19] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-07 15:49:19] [INFO]  - Model Name: openai/gpt-4o-mini
+[2026-09-07 15:49:19] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-07 15:49:20] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
+[2026-09-07 15:49:20] [INFO] ✅ [Malformed JSON Recovered]: Successfully cleaned and parsed malformed JSON object.
+[2026-09-07 15:49:20] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['confidence']
+[2026-09-07 15:49:20] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'confidence': 'high'}
+[2026-09-07 15:51:42] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-07 15:51:42] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-07 15:51:42] [INFO]  - Model Name: openai/gpt-4o-mini
+[2026-09-07 15:51:42] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-07 15:51:43] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
+[2026-09-07 15:51:43] [INFO] ✅ [Malformed JSON Recovered]: Successfully cleaned and parsed malformed JSON object.
+[2026-09-07 15:51:43] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['confidence']
+[2026-09-07 15:51:43] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'confidence': 'high'}
+[2026-09-07 15:52:03] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-07 15:52:03] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-07 15:52:03] [INFO]  - Model Name: openai/gpt-4o-mini
+[2026-09-07 15:52:03] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-07 15:52:04] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
+[2026-09-07 15:52:04] [INFO] ✅ [Malformed JSON Recovered]: Successfully cleaned and parsed malformed JSON object.
+[2026-09-07 15:52:04] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['confidence']
+[2026-09-07 15:52:04] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'confidence': 'high'}
