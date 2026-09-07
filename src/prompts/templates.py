@@ -18,7 +18,7 @@ class PromptTemplate:
 RAG_SYSTEM_PROMPT = PromptTemplate(
     "You are a helpful {role} specialized AI assistant."
 )
-
+#explain me the funtion
 RAG_USER_PROMPT = PromptTemplate(
     "Explain what {topic} is in {length} concise sentences."
 )
