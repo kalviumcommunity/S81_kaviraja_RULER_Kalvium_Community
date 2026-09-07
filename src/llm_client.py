@@ -75,6 +75,8 @@ class LLMClient:
         self.client = OpenAI(**client_kwargs)
         self.history: List[Dict[str, str]] = []
 
+        self.history: List[Dict[str, str]] = []
+
 
     def create_chat_completion(
         self,
@@ -190,7 +192,12 @@ class LLMClient:
                 self.history.append({"role": "user", "content": user_message})
                 self.history.append({"role": "assistant", "content": content})
 
+            if content:
+                self.history.append({"role": "user", "content": user_message})
+                self.history.append({"role": "assistant", "content": content})
+
             return content, token_usage
+
 
 
         # Task 4: Catch and report common failures with human-readable error messages

@@ -50,3 +50,16 @@ class VectorDBClient:
 
     def get_collection_count(self) -> int:
         return self.collection.count()
+
+    def search(self, query_embeddings: List[List[float]], n_results: int = 5, where: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        self.logger.info(f"Searching for top {n_results} matches...")
+        kwargs = {
+            "query_embeddings": query_embeddings,
+            "n_results": n_results,
+            "include": ["documents", "metadatas", "distances"]
+        }
+        if where:
+            kwargs["where"] = where
+            
+        results = self.collection.query(**kwargs)
+        return results
