@@ -37,13 +37,15 @@ Metadata:
   "doc_id": "sample_banking_regulation_txt",
   "filename": "sample_banking_regulation.txt",
   "source_path": "data/sample_banking_regulation.txt",
-  "section": "Document Content",
+  "section": "Section 1: Executive Summary & Overview",
   "page_number": 1,
   "chunk_index": 0,
   "total_chunks": 4,
   "start_char": 0,
   "end_char": 565,
-  "token_count": 100
+  "token_count": 100,
+  "category": "Compliance & Regulation",
+  "doc_type": "Regulatory Framework"
 }
 
 Text:
@@ -67,13 +69,15 @@ Metadata:
   "doc_id": "sample_banking_regulation_txt",
   "filename": "sample_banking_regulation.txt",
   "source_path": "data/sample_banking_regulation.txt",
-  "section": "Document Content",
+  "section": "Section 2: Capital Reserves & Liquidity Ratios",
   "page_number": 1,
   "chunk_index": 1,
   "total_chunks": 4,
   "start_char": 474,
   "end_char": 925,
-  "token_count": 100
+  "token_count": 100,
+  "category": "Compliance & Regulation",
+  "doc_type": "Regulatory Framework"
 }
 
 Text:
@@ -83,7 +87,7 @@ Vector Length:
 1536
 
 Vector Preview:
-[-0.0141, 0.0483, 0.1158, 0.0175, ...]
+[-0.0141, 0.0483, 0.1158, 0.0176, ...]
 --------------------------------------
 --------------------------------------
 Chunk Index:
@@ -97,13 +101,15 @@ Metadata:
   "doc_id": "sample_banking_regulation_txt",
   "filename": "sample_banking_regulation.txt",
   "source_path": "data/sample_banking_regulation.txt",
-  "section": "Document Content",
+  "section": "Section 3: High-Value Transaction Authorization Thresholds",
   "page_number": 1,
   "chunk_index": 2,
   "total_chunks": 4,
   "start_char": 830,
   "end_char": 1413,
-  "token_count": 100
+  "token_count": 100,
+  "category": "Compliance & Regulation",
+  "doc_type": "Regulatory Framework"
 }
 
 Text:
@@ -113,5 +119,5 @@ Vector Length:
 1536
 
 Vector Preview:
-[-0.0132, 0.0157, 0.0560, 0.0023, ...]
+[-0.0133, 0.0157, 0.0560, 0.0023, ...]
 --------------------------------------

@@ -40,6 +40,20 @@ A vector search relevance evaluation engine that executes known query-chunk test
 - **Task 4 — Sanity Report Summary**: Compiles test counts, pass rates (100% on standard relevance), top-ranked sources, similarity scores, and pipeline recommendations.
 - **Task 5 — Output Artifacts & Reproducibility**: Exports structured JSON results to `outputs/relevance_sanity_results.json` and human-readable text logs to `outputs/relevance_sanity_report.txt`.
 
+---
+
+## Metadata-Filtered & Hybrid Search Engine (`src/filtered_search.py`)
+
+A high-precision retrieval engine combining pre-retrieval metadata filtering, Okapi BM25 lexical keyword matching, exact entity/phrase boosting, and dense vector semantic search.
+
+- **Task 1 — Metadata Filter**: Restricts retrieval to authorized subsets (section, source document, document type, category) using flexible filter operators (`exact`, `contains`, `in`, `gte`, `lte`, or custom callables).
+- **Task 2 — Filtered vs. Unfiltered Comparison**: Runs queries side-by-side with and without metadata filtering, confirming that the filtered search removes cross-section noise and isolates target chunks.
+- **Task 3 — Keyword & Hybrid Matching**: Combines dense vector cosine similarity with lexical keyword scoring using linear combination ($\alpha \cdot \text{Score}_{\text{vec}} + (1 - \alpha) \cdot \text{Score}_{\text{lex}}$) and exact phrase/threshold bonuses (e.g. `"$50,000"`, `"10.5%"`).
+- **Task 4 — Precision Improvement Demonstration**: Quantitatively proves retrieval precision improvements (e.g. Precision@3 increasing from `66.67%` to `100.0%`, net `+33.33%` gain) by eliminating loosely related distractor chunks.
+- **Task 5 — Output Artifacts & Reproducibility**: Exports structured JSON to `outputs/filtered_search_results.json`, `outputs/hybrid_search_comparison.json`, and human-readable text logs to `outputs/filtered_search_output.txt` and `outputs/precision_demonstration_report.txt`.
+
+---
+
 
 
 ## Prerequisites

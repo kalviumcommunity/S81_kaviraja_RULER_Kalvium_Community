@@ -9,10 +9,10 @@ Pairwise Chunk Similarity Matrix (Cosine)
 ==========================================
 Row Chunk ID \ Column Chunk ID | C0 | C1 | C2 | C3
 --------------------------------------------------------------------------------
-C0 (sample_banking_regulation...) | 1.0000 | 0.5442 | 0.4789 | 0.3091
-C1 (sample_banking_regulation...) | 0.5442 | 1.0000 | 0.6389 | 0.3009
+C0 (sample_banking_regulation...) | 1.0000 | 0.5440 | 0.4789 | 0.3090
+C1 (sample_banking_regulation...) | 0.5440 | 1.0000 | 0.6389 | 0.3008
 C2 (sample_banking_regulation...) | 0.4789 | 0.6389 | 1.0000 | 0.5752
-C3 (sample_banking_regulation...) | 0.3091 | 0.3009 | 0.5752 | 1.0000
+C3 (sample_banking_regulation...) | 0.3090 | 0.3008 | 0.5752 | 1.0000
 
 ==========================================
 Vector Matrix Row Details
@@ -22,26 +22,26 @@ Text Snippet: "# Global Banking Compliance & Regulatory Framework 2026
 
 ## Section 1: Executive Summary &..."
 Vector Dimension: 1536
-Vector Head [0:8]: [-0.00871, 0.02975, 0.09308, 0.02061, -0.04004, 0.00395, 0.03336, 0.02844]
-Vector Tail [-8:]: [0.02341, 0.043, 0.01192, 0.0075, 0.02545, -0.00981, -0.011, -0.00957]
+Vector Head [0:8]: [-0.00874, 0.02979, 0.09314, 0.0206, -0.04013, 0.00396, 0.03336, 0.02841]
+Vector Tail [-8:]: [0.02341, 0.04306, 0.0119, 0.0075, 0.02545, -0.00986, -0.01102, -0.0096]
 ------------------------------------------
 Row Matrix Index [1]: Chunk ID 'sample_banking_regulation_txt#chunk_002'
 Text Snippet: " lists in real time prior to authorization.
 
 ## Section 2: Capital Reserves & Liquidity Ra..."
 Vector Dimension: 1536
-Vector Head [0:8]: [-0.01408, 0.04828, 0.11578, 0.0175, 0.02473, -0.00828, -0.00851, 0.01768]
-Vector Tail [-8:]: [0.012, -0.00422, -0.00747, 0.01018, 0.00358, -0.01886, 7e-05, 0.00062]
+Vector Head [0:8]: [-0.01408, 0.04828, 0.11578, 0.01759, 0.02473, -0.00834, -0.00846, 0.01762]
+Vector Tail [-8:]: [0.01191, -0.00421, -0.00746, 0.01013, 0.0036, -0.01886, 5e-05, 0.00063]
 ------------------------------------------
 Row Matrix Index [2]: Chunk ID 'sample_banking_regulation_txt#chunk_003'
 Text Snippet: "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and subm..."
 Vector Dimension: 1536
-Vector Head [0:8]: [-0.01324, 0.01575, 0.05597, 0.00231, -0.01944, 0.02124, 0.00224, 0.00164]
-Vector Tail [-8:]: [-0.00086, -0.00791, -0.02913, 0.02347, 0.01083, -0.01026, 0.00349, 0.02835]
+Vector Head [0:8]: [-0.01325, 0.01573, 0.05597, 0.00231, -0.01942, 0.02124, 0.00224, 0.00161]
+Vector Tail [-8:]: [-0.00085, -0.00792, -0.02914, 0.02347, 0.01083, -0.01023, 0.0035, 0.02835]
 ------------------------------------------
 Row Matrix Index [3]: Chunk ID 'sample_banking_regulation_txt#chunk_004'
 Text Snippet: ",000 requires unanimous board authorization and an independent audit report prior to disbu..."
 Vector Dimension: 1536
-Vector Head [0:8]: [-0.01631, 0.00813, 0.08124, 0.01092, -0.01398, 0.02292, -0.02077, -0.01663]
-Vector Tail [-8:]: [0.01518, 0.00169, -0.02545, 0.01247, -0.00112, -0.00694, 0.01315, 0.01489]
+Vector Head [0:8]: [-0.01634, 0.00814, 0.08124, 0.01093, -0.01398, 0.02292, -0.02075, -0.01666]
+Vector Tail [-8:]: [0.0152, 0.00168, -0.02544, 0.01247, -0.00113, -0.00692, 0.01315, 0.01488]
 ------------------------------------------

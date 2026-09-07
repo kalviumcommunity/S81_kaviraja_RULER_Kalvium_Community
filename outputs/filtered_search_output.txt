@@ -1,0 +1,47 @@
+================================================================================
+                 METADATA-FILTERED RETRIEVAL & COMPARISON REPORT                
+================================================================================
+Query: "What are the rules and approval thresholds for high-value transaction payments?"
+Search Mode: HYBRID
+Filter Applied: Section 3: High-Value Transaction Authorization Thresholds
+
+--------------------------------------------------------------------------------
+UNFILTERED RETRIEVAL RESULTS (All Corpus Chunks Considered)
+--------------------------------------------------------------------------------
+Rank #1 | Hybrid Score: 0.5802 (Vec: 0.5848, KW: 0.5734)
+Chunk ID: sample_banking_regulation_txt#chunk_003
+Section:  Section 3: High-Value Transaction Authorization Thresholds
+Matched Keywords: ['and', 'high-value', 'payments', 'approval', 'transaction', 'the', 'thresholds']
+Text: "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial re..."
+----------------------------------------
+Rank #2 | Hybrid Score: 0.4444 (Vec: 0.4952, KW: 0.3682)
+Chunk ID: sample_banking_regulation_txt#chunk_004
+Section:  Section 3: High-Value Transaction Authorization Thresholds
+Matched Keywords: ['high-value', 'and', 'for']
+Text: ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain boa..."
+----------------------------------------
+
+--------------------------------------------------------------------------------
+FILTERED RETRIEVAL RESULTS (Scoped to Target Metadata Subset)
+--------------------------------------------------------------------------------
+Chunks Filtered Out: 2
+
+Rank #1 | Hybrid Score: 0.5803 (Vec: 0.5848, KW: 0.5734)
+Chunk ID: sample_banking_regulation_txt#chunk_003
+Section:  Section 3: High-Value Transaction Authorization Thresholds
+Matched Keywords: ['and', 'high-value', 'payments', 'approval', 'transaction', 'the', 'thresholds']
+Text: "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial re..."
+----------------------------------------
+Rank #2 | Hybrid Score: 0.4444 (Vec: 0.4953, KW: 0.3682)
+Chunk ID: sample_banking_regulation_txt#chunk_004
+Section:  Section 3: High-Value Transaction Authorization Thresholds
+Matched Keywords: ['high-value', 'and', 'for']
+Text: ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain boa..."
+----------------------------------------
+
+--------------------------------------------------------------------------------
+COMPARATIVE ANALYSIS & VERDICT
+--------------------------------------------------------------------------------
+Top Rank Result Shifted: NO
+Verdict: The metadata filter 'Section 3: High-Value Transaction Authorization Thresholds' eliminated 2 out-of-scope chunk(s) from the retrieval candidate pool. As a result, top positions are guaranteed to originate strictly from the requested subset.
+================================================================================

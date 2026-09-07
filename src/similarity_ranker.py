@@ -154,11 +154,13 @@ class SimilarityRanker:
         embedded_chunks: List[EmbeddedChunk],
         metric: Optional[str] = None,
         top_k: int = 3,
-        query_embedding: Optional[List[float]] = None
+        query_embedding: Optional[List[float]] = None,
+        metadata_filter: Optional[Any] = None
     ) -> Dict[str, Any]:
         """
         Task 2 & Task 3: Compare query against chunk embeddings, calculate scores,
         and rank chunks from most similar to least similar.
+        Supports optional pre-retrieval metadata filtering.
         """
         selected_metric = (metric or self.metric).lower().strip()
         if not embedded_chunks:
@@ -167,6 +169,43 @@ class SimilarityRanker:
                 "query": query,
                 "metric": selected_metric,
                 "total_chunks_compared": 0,
+                "ranked_chunks": [],
+                "most_similar": [],
+                "least_similar": [],
+                "metric_justification": self.justify_metric(selected_metric)
+            }
+
+        # Apply metadata filter if provided
+        active_chunks = embedded_chunks
+        filter_dict = None
+        if metadata_filter is not None:
+            if isinstance(metadata_filter, dict):
+                try:
+                    from filtered_search import MetadataFilter
+                except ImportError:
+                    try:
+                        from src.filtered_search import MetadataFilter
+                    except ImportError:
+                        MetadataFilter = None
+
+                if MetadataFilter:
+                    mf = MetadataFilter(criteria=metadata_filter)
+                    active_chunks = mf.filter_chunks(embedded_chunks)
+                    filter_dict = mf.to_dict()
+                else:
+                    active_chunks = [c for c in embedded_chunks if all(c.metadata.get(k) == v for k, v in metadata_filter.items())]
+                    filter_dict = {"criteria": metadata_filter}
+            elif hasattr(metadata_filter, "filter_chunks"):
+                active_chunks = metadata_filter.filter_chunks(embedded_chunks)
+                filter_dict = metadata_filter.to_dict() if hasattr(metadata_filter, "to_dict") else str(metadata_filter)
+
+        if not active_chunks:
+            return {
+                "query": query,
+                "metric": selected_metric,
+                "total_chunks_compared": 0,
+                "filtered_out_chunks": len(embedded_chunks),
+                "metadata_filter": filter_dict,
                 "ranked_chunks": [],
                 "most_similar": [],
                 "least_similar": [],
@@ -187,7 +226,7 @@ class SimilarityRanker:
 
         # Task 1 & 2: Score each chunk against the query embedding
         scored_chunks: List[Tuple[float, EmbeddedChunk]] = []
-        for chunk in embedded_chunks:
+        for chunk in active_chunks:
             score = self.compute_similarity(query_vec, chunk.embedding, metric=selected_metric)
             scored_chunks.append((score, chunk))
 
@@ -221,6 +260,8 @@ class SimilarityRanker:
             "query_vector_preview": format_vector_preview(query_vec, preview_size=4),
             "metric": selected_metric,
             "total_chunks_compared": len(ranked_list),
+            "filtered_out_chunks": len(embedded_chunks) - len(active_chunks),
+            "metadata_filter": filter_dict,
             "ranked_chunks": [rc.to_dict() for rc in ranked_list],
             "most_similar": most_similar,
             "least_similar": least_similar,

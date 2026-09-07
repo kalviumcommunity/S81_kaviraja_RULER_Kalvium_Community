@@ -20,6 +20,10 @@ from chunk_embedding_pipeline import ChunkEmbeddingPipeline, EmbeddedChunk
 from similarity_ranker import SimilarityRanker
 from relevance_checker import RelevanceSanityChecker
 try:
+    from filtered_search import FilteredSearchEngine, MetadataFilter
+except ImportError:
+    from src.filtered_search import FilteredSearchEngine, MetadataFilter
+try:
     from prompts.templates import RAG_SYSTEM_PROMPT, RAG_USER_PROMPT
 except ImportError:
     RAG_SYSTEM_PROMPT = None
@@ -414,6 +418,81 @@ def main():
     print(f" -> Surprising/Failing Cases Identified: {sanity_summary['surprising_cases_count']}")
 
 
+
+    # ----------------------------------------------------
+    # METADATA FILTERING & HYBRID SEARCH (Tasks 1 to 5)
+    # ----------------------------------------------------
+    print("\n[Filtered & Hybrid Search] Executing Metadata Filtering, Hybrid Matching, & Precision Demo...")
+    filtered_engine = FilteredSearchEngine(client=client, ranker=similarity_ranker)
+
+    # Task 1 & 2: Compare Filtered vs Unfiltered Retrieval
+    filter_query = "What are the rules and approval thresholds for high-value transaction payments?"
+    section_filter = MetadataFilter(
+        criteria={"section__contains": "Section 3"},
+        description="Section 3: High-Value Transaction Authorization Thresholds"
+    )
+    comparison_results = filtered_engine.compare_filtered_unfiltered(
+        query=filter_query,
+        embedded_chunks=embedded_chunks_list,
+        metadata_filter=section_filter,
+        top_k=2,
+        mode="hybrid",
+        alpha=0.6
+    )
+    print(f" -> Task 1 & 2: Filtered search executed for: \"{filter_query}\"")
+    print(f"    - Filter: {comparison_results['filter_applied']['description']}")
+    print(f"    - Unfiltered Candidates: {comparison_results['unfiltered_results']['total_chunks_scored']}, Filtered Candidates: {comparison_results['filtered_results']['total_chunks_scored']} (Eliminated {comparison_results['filtered_results']['filtered_out_chunks']})")
+    print(f"    - Top Result Shift: {'Yes' if comparison_results['comparison_analysis']['top_1_changed'] else 'No'}")
+
+    # Task 3: Hybrid Search Comparison (Exact Term / ID Matching)
+    exact_query = "Which disbursements exceeding $50,000 require board authorization?"
+    vec_top = filtered_engine.search(exact_query, embedded_chunks_list, mode="vector", top_k=1)
+    kw_top = filtered_engine.search(exact_query, embedded_chunks_list, mode="keyword", top_k=1)
+    hyb_top = filtered_engine.search(exact_query, embedded_chunks_list, mode="hybrid", alpha=0.6, top_k=1)
+    hybrid_comparison = {
+        "query": exact_query,
+        "demonstration": "Exact entity and threshold matching ($50,000, board authorization)",
+        "vector_search_top_1": vec_top["ranked_chunks"][0] if vec_top["ranked_chunks"] else None,
+        "keyword_search_top_1": kw_top["ranked_chunks"][0] if kw_top["ranked_chunks"] else None,
+        "hybrid_search_top_1": hyb_top["ranked_chunks"][0] if hyb_top["ranked_chunks"] else None,
+        "hybrid_fusion_weights": {"alpha_vector": 0.6, "beta_keyword": 0.4}
+    }
+    print(f" -> Task 3: Hybrid search compared for: \"{exact_query}\"")
+    print(f"    - Hybrid Top Score: {hyb_top['ranked_chunks'][0]['hybrid_score']:.4f} (Vec: {hyb_top['ranked_chunks'][0]['vector_score']:.4f}, KW: {hyb_top['ranked_chunks'][0]['keyword_score']:.4f})")
+
+    # Task 4: Precision Improvement Demonstration
+    target_relevant_ids = [
+        c.chunk_id for c in embedded_chunks_list
+        if "Section 3" in c.metadata.get("section", "") or "$50,000" in c.source_text
+    ]
+    precision_demo = filtered_engine.demonstrate_precision_improvement(
+        query=filter_query,
+        embedded_chunks=embedded_chunks_list,
+        metadata_filter=section_filter,
+        relevant_chunk_ids=target_relevant_ids,
+        top_k=3
+    )
+    print(" -> Task 4: Precision demonstrated:")
+    print(f"    - Unfiltered Vector Precision@3: {precision_demo['unfiltered_vector_search']['precision_percentage']}%")
+    print(f"    - Filtered Hybrid Precision@3:   {precision_demo['filtered_hybrid_search']['precision_percentage']}%")
+    print(f"    - Net Precision Gain:            +{precision_demo['precision_improvement']['precision_gain_percentage']}%")
+
+    # Task 5: Export Sample Reports
+    filtered_engine.export_reports(
+        comparison_results=comparison_results,
+        precision_results=precision_demo,
+        hybrid_comparison_results=hybrid_comparison,
+        output_txt_path=os.path.join("outputs", "filtered_search_output.txt"),
+        output_json_path=os.path.join("outputs", "filtered_search_results.json"),
+        hybrid_json_path=os.path.join("outputs", "hybrid_search_comparison.json"),
+        precision_txt_path=os.path.join("outputs", "precision_demonstration_report.txt")
+    )
+    sample_results["filtered_hybrid_search"] = {
+        "comparison_results": comparison_results,
+        "hybrid_comparison": hybrid_comparison,
+        "precision_demonstration": precision_demo
+    }
+    print(" -> Task 5: Sample filtered-search results and precision reports exported to outputs/.")
 
     # ----------------------------------------------------
     # TASK 5: Save Sample Parsed Results

@@ -11,6 +11,7 @@ Integrates prepared text chunks from token-aware chunking with API-based embeddi
 """
 
 import os
+import re
 import json
 from dataclasses import dataclass, asdict, field
 from typing import List, Dict, Any, Optional, Tuple, Union
@@ -318,6 +319,17 @@ class ChunkEmbeddingPipeline:
                 source_path=source_path,
                 section="Document Content",
             )
+            # Detect section header for each chunk if document contains markdown headings
+            current_section = "Document Content"
+            for chunk in chunks:
+                sec_match = re.search(r"^\s*#{1,6}\s+(Section\s+\d+:[^\n]+)", chunk.text, re.MULTILINE)
+                if sec_match:
+                    current_section = sec_match.group(1).strip()
+                elif current_section == "Document Content":
+                    prior_headers = list(re.finditer(r"^\s*#{1,6}\s+(Section\s+\d+:[^\n]+)", content[:chunk.start_char + 50], re.MULTILINE))
+                    if prior_headers:
+                        current_section = prior_headers[-1].group(1).strip()
+                chunk.section = current_section
             all_prepared_chunks.extend(chunks)
 
         self.client.logger.info(f"Generated {len(all_prepared_chunks)} text chunks across corpus.")
@@ -348,6 +360,12 @@ class ChunkEmbeddingPipeline:
             meta = d.get("metadata", {})
             if hasattr(chunk, "token_count"):
                 meta["token_count"] = getattr(chunk, "token_count")
+            if hasattr(chunk, "section"):
+                meta["section"] = getattr(chunk, "section")
+            if "category" not in meta:
+                meta["category"] = "Compliance & Regulation"
+            if "doc_type" not in meta:
+                meta["doc_type"] = "Regulatory Framework"
             return chunk_id, text, meta
 
         if isinstance(chunk, dict):

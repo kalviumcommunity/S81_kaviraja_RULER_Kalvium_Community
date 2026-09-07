@@ -18,10 +18,10 @@ Category: Standard Relevance
 Query: "How are suspicious transactions and beneficiary country risk scores monitored?"
 Expected Target Section: Section 1: Executive Summary & Overview
 Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_001
-Top Ranked Score: 0.477709
-Score Margin Over Runner-Up: +0.090895
+Top Ranked Score: 0.477758
+Score Margin Over Runner-Up: +0.090941
 Top Text Snippet: "# Global Banking Compliance & Regulatory Framework 2026  ## Section 1: Executive Summary & Overview Financial institutio..."
-Diagnostic Note: PASS: Related text ranked #1 (Score: 0.4777). Outranked runner-up by margin of +0.0909.
+Diagnostic Note: PASS: Related text ranked #1 (Score: 0.4778). Outranked runner-up by margin of +0.0909.
 --------------------------------------------------
 
 Test ID: TEST-002 [PASS]
@@ -29,10 +29,10 @@ Category: Standard Relevance
 Query: "What minimum Tier 1 common equity capital ratio is required under Basel IV?"
 Expected Target Section: Section 2: Capital Reserves & Liquidity Ratios
 Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_002
-Top Ranked Score: 0.602956
-Score Margin Over Runner-Up: +0.245375
+Top Ranked Score: 0.602999
+Score Margin Over Runner-Up: +0.245453
 Top Text Snippet: " lists in real time prior to authorization.  ## Section 2: Capital Reserves & Liquidity Ratios Under Basel IV capital ad..."
-Diagnostic Note: PASS: Related text ranked #1 (Score: 0.6030). Outranked runner-up by margin of +0.2454.
+Diagnostic Note: PASS: Related text ranked #1 (Score: 0.6030). Outranked runner-up by margin of +0.2455.
 --------------------------------------------------
 
 Test ID: TEST-003 [PASS]
@@ -40,10 +40,10 @@ Category: Standard Relevance
 Query: "What are the rules and approval thresholds for high-value transaction payments?"
 Expected Target Section: Section 3: High-Value Transaction Authorization Thresholds
 Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_003
-Top Ranked Score: 0.584875
-Score Margin Over Runner-Up: +0.089536
+Top Ranked Score: 0.584842
+Score Margin Over Runner-Up: +0.089576
 Top Text Snippet: "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial re..."
-Diagnostic Note: PASS: Related text ranked #1 (Score: 0.5849). Outranked runner-up by margin of +0.0895.
+Diagnostic Note: PASS: Related text ranked #1 (Score: 0.5848). Outranked runner-up by margin of +0.0896.
 --------------------------------------------------
 
 Test ID: TEST-004 [FAIL / SURPRISING]
@@ -51,8 +51,8 @@ Category: Failing / Surprising Case (Negation)
 Query: "Which vendor disbursements do NOT require unanimous board approval?"
 Expected Target Section: Section 3: High-Value Transaction Authorization Thresholds (Under $50k Clause)
 Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_004
-Top Ranked Score: 0.627576
-Score Margin Over Runner-Up: +0.149437
+Top Ranked Score: 0.627572
+Score Margin Over Runner-Up: +0.149398
 Top Text Snippet: ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain boa..."
 Diagnostic Note: SURPRISING / FAILING CASE REVEALED: Vector Negation Blindspot. Query requested disbursements that 'do NOT require unanimous board approval', but Top Rank #1 was Chunk 'sample_banking_regulation_txt#chunk_004' (Score: 0.6276) which specifies disbursements that DO require board approval. Reason: Dense embedding models map queries by topic keywords ('vendor disbursements', 'unanimous board approval') and fail to invert vector direction for logical negation ('NOT').
 --------------------------------------------------
@@ -62,8 +62,8 @@ Category: Borderline Case (Lexical Distractor)
 Query: "What audit procedures are required for anti-money laundering compliance?"
 Expected Target Section: Section 1: Executive Summary & Overview
 Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_001
-Top Ranked Score: 0.530429
-Score Margin Over Runner-Up: +0.140501
+Top Ranked Score: 0.530398
+Score Margin Over Runner-Up: +0.140472
 Top Text Snippet: "# Global Banking Compliance & Regulatory Framework 2026  ## Section 1: Executive Summary & Overview Financial institutio..."
 Diagnostic Note: BORDERLINE CASE OBSERVATION: Lexical Keyword Distractor. Top Rank #1 was Section 1 (Score: 0.5304), but Section 3 chunk received an elevated similarity score due to the shared word 'audit'. Demonstrates how shared domain terms across distinct sections can inflate similarity scores.
 --------------------------------------------------
