@@ -2,52 +2,80 @@
                  RETRIEVAL FAILURE & DIAGNOSTIC INSPECTION REPORT               
 ================================================================================
 Total Queries Evaluated: 8
-Failed / Low-Scoring Queries: 3
-Benchmark Pass Rate: 62.5%
+Failed / Low-Scoring Queries: 5
+Benchmark Pass Rate: 37.5%
 
 --------------------------------------------------------------------------------
 IDENTIFIED FAILURE CASES & ROOT CAUSE INSPECTION
 --------------------------------------------------------------------------------
 
+Query ID: Q-002 [VOCABULARY_OR_EMBEDDING_MISMATCH]
+Query: "What minimum Tier 1 capital adequacy ratio is required under Basel IV?"
+Category: Standard Relevance
+Expected Section: Section 2: Capital Reserves & Liquidity Ratios (Expected Chunks: ['sample_banking_regulation_txt#chunk_002'])
+Actual Top Rank #1: sample_banking_regulation_txt#chunk_004 (Section: Section 4: AI Model Governance in Credit Risk)
+Rank Achieved for Target Chunk: #2 (Acceptable: #1)
+
+Root Cause Diagnosis:
+  Query phrasing had a wide semantic distance from the exact terminology used in the regulatory corpus, causing the embedding model to assign suboptimal similarity.
+
+Pipeline Remediation Recommendation:
+  Expand queries using LLM query expansion (HyDE) or inject domain-specific synonyms into hybrid search.
+------------------------------------------------------------
+
+Query ID: Q-003 [VOCABULARY_OR_EMBEDDING_MISMATCH]
+Query: "What are the rules and approval thresholds for high-value transaction payments?"
+Category: Standard Relevance
+Expected Section: Section 3: High-Value Transaction Authorization Thresholds (Expected Chunks: ['sample_banking_regulation_txt#chunk_003', 'sample_banking_regulation_txt#chunk_004'])
+Actual Top Rank #1: sample_banking_regulation_txt#chunk_005 (Section: Section 4: AI Model Governance in Credit Risk)
+Rank Achieved for Target Chunk: #3 (Acceptable: #2)
+
+Root Cause Diagnosis:
+  Query phrasing had a wide semantic distance from the exact terminology used in the regulatory corpus, causing the embedding model to assign suboptimal similarity.
+
+Pipeline Remediation Recommendation:
+  Expand queries using LLM query expansion (HyDE) or inject domain-specific synonyms into hybrid search.
+------------------------------------------------------------
+
 Query ID: Q-004 [EMBEDDING_NEGATION_BLINDSPOT]
 Query: "Which vendor disbursements do NOT require unanimous board approval?"
 Category: Negation Blindspot (Known Failure)
 Expected Section: Section 3: High-Value Transaction Authorization Thresholds (Expected Chunks: ['sample_banking_regulation_txt#chunk_003'])
-Actual Top Rank #1: sample_banking_regulation_txt#chunk_004 (Section: Section 3: High-Value Transaction Authorization Thresholds)
+Actual Top Rank #1: sample_banking_regulation_txt#chunk_005 (Section: Section 4: AI Model Governance in Credit Risk)
 Rank Achieved for Target Chunk: #2 (Acceptable: #1)
 
 Root Cause Diagnosis:
-  Dense embedding models map queries by topic keywords and fail to invert vector direction for logical negation. The model matched positive topic tokens ('disbursements', 'board approval') and mistakenly ranked 'sample_banking_regulation_txt#chunk_004' at rank #1.
+  Dense embedding models map queries by topic keywords and fail to invert vector direction for logical negation. The model matched positive topic tokens ('disbursements', 'board approval') and mistakenly ranked 'sample_banking_regulation_txt#chunk_005' at rank #1.
 
 Pipeline Remediation Recommendation:
   Implement query transformation/rewriting to rephrase negative constraints, or apply structured metadata filtering on authorization tiers prior to vector search.
 ------------------------------------------------------------
 
-Query ID: Q-006 [VOCABULARY_OR_EMBEDDING_MISMATCH]
-Query: "How often must institutions calculate and submit the Liquidity Coverage Ratio (LCR)?"
-Category: Specific Entity / Threshold
-Expected Section: Section 2: Capital Reserves & Liquidity Ratios (Expected Chunks: ['sample_banking_regulation_txt#chunk_002'])
-Actual Top Rank #1: sample_banking_regulation_txt#chunk_003 (Section: Section 3: High-Value Transaction Authorization Thresholds)
-Rank Achieved for Target Chunk: #2 (Acceptable: #1)
+Query ID: Q-005 [CROSS_SECTION_LEXICAL_DISTRACTION]
+Query: "What audit procedures and compliance checks are required for transaction authorization?"
+Category: Cross-Section Lexical Distractor
+Expected Section: Section 3: High-Value Transaction Authorization Thresholds (Expected Chunks: ['sample_banking_regulation_txt#chunk_003', 'sample_banking_regulation_txt#chunk_004'])
+Actual Top Rank #1: sample_banking_regulation_txt#chunk_005 (Section: Section 4: AI Model Governance in Credit Risk)
+Rank Achieved for Target Chunk: #4 (Acceptable: #2)
 
 Root Cause Diagnosis:
-  Query phrasing had a wide semantic distance from the exact terminology used in the regulatory corpus, causing the embedding model to assign suboptimal similarity.
+  Shared vocabulary ('compliance', 'audit') between Section 1 and Section 3 caused out-of-scope chunk 'sample_banking_regulation_txt#chunk_005' from 'Section 4: AI Model Governance in Credit Risk' to outrank target chunk 'sample_banking_regulation_txt#chunk_003' from 'Section 3: High-Value Transaction Authorization Thresholds'.
 
 Pipeline Remediation Recommendation:
-  Expand queries using LLM query expansion (HyDE) or inject domain-specific synonyms into hybrid search.
+  Apply pre-retrieval metadata filtering scoped to target document section, or utilize hybrid search with exact phrase matching to penalize cross-section false positives.
 ------------------------------------------------------------
 
-Query ID: Q-008 [VOCABULARY_OR_EMBEDDING_MISMATCH]
-Query: "What automated screening protocols verify transaction velocity and entity sanction status?"
-Category: Semantic Paraphrase
-Expected Section: Section 1: Executive Summary & Overview (Expected Chunks: ['sample_banking_regulation_txt#chunk_001'])
-Actual Top Rank #1: sample_banking_regulation_txt#chunk_003 (Section: Section 3: High-Value Transaction Authorization Thresholds)
-Rank Achieved for Target Chunk: #2 (Acceptable: #1)
+Query ID: Q-007 [CROSS_SECTION_LEXICAL_DISTRACTION]
+Query: "What consequences follow a failure to obtain board authorization for high-value expenditures?"
+Category: Boundary Consequence Clause
+Expected Section: Section 3: High-Value Transaction Authorization Thresholds (Expected Chunks: ['sample_banking_regulation_txt#chunk_004'])
+Actual Top Rank #1: sample_banking_regulation_txt#chunk_001 (Section: Section 1: Executive Overview and Scope)
+Rank Achieved for Target Chunk: #3 (Acceptable: #1)
 
 Root Cause Diagnosis:
-  Query phrasing had a wide semantic distance from the exact terminology used in the regulatory corpus, causing the embedding model to assign suboptimal similarity.
+  Shared vocabulary ('compliance', 'audit') between Section 1 and Section 3 caused out-of-scope chunk 'sample_banking_regulation_txt#chunk_001' from 'Section 1: Executive Overview and Scope' to outrank target chunk 'sample_banking_regulation_txt#chunk_004' from 'Section 3: High-Value Transaction Authorization Thresholds'.
 
 Pipeline Remediation Recommendation:
-  Expand queries using LLM query expansion (HyDE) or inject domain-specific synonyms into hybrid search.
+  Apply pre-retrieval metadata filtering scoped to target document section, or utilize hybrid search with exact phrase matching to penalize cross-section false positives.
 ------------------------------------------------------------
 ================================================================================

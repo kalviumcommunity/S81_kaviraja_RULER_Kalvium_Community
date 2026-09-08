@@ -112,7 +112,11 @@ class ChunkEmbeddingPipeline:
         texts_to_embed = [item[2] for item in valid_chunk_tuples]
 
         # Step 2: Send text to the configured embedding API
-        embeddings, usage = self.client.generate_embeddings(texts_to_embed, model=model)
+        try:
+            embeddings, usage = self.client.generate_embeddings(texts_to_embed, model=model)
+        except Exception as e:
+            self.client.logger.error(f"API call to generate_embeddings failed: {e}")
+            embeddings = None
 
         if embeddings is None:
             self.client.logger.error("API call to generate_embeddings failed.")

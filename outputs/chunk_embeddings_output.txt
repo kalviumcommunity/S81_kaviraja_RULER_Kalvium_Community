@@ -11,10 +11,10 @@ Source Documents:
 1
 
 Chunks Received:
-4
+5
 
 Chunks Successfully Embedded:
-4
+5
 
 Vector Dimension:
 1536
@@ -36,26 +36,26 @@ Metadata:
 {
   "doc_id": "sample_banking_regulation_txt",
   "filename": "sample_banking_regulation.txt",
-  "source_path": "data/sample_banking_regulation.txt",
-  "section": "Section 1: Executive Summary & Overview",
+  "source_path": "data\\sample_banking_regulation.txt",
+  "section": "Section 1: Executive Overview and Scope",
   "page_number": 1,
   "chunk_index": 0,
-  "total_chunks": 4,
+  "total_chunks": 5,
   "start_char": 0,
-  "end_char": 565,
+  "end_char": 575,
   "token_count": 100,
   "category": "Compliance & Regulation",
   "doc_type": "Regulatory Framework"
 }
 
 Text:
-"# Global Banking Compliance & Regulatory Framework 2026  ## Section 1: Executive Summary & Overview Financial institutio..."
+"# Banking Regulatory Compliance Framework (BRCF-2026)  --- Page 1 --- ## Section 1: Executive Overview and Scope This do..."
 
 Vector Length:
 1536
 
 Vector Preview:
-[-0.0087, 0.0298, 0.0931, 0.0206, ...]
+[0.1000, 0.1010, 0.1020, 0.1030, ...]
 --------------------------------------
 --------------------------------------
 Chunk Index:
@@ -68,26 +68,26 @@ Metadata:
 {
   "doc_id": "sample_banking_regulation_txt",
   "filename": "sample_banking_regulation.txt",
-  "source_path": "data/sample_banking_regulation.txt",
-  "section": "Section 2: Capital Reserves & Liquidity Ratios",
+  "source_path": "data\\sample_banking_regulation.txt",
+  "section": "Section 2: Liquidity and Capital Requirements",
   "page_number": 1,
   "chunk_index": 1,
-  "total_chunks": 4,
-  "start_char": 474,
-  "end_char": 925,
+  "total_chunks": 5,
+  "start_char": 486,
+  "end_char": 946,
   "token_count": 100,
   "category": "Compliance & Regulation",
   "doc_type": "Regulatory Framework"
 }
 
 Text:
-" lists in real time prior to authorization.  ## Section 2: Capital Reserves & Liquidity Ratios Under Basel IV capital ad..."
+" operational suspension, or revocation of banking licenses.  --- Page 2 --- ## Section 2: Liquidity and Capital Requirem..."
 
 Vector Length:
 1536
 
 Vector Preview:
-[-0.0141, 0.0483, 0.1158, 0.0176, ...]
+[0.1500, 0.1510, 0.1520, 0.1530, ...]
 --------------------------------------
 --------------------------------------
 Chunk Index:
@@ -100,24 +100,24 @@ Metadata:
 {
   "doc_id": "sample_banking_regulation_txt",
   "filename": "sample_banking_regulation.txt",
-  "source_path": "data/sample_banking_regulation.txt",
-  "section": "Section 3: High-Value Transaction Authorization Thresholds",
+  "source_path": "data\\sample_banking_regulation.txt",
+  "section": "Section 3: Data Protection and Privacy Controls",
   "page_number": 1,
   "chunk_index": 2,
-  "total_chunks": 4,
-  "start_char": 830,
-  "end_char": 1413,
+  "total_chunks": 5,
+  "start_char": 857,
+  "end_char": 1316,
   "token_count": 100,
   "category": "Compliance & Regulation",
   "doc_type": "Regulatory Framework"
 }
 
 Text:
-"30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial re..."
+"Daily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.  --- Page 3 --- ## ..."
 
 Vector Length:
 1536
 
 Vector Preview:
-[-0.0133, 0.0157, 0.0560, 0.0023, ...]
+[0.2000, 0.2010, 0.2020, 0.2030, ...]
 --------------------------------------

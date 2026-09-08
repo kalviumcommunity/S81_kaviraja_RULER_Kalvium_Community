@@ -8,40 +8,34 @@ Filter Applied: Section 3: High-Value Transaction Authorization Thresholds
 --------------------------------------------------------------------------------
 UNFILTERED RETRIEVAL RESULTS (All Corpus Chunks Considered)
 --------------------------------------------------------------------------------
-Rank #1 | Hybrid Score: 0.5803 (Vec: 0.5848, KW: 0.5734)
-Chunk ID: sample_banking_regulation_txt#chunk_003
-Section:  Section 3: High-Value Transaction Authorization Thresholds
-Matched Keywords: ['transaction', 'the', 'and', 'high-value', 'payments', 'approval', 'thresholds']
-Text: "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial re..."
-----------------------------------------
-Rank #2 | Hybrid Score: 0.4444 (Vec: 0.4953, KW: 0.3682)
+Rank #1 | Hybrid Score: 0.1659 (Vec: 0.0000, KW: 0.4147)
 Chunk ID: sample_banking_regulation_txt#chunk_004
-Section:  Section 3: High-Value Transaction Authorization Thresholds
-Matched Keywords: ['and', 'high-value', 'for']
-Text: ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain boa..."
+Section:  Section 4: AI Model Governance in Credit Risk
+Matched Keywords: ['the', 'for', 'and']
+Text: ") and require multi-factor authentication (MFA) for administrative operations. Any data breach must be reported to the r..."
+----------------------------------------
+Rank #2 | Hybrid Score: 0.1550 (Vec: 0.0000, KW: 0.3874)
+Chunk ID: sample_banking_regulation_txt#chunk_003
+Section:  Section 3: Data Protection and Privacy Controls
+Matched Keywords: ['the', 'for', 'and']
+Text: "Daily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.  --- Page 3 --- ## ..."
 ----------------------------------------
 
 --------------------------------------------------------------------------------
 FILTERED RETRIEVAL RESULTS (Scoped to Target Metadata Subset)
 --------------------------------------------------------------------------------
-Chunks Filtered Out: 2
+Chunks Filtered Out: 4
 
-Rank #1 | Hybrid Score: 0.5803 (Vec: 0.5848, KW: 0.5734)
+Rank #1 | Hybrid Score: 0.1550 (Vec: 0.0000, KW: 0.3874)
 Chunk ID: sample_banking_regulation_txt#chunk_003
-Section:  Section 3: High-Value Transaction Authorization Thresholds
-Matched Keywords: ['transaction', 'the', 'and', 'high-value', 'payments', 'approval', 'thresholds']
-Text: "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial re..."
-----------------------------------------
-Rank #2 | Hybrid Score: 0.4444 (Vec: 0.4953, KW: 0.3682)
-Chunk ID: sample_banking_regulation_txt#chunk_004
-Section:  Section 3: High-Value Transaction Authorization Thresholds
-Matched Keywords: ['and', 'high-value', 'for']
-Text: ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain boa..."
+Section:  Section 3: Data Protection and Privacy Controls
+Matched Keywords: ['the', 'for', 'and']
+Text: "Daily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.  --- Page 3 --- ## ..."
 ----------------------------------------
 
 --------------------------------------------------------------------------------
 COMPARATIVE ANALYSIS & VERDICT
 --------------------------------------------------------------------------------
-Top Rank Result Shifted: NO
-Verdict: The metadata filter 'Section 3: High-Value Transaction Authorization Thresholds' eliminated 2 out-of-scope chunk(s) from the retrieval candidate pool. As a result, top positions are guaranteed to originate strictly from the requested subset.
+Top Rank Result Shifted: YES
+Verdict: The metadata filter 'Section 3: High-Value Transaction Authorization Thresholds' eliminated 4 out-of-scope chunk(s) from the retrieval candidate pool. As a result, top positions are guaranteed to originate strictly from the requested subset.
 ================================================================================

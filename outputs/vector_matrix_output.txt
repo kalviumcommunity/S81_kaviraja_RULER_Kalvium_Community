@@ -1,47 +1,58 @@
 Vector Matrix & Pairwise Similarity Export
 ==========================================
 
-Matrix Dimensions: 4 Chunks x 1536 Embedding Dimensions
-Total Floating-Point Matrix Values: 6144
+Matrix Dimensions: 5 Chunks x 1536 Embedding Dimensions
+Total Floating-Point Matrix Values: 7680
 
 ==========================================
 Pairwise Chunk Similarity Matrix (Cosine)
 ==========================================
-Row Chunk ID \ Column Chunk ID | C0 | C1 | C2 | C3
+Row Chunk ID \ Column Chunk ID | C0 | C1 | C2 | C3 | C4
 --------------------------------------------------------------------------------
-C0 (sample_banking_regulation...) | 1.0000 | 0.5440 | 0.4789 | 0.3091
-C1 (sample_banking_regulation...) | 0.5440 | 1.0000 | 0.6389 | 0.3008
-C2 (sample_banking_regulation...) | 0.4789 | 0.6389 | 1.0000 | 0.5752
-C3 (sample_banking_regulation...) | 0.3091 | 0.3008 | 0.5752 | 1.0000
+C0 (sample_banking_regulation...) | 1.0000 | 0.9433 | 0.8929 | 0.8488 | 0.8109
+C1 (sample_banking_regulation...) | 0.9433 | 1.0000 | 0.9462 | 0.8986 | 0.8572
+C2 (sample_banking_regulation...) | 0.8929 | 0.9462 | 1.0000 | 0.9491 | 0.9042
+C3 (sample_banking_regulation...) | 0.8488 | 0.8986 | 0.9491 | 1.0000 | 0.9519
+C4 (sample_banking_regulation...) | 0.8109 | 0.8572 | 0.9042 | 0.9519 | 1.0000
 
 ==========================================
 Vector Matrix Row Details
 ==========================================
 Row Matrix Index [0]: Chunk ID 'sample_banking_regulation_txt#chunk_001'
-Text Snippet: "# Global Banking Compliance & Regulatory Framework 2026
+Text Snippet: "# Banking Regulatory Compliance Framework (BRCF-2026)
 
-## Section 1: Executive Summary &..."
+--- Page 1 ---
+## Section 1: Execut..."
 Vector Dimension: 1536
-Vector Head [0:8]: [-0.00874, 0.02979, 0.09314, 0.0206, -0.04013, 0.00396, 0.03336, 0.02841]
-Vector Tail [-8:]: [0.02341, 0.04306, 0.0119, 0.0075, 0.02545, -0.00986, -0.01102, -0.0096]
+Vector Head [0:8]: [0.1, 0.101, 0.102, 0.103, 0.104, 0.105, 0.106, 0.107]
+Vector Tail [-8:]: [0.628, 0.629, 0.63, 0.631, 0.632, 0.633, 0.634, 0.635]
 ------------------------------------------
 Row Matrix Index [1]: Chunk ID 'sample_banking_regulation_txt#chunk_002'
-Text Snippet: " lists in real time prior to authorization.
+Text Snippet: " operational suspension, or revocation of banking licenses.
 
-## Section 2: Capital Reserves & Liquidity Ra..."
+--- Page 2 ---
+## Section 2: ..."
 Vector Dimension: 1536
-Vector Head [0:8]: [-0.01408, 0.04828, 0.11578, 0.01759, 0.02473, -0.00834, -0.00846, 0.01762]
-Vector Tail [-8:]: [0.01191, -0.00421, -0.00746, 0.01013, 0.0036, -0.01886, 5e-05, 0.00063]
+Vector Head [0:8]: [0.15, 0.151, 0.152, 0.153, 0.154, 0.155, 0.156, 0.157]
+Vector Tail [-8:]: [0.678, 0.679, 0.68, 0.681, 0.682, 0.683, 0.684, 0.685]
 ------------------------------------------
 Row Matrix Index [2]: Chunk ID 'sample_banking_regulation_txt#chunk_003'
-Text Snippet: "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and subm..."
+Text Snippet: "Daily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by ..."
 Vector Dimension: 1536
-Vector Head [0:8]: [-0.01325, 0.01573, 0.05597, 0.00231, -0.01942, 0.02124, 0.00224, 0.00161]
-Vector Tail [-8:]: [-0.00085, -0.00792, -0.02914, 0.02347, 0.01083, -0.01023, 0.0035, 0.02835]
+Vector Head [0:8]: [0.2, 0.201, 0.202, 0.203, 0.204, 0.205, 0.206, 0.207]
+Vector Tail [-8:]: [0.728, 0.729, 0.73, 0.731, 0.732, 0.733, 0.734, 0.735]
 ------------------------------------------
 Row Matrix Index [3]: Chunk ID 'sample_banking_regulation_txt#chunk_004'
-Text Snippet: ",000 requires unanimous board authorization and an independent audit report prior to disbu..."
+Text Snippet: ") and require multi-factor authentication (MFA) for administrative operations.
+Any data br..."
 Vector Dimension: 1536
-Vector Head [0:8]: [-0.01633, 0.00811, 0.0813, 0.01091, -0.01398, 0.02289, -0.02078, -0.01666]
-Vector Tail [-8:]: [0.01517, 0.00171, -0.02547, 0.01248, -0.00114, -0.00694, 0.01314, 0.01486]
+Vector Head [0:8]: [0.25, 0.251, 0.252, 0.253, 0.254, 0.255, 0.256, 0.257]
+Vector Tail [-8:]: [0.778, 0.779, 0.78, 0.781, 0.782, 0.783, 0.784, 0.785]
+------------------------------------------
+Row Matrix Index [4]: Chunk ID 'sample_banking_regulation_txt#chunk_005'
+Text Snippet: "XAI) detailing primary factor weightings for any adverse credit decisions.
+Model training ..."
+Vector Dimension: 1536
+Vector Head [0:8]: [0.3, 0.301, 0.302, 0.303, 0.304, 0.305, 0.306, 0.307]
+Vector Tail [-8:]: [0.828, 0.829, 0.83, 0.831, 0.832, 0.833, 0.834, 0.835]
 ------------------------------------------

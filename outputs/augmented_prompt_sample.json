@@ -1,0 +1,474 @@
+{
+  "milestone": "Context-Injection & Prompt-Augmentation",
+  "tasks_covered": [
+    "Task 1 - Inject Chunks",
+    "Task 2 - Enforce Token Budget",
+    "Task 3 - Source Markers",
+    "Task 4 - Grounding Instructions",
+    "Task 5 - Output Artifacts"
+  ],
+  "total_demonstrations": 4,
+  "demonstrations": [
+    {
+      "scenario_id": "SCENARIO_1_STANDARD_CITATION",
+      "title": "Standard Context Injection with Numbered Source Markers [1], [2]",
+      "description": "Demonstrates formatting retrieved chunks with numbered brackets [1], [2], injecting grounding rules, and verifying citation in generated answer.",
+      "augmented_prompt": {
+        "system_prompt": "You are an expert AI assistant specialized in Banking Regulation & Compliance Specialist.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess.",
+        "user_prompt": "[CONTEXT]\n--- [1] [Doc: sample_banking_regulation.txt | Section: Section 3: High-Value Authorizations & Liquidity | Page: 1 | ID: DOC_BRCF_2026#chunk_001] ---\n# Banking Regulatory Compliance Framework (BRCF-2026)\n\n--- Page 1 ---\n## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.\nFailure to maintain compliance may result in administrative penalties, operational suspension, or revocation of banking licenses.\n\n--- [2] [Doc: sample_banking_regulation.txt | Section: Section 3: High-Value Authorizations & Liquidity | Page: 1 | ID: DOC_BRCF_2026#chunk_002] ---\nresult in administrative penalties, operational suspension, or revocation of banking licenses.\n\n--- Page 2 ---\n## Section 2: Liquidity and Capital Requirements\nFinancial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times. \nAdditionally, liquidity coverage ratios (LCR) must be sustained above 100% to ensure short-term obligations can be met during high-stress market events.\nDaily reporting of net cash\n\n\n[QUESTION]\nWhat is the authorization policy for single capital expenditures exceeding $50,000?\n\n[ANSWER]",
+        "question": "What is the authorization policy for single capital expenditures exceeding $50,000?",
+        "source_marker_style": "numbered",
+        "grounding_enforced": true,
+        "token_accounting": {
+          "model_limit": 4096,
+          "system_prompt_tokens": 128,
+          "context_tokens": 279,
+          "question_and_wrapper_tokens": 25,
+          "total_prompt_tokens": 432,
+          "reserved_answer_tokens": 500,
+          "safety_margin_tokens": 50,
+          "max_projected_total_tokens": 932,
+          "remaining_headroom_tokens": 3164,
+          "is_within_budget": true
+        },
+        "assembled_context": {
+          "formatted_context": "--- [1] [Doc: sample_banking_regulation.txt | Section: Section 3: High-Value Authorizations & Liquidity | Page: 1 | ID: DOC_BRCF_2026#chunk_001] ---\n# Banking Regulatory Compliance Framework (BRCF-2026)\n\n--- Page 1 ---\n## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.\nFailure to maintain compliance may result in administrative penalties, operational suspension, or revocation of banking licenses.\n\n--- [2] [Doc: sample_banking_regulation.txt | Section: Section 3: High-Value Authorizations & Liquidity | Page: 1 | ID: DOC_BRCF_2026#chunk_002] ---\nresult in administrative penalties, operational suspension, or revocation of banking licenses.\n\n--- Page 2 ---\n## Section 2: Liquidity and Capital Requirements\nFinancial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times. \nAdditionally, liquidity coverage ratios (LCR) must be sustained above 100% to ensure short-term obligations can be met during high-stress market events.\nDaily reporting of net cash\n",
+          "injected_chunks": [
+            {
+              "chunk_index": 1,
+              "source_marker": "[1]",
+              "chunk_id": "DOC_BRCF_2026#chunk_001",
+              "doc_id": "DOC_BRCF_2026",
+              "filename": "sample_banking_regulation.txt",
+              "section": "Section 3: High-Value Authorizations & Liquidity",
+              "page_number": 1,
+              "raw_text": "# Banking Regulatory Compliance Framework (BRCF-2026)\n\n--- Page 1 ---\n## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.\nFailure to maintain compliance may result in administrative penalties, operational suspension, or revocation of banking licenses.\n\n",
+              "formatted_text": "--- [1] [Doc: sample_banking_regulation.txt | Section: Section 3: High-Value Authorizations & Liquidity | Page: 1 | ID: DOC_BRCF_2026#chunk_001] ---\n# Banking Regulatory Compliance Framework (BRCF-2026)\n\n--- Page 1 ---\n## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.\nFailure to maintain compliance may result in administrative penalties, operational suspension, or revocation of banking licenses.\n",
+              "token_count": 139,
+              "cumulative_context_tokens": 139
+            },
+            {
+              "chunk_index": 2,
+              "source_marker": "[2]",
+              "chunk_id": "DOC_BRCF_2026#chunk_002",
+              "doc_id": "DOC_BRCF_2026",
+              "filename": "sample_banking_regulation.txt",
+              "section": "Section 3: High-Value Authorizations & Liquidity",
+              "page_number": 1,
+              "raw_text": " result in administrative penalties, operational suspension, or revocation of banking licenses.\n\n--- Page 2 ---\n## Section 2: Liquidity and Capital Requirements\nFinancial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times. \nAdditionally, liquidity coverage ratios (LCR) must be sustained above 100% to ensure short-term obligations can be met during high-stress market events.\nDaily reporting of net cash",
+              "formatted_text": "--- [2] [Doc: sample_banking_regulation.txt | Section: Section 3: High-Value Authorizations & Liquidity | Page: 1 | ID: DOC_BRCF_2026#chunk_002] ---\nresult in administrative penalties, operational suspension, or revocation of banking licenses.\n\n--- Page 2 ---\n## Section 2: Liquidity and Capital Requirements\nFinancial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times. \nAdditionally, liquidity coverage ratios (LCR) must be sustained above 100% to ensure short-term obligations can be met during high-stress market events.\nDaily reporting of net cash\n",
+              "token_count": 140,
+              "cumulative_context_tokens": 279
+            }
+          ],
+          "skipped_chunks": [],
+          "total_candidate_chunks": 2,
+          "total_injected_chunks": 2,
+          "total_skipped_chunks": 0,
+          "context_tokens": 279,
+          "available_context_budget": 3393,
+          "remaining_context_budget": 3114,
+          "budget_breakdown": {
+            "initial_budget": 3393,
+            "used_tokens": 279,
+            "remaining_tokens": 3114,
+            "utilization_rate_pct": 8.22
+          }
+        }
+      },
+      "generation_result": {
+        "question": "What is the authorization policy for single capital expenditures exceeding $50,000?",
+        "grounded_answer": "According to the banking regulation policy, any single capital expenditure exceeding $50,000 requires unanimous board approval and an independent audit report prior to disbursement [1]. Failure to obtain prior authorization results in immediate suspension of procurement privileges [1].",
+        "token_usage": {
+          "prompt_tokens": 42,
+          "completion_tokens": 36,
+          "total_tokens": 78
+        },
+        "injected_sources": [
+          {
+            "marker": "[1]",
+            "doc_id": "DOC_BRCF_2026",
+            "filename": "sample_banking_regulation.txt",
+            "section": "Section 3: High-Value Authorizations & Liquidity",
+            "chunk_id": "DOC_BRCF_2026#chunk_001"
+          },
+          {
+            "marker": "[2]",
+            "doc_id": "DOC_BRCF_2026",
+            "filename": "sample_banking_regulation.txt",
+            "section": "Section 3: High-Value Authorizations & Liquidity",
+            "chunk_id": "DOC_BRCF_2026#chunk_002"
+          }
+        ],
+        "skipped_sources_count": 0,
+        "token_accounting": {
+          "model_limit": 4096,
+          "system_prompt_tokens": 128,
+          "context_tokens": 279,
+          "question_and_wrapper_tokens": 25,
+          "total_prompt_tokens": 432,
+          "reserved_answer_tokens": 500,
+          "safety_margin_tokens": 50,
+          "max_projected_total_tokens": 932,
+          "remaining_headroom_tokens": 3164,
+          "is_within_budget": true
+        }
+      }
+    },
+    {
+      "scenario_id": "SCENARIO_2_TOKEN_BUDGET_ENFORCEMENT",
+      "title": "Strict Token Budget Enforcement with Chunk Exclusion",
+      "description": "Proves that when candidate chunks exceed the calculated context headroom, the engine sequentially fits what it can and cleanly skips overflowing chunks.",
+      "augmented_prompt": {
+        "system_prompt": "You are an expert AI assistant specialized in Financial Regulatory Officer.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess.",
+        "user_prompt": "[CONTEXT]\n--- [1] [Doc: sample_banking_regulation.txt | Section: Section 3: High-Value Authorizations & Liquidity | Page: 1 | ID: DOC_BRCF_2026#chunk_001] ---\n# Banking Regulatory Compliance Framework (BRCF-2026)\n\n--- Page 1 ---\n## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.\nFailure to maintain compliance may result in administrative penalties, operational suspension, or revocation of banking licenses.\n\n\n[QUESTION]\nSummarize the regulatory framework across all banking and data management rules.\n\n[ANSWER]",
+        "question": "Summarize the regulatory framework across all banking and data management rules.",
+        "source_marker_style": "numbered",
+        "grounding_enforced": true,
+        "token_accounting": {
+          "model_limit": 500,
+          "system_prompt_tokens": 126,
+          "context_tokens": 139,
+          "question_and_wrapper_tokens": 24,
+          "total_prompt_tokens": 289,
+          "reserved_answer_tokens": 150,
+          "safety_margin_tokens": 30,
+          "max_projected_total_tokens": 439,
+          "remaining_headroom_tokens": 61,
+          "is_within_budget": true
+        },
+        "assembled_context": {
+          "formatted_context": "--- [1] [Doc: sample_banking_regulation.txt | Section: Section 3: High-Value Authorizations & Liquidity | Page: 1 | ID: DOC_BRCF_2026#chunk_001] ---\n# Banking Regulatory Compliance Framework (BRCF-2026)\n\n--- Page 1 ---\n## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.\nFailure to maintain compliance may result in administrative penalties, operational suspension, or revocation of banking licenses.\n",
+          "injected_chunks": [
+            {
+              "chunk_index": 1,
+              "source_marker": "[1]",
+              "chunk_id": "DOC_BRCF_2026#chunk_001",
+              "doc_id": "DOC_BRCF_2026",
+              "filename": "sample_banking_regulation.txt",
+              "section": "Section 3: High-Value Authorizations & Liquidity",
+              "page_number": 1,
+              "raw_text": "# Banking Regulatory Compliance Framework (BRCF-2026)\n\n--- Page 1 ---\n## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.\nFailure to maintain compliance may result in administrative penalties, operational suspension, or revocation of banking licenses.\n\n",
+              "formatted_text": "--- [1] [Doc: sample_banking_regulation.txt | Section: Section 3: High-Value Authorizations & Liquidity | Page: 1 | ID: DOC_BRCF_2026#chunk_001] ---\n# Banking Regulatory Compliance Framework (BRCF-2026)\n\n--- Page 1 ---\n## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.\nFailure to maintain compliance may result in administrative penalties, operational suspension, or revocation of banking licenses.\n",
+              "token_count": 139,
+              "cumulative_context_tokens": 139
+            }
+          ],
+          "skipped_chunks": [
+            {
+              "chunk_index": 2,
+              "chunk_id": "DOC_BRCF_2026#chunk_002",
+              "reason": "EXCEEDED_TOKEN_BUDGET",
+              "token_count": 140,
+              "required_budget": 279,
+              "remaining_budget": 31
+            },
+            {
+              "chunk_index": 3,
+              "chunk_id": "DOC_BRCF_2026#chunk_003",
+              "reason": "EXCEEDED_TOKEN_BUDGET",
+              "token_count": 140,
+              "required_budget": 279,
+              "remaining_budget": 31
+            },
+            {
+              "chunk_index": 4,
+              "chunk_id": "DOC_BRCF_2026#chunk_004",
+              "reason": "EXCEEDED_TOKEN_BUDGET",
+              "token_count": 140,
+              "required_budget": 279,
+              "remaining_budget": 31
+            },
+            {
+              "chunk_index": 5,
+              "chunk_id": "DOC_BRCF_2026#chunk_005",
+              "reason": "EXCEEDED_TOKEN_BUDGET",
+              "token_count": 102,
+              "required_budget": 241,
+              "remaining_budget": 31
+            },
+            {
+              "chunk_index": 6,
+              "chunk_id": "DOC1_AI_OVERVIEW#chunk_001",
+              "reason": "EXCEEDED_TOKEN_BUDGET",
+              "token_count": 130,
+              "required_budget": 269,
+              "remaining_budget": 31
+            },
+            {
+              "chunk_index": 7,
+              "chunk_id": "DOC1_AI_OVERVIEW#chunk_002",
+              "reason": "EXCEEDED_TOKEN_BUDGET",
+              "token_count": 82,
+              "required_budget": 221,
+              "remaining_budget": 31
+            },
+            {
+              "chunk_index": 8,
+              "chunk_id": "DOC2_AI_APPLICATIONS#chunk_001",
+              "reason": "EXCEEDED_TOKEN_BUDGET",
+              "token_count": 129,
+              "required_budget": 268,
+              "remaining_budget": 31
+            }
+          ],
+          "total_candidate_chunks": 8,
+          "total_injected_chunks": 1,
+          "total_skipped_chunks": 7,
+          "context_tokens": 139,
+          "available_context_budget": 170,
+          "remaining_context_budget": 31,
+          "budget_breakdown": {
+            "initial_budget": 170,
+            "used_tokens": 139,
+            "remaining_tokens": 31,
+            "utilization_rate_pct": 81.76
+          }
+        }
+      },
+      "generation_result": {
+        "question": "Summarize the regulatory framework across all banking and data management rules.",
+        "grounded_answer": "The regulatory framework mandates strict oversight over transaction authorization thresholds [1] and imposes mandatory compliance checks [2].",
+        "token_usage": {
+          "prompt_tokens": 42,
+          "completion_tokens": 36,
+          "total_tokens": 78
+        },
+        "injected_sources": [
+          {
+            "marker": "[1]",
+            "doc_id": "DOC_BRCF_2026",
+            "filename": "sample_banking_regulation.txt",
+            "section": "Section 3: High-Value Authorizations & Liquidity",
+            "chunk_id": "DOC_BRCF_2026#chunk_001"
+          }
+        ],
+        "skipped_sources_count": 7,
+        "token_accounting": {
+          "model_limit": 500,
+          "system_prompt_tokens": 126,
+          "context_tokens": 139,
+          "question_and_wrapper_tokens": 24,
+          "total_prompt_tokens": 289,
+          "reserved_answer_tokens": 150,
+          "safety_margin_tokens": 30,
+          "max_projected_total_tokens": 439,
+          "remaining_headroom_tokens": 61,
+          "is_within_budget": true
+        }
+      }
+    },
+    {
+      "scenario_id": "SCENARIO_3_VERBOSE_SOURCE_MARKERS",
+      "title": "Multi-Document Injected Context with Verbose Source Markers",
+      "description": "Demonstrates verbose citation tagging including source filename and document section to support formal audit trails.",
+      "augmented_prompt": {
+        "system_prompt": "You are an expert AI assistant specialized in Enterprise AI Architect.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess.",
+        "user_prompt": "[CONTEXT]\n--- [Source 1: doc1.txt | Section: Section 1: AI Fundamentals, Page 1] [Doc: doc1.txt | Section: Section 1: AI Fundamentals | Page: 1 | ID: DOC1_AI_OVERVIEW#chunk_001] ---\n# Document 1: Introduction to AI\n\nArtificial Intelligence (AI) refers to the simulation of human intelligence in machines that are programmed to think like humans and mimic their actions. The term may also be applied to any machine that exhibits traits associated with a human mind such as learning and problem-solving.\n\nThe ideal characteristic of artificial intelligence is its ability to rationalize and take actions that have the best chance of achieving a specific goal. A subset of artificial\n\n--- [Source 2: doc1.txt | Section: Section 1: AI Fundamentals, Page 1] [Doc: doc1.txt | Section: Section 1: AI Fundamentals | Page: 1 | ID: DOC1_AI_OVERVIEW#chunk_002] ---\nthat have the best chance of achieving a specific goal. A subset of artificial intelligence is machine learning, which refers to the concept that computer programs can automatically learn from and adapt to new data without being assisted by humans.\n\n\n[QUESTION]\nHow are modern AI applications integrated into enterprise customer service?\n\n[ANSWER]",
+        "question": "How are modern AI applications integrated into enterprise customer service?",
+        "source_marker_style": "verbose",
+        "grounding_enforced": true,
+        "token_accounting": {
+          "model_limit": 4096,
+          "system_prompt_tokens": 126,
+          "context_tokens": 252,
+          "question_and_wrapper_tokens": 21,
+          "total_prompt_tokens": 399,
+          "reserved_answer_tokens": 400,
+          "safety_margin_tokens": 50,
+          "max_projected_total_tokens": 799,
+          "remaining_headroom_tokens": 3297,
+          "is_within_budget": true
+        },
+        "assembled_context": {
+          "formatted_context": "--- [Source 1: doc1.txt | Section: Section 1: AI Fundamentals, Page 1] [Doc: doc1.txt | Section: Section 1: AI Fundamentals | Page: 1 | ID: DOC1_AI_OVERVIEW#chunk_001] ---\n# Document 1: Introduction to AI\n\nArtificial Intelligence (AI) refers to the simulation of human intelligence in machines that are programmed to think like humans and mimic their actions. The term may also be applied to any machine that exhibits traits associated with a human mind such as learning and problem-solving.\n\nThe ideal characteristic of artificial intelligence is its ability to rationalize and take actions that have the best chance of achieving a specific goal. A subset of artificial\n\n--- [Source 2: doc1.txt | Section: Section 1: AI Fundamentals, Page 1] [Doc: doc1.txt | Section: Section 1: AI Fundamentals | Page: 1 | ID: DOC1_AI_OVERVIEW#chunk_002] ---\nthat have the best chance of achieving a specific goal. A subset of artificial intelligence is machine learning, which refers to the concept that computer programs can automatically learn from and adapt to new data without being assisted by humans.\n",
+          "injected_chunks": [
+            {
+              "chunk_index": 1,
+              "source_marker": "[Source 1: doc1.txt | Section: Section 1: AI Fundamentals, Page 1]",
+              "chunk_id": "DOC1_AI_OVERVIEW#chunk_001",
+              "doc_id": "DOC1_AI_OVERVIEW",
+              "filename": "doc1.txt",
+              "section": "Section 1: AI Fundamentals",
+              "page_number": 1,
+              "raw_text": "# Document 1: Introduction to AI\n\nArtificial Intelligence (AI) refers to the simulation of human intelligence in machines that are programmed to think like humans and mimic their actions. The term may also be applied to any machine that exhibits traits associated with a human mind such as learning and problem-solving.\n\nThe ideal characteristic of artificial intelligence is its ability to rationalize and take actions that have the best chance of achieving a specific goal. A subset of artificial",
+              "formatted_text": "--- [Source 1: doc1.txt | Section: Section 1: AI Fundamentals, Page 1] [Doc: doc1.txt | Section: Section 1: AI Fundamentals | Page: 1 | ID: DOC1_AI_OVERVIEW#chunk_001] ---\n# Document 1: Introduction to AI\n\nArtificial Intelligence (AI) refers to the simulation of human intelligence in machines that are programmed to think like humans and mimic their actions. The term may also be applied to any machine that exhibits traits associated with a human mind such as learning and problem-solving.\n\nThe ideal characteristic of artificial intelligence is its ability to rationalize and take actions that have the best chance of achieving a specific goal. A subset of artificial\n",
+              "token_count": 150,
+              "cumulative_context_tokens": 150
+            },
+            {
+              "chunk_index": 2,
+              "source_marker": "[Source 2: doc1.txt | Section: Section 1: AI Fundamentals, Page 1]",
+              "chunk_id": "DOC1_AI_OVERVIEW#chunk_002",
+              "doc_id": "DOC1_AI_OVERVIEW",
+              "filename": "doc1.txt",
+              "section": "Section 1: AI Fundamentals",
+              "page_number": 1,
+              "raw_text": " that have the best chance of achieving a specific goal. A subset of artificial intelligence is machine learning, which refers to the concept that computer programs can automatically learn from and adapt to new data without being assisted by humans.\n",
+              "formatted_text": "--- [Source 2: doc1.txt | Section: Section 1: AI Fundamentals, Page 1] [Doc: doc1.txt | Section: Section 1: AI Fundamentals | Page: 1 | ID: DOC1_AI_OVERVIEW#chunk_002] ---\nthat have the best chance of achieving a specific goal. A subset of artificial intelligence is machine learning, which refers to the concept that computer programs can automatically learn from and adapt to new data without being assisted by humans.\n",
+              "token_count": 102,
+              "cumulative_context_tokens": 252
+            }
+          ],
+          "skipped_chunks": [],
+          "total_candidate_chunks": 2,
+          "total_injected_chunks": 2,
+          "total_skipped_chunks": 0,
+          "context_tokens": 252,
+          "available_context_budget": 3499,
+          "remaining_context_budget": 3247,
+          "budget_breakdown": {
+            "initial_budget": 3499,
+            "used_tokens": 252,
+            "remaining_tokens": 3247,
+            "utilization_rate_pct": 7.2
+          }
+        }
+      },
+      "generation_result": {
+        "question": "How are modern AI applications integrated into enterprise customer service?",
+        "grounded_answer": "Modern enterprise AI applications leverage natural language processing models for automated customer query routing and 24/7 intelligent tier-1 support [Source 1: doc1.txt | Section: Section 1: AI Fundamentals].",
+        "token_usage": {
+          "prompt_tokens": 42,
+          "completion_tokens": 36,
+          "total_tokens": 78
+        },
+        "injected_sources": [
+          {
+            "marker": "[Source 1: doc1.txt | Section: Section 1: AI Fundamentals, Page 1]",
+            "doc_id": "DOC1_AI_OVERVIEW",
+            "filename": "doc1.txt",
+            "section": "Section 1: AI Fundamentals",
+            "chunk_id": "DOC1_AI_OVERVIEW#chunk_001"
+          },
+          {
+            "marker": "[Source 2: doc1.txt | Section: Section 1: AI Fundamentals, Page 1]",
+            "doc_id": "DOC1_AI_OVERVIEW",
+            "filename": "doc1.txt",
+            "section": "Section 1: AI Fundamentals",
+            "chunk_id": "DOC1_AI_OVERVIEW#chunk_002"
+          }
+        ],
+        "skipped_sources_count": 0,
+        "token_accounting": {
+          "model_limit": 4096,
+          "system_prompt_tokens": 126,
+          "context_tokens": 252,
+          "question_and_wrapper_tokens": 21,
+          "total_prompt_tokens": 399,
+          "reserved_answer_tokens": 400,
+          "safety_margin_tokens": 50,
+          "max_projected_total_tokens": 799,
+          "remaining_headroom_tokens": 3297,
+          "is_within_budget": true
+        }
+      }
+    },
+    {
+      "scenario_id": "SCENARIO_4_INSUFFICIENT_CONTEXT_REFUSAL",
+      "title": "Grounding Refusal on Insufficient Context",
+      "description": "Verifies that when the injected context lacks necessary facts, the grounding instructions enforce an honest refusal rather than a hallucination.",
+      "augmented_prompt": {
+        "system_prompt": "You are an expert AI assistant specialized in Aerospace Security Specialist.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess.",
+        "user_prompt": "[CONTEXT]\n--- [1] [Doc: sample_banking_regulation.txt | Section: Section 3: High-Value Authorizations & Liquidity | Page: 1 | ID: DOC_BRCF_2026#chunk_001] ---\n# Banking Regulatory Compliance Framework (BRCF-2026)\n\n--- Page 1 ---\n## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.\nFailure to maintain compliance may result in administrative penalties, operational suspension, or revocation of banking licenses.\n\n--- [2] [Doc: sample_banking_regulation.txt | Section: Section 3: High-Value Authorizations & Liquidity | Page: 1 | ID: DOC_BRCF_2026#chunk_002] ---\nresult in administrative penalties, operational suspension, or revocation of banking licenses.\n\n--- Page 2 ---\n## Section 2: Liquidity and Capital Requirements\nFinancial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times. \nAdditionally, liquidity coverage ratios (LCR) must be sustained above 100% to ensure short-term obligations can be met during high-stress market events.\nDaily reporting of net cash\n\n\n[QUESTION]\nWhat is the quantum computing encryption key rotation protocol for Mars orbital satellites?\n\n[ANSWER]",
+        "question": "What is the quantum computing encryption key rotation protocol for Mars orbital satellites?",
+        "source_marker_style": "numbered",
+        "grounding_enforced": true,
+        "token_accounting": {
+          "model_limit": 4096,
+          "system_prompt_tokens": 126,
+          "context_tokens": 279,
+          "question_and_wrapper_tokens": 24,
+          "total_prompt_tokens": 429,
+          "reserved_answer_tokens": 500,
+          "safety_margin_tokens": 50,
+          "max_projected_total_tokens": 929,
+          "remaining_headroom_tokens": 3167,
+          "is_within_budget": true
+        },
+        "assembled_context": {
+          "formatted_context": "--- [1] [Doc: sample_banking_regulation.txt | Section: Section 3: High-Value Authorizations & Liquidity | Page: 1 | ID: DOC_BRCF_2026#chunk_001] ---\n# Banking Regulatory Compliance Framework (BRCF-2026)\n\n--- Page 1 ---\n## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.\nFailure to maintain compliance may result in administrative penalties, operational suspension, or revocation of banking licenses.\n\n--- [2] [Doc: sample_banking_regulation.txt | Section: Section 3: High-Value Authorizations & Liquidity | Page: 1 | ID: DOC_BRCF_2026#chunk_002] ---\nresult in administrative penalties, operational suspension, or revocation of banking licenses.\n\n--- Page 2 ---\n## Section 2: Liquidity and Capital Requirements\nFinancial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times. \nAdditionally, liquidity coverage ratios (LCR) must be sustained above 100% to ensure short-term obligations can be met during high-stress market events.\nDaily reporting of net cash\n",
+          "injected_chunks": [
+            {
+              "chunk_index": 1,
+              "source_marker": "[1]",
+              "chunk_id": "DOC_BRCF_2026#chunk_001",
+              "doc_id": "DOC_BRCF_2026",
+              "filename": "sample_banking_regulation.txt",
+              "section": "Section 3: High-Value Authorizations & Liquidity",
+              "page_number": 1,
+              "raw_text": "# Banking Regulatory Compliance Framework (BRCF-2026)\n\n--- Page 1 ---\n## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.\nFailure to maintain compliance may result in administrative penalties, operational suspension, or revocation of banking licenses.\n\n",
+              "formatted_text": "--- [1] [Doc: sample_banking_regulation.txt | Section: Section 3: High-Value Authorizations & Liquidity | Page: 1 | ID: DOC_BRCF_2026#chunk_001] ---\n# Banking Regulatory Compliance Framework (BRCF-2026)\n\n--- Page 1 ---\n## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.\nFailure to maintain compliance may result in administrative penalties, operational suspension, or revocation of banking licenses.\n",
+              "token_count": 139,
+              "cumulative_context_tokens": 139
+            },
+            {
+              "chunk_index": 2,
+              "source_marker": "[2]",
+              "chunk_id": "DOC_BRCF_2026#chunk_002",
+              "doc_id": "DOC_BRCF_2026",
+              "filename": "sample_banking_regulation.txt",
+              "section": "Section 3: High-Value Authorizations & Liquidity",
+              "page_number": 1,
+              "raw_text": " result in administrative penalties, operational suspension, or revocation of banking licenses.\n\n--- Page 2 ---\n## Section 2: Liquidity and Capital Requirements\nFinancial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times. \nAdditionally, liquidity coverage ratios (LCR) must be sustained above 100% to ensure short-term obligations can be met during high-stress market events.\nDaily reporting of net cash",
+              "formatted_text": "--- [2] [Doc: sample_banking_regulation.txt | Section: Section 3: High-Value Authorizations & Liquidity | Page: 1 | ID: DOC_BRCF_2026#chunk_002] ---\nresult in administrative penalties, operational suspension, or revocation of banking licenses.\n\n--- Page 2 ---\n## Section 2: Liquidity and Capital Requirements\nFinancial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times. \nAdditionally, liquidity coverage ratios (LCR) must be sustained above 100% to ensure short-term obligations can be met during high-stress market events.\nDaily reporting of net cash\n",
+              "token_count": 140,
+              "cumulative_context_tokens": 279
+            }
+          ],
+          "skipped_chunks": [],
+          "total_candidate_chunks": 2,
+          "total_injected_chunks": 2,
+          "total_skipped_chunks": 0,
+          "context_tokens": 279,
+          "available_context_budget": 3396,
+          "remaining_context_budget": 3117,
+          "budget_breakdown": {
+            "initial_budget": 3396,
+            "used_tokens": 279,
+            "remaining_tokens": 3117,
+            "utilization_rate_pct": 8.22
+          }
+        }
+      },
+      "generation_result": {
+        "question": "What is the quantum computing encryption key rotation protocol for Mars orbital satellites?",
+        "grounded_answer": "The provided context does not contain sufficient information to answer this question. The provided documents pertain only to banking regulations and enterprise applications.",
+        "token_usage": {
+          "prompt_tokens": 42,
+          "completion_tokens": 36,
+          "total_tokens": 78
+        },
+        "injected_sources": [
+          {
+            "marker": "[1]",
+            "doc_id": "DOC_BRCF_2026",
+            "filename": "sample_banking_regulation.txt",
+            "section": "Section 3: High-Value Authorizations & Liquidity",
+            "chunk_id": "DOC_BRCF_2026#chunk_001"
+          },
+          {
+            "marker": "[2]",
+            "doc_id": "DOC_BRCF_2026",
+            "filename": "sample_banking_regulation.txt",
+            "section": "Section 3: High-Value Authorizations & Liquidity",
+            "chunk_id": "DOC_BRCF_2026#chunk_002"
+          }
+        ],
+        "skipped_sources_count": 0,
+        "token_accounting": {
+          "model_limit": 4096,
+          "system_prompt_tokens": 126,
+          "context_tokens": 279,
+          "question_and_wrapper_tokens": 24,
+          "total_prompt_tokens": 429,
+          "reserved_answer_tokens": 500,
+          "safety_margin_tokens": 50,
+          "max_projected_total_tokens": 929,
+          "remaining_headroom_tokens": 3167,
+          "is_within_budget": true
+        }
+      }
+    }
+  ]
+}
