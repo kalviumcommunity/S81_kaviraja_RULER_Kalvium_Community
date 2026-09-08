@@ -45,6 +45,15 @@ try:
     from context_injection import ContextInjector, TokenBudgetConfig, SourceMarkerStyle
 except ImportError:
     from src.context_injection import ContextInjector, TokenBudgetConfig, SourceMarkerStyle
+try:
+    from hallucination_guardrails import HallucinationGuardrail, GuardrailConfig
+except ImportError:
+    from src.hallucination_guardrails import HallucinationGuardrail, GuardrailConfig
+try:
+    from grounded_generator import GroundedRAGGenerator
+except ImportError:
+    from src.grounded_generator import GroundedRAGGenerator
+
 
 
 
@@ -631,7 +640,35 @@ def main():
         "missing_context_fallback": fallback_res.to_dict(),
         "with_vs_without_comparison": comp_eval
     }
-    print(" -> Task 5: Grounded generation reports exported to outputs/.")
+    # ----------------------------------------------------
+    # HALLUCINATION GUARDRAILS & REFUSAL HANDLING (Tasks 1 to 5)
+    # ----------------------------------------------------
+    print("\n[Hallucination Guardrails] Executing Retrieval Quality Signals & Safe Refusals...")
+    guardrail_config = GuardrailConfig(
+        min_similarity_threshold=0.35,
+        min_chunks_above_threshold=1,
+        min_keyword_overlap_ratio=0.15,
+        min_context_character_length=40,
+    )
+    guardrail_engine = HallucinationGuardrail(
+        config=guardrail_config,
+        llm_client=client,
+        context_injector=context_injector,
+    )
+
+    guardrail_demo_summary = guardrail_engine.run_demonstration_suite(sample_chunks=embedded_chunks_list)
+    guardrail_engine.export_sample_artifacts(
+        demo_summary=guardrail_demo_summary,
+        output_json_path=os.path.join("outputs", "hallucination_guardrail_results.json"),
+        output_txt_path=os.path.join("outputs", "guardrail_refusal_sample.txt"),
+        output_md_path=os.path.join("outputs", "guardrail_report.md"),
+    )
+
+    sample_results["hallucination_guardrails_and_refusal"] = guardrail_demo_summary
+    print(f" -> Total Guardrail Cases Evaluated: {guardrail_demo_summary['total_cases_evaluated']}")
+    print(f" -> Safe Refusal Cases:              {guardrail_demo_summary['refusal_cases_count']}")
+    print(f" -> Confident Grounded Cases:        {guardrail_demo_summary['confident_cases_count']}")
+    print(" -> Task 5: Hallucination guardrail reports exported to outputs/.")
 
     # ----------------------------------------------------
     # TASK 5: Save Sample Parsed Results

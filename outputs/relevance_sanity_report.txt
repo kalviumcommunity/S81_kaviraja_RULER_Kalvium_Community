@@ -18,10 +18,10 @@ Category: Standard Relevance
 Query: "How are suspicious transactions and beneficiary country risk scores monitored?"
 Expected Target Section: Section 1: Executive Summary & Overview
 Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_001
-Top Ranked Score: -0.004944
-Score Margin Over Runner-Up: +0.008296
+Top Ranked Score: -0.004975
+Score Margin Over Runner-Up: +0.008302
 Top Text Snippet: "# Banking Regulatory Compliance Framework (BRCF-2026)  --- Page 1 --- ## Section 1: Executive Overview and Scope This do..."
-Diagnostic Note: FAIL: Expected section 'Section 1: Executive Summary & Overview', but top rank was 'Section 1: Executive Overview and Scope' (Chunk ID: sample_banking_regulation_txt#chunk_001, Score: -0.0049).
+Diagnostic Note: FAIL: Expected section 'Section 1: Executive Summary & Overview', but top rank was 'Section 1: Executive Overview and Scope' (Chunk ID: sample_banking_regulation_txt#chunk_001, Score: -0.0050).
 --------------------------------------------------
 
 Test ID: TEST-002 [FAIL]
@@ -29,8 +29,8 @@ Category: Standard Relevance
 Query: "What minimum Tier 1 common equity capital ratio is required under Basel IV?"
 Expected Target Section: Section 2: Capital Reserves & Liquidity Ratios
 Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_004
-Top Ranked Score: 0.004565
-Score Margin Over Runner-Up: +0.006510
+Top Ranked Score: 0.004563
+Score Margin Over Runner-Up: +0.006511
 Top Text Snippet: ") and require multi-factor authentication (MFA) for administrative operations. Any data breach must be reported to the r..."
 Diagnostic Note: FAIL: Expected section 'Section 2: Capital Reserves & Liquidity Ratios', but top rank was 'Section 4: AI Model Governance in Credit Risk' (Chunk ID: sample_banking_regulation_txt#chunk_004, Score: 0.0046).
 --------------------------------------------------
