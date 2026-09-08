@@ -15,6 +15,18 @@ from llm_client import LLMClient
 from structured_output import parse_json_response, validate_required_fields, count_tokens
 from chunk_metadata import DocumentChunker, trace_chunk_to_source, verify_metadata_consistency
 from token_chunker import TokenAwareChunker, TokenChunk
+from embedding_demo import EmbeddingDemonstration
+from chunk_embedding_pipeline import ChunkEmbeddingPipeline, EmbeddedChunk
+from similarity_ranker import SimilarityRanker
+from relevance_checker import RelevanceSanityChecker
+try:
+    from filtered_search import FilteredSearchEngine, MetadataFilter
+except ImportError:
+    from src.filtered_search import FilteredSearchEngine, MetadataFilter
+try:
+    from retrieval_evaluator import RetrievalEvaluator, load_labelled_queries
+except ImportError:
+    from src.retrieval_evaluator import RetrievalEvaluator, load_labelled_queries
 try:
     from prompts.templates import RAG_SYSTEM_PROMPT, RAG_USER_PROMPT
 except ImportError:
@@ -337,6 +349,186 @@ def main():
         "output_file": token_chunker_json_path
     }
     print(f" -> Task 5: Token-aware chunker results saved to: '{token_chunker_json_path}'")
+
+    # ----------------------------------------------------
+    # EMBEDDING FUNDAMENTALS DEMONSTRATION (Tasks 1 to 5)
+    # ----------------------------------------------------
+    print("\n[Embedding Fundamentals] Executing Embedding Generation, Dimension Check, & Similarity Demo...")
+    embedding_demo = EmbeddingDemonstration(client=client)
+    emb_results = embedding_demo.run_demonstration()
+    sample_results["embedding_fundamentals_demonstration"] = emb_results
+    print(" -> Task 1: Sample embeddings generated.")
+    print(f" -> Task 2: Dimension verified ({emb_results['demonstration_metadata']['vector_dimension']}) - {emb_results['dimension_verification']['verification_status']}")
+    print(f" -> Task 3: Cosine Similarity computed (Similar: {emb_results['similarity_comparison']['similar_pair']['cosine_similarity']}, Unrelated: {emb_results['similarity_comparison']['unrelated_pair']['cosine_similarity']})")
+    print(f" -> Task 4 & 5: Sample output generated - {emb_results['similarity_comparison']['comparison_check']['result_status']}")
+
+    # ----------------------------------------------------
+    # CHUNK EMBEDDING PIPELINE (API-Based Chunk Embeddings)
+    # ----------------------------------------------------
+    print("\n[Chunk Embedding Pipeline] Executing API-Based Embedding Generation on Text Chunks...")
+    chunk_emb_pipeline = ChunkEmbeddingPipeline(client=client)
+    embedded_chunks_list, chunk_emb_results = chunk_emb_pipeline.run_pipeline(
+        output_txt_path=os.path.join("outputs", "chunk_embeddings_output.txt"),
+        output_json_path=os.path.join("outputs", "chunk_embeddings_results.json")
+    )
+    sample_results["api_chunk_embeddings_pipeline"] = chunk_emb_results
+    print(f" -> Prepared Chunks Received: {chunk_emb_results['pipeline_metadata']['chunks_received']}")
+    print(f" -> Chunks Successfully Embedded: {chunk_emb_results['pipeline_metadata']['chunks_embedded']}")
+    print(f" -> Vector Dimension: {chunk_emb_results['pipeline_metadata']['vector_dimension']}")
+    print(f" -> Dimension Consistency: {chunk_emb_results['pipeline_metadata']['dimension_consistency']}")
+
+    # ----------------------------------------------------
+    # SIMILARITY METRIC & QUERY-CHUNK RANKING (Tasks 1 to 5)
+    # ----------------------------------------------------
+    print("\n[Similarity Ranker] Executing Metric Computation, Query Comparison, & Ranking Pipeline...")
+    similarity_ranker = SimilarityRanker(client=client, metric="cosine")
+    query_text = "What are the rules and approval thresholds for high-value transaction payments?"
+    ranking_results = similarity_ranker.rank_chunks(
+        query=query_text,
+        embedded_chunks=embedded_chunks_list,
+        top_k=2
+    )
+    similarity_ranker.generate_ranking_reports(
+        ranking_results=ranking_results,
+        output_txt_path=os.path.join("outputs", "similarity_ranking_output.txt"),
+        output_json_path=os.path.join("outputs", "similarity_ranking_results.json")
+    )
+    similarity_ranker.export_vector_matrix(
+        embedded_chunks=embedded_chunks_list,
+        output_json_path=os.path.join("outputs", "vector_matrix_output.json"),
+        output_txt_path=os.path.join("outputs", "vector_matrix_output.txt")
+    )
+    sample_results["similarity_ranking_pipeline"] = ranking_results
+    print(f" -> Query: \"{query_text}\"")
+    print(f" -> Metric: {ranking_results['metric'].upper()} ({ranking_results['metric_justification']['metric_name']})")
+    print(f" -> Total Chunks Scored & Ranked: {ranking_results['total_chunks_compared']}")
+    print(f" -> Top Most Similar Chunk ID: {ranking_results['most_similar'][0]['chunk_id']} (Score: {ranking_results['most_similar'][0]['score']:.4f})")
+    print(f" -> Top Least Similar Chunk ID: {ranking_results['least_similar'][0]['chunk_id']} (Score: {ranking_results['least_similar'][0]['score']:.4f})")
+
+    # ----------------------------------------------------
+    # RELEVANCE QUALITY CHECK & SANITY SUITE (Tasks 1 to 5)
+    # ----------------------------------------------------
+    print("\n[Relevance Checker] Executing Known Relevance Tests & Sanity Suite...")
+    relevance_checker = RelevanceSanityChecker(ranker=similarity_ranker, pipeline=chunk_emb_pipeline)
+    sanity_summary = relevance_checker.run_sanity_check(embedded_chunks=embedded_chunks_list)
+    relevance_checker.generate_sanity_report(
+        sanity_summary=sanity_summary,
+        output_txt_path=os.path.join("outputs", "relevance_sanity_report.txt"),
+        output_json_path=os.path.join("outputs", "relevance_sanity_results.json")
+    )
+    sample_results["relevance_sanity_suite"] = sanity_summary
+    print(f" -> Total Test Cases: {sanity_summary['total_test_count']}")
+    print(f" -> Standard Relevance Pass Rate: {sanity_summary['standard_passes']}/{sanity_summary['standard_tests_count']} ({sanity_summary['pass_rate_percentage']}%)")
+    print(f" -> Surprising/Failing Cases Identified: {sanity_summary['surprising_cases_count']}")
+
+
+
+    # ----------------------------------------------------
+    # METADATA FILTERING & HYBRID SEARCH (Tasks 1 to 5)
+    # ----------------------------------------------------
+    print("\n[Filtered & Hybrid Search] Executing Metadata Filtering, Hybrid Matching, & Precision Demo...")
+    filtered_engine = FilteredSearchEngine(client=client, ranker=similarity_ranker)
+
+    # Task 1 & 2: Compare Filtered vs Unfiltered Retrieval
+    filter_query = "What are the rules and approval thresholds for high-value transaction payments?"
+    section_filter = MetadataFilter(
+        criteria={"section__contains": "Section 3"},
+        description="Section 3: High-Value Transaction Authorization Thresholds"
+    )
+    comparison_results = filtered_engine.compare_filtered_unfiltered(
+        query=filter_query,
+        embedded_chunks=embedded_chunks_list,
+        metadata_filter=section_filter,
+        top_k=2,
+        mode="hybrid",
+        alpha=0.6
+    )
+    print(f" -> Task 1 & 2: Filtered search executed for: \"{filter_query}\"")
+    print(f"    - Filter: {comparison_results['filter_applied']['description']}")
+    print(f"    - Unfiltered Candidates: {comparison_results['unfiltered_results']['total_chunks_scored']}, Filtered Candidates: {comparison_results['filtered_results']['total_chunks_scored']} (Eliminated {comparison_results['filtered_results']['filtered_out_chunks']})")
+    print(f"    - Top Result Shift: {'Yes' if comparison_results['comparison_analysis']['top_1_changed'] else 'No'}")
+
+    # Task 3: Hybrid Search Comparison (Exact Term / ID Matching)
+    exact_query = "Which disbursements exceeding $50,000 require board authorization?"
+    vec_top = filtered_engine.search(exact_query, embedded_chunks_list, mode="vector", top_k=1)
+    kw_top = filtered_engine.search(exact_query, embedded_chunks_list, mode="keyword", top_k=1)
+    hyb_top = filtered_engine.search(exact_query, embedded_chunks_list, mode="hybrid", alpha=0.6, top_k=1)
+    hybrid_comparison = {
+        "query": exact_query,
+        "demonstration": "Exact entity and threshold matching ($50,000, board authorization)",
+        "vector_search_top_1": vec_top["ranked_chunks"][0] if vec_top["ranked_chunks"] else None,
+        "keyword_search_top_1": kw_top["ranked_chunks"][0] if kw_top["ranked_chunks"] else None,
+        "hybrid_search_top_1": hyb_top["ranked_chunks"][0] if hyb_top["ranked_chunks"] else None,
+        "hybrid_fusion_weights": {"alpha_vector": 0.6, "beta_keyword": 0.4}
+    }
+    print(f" -> Task 3: Hybrid search compared for: \"{exact_query}\"")
+    print(f"    - Hybrid Top Score: {hyb_top['ranked_chunks'][0]['hybrid_score']:.4f} (Vec: {hyb_top['ranked_chunks'][0]['vector_score']:.4f}, KW: {hyb_top['ranked_chunks'][0]['keyword_score']:.4f})")
+
+    # Task 4: Precision Improvement Demonstration
+    target_relevant_ids = [
+        c.chunk_id for c in embedded_chunks_list
+        if "Section 3" in c.metadata.get("section", "") or "$50,000" in c.source_text
+    ]
+    precision_demo = filtered_engine.demonstrate_precision_improvement(
+        query=filter_query,
+        embedded_chunks=embedded_chunks_list,
+        metadata_filter=section_filter,
+        relevant_chunk_ids=target_relevant_ids,
+        top_k=3
+    )
+    print(" -> Task 4: Precision demonstrated:")
+    print(f"    - Unfiltered Vector Precision@3: {precision_demo['unfiltered_vector_search']['precision_percentage']}%")
+    print(f"    - Filtered Hybrid Precision@3:   {precision_demo['filtered_hybrid_search']['precision_percentage']}%")
+    print(f"    - Net Precision Gain:            +{precision_demo['precision_improvement']['precision_gain_percentage']}%")
+
+    # Task 5: Export Sample Reports
+    filtered_engine.export_reports(
+        comparison_results=comparison_results,
+        precision_results=precision_demo,
+        hybrid_comparison_results=hybrid_comparison,
+        output_txt_path=os.path.join("outputs", "filtered_search_output.txt"),
+        output_json_path=os.path.join("outputs", "filtered_search_results.json"),
+        hybrid_json_path=os.path.join("outputs", "hybrid_search_comparison.json"),
+        precision_txt_path=os.path.join("outputs", "precision_demonstration_report.txt")
+    )
+    sample_results["filtered_hybrid_search"] = {
+        "comparison_results": comparison_results,
+        "hybrid_comparison": hybrid_comparison,
+        "precision_demonstration": precision_demo
+    }
+    print(" -> Task 5: Sample filtered-search results and precision reports exported to outputs/.")
+
+    # ----------------------------------------------------
+    # RETRIEVAL EVALUATION SUITE (Tasks 1 to 5)
+    # ----------------------------------------------------
+    print("\n[Retrieval Evaluator] Executing Benchmark Evaluation (Recall@K, Precision@K, MRR, Failure Inspection)...")
+    evaluator = RetrievalEvaluator(ranker=similarity_ranker, filtered_engine=filtered_engine, client=client)
+    eval_queries = load_labelled_queries()
+
+    eval_summary = evaluator.run_evaluation_suite(
+        embedded_chunks=embedded_chunks_list,
+        queries=eval_queries,
+        mode="vector",
+        k_values=[1, 2, 3, 5]
+    )
+
+    evaluator.export_evaluation_reports(
+        eval_summary=eval_summary,
+        output_txt_path=os.path.join("outputs", "retrieval_evaluation_report.txt"),
+        output_json_path=os.path.join("outputs", "retrieval_evaluation_results.json"),
+        failure_txt_path=os.path.join("outputs", "retrieval_failure_analysis.txt"),
+        failure_json_path=os.path.join("outputs", "retrieval_failure_analysis.json")
+    )
+
+    sample_results["retrieval_evaluation_suite"] = eval_summary
+    agg_d = eval_summary["aggregate_metrics"]["metrics_by_depth"]
+    print(f" -> Total Labelled Queries: {eval_summary['evaluation_metadata']['total_queries_evaluated']}")
+    print(f" -> Overall Pass Rate:      {eval_summary['evaluation_metadata']['overall_pass_rate_percentage']}%")
+    print(f" -> Mean Reciprocal Rank:   {eval_summary['aggregate_metrics']['mean_reciprocal_rank_mrr']:.4f}")
+    print(f" -> Recall@1: {agg_d['k_1']['mean_recall']:.4f} | Precision@1: {agg_d['k_1']['mean_precision']:.4f} | Hit@1: {agg_d['k_1']['hit_rate_percentage']}%")
+    print(f" -> Recall@3: {agg_d['k_3']['mean_recall']:.4f} | Precision@3: {agg_d['k_3']['mean_precision']:.4f} | Hit@3: {agg_d['k_3']['hit_rate_percentage']}%")
+    print(f" -> Failure Cases Identified & Diagnosed: {eval_summary['failure_inspection_summary']['total_failures']}")
+    print(" -> Task 5: Retrieval evaluation reports & failure analysis exported to outputs/.")
 
     # ----------------------------------------------------
     # TASK 5: Save Sample Parsed Results

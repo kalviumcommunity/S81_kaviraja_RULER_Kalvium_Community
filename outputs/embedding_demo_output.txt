@@ -1,0 +1,66 @@
+Embedding Demonstration
+=======================
+
+Embedding Provider:
+OpenRouter (OpenAI-Compatible API)
+
+Embedding Model:
+text-embedding-3-small
+
+Texts Embedded:
+3
+
+
+Text A:
+"The customer wants to check their bank account balance."
+
+Vector dimension:
+1536
+
+Vector preview:
+[0.8000, 0.6000, 0.1000, 0.0000, ...]
+
+--------------------------------------------------
+
+Text B:
+"The user would like to know how much money is available in their account."
+
+Vector dimension:
+1536
+
+Vector preview:
+[0.7800, 0.6200, 0.0900, 0.0100, ...]
+
+--------------------------------------------------
+
+Text C:
+"A football match was played during heavy rain."
+
+Vector dimension:
+1536
+
+Vector preview:
+[0.0100, -0.0200, 0.9000, 0.4000, ...]
+
+==================================================
+
+Dimension Verification
+
+Text A: 1536
+Text B: 1536
+Text C: 1536
+
+All dimensions consistent: PASS
+
+==================================================
+
+Cosine Similarity
+
+Text A vs Text B (similar):
+0.9995
+
+Text A vs Text C (unrelated):
+0.0869
+
+Result:
+PASS — similar texts scored higher than unrelated texts

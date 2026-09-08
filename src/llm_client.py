@@ -53,14 +53,16 @@ class LLMClient:
 
         self.logger = setup_logger(log_file)
 
-        # Read base URL, API key, and model name from environment config
+        # Read base URL, API key, and model names from environment config
         self.base_url = os.getenv("OPENAI_API_BASE_URL", "https://api.openai.com/v1").strip()
         self.api_key = os.getenv("OPENAI_API_KEY", "").strip()
         self.model_name = os.getenv("CHAT_MODEL", "gpt-4o-mini").strip()
+        self.embedding_model = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small").strip()
 
         self.logger.info("Initializing LLM Client with environment configuration:")
         self.logger.info(f" - Base URL: {self.base_url}")
-        self.logger.info(f" - Model Name: {self.model_name}")
+        self.logger.info(f" - Chat Model Name: {self.model_name}")
+        self.logger.info(f" - Embedding Model Name: {self.embedding_model}")
         masked_key = f"{self.api_key[:7]}...{self.api_key[-4:]}" if len(self.api_key) > 10 else ("Set" if self.api_key else "NOT SET")
         self.logger.info(f" - API Key: {masked_key}")
 

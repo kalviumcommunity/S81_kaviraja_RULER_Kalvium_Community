@@ -1,0 +1,86 @@
+================================================================================
+                 RAG RETRIEVAL EVALUATION BENCHMARK REPORT                      
+================================================================================
+Retrieval Mode: VECTOR
+Total Queries Evaluated: 8
+Mean Reciprocal Rank (MRR): 0.8125
+Benchmark Pass Rate: 62.5%
+Average Graded Quality Signal: 0.6875 / 2.00
+
+--------------------------------------------------------------------------------
+AGGREGATE METRICS ACROSS RETRIEVAL DEPTH (K)
+--------------------------------------------------------------------------------
+Depth (K)    | Recall@K     | Precision@K    | Hit Rate %   | F1@K      
+----------------------------------------------------------------------
+K=1          | 0.5000       | 0.6250         | 62.5       % | 0.5417    
+K=2          | 1.0000       | 0.6250         | 100.0      % | 0.7500    
+K=3          | 1.0000       | 0.4166         | 100.0      % | 0.5750    
+K=5          | 1.0000       | 0.2500         | 100.0      % | 0.3928    
+
+--------------------------------------------------------------------------------
+QUERY-BY-QUERY RETRIEVAL EVALUATION
+--------------------------------------------------------------------------------
+
+Q-001: "How are suspicious transactions and beneficiary country risk scores monitored under AML directives?" [PASS]
+  Category: Standard Relevance | Target Section: Section 1: Executive Summary & Overview
+  Expected Chunks: ['sample_banking_regulation_txt#chunk_001']
+  Retrieved Chunks: ['sample_banking_regulation_txt#chunk_001', 'sample_banking_regulation_txt#chunk_003', 'sample_banking_regulation_txt#chunk_004']
+  MRR: 1.0000 | Recall@1: 1.00 | Precision@1: 1.00 | Recall@3: 1.00 | Precision@3: 0.33
+  Graded Relevance Scores: [2, 0, 0]
+----------------------------------------
+
+Q-002: "What minimum Tier 1 capital adequacy ratio is required under Basel IV?" [PASS]
+  Category: Standard Relevance | Target Section: Section 2: Capital Reserves & Liquidity Ratios
+  Expected Chunks: ['sample_banking_regulation_txt#chunk_002']
+  Retrieved Chunks: ['sample_banking_regulation_txt#chunk_002', 'sample_banking_regulation_txt#chunk_003', 'sample_banking_regulation_txt#chunk_001']
+  MRR: 1.0000 | Recall@1: 1.00 | Precision@1: 1.00 | Recall@3: 1.00 | Precision@3: 0.33
+  Graded Relevance Scores: [2, 0, 0]
+----------------------------------------
+
+Q-003: "What are the rules and approval thresholds for high-value transaction payments?" [PASS]
+  Category: Standard Relevance | Target Section: Section 3: High-Value Transaction Authorization Thresholds
+  Expected Chunks: ['sample_banking_regulation_txt#chunk_003', 'sample_banking_regulation_txt#chunk_004']
+  Retrieved Chunks: ['sample_banking_regulation_txt#chunk_003', 'sample_banking_regulation_txt#chunk_004', 'sample_banking_regulation_txt#chunk_001']
+  MRR: 1.0000 | Recall@1: 0.50 | Precision@1: 1.00 | Recall@3: 1.00 | Precision@3: 0.67
+  Graded Relevance Scores: [2, 2, 0]
+----------------------------------------
+
+Q-004: "Which vendor disbursements do NOT require unanimous board approval?" [FAIL - EMBEDDING_NEGATION_BLINDSPOT]
+  Category: Negation Blindspot (Known Failure) | Target Section: Section 3: High-Value Transaction Authorization Thresholds
+  Expected Chunks: ['sample_banking_regulation_txt#chunk_003']
+  Retrieved Chunks: ['sample_banking_regulation_txt#chunk_004', 'sample_banking_regulation_txt#chunk_003', 'sample_banking_regulation_txt#chunk_002']
+  MRR: 0.5000 | Recall@1: 0.00 | Precision@1: 0.00 | Recall@3: 1.00 | Precision@3: 0.33
+  Graded Relevance Scores: [1, 2, 0]
+----------------------------------------
+
+Q-005: "What audit procedures and compliance checks are required for transaction authorization?" [PASS]
+  Category: Cross-Section Lexical Distractor | Target Section: Section 3: High-Value Transaction Authorization Thresholds
+  Expected Chunks: ['sample_banking_regulation_txt#chunk_003', 'sample_banking_regulation_txt#chunk_004']
+  Retrieved Chunks: ['sample_banking_regulation_txt#chunk_003', 'sample_banking_regulation_txt#chunk_004', 'sample_banking_regulation_txt#chunk_001']
+  MRR: 1.0000 | Recall@1: 0.50 | Precision@1: 1.00 | Recall@3: 1.00 | Precision@3: 0.67
+  Graded Relevance Scores: [2, 2, 0]
+----------------------------------------
+
+Q-006: "How often must institutions calculate and submit the Liquidity Coverage Ratio (LCR)?" [FAIL - VOCABULARY_OR_EMBEDDING_MISMATCH]
+  Category: Specific Entity / Threshold | Target Section: Section 2: Capital Reserves & Liquidity Ratios
+  Expected Chunks: ['sample_banking_regulation_txt#chunk_002']
+  Retrieved Chunks: ['sample_banking_regulation_txt#chunk_003', 'sample_banking_regulation_txt#chunk_002', 'sample_banking_regulation_txt#chunk_001']
+  MRR: 0.5000 | Recall@1: 0.00 | Precision@1: 0.00 | Recall@3: 1.00 | Precision@3: 0.33
+  Graded Relevance Scores: [0, 2, 0]
+----------------------------------------
+
+Q-007: "What consequences follow a failure to obtain board authorization for high-value expenditures?" [PASS]
+  Category: Boundary Consequence Clause | Target Section: Section 3: High-Value Transaction Authorization Thresholds
+  Expected Chunks: ['sample_banking_regulation_txt#chunk_004']
+  Retrieved Chunks: ['sample_banking_regulation_txt#chunk_004', 'sample_banking_regulation_txt#chunk_003', 'sample_banking_regulation_txt#chunk_001']
+  MRR: 1.0000 | Recall@1: 1.00 | Precision@1: 1.00 | Recall@3: 1.00 | Precision@3: 0.33
+  Graded Relevance Scores: [2, 1, 0]
+----------------------------------------
+
+Q-008: "What automated screening protocols verify transaction velocity and entity sanction status?" [FAIL - VOCABULARY_OR_EMBEDDING_MISMATCH]
+  Category: Semantic Paraphrase | Target Section: Section 1: Executive Summary & Overview
+  Expected Chunks: ['sample_banking_regulation_txt#chunk_001']
+  Retrieved Chunks: ['sample_banking_regulation_txt#chunk_003', 'sample_banking_regulation_txt#chunk_001', 'sample_banking_regulation_txt#chunk_004']
+  MRR: 0.5000 | Recall@1: 0.00 | Precision@1: 0.00 | Recall@3: 1.00 | Precision@3: 0.33
+  Graded Relevance Scores: [0, 2, 0]
+----------------------------------------

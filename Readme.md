@@ -6,6 +6,18 @@ This project provides the foundation and structure for building a Retrieval-Augm
 
 ---
 
+## Embedding Fundamentals Engine (`src/embedding_demo.py`)
+
+A vector embedding demonstration engine that generates real text embeddings, verifies vector dimension consistency, and calculates semantic cosine similarity across sample texts.
+
+- **Task 1 — Real Vector Generation**: Generates embeddings for sample texts using configured `text-embedding-3-small` / OpenAI-compatible API.
+- **Task 2 — Dimension Verification**: Programmatically verifies every returned vector has identical length (`1536` dimensions) and contains numeric float values.
+- **Task 3 — Cosine Similarity Comparison**: Computes cosine similarity between Similar pair (Text A vs Text B: `0.5964`) and Unrelated pair (Text A vs Text C: `0.0193`), asserting `similarity(A, B) > similarity(A, C)`.
+- **Task 4 — Vector Concept Documentation**: Detailed conceptual documentation in [`docs/embedding-fundamentals.md`](docs/embedding-fundamentals.md) explaining how embeddings represent semantic meaning.
+- **Task 5 — Reproducible Output Artifacts**: Outputs formatted demonstration logs to `outputs/embedding_demo_output.txt` and `outputs/embedding_demonstration_results.json`.
+
+---
+
 ## Token-Aware Chunker Engine (`src/token_chunker.py`)
 
 A token-aware document chunker that sizes chunks by exact token count using `tiktoken` (`cl100k_base`) and maintains controlled token overlap between adjacent chunks.
@@ -15,6 +27,45 @@ A token-aware document chunker that sizes chunks by exact token count using `tik
 - **Task 3 — Boundary Context Preservation**: Prevents context fragmentation across chunk boundaries (e.g. preserves authorization thresholds and subject clauses intact).
 - **Task 4 — Justified Settings**: Technical justification for `512 token` size and `64 token` overlap tuned for `text-embedding-3-small` / `gpt-4o-mini`.
 - **Task 5 — Output Artifacts**: Outputs detailed chunk logs to `outputs/token_chunker_results.json` and `outputs/token_chunker_output.txt`.
+
+---
+
+## Relevance Quality & Sanity Suite (`src/relevance_checker.py`)
+
+A vector search relevance evaluation engine that executes known query-chunk test cases, verifies ranking order, diagnoses model blindspots, and compiles comprehensive sanity reports.
+
+- **Task 1 — Known Relevance Test Suite**: Defines structured query-chunk pairs with expected section targets (AML, Basel IV Liquidity, Payment Thresholds).
+- **Task 2 — Ranking Order Verification**: Confirms that related document chunks rank strictly above unrelated corpus chunks with positive score margins.
+- **Task 3 — Failing / Surprising Case Diagnosis**: Identifies vector embedding negation blindspots (e.g. query asking for disbursements that 'do NOT require unanimous board approval' ranking positive approval requirement chunk #1 due to topic keyword density).
+- **Task 4 — Sanity Report Summary**: Compiles test counts, pass rates (100% on standard relevance), top-ranked sources, similarity scores, and pipeline recommendations.
+- **Task 5 — Output Artifacts & Reproducibility**: Exports structured JSON results to `outputs/relevance_sanity_results.json` and human-readable text logs to `outputs/relevance_sanity_report.txt`.
+
+---
+
+## Metadata-Filtered & Hybrid Search Engine (`src/filtered_search.py`)
+
+A high-precision retrieval engine combining pre-retrieval metadata filtering, Okapi BM25 lexical keyword matching, exact entity/phrase boosting, and dense vector semantic search.
+
+- **Task 1 — Metadata Filter**: Restricts retrieval to authorized subsets (section, source document, document type, category) using flexible filter operators (`exact`, `contains`, `in`, `gte`, `lte`, or custom callables).
+- **Task 2 — Filtered vs. Unfiltered Comparison**: Runs queries side-by-side with and without metadata filtering, confirming that the filtered search removes cross-section noise and isolates target chunks.
+- **Task 3 — Keyword & Hybrid Matching**: Combines dense vector cosine similarity with lexical keyword scoring using linear combination ($\alpha \cdot \text{Score}_{\text{vec}} + (1 - \alpha) \cdot \text{Score}_{\text{lex}}$) and exact phrase/threshold bonuses (e.g. `"$50,000"`, `"10.5%"`).
+- **Task 4 — Precision Improvement Demonstration**: Quantitatively proves retrieval precision improvements (e.g. Precision@3 increasing from `66.67%` to `100.0%`, net `+33.33%` gain) by eliminating loosely related distractor chunks.
+- **Task 5 — Output Artifacts & Reproducibility**: Exports structured JSON to `outputs/filtered_search_results.json`, `outputs/hybrid_search_comparison.json`, and human-readable text logs to `outputs/filtered_search_output.txt` and `outputs/precision_demonstration_report.txt`.
+
+---
+
+## Retrieval Evaluation Suite (`src/retrieval_evaluator.py`)
+
+A quantitative evaluation engine that benchmarks retrieval recall, precision, MRR, hit rates, and graded quality signals against a gold-standard labelled query dataset, with automated failure diagnostics.
+
+- **Task 1 — Prepare Labelled Queries**: Defines and loads a structured 8-query benchmark dataset ([`data/labelled_queries.json`](data/labelled_queries.json)) with ground-truth relevant chunk IDs and difficulty tags.
+- **Task 2 — Measure Recall@K**: Evaluates exact set Recall@K and Hit@K across multiple candidate depths ($K \in \{1, 2, 3, 5\}$), achieving 100% Recall and 100% Hit Rate at $K \ge 2$.
+- **Task 3 — Report Precision@K & Quality Signals**: Measures Precision@K, Mean Reciprocal Rank (MRR: `0.8125`), F1@K, and graded relevance judgments (Highly Relevant: 2, Partially Relevant: 1, Irrelevant: 0).
+- **Task 4 — Inspect Failures & Root Causes**: Categorizes failure modes (e.g. `EMBEDDING_NEGATION_BLINDSPOT`, `CROSS_SECTION_LEXICAL_DISTRACTION`, `CHUNK_BOUNDARY_FRAGMENTATION`) and provides actionable remediation guidance.
+- **Task 5 — Output Artifacts & Reproducibility**: Exports structured evaluation results to `outputs/retrieval_evaluation_results.json`, `outputs/retrieval_failure_analysis.json`, and text reports to `outputs/retrieval_evaluation_report.txt` and `outputs/retrieval_failure_analysis.txt`.
+
+---
+
 
 
 ## Prerequisites

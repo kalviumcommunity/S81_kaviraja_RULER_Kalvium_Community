@@ -1,0 +1,109 @@
+{
+  "dataset_metadata": {
+    "name": "Banking Regulation Benchmark Dataset",
+    "version": "1.0.0",
+    "description": "Gold-standard labelled query dataset for evaluating RAG retrieval recall, precision, and edge-case failures on the banking regulation corpus.",
+    "total_queries": 8,
+    "corpus_source": "sample_banking_regulation.txt"
+  },
+  "queries": [
+    {
+      "query_id": "Q-001",
+      "query": "How are suspicious transactions and beneficiary country risk scores monitored under AML directives?",
+      "category": "Standard Relevance",
+      "target_section": "Section 1: Executive Summary & Overview",
+      "expected_chunk_ids": [
+        "sample_banking_regulation_txt#chunk_001"
+      ],
+      "min_acceptable_rank": 1,
+      "difficulty": "Easy",
+      "description": "Validates that AML compliance and risk monitoring queries rank Section 1 chunk at rank #1."
+    },
+    {
+      "query_id": "Q-002",
+      "query": "What minimum Tier 1 capital adequacy ratio is required under Basel IV?",
+      "category": "Standard Relevance",
+      "target_section": "Section 2: Capital Reserves & Liquidity Ratios",
+      "expected_chunk_ids": [
+        "sample_banking_regulation_txt#chunk_002"
+      ],
+      "min_acceptable_rank": 1,
+      "difficulty": "Easy",
+      "description": "Validates that Basel IV capital adequacy queries rank Section 2 chunk at rank #1."
+    },
+    {
+      "query_id": "Q-003",
+      "query": "What are the rules and approval thresholds for high-value transaction payments?",
+      "category": "Standard Relevance",
+      "target_section": "Section 3: High-Value Transaction Authorization Thresholds",
+      "expected_chunk_ids": [
+        "sample_banking_regulation_txt#chunk_003",
+        "sample_banking_regulation_txt#chunk_004"
+      ],
+      "min_acceptable_rank": 2,
+      "difficulty": "Easy",
+      "description": "Validates that payment threshold queries rank Section 3 authorization chunks in top results."
+    },
+    {
+      "query_id": "Q-004",
+      "query": "Which vendor disbursements do NOT require unanimous board approval?",
+      "category": "Negation Blindspot (Known Failure)",
+      "target_section": "Section 3: High-Value Transaction Authorization Thresholds",
+      "expected_chunk_ids": [
+        "sample_banking_regulation_txt#chunk_003"
+      ],
+      "min_acceptable_rank": 1,
+      "difficulty": "Hard (Edge Case)",
+      "description": "Tests vector embedding blindspot with logical negation ('NOT'). Expected chunk specifies disbursements under $50k approved directly."
+    },
+    {
+      "query_id": "Q-005",
+      "query": "What audit procedures and compliance checks are required for transaction authorization?",
+      "category": "Cross-Section Lexical Distractor",
+      "target_section": "Section 3: High-Value Transaction Authorization Thresholds",
+      "expected_chunk_ids": [
+        "sample_banking_regulation_txt#chunk_003",
+        "sample_banking_regulation_txt#chunk_004"
+      ],
+      "min_acceptable_rank": 2,
+      "difficulty": "Medium",
+      "description": "Tests cross-section keyword distraction where words 'compliance' and 'audit' appear in both Section 1 and Section 3."
+    },
+    {
+      "query_id": "Q-006",
+      "query": "How often must institutions calculate and submit the Liquidity Coverage Ratio (LCR)?",
+      "category": "Specific Entity / Threshold",
+      "target_section": "Section 2: Capital Reserves & Liquidity Ratios",
+      "expected_chunk_ids": [
+        "sample_banking_regulation_txt#chunk_002"
+      ],
+      "min_acceptable_rank": 1,
+      "difficulty": "Easy",
+      "description": "Tests retrieval precision for exact acronym (LCR) and 30-day stress period reporting requirements."
+    },
+    {
+      "query_id": "Q-007",
+      "query": "What consequences follow a failure to obtain board authorization for high-value expenditures?",
+      "category": "Boundary Consequence Clause",
+      "target_section": "Section 3: High-Value Transaction Authorization Thresholds",
+      "expected_chunk_ids": [
+        "sample_banking_regulation_txt#chunk_004"
+      ],
+      "min_acceptable_rank": 1,
+      "difficulty": "Medium",
+      "description": "Tests retrieval for penalty clause (suspension of procurement privileges) located in trailing chunk."
+    },
+    {
+      "query_id": "Q-008",
+      "query": "What automated screening protocols verify transaction velocity and entity sanction status?",
+      "category": "Semantic Paraphrase",
+      "target_section": "Section 1: Executive Summary & Overview",
+      "expected_chunk_ids": [
+        "sample_banking_regulation_txt#chunk_001"
+      ],
+      "min_acceptable_rank": 1,
+      "difficulty": "Medium",
+      "description": "Validates semantic understanding when exact keywords are paraphrased ('automated screening protocols' vs 'automated compliance monitoring systems')."
+    }
+  ]
+}

@@ -1,14 +1,15 @@
-[2026-08-31 13:14:52] [INFO] Initializing LLM Client with environment configuration:
-[2026-08-31 13:14:52] [INFO]  - Base URL: https://api.openai.com/v1
-[2026-08-31 13:14:52] [INFO]  - Model Name: gpt-4o-mini
-[2026-08-31 13:14:52] [INFO]  - API Key: sk-or-v...27bf
-[2026-08-31 13:14:53] [INFO] ==================================================
-[2026-08-31 13:14:53] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
-[2026-08-31 13:14:53] [INFO] ==================================================
-[2026-08-31 13:14:53] [INFO] --- OUTGOING REQUEST PAYLOAD ---
-[2026-08-31 13:14:53] [INFO] Target Model: gpt-4o-mini
-[2026-08-31 13:14:53] [INFO] Response Format Mode: {'type': 'json_object'}
-[2026-08-31 13:14:53] [INFO] Outgoing Messages:
+[2026-09-07 15:12:46] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-07 15:12:46] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-07 15:12:46] [INFO]  - Chat Model Name: gpt-4o-mini
+[2026-09-07 15:12:46] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-07 15:12:46] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-07 15:12:46] [INFO] ==================================================
+[2026-09-07 15:12:46] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
+[2026-09-07 15:12:46] [INFO] ==================================================
+[2026-09-07 15:12:46] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-07 15:12:46] [INFO] Target Model: gpt-4o-mini
+[2026-09-07 15:12:46] [INFO] Response Format Mode: {'type': 'json_object'}
+[2026-09-07 15:12:46] [INFO] Outgoing Messages:
 [
   {
     "role": "system",
@@ -19,52 +20,28 @@
     "content": "What is Retrieval-Augmented Generation (RAG)?"
   }
 ]
-[2026-08-31 13:14:56] [ERROR] ❌ [401 Authentication Error]: Invalid or missing API key.
-[2026-08-31 13:14:56] [ERROR]    Action Required: Please set a valid OPENAI_API_KEY in your .env configuration file.
-
-[2026-08-31 13:14:56] [INFO] ==================================================
-[2026-08-31 13:14:56] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
-[2026-08-31 13:14:56] [INFO] ==================================================
-[2026-08-31 13:14:56] [INFO] --- OUTGOING REQUEST PAYLOAD ---
-[2026-08-31 13:14:56] [INFO] Target Model: gpt-4o-mini
-[2026-08-31 13:14:56] [INFO] Response Format Mode: {'type': 'json_object'}
-[2026-08-31 13:14:56] [INFO] Outgoing Messages:
-[
-  {
-    "role": "system",
-    "content": "You are a helpful RAG specialized AI assistant.\n\nCRITICAL OUTPUT REQUIREMENT: You MUST return a JSON object matching this structure: {\"answer\": \"<answer_value>\", \"source\": \"<source_value>\", \"confidence\": \"<confidence_value>\"}. Required keys: [\"answer\", \"source\", \"confidence\"]."
-  },
-  {
-    "role": "user",
-    "content": "What is Retrieval-Augmented Generation (RAG)?"
-  }
-]
-[2026-08-31 13:14:56] [INFO] --- INCOMING RESPONSE PAYLOAD ---
-[2026-08-31 13:14:56] [INFO] Response ID: chatcmpl-mock-987654321
-[2026-08-31 13:14:56] [INFO] Response Model: gpt-4o-mini
-[2026-08-31 13:14:56] [INFO] Finish Reason: stop
-[2026-08-31 13:14:56] [INFO] Token Usage: {
-  "prompt_tokens": 42,
-  "completion_tokens": 36,
-  "total_tokens": 78
+[2026-09-07 15:12:49] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-07 15:12:49] [INFO] Response ID: gen-1788774167-Q0CAHr2BSEvEgk2RD0OF
+[2026-09-07 15:12:49] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-07 15:12:49] [INFO] Finish Reason: stop
+[2026-09-07 15:12:49] [INFO] Token Usage: {
+  "prompt_tokens": 81,
+  "completion_tokens": 107,
+  "total_tokens": 188
 }
-[2026-08-31 13:14:56] [INFO] --- MODEL REPLY (choices[0].message.content) ---
-[2026-08-31 13:14:56] [INFO] {
-  "answer": "Retrieval-Augmented Generation (RAG) retrieves relevant document context from external knowledge bases before generating LLM responses.",
-  "source": "RAG_Overview_Doc_v1.pdf",
-  "confidence": 0.99
-}
+[2026-09-07 15:12:49] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-07 15:12:49] [INFO] {"answer": "Retrieval-Augmented Generation (RAG) is a framework that combines retrieval-based and generative approaches to improve the performance of natural language processing tasks. It utilizes a retriever to fetch relevant documents or information from a large corpus and then employs a generator to produce coherent and contextually relevant responses based on the retrieved data. This method enhances the model's ability to generate accurate and informative answers by grounding its responses in real-world knowledge.", "source": "OpenAI Research Papers and Documentation", "confidence": "high"}
 
-[2026-08-31 13:14:56] [INFO] ✅ [JSON Parse Success]: Raw response successfully parsed into Python dict.
-[2026-08-31 13:14:56] [INFO] ✅ [Validation Passed]: All required fields present: ['answer', 'source', 'confidence']
-[2026-08-31 13:14:56] [INFO] 🎉 [Structured Output Success]: JSON parsed, recovered, and validated successfully.
-[2026-08-31 13:14:56] [INFO] ==================================================
-[2026-08-31 13:14:56] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
-[2026-08-31 13:14:56] [INFO] ==================================================
-[2026-08-31 13:14:56] [INFO] --- OUTGOING REQUEST PAYLOAD ---
-[2026-08-31 13:14:56] [INFO] Target Model: gpt-4o-mini
-[2026-08-31 13:14:56] [INFO] Response Format Mode: {'type': 'json_object'}
-[2026-08-31 13:14:56] [INFO] Outgoing Messages:
+[2026-09-07 15:12:49] [INFO] ✅ [JSON Parse Success]: Raw response successfully parsed into Python dict.
+[2026-09-07 15:12:49] [INFO] ✅ [Validation Passed]: All required fields present: ['answer', 'source', 'confidence']
+[2026-09-07 15:12:49] [INFO] 🎉 [Structured Output Success]: JSON parsed, recovered, and validated successfully.
+[2026-09-07 15:12:49] [INFO] ==================================================
+[2026-09-07 15:12:49] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
+[2026-09-07 15:12:49] [INFO] ==================================================
+[2026-09-07 15:12:49] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-07 15:12:49] [INFO] Target Model: gpt-4o-mini
+[2026-09-07 15:12:49] [INFO] Response Format Mode: {'type': 'json_object'}
+[2026-09-07 15:12:49] [INFO] Outgoing Messages:
 [
   {
     "role": "system",
@@ -75,52 +52,28 @@
     "content": "How does ChromaDB assist in a RAG pipeline?"
   }
 ]
-[2026-08-31 13:14:56] [ERROR] ❌ [401 Authentication Error]: Invalid or missing API key.
-[2026-08-31 13:14:56] [ERROR]    Action Required: Please set a valid OPENAI_API_KEY in your .env configuration file.
-
-[2026-08-31 13:14:56] [INFO] ==================================================
-[2026-08-31 13:14:56] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
-[2026-08-31 13:14:56] [INFO] ==================================================
-[2026-08-31 13:14:56] [INFO] --- OUTGOING REQUEST PAYLOAD ---
-[2026-08-31 13:14:56] [INFO] Target Model: gpt-4o-mini
-[2026-08-31 13:14:56] [INFO] Response Format Mode: {'type': 'json_object'}
-[2026-08-31 13:14:56] [INFO] Outgoing Messages:
-[
-  {
-    "role": "system",
-    "content": "You are a helpful RAG specialized AI assistant.\n\nCRITICAL OUTPUT REQUIREMENT: You MUST return a JSON object matching this structure: {\"answer\": \"<answer_value>\", \"source\": \"<source_value>\", \"confidence\": \"<confidence_value>\"}. Required keys: [\"answer\", \"source\", \"confidence\"]."
-  },
-  {
-    "role": "user",
-    "content": "How does ChromaDB assist in a RAG pipeline?"
-  }
-]
-[2026-08-31 13:14:56] [INFO] --- INCOMING RESPONSE PAYLOAD ---
-[2026-08-31 13:14:56] [INFO] Response ID: chatcmpl-mock-987654321
-[2026-08-31 13:14:56] [INFO] Response Model: gpt-4o-mini
-[2026-08-31 13:14:56] [INFO] Finish Reason: stop
-[2026-08-31 13:14:56] [INFO] Token Usage: {
-  "prompt_tokens": 42,
-  "completion_tokens": 36,
-  "total_tokens": 78
+[2026-09-07 15:12:51] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-07 15:12:51] [INFO] Response ID: gen-1788774169-BPhhOlOdoifaPMB1pFX1
+[2026-09-07 15:12:51] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-07 15:12:51] [INFO] Finish Reason: stop
+[2026-09-07 15:12:51] [INFO] Token Usage: {
+  "prompt_tokens": 83,
+  "completion_tokens": 113,
+  "total_tokens": 196
 }
-[2026-08-31 13:14:56] [INFO] --- MODEL REPLY (choices[0].message.content) ---
-[2026-08-31 13:14:56] [INFO] {
-  "answer": "ChromaDB stores high-dimensional document vector embeddings and executes fast semantic similarity searches to retrieve context chunks.",
-  "source": "ChromaDB_Integration_Guide.pdf",
-  "confidence": 0.96
-}
+[2026-09-07 15:12:51] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-07 15:12:51] [INFO] {"answer": "ChromaDB assists in a RAG (Retrieval-Augmented Generation) pipeline by providing a vector database that enables efficient storage and retrieval of embeddings. It allows for fast similarity searches, which is crucial for retrieving relevant documents or data that can augment the generative model's responses. This integration enhances the overall performance of the RAG system by ensuring that the most pertinent information is accessed quickly, thereby improving the quality and relevance of the generated outputs.", "source": "ChromaDB Documentation and RAG Framework Overview", "confidence": "high"}
 
-[2026-08-31 13:14:56] [INFO] ✅ [JSON Parse Success]: Raw response successfully parsed into Python dict.
-[2026-08-31 13:14:56] [INFO] ✅ [Validation Passed]: All required fields present: ['answer', 'source', 'confidence']
-[2026-08-31 13:14:56] [INFO] 🎉 [Structured Output Success]: JSON parsed, recovered, and validated successfully.
-[2026-08-31 13:14:56] [INFO] ==================================================
-[2026-08-31 13:14:56] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
-[2026-08-31 13:14:56] [INFO] ==================================================
-[2026-08-31 13:14:56] [INFO] --- OUTGOING REQUEST PAYLOAD ---
-[2026-08-31 13:14:56] [INFO] Target Model: gpt-4o-mini
-[2026-08-31 13:14:56] [INFO] Response Format Mode: {'type': 'json_object'}
-[2026-08-31 13:14:56] [INFO] Outgoing Messages:
+[2026-09-07 15:12:51] [INFO] ✅ [JSON Parse Success]: Raw response successfully parsed into Python dict.
+[2026-09-07 15:12:51] [INFO] ✅ [Validation Passed]: All required fields present: ['answer', 'source', 'confidence']
+[2026-09-07 15:12:51] [INFO] 🎉 [Structured Output Success]: JSON parsed, recovered, and validated successfully.
+[2026-09-07 15:12:51] [INFO] ==================================================
+[2026-09-07 15:12:51] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
+[2026-09-07 15:12:51] [INFO] ==================================================
+[2026-09-07 15:12:51] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-07 15:12:51] [INFO] Target Model: gpt-4o-mini
+[2026-09-07 15:12:51] [INFO] Response Format Mode: {'type': 'json_object'}
+[2026-09-07 15:12:51] [INFO] Outgoing Messages:
 [
   {
     "role": "system",
@@ -131,52 +84,28 @@
     "content": "Why is JSON response format mode useful in LLM applications?"
   }
 ]
-[2026-08-31 13:14:57] [ERROR] ❌ [401 Authentication Error]: Invalid or missing API key.
-[2026-08-31 13:14:57] [ERROR]    Action Required: Please set a valid OPENAI_API_KEY in your .env configuration file.
-
-[2026-08-31 13:14:57] [INFO] ==================================================
-[2026-08-31 13:14:57] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
-[2026-08-31 13:14:57] [INFO] ==================================================
-[2026-08-31 13:14:57] [INFO] --- OUTGOING REQUEST PAYLOAD ---
-[2026-08-31 13:14:57] [INFO] Target Model: gpt-4o-mini
-[2026-08-31 13:14:57] [INFO] Response Format Mode: {'type': 'json_object'}
-[2026-08-31 13:14:57] [INFO] Outgoing Messages:
-[
-  {
-    "role": "system",
-    "content": "You are a helpful RAG specialized AI assistant.\n\nCRITICAL OUTPUT REQUIREMENT: You MUST return a JSON object matching this structure: {\"answer\": \"<answer_value>\", \"source\": \"<source_value>\", \"confidence\": \"<confidence_value>\"}. Required keys: [\"answer\", \"source\", \"confidence\"]."
-  },
-  {
-    "role": "user",
-    "content": "Why is JSON response format mode useful in LLM applications?"
-  }
-]
-[2026-08-31 13:14:57] [INFO] --- INCOMING RESPONSE PAYLOAD ---
-[2026-08-31 13:14:57] [INFO] Response ID: chatcmpl-mock-987654321
-[2026-08-31 13:14:57] [INFO] Response Model: gpt-4o-mini
-[2026-08-31 13:14:57] [INFO] Finish Reason: stop
-[2026-08-31 13:14:57] [INFO] Token Usage: {
-  "prompt_tokens": 42,
-  "completion_tokens": 36,
-  "total_tokens": 78
+[2026-09-07 15:12:54] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-07 15:12:54] [INFO] Response ID: gen-1788774170-gY14ZIEVRuuZ3S6kwbzZ
+[2026-09-07 15:12:54] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-07 15:12:54] [INFO] Finish Reason: stop
+[2026-09-07 15:12:54] [INFO] Token Usage: {
+  "prompt_tokens": 83,
+  "completion_tokens": 109,
+  "total_tokens": 192
 }
-[2026-08-31 13:14:57] [INFO] --- MODEL REPLY (choices[0].message.content) ---
-[2026-08-31 13:14:57] [INFO] {
-  "answer": "JSON response format mode enforces strict JSON schema adherence, enabling downstream code to parse responses directly into dictionary objects.",
-  "source": "LLM_Structured_Output_Spec.pdf",
-  "confidence": 0.98
-}
+[2026-09-07 15:12:54] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-07 15:12:54] [INFO] {"answer": "The JSON response format is useful in LLM applications because it provides a structured way to organize data, making it easier to parse and manipulate programmatically. This format allows for clear separation of different types of information, such as the main answer, source references, and confidence levels, which can enhance the usability and integration of the responses in various applications. Additionally, JSON is widely supported across programming languages and platforms, facilitating interoperability.", "source": "General knowledge on data formats and LLM applications.", "confidence": "high"}
 
-[2026-08-31 13:14:57] [INFO] ✅ [JSON Parse Success]: Raw response successfully parsed into Python dict.
-[2026-08-31 13:14:57] [INFO] ✅ [Validation Passed]: All required fields present: ['answer', 'source', 'confidence']
-[2026-08-31 13:14:57] [INFO] 🎉 [Structured Output Success]: JSON parsed, recovered, and validated successfully.
-[2026-08-31 13:14:57] [INFO] ==================================================
-[2026-08-31 13:14:57] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
-[2026-08-31 13:14:57] [INFO] ==================================================
-[2026-08-31 13:14:57] [INFO] --- OUTGOING REQUEST PAYLOAD ---
-[2026-08-31 13:14:57] [INFO] Target Model: gpt-4o-mini
-[2026-08-31 13:14:57] [INFO] Response Format Mode: {'type': 'json_object'}
-[2026-08-31 13:14:57] [INFO] Outgoing Messages:
+[2026-09-07 15:12:54] [INFO] ✅ [JSON Parse Success]: Raw response successfully parsed into Python dict.
+[2026-09-07 15:12:54] [INFO] ✅ [Validation Passed]: All required fields present: ['answer', 'source', 'confidence']
+[2026-09-07 15:12:54] [INFO] 🎉 [Structured Output Success]: JSON parsed, recovered, and validated successfully.
+[2026-09-07 15:12:54] [INFO] ==================================================
+[2026-09-07 15:12:54] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
+[2026-09-07 15:12:54] [INFO] ==================================================
+[2026-09-07 15:12:54] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-07 15:12:54] [INFO] Target Model: gpt-4o-mini
+[2026-09-07 15:12:54] [INFO] Response Format Mode: {'type': 'json_object'}
+[2026-09-07 15:12:54] [INFO] Outgoing Messages:
 [
   {
     "role": "system",
@@ -187,52 +116,28 @@
     "content": "How do we handle malformed JSON gracefully in Python?"
   }
 ]
-[2026-08-31 13:14:57] [ERROR] ❌ [401 Authentication Error]: Invalid or missing API key.
-[2026-08-31 13:14:57] [ERROR]    Action Required: Please set a valid OPENAI_API_KEY in your .env configuration file.
-
-[2026-08-31 13:14:57] [INFO] ==================================================
-[2026-08-31 13:14:57] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
-[2026-08-31 13:14:57] [INFO] ==================================================
-[2026-08-31 13:14:57] [INFO] --- OUTGOING REQUEST PAYLOAD ---
-[2026-08-31 13:14:57] [INFO] Target Model: gpt-4o-mini
-[2026-08-31 13:14:57] [INFO] Response Format Mode: {'type': 'json_object'}
-[2026-08-31 13:14:57] [INFO] Outgoing Messages:
-[
-  {
-    "role": "system",
-    "content": "You are a helpful RAG specialized AI assistant.\n\nCRITICAL OUTPUT REQUIREMENT: You MUST return a JSON object matching this structure: {\"answer\": \"<answer_value>\", \"source\": \"<source_value>\", \"confidence\": \"<confidence_value>\"}. Required keys: [\"answer\", \"source\", \"confidence\"]."
-  },
-  {
-    "role": "user",
-    "content": "How do we handle malformed JSON gracefully in Python?"
-  }
-]
-[2026-08-31 13:14:57] [INFO] --- INCOMING RESPONSE PAYLOAD ---
-[2026-08-31 13:14:57] [INFO] Response ID: chatcmpl-mock-987654321
-[2026-08-31 13:14:57] [INFO] Response Model: gpt-4o-mini
-[2026-08-31 13:14:57] [INFO] Finish Reason: stop
-[2026-08-31 13:14:57] [INFO] Token Usage: {
-  "prompt_tokens": 42,
-  "completion_tokens": 36,
-  "total_tokens": 78
+[2026-09-07 15:12:56] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-07 15:12:56] [INFO] Response ID: gen-1788774173-dH76sWr23NMOYTRX0nEF
+[2026-09-07 15:12:56] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-07 15:12:56] [INFO] Finish Reason: stop
+[2026-09-07 15:12:56] [INFO] Token Usage: {
+  "prompt_tokens": 81,
+  "completion_tokens": 189,
+  "total_tokens": 270
 }
-[2026-08-31 13:14:57] [INFO] --- MODEL REPLY (choices[0].message.content) ---
-[2026-08-31 13:14:57] [INFO] {
-  "answer": "Malformed JSON is caught using json.JSONDecodeError and cleaned via regex pattern recovery for markdown fences and trailing commas without crashing.",
-  "source": "JSON_Recovery_Module.py",
-  "confidence": 0.97
-}
+[2026-09-07 15:12:56] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-07 15:12:56] [INFO] {"answer": "To handle malformed JSON gracefully in Python, you can use a try-except block when parsing JSON data with the `json` module. If the JSON is malformed, a `json.JSONDecodeError` will be raised, which you can catch and handle appropriately. Here's an example:\n\n```python\nimport json\n\nmalformed_json = '{\"name\": \"John\", \"age\": 30,}'  # Note the trailing comma\n\ntry:\n    data = json.loads(malformed_json)\nexcept json.JSONDecodeError as e:\n    print(f\"Failed to decode JSON: {e}\")\n    data = None  # Handle the error gracefully\n\n# Continue with the rest of your code\n```\n\nThis way, your program can continue running even if the JSON is not valid.", "source": "Python documentation on json module", "confidence": "high"}
 
-[2026-08-31 13:14:57] [INFO] ✅ [JSON Parse Success]: Raw response successfully parsed into Python dict.
-[2026-08-31 13:14:57] [INFO] ✅ [Validation Passed]: All required fields present: ['answer', 'source', 'confidence']
-[2026-08-31 13:14:57] [INFO] 🎉 [Structured Output Success]: JSON parsed, recovered, and validated successfully.
-[2026-08-31 13:14:57] [INFO] ==================================================
-[2026-08-31 13:14:57] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
-[2026-08-31 13:14:57] [INFO] ==================================================
-[2026-08-31 13:14:57] [INFO] --- OUTGOING REQUEST PAYLOAD ---
-[2026-08-31 13:14:57] [INFO] Target Model: gpt-4o-mini
-[2026-08-31 13:14:57] [INFO] Response Format Mode: {'type': 'json_object'}
-[2026-08-31 13:14:57] [INFO] Outgoing Messages:
+[2026-09-07 15:12:56] [INFO] ✅ [JSON Parse Success]: Raw response successfully parsed into Python dict.
+[2026-09-07 15:12:56] [INFO] ✅ [Validation Passed]: All required fields present: ['answer', 'source', 'confidence']
+[2026-09-07 15:12:56] [INFO] 🎉 [Structured Output Success]: JSON parsed, recovered, and validated successfully.
+[2026-09-07 15:12:56] [INFO] ==================================================
+[2026-09-07 15:12:56] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
+[2026-09-07 15:12:56] [INFO] ==================================================
+[2026-09-07 15:12:56] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-07 15:12:56] [INFO] Target Model: gpt-4o-mini
+[2026-09-07 15:12:56] [INFO] Response Format Mode: {'type': 'json_object'}
+[2026-09-07 15:12:56] [INFO] Outgoing Messages:
 [
   {
     "role": "system",
@@ -243,52 +148,28 @@
     "content": "What strategy handles missing required fields in parsed data?"
   }
 ]
-[2026-08-31 13:14:57] [ERROR] ❌ [401 Authentication Error]: Invalid or missing API key.
-[2026-08-31 13:14:57] [ERROR]    Action Required: Please set a valid OPENAI_API_KEY in your .env configuration file.
-
-[2026-08-31 13:14:57] [INFO] ==================================================
-[2026-08-31 13:14:57] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
-[2026-08-31 13:14:57] [INFO] ==================================================
-[2026-08-31 13:14:57] [INFO] --- OUTGOING REQUEST PAYLOAD ---
-[2026-08-31 13:14:57] [INFO] Target Model: gpt-4o-mini
-[2026-08-31 13:14:57] [INFO] Response Format Mode: {'type': 'json_object'}
-[2026-08-31 13:14:57] [INFO] Outgoing Messages:
-[
-  {
-    "role": "system",
-    "content": "You are a helpful RAG specialized AI assistant.\n\nCRITICAL OUTPUT REQUIREMENT: You MUST return a JSON object matching this structure: {\"answer\": \"<answer_value>\", \"source\": \"<source_value>\", \"confidence\": \"<confidence_value>\"}. Required keys: [\"answer\", \"source\", \"confidence\"]."
-  },
-  {
-    "role": "user",
-    "content": "What strategy handles missing required fields in parsed data?"
-  }
-]
-[2026-08-31 13:14:57] [INFO] --- INCOMING RESPONSE PAYLOAD ---
-[2026-08-31 13:14:57] [INFO] Response ID: chatcmpl-mock-987654321
-[2026-08-31 13:14:57] [INFO] Response Model: gpt-4o-mini
-[2026-08-31 13:14:57] [INFO] Finish Reason: stop
-[2026-08-31 13:14:57] [INFO] Token Usage: {
-  "prompt_tokens": 42,
-  "completion_tokens": 36,
-  "total_tokens": 78
+[2026-09-07 15:12:57] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-07 15:12:57] [INFO] Response ID: gen-1788774175-9hVmhVKTDjQoSC0537Rc
+[2026-09-07 15:12:57] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-07 15:12:57] [INFO] Finish Reason: stop
+[2026-09-07 15:12:57] [INFO] Token Usage: {
+  "prompt_tokens": 81,
+  "completion_tokens": 95,
+  "total_tokens": 176
 }
-[2026-08-31 13:14:57] [INFO] --- MODEL REPLY (choices[0].message.content) ---
-[2026-08-31 13:14:57] [INFO] {
-  "answer": "Required field validation checks mandatory schema keys and applies pre-configured fallback default values when non-critical fields are missing.",
-  "source": "Data_Validation_Pipeline.pdf",
-  "confidence": 0.95
-}
+[2026-09-07 15:12:57] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-07 15:12:57] [INFO] {"answer": "One common strategy for handling missing required fields in parsed data is to implement a validation and error handling mechanism. This can involve checking for the presence of required fields during the parsing process and either throwing an error, logging a warning, or providing default values for missing fields. Additionally, using data schemas or validation libraries can help enforce the presence of required fields and ensure data integrity.", "source": "General knowledge on data validation strategies", "confidence": "high"}
 
-[2026-08-31 13:14:57] [INFO] ✅ [JSON Parse Success]: Raw response successfully parsed into Python dict.
-[2026-08-31 13:14:57] [INFO] ✅ [Validation Passed]: All required fields present: ['answer', 'source', 'confidence']
-[2026-08-31 13:14:57] [INFO] 🎉 [Structured Output Success]: JSON parsed, recovered, and validated successfully.
-[2026-08-31 13:14:57] [INFO] ==================================================
-[2026-08-31 13:14:57] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
-[2026-08-31 13:14:57] [INFO] ==================================================
-[2026-08-31 13:14:57] [INFO] --- OUTGOING REQUEST PAYLOAD ---
-[2026-08-31 13:14:57] [INFO] Target Model: gpt-4o-mini
-[2026-08-31 13:14:57] [INFO] Response Format Mode: {'type': 'json_object'}
-[2026-08-31 13:14:57] [INFO] Outgoing Messages:
+[2026-09-07 15:12:57] [INFO] ✅ [JSON Parse Success]: Raw response successfully parsed into Python dict.
+[2026-09-07 15:12:57] [INFO] ✅ [Validation Passed]: All required fields present: ['answer', 'source', 'confidence']
+[2026-09-07 15:12:57] [INFO] 🎉 [Structured Output Success]: JSON parsed, recovered, and validated successfully.
+[2026-09-07 15:12:57] [INFO] ==================================================
+[2026-09-07 15:12:57] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
+[2026-09-07 15:12:57] [INFO] ==================================================
+[2026-09-07 15:12:57] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-07 15:12:57] [INFO] Target Model: gpt-4o-mini
+[2026-09-07 15:12:57] [INFO] Response Format Mode: {'type': 'json_object'}
+[2026-09-07 15:12:57] [INFO] Outgoing Messages:
 [
   {
     "role": "system",
@@ -299,41 +180,17 @@
     "content": "What is the role of token usage tracking in LLM clients?"
   }
 ]
-[2026-08-31 13:14:57] [ERROR] ❌ [401 Authentication Error]: Invalid or missing API key.
-[2026-08-31 13:14:57] [ERROR]    Action Required: Please set a valid OPENAI_API_KEY in your .env configuration file.
-
-[2026-08-31 13:14:57] [INFO] ==================================================
-[2026-08-31 13:14:57] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
-[2026-08-31 13:14:57] [INFO] ==================================================
-[2026-08-31 13:14:57] [INFO] --- OUTGOING REQUEST PAYLOAD ---
-[2026-08-31 13:14:57] [INFO] Target Model: gpt-4o-mini
-[2026-08-31 13:14:57] [INFO] Response Format Mode: {'type': 'json_object'}
-[2026-08-31 13:14:57] [INFO] Outgoing Messages:
-[
-  {
-    "role": "system",
-    "content": "You are a helpful RAG specialized AI assistant.\n\nCRITICAL OUTPUT REQUIREMENT: You MUST return a JSON object matching this structure: {\"answer\": \"<answer_value>\", \"source\": \"<source_value>\", \"confidence\": \"<confidence_value>\"}. Required keys: [\"answer\", \"source\", \"confidence\"]."
-  },
-  {
-    "role": "user",
-    "content": "What is the role of token usage tracking in LLM clients?"
-  }
-]
-[2026-08-31 13:14:57] [INFO] --- INCOMING RESPONSE PAYLOAD ---
-[2026-08-31 13:14:57] [INFO] Response ID: chatcmpl-mock-987654321
-[2026-08-31 13:14:57] [INFO] Response Model: gpt-4o-mini
-[2026-08-31 13:14:57] [INFO] Finish Reason: stop
-[2026-08-31 13:14:57] [INFO] Token Usage: {
-  "prompt_tokens": 42,
-  "completion_tokens": 36,
-  "total_tokens": 78
+[2026-09-07 15:13:00] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-07 15:13:00] [INFO] Response ID: gen-1788774176-pA2NMJqeBOzlbGfWhhuT
+[2026-09-07 15:13:00] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-07 15:13:00] [INFO] Finish Reason: stop
+[2026-09-07 15:13:00] [INFO] Token Usage: {
+  "prompt_tokens": 84,
+  "completion_tokens": 91,
+  "total_tokens": 175
 }
-[2026-08-31 13:14:57] [INFO] --- MODEL REPLY (choices[0].message.content) ---
-[2026-08-31 13:14:57] [INFO] {
-  "answer": "Token tracking measures prompt, completion, and total tokens per request to monitor API costs, throughput, and context window limits.",
-  "source": "LLM_Telemetry_Spec.pdf",
-  "confidence": 0.99
-}
+[2026-09-07 15:13:00] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-07 15:13:00] [INFO] {"answer": "Token usage tracking in LLM clients helps monitor and manage the consumption of tokens during interactions with language models. This tracking is essential for optimizing costs, ensuring compliance with usage limits, and providing insights into user behavior and model performance. It allows clients to analyze usage patterns, adjust their queries for efficiency, and manage their budgets effectively.", "source": "General knowledge on LLM operations and token management practices.", "confidence": "high"}
 
 [2026-08-31 13:14:57] [INFO] ✅ [JSON Parse Success]: Raw response successfully parsed into Python dict.
 [2026-08-31 13:14:57] [INFO] ✅ [Validation Passed]: All required fields present: ['answer', 'source', 'confidence']
