@@ -22,3 +22,27 @@ RAG_SYSTEM_PROMPT = PromptTemplate(
 RAG_USER_PROMPT = PromptTemplate(
     "Explain what {topic} is in {length} concise sentences."
 )
+
+# Task 4 & Task 1: Strict Grounding & Context-Injection Prompt Templates
+GROUNDING_INSTRUCTIONS = (
+    "GROUNDING RULES:\n"
+    "1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n"
+    "2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n"
+    "3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n"
+    "4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: "
+    "\"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+)
+
+RAG_GROUNDED_SYSTEM_PROMPT = PromptTemplate(
+    "You are an expert AI assistant specialized in {role}.\n\n"
+    f"{GROUNDING_INSTRUCTIONS}"
+)
+
+RAG_CONTEXT_INJECTION_USER_PROMPT = PromptTemplate(
+    "[CONTEXT]\n"
+    "{context}\n\n"
+    "[QUESTION]\n"
+    "{question}\n\n"
+    "[ANSWER]"
+)
+

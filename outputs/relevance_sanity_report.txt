@@ -3,69 +3,69 @@
 ==================================================
 
 Total Test Cases Evaluated: 5
-Standard Relevance Tests Passed: 3 / 3
-Standard Relevance Failures: 0
-Standard Pass Rate: 100.0%
+Standard Relevance Tests Passed: 0 / 3
+Standard Relevance Failures: 3
+Standard Pass Rate: 0.0%
 Surprising / Failing Edge Cases Identified: 2
-Corpus Chunks Evaluated: 4
+Corpus Chunks Evaluated: 5
 
 ==================================================
 TASK 2: RELEVANCE RANKING RESULTS (RELATED VS UNRELATED)
 ==================================================
 
-Test ID: TEST-001 [PASS]
+Test ID: TEST-001 [FAIL]
 Category: Standard Relevance
 Query: "How are suspicious transactions and beneficiary country risk scores monitored?"
 Expected Target Section: Section 1: Executive Summary & Overview
 Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_001
-Top Ranked Score: 0.477758
-Score Margin Over Runner-Up: +0.090941
-Top Text Snippet: "# Global Banking Compliance & Regulatory Framework 2026  ## Section 1: Executive Summary & Overview Financial institutio..."
-Diagnostic Note: PASS: Related text ranked #1 (Score: 0.4778). Outranked runner-up by margin of +0.0909.
+Top Ranked Score: -0.004944
+Score Margin Over Runner-Up: +0.008296
+Top Text Snippet: "# Banking Regulatory Compliance Framework (BRCF-2026)  --- Page 1 --- ## Section 1: Executive Overview and Scope This do..."
+Diagnostic Note: FAIL: Expected section 'Section 1: Executive Summary & Overview', but top rank was 'Section 1: Executive Overview and Scope' (Chunk ID: sample_banking_regulation_txt#chunk_001, Score: -0.0049).
 --------------------------------------------------
 
-Test ID: TEST-002 [PASS]
+Test ID: TEST-002 [FAIL]
 Category: Standard Relevance
 Query: "What minimum Tier 1 common equity capital ratio is required under Basel IV?"
 Expected Target Section: Section 2: Capital Reserves & Liquidity Ratios
-Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_002
-Top Ranked Score: 0.602999
-Score Margin Over Runner-Up: +0.245453
-Top Text Snippet: " lists in real time prior to authorization.  ## Section 2: Capital Reserves & Liquidity Ratios Under Basel IV capital ad..."
-Diagnostic Note: PASS: Related text ranked #1 (Score: 0.6030). Outranked runner-up by margin of +0.2455.
+Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_004
+Top Ranked Score: 0.004565
+Score Margin Over Runner-Up: +0.006510
+Top Text Snippet: ") and require multi-factor authentication (MFA) for administrative operations. Any data breach must be reported to the r..."
+Diagnostic Note: FAIL: Expected section 'Section 2: Capital Reserves & Liquidity Ratios', but top rank was 'Section 4: AI Model Governance in Credit Risk' (Chunk ID: sample_banking_regulation_txt#chunk_004, Score: 0.0046).
 --------------------------------------------------
 
-Test ID: TEST-003 [PASS]
+Test ID: TEST-003 [FAIL]
 Category: Standard Relevance
 Query: "What are the rules and approval thresholds for high-value transaction payments?"
 Expected Target Section: Section 3: High-Value Transaction Authorization Thresholds
-Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_003
-Top Ranked Score: 0.584842
-Score Margin Over Runner-Up: +0.089554
-Top Text Snippet: "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial re..."
-Diagnostic Note: PASS: Related text ranked #1 (Score: 0.5848). Outranked runner-up by margin of +0.0896.
+Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_005
+Top Ranked Score: 0.006636
+Score Margin Over Runner-Up: +0.004514
+Top Text Snippet: "XAI) detailing primary factor weightings for any adverse credit decisions. Model training datasets must be archived for ..."
+Diagnostic Note: FAIL: Expected section 'Section 3: High-Value Transaction Authorization Thresholds', but top rank was 'Section 4: AI Model Governance in Credit Risk' (Chunk ID: sample_banking_regulation_txt#chunk_005, Score: 0.0066).
 --------------------------------------------------
 
 Test ID: TEST-004 [FAIL / SURPRISING]
 Category: Failing / Surprising Case (Negation)
 Query: "Which vendor disbursements do NOT require unanimous board approval?"
 Expected Target Section: Section 3: High-Value Transaction Authorization Thresholds (Under $50k Clause)
-Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_004
-Top Ranked Score: 0.627524
-Score Margin Over Runner-Up: +0.149328
-Top Text Snippet: ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain boa..."
-Diagnostic Note: SURPRISING / FAILING CASE REVEALED: Vector Negation Blindspot. Query requested disbursements that 'do NOT require unanimous board approval', but Top Rank #1 was Chunk 'sample_banking_regulation_txt#chunk_004' (Score: 0.6275) which specifies disbursements that DO require board approval. Reason: Dense embedding models map queries by topic keywords ('vendor disbursements', 'unanimous board approval') and fail to invert vector direction for logical negation ('NOT').
+Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_005
+Top Ranked Score: -0.011669
+Score Margin Over Runner-Up: +0.006820
+Top Text Snippet: "XAI) detailing primary factor weightings for any adverse credit decisions. Model training datasets must be archived for ..."
+Diagnostic Note: SURPRISING / FAILING CASE REVEALED: Vector Negation Blindspot. Query requested disbursements that 'do NOT require unanimous board approval', but Top Rank #1 was Chunk 'sample_banking_regulation_txt#chunk_005' (Score: -0.0117) which specifies disbursements that DO require board approval. Reason: Dense embedding models map queries by topic keywords ('vendor disbursements', 'unanimous board approval') and fail to invert vector direction for logical negation ('NOT').
 --------------------------------------------------
 
-Test ID: TEST-005 [PASS]
+Test ID: TEST-005 [FAIL / SURPRISING]
 Category: Borderline Case (Lexical Distractor)
 Query: "What audit procedures are required for anti-money laundering compliance?"
 Expected Target Section: Section 1: Executive Summary & Overview
-Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_001
-Top Ranked Score: 0.530398
-Score Margin Over Runner-Up: +0.140472
-Top Text Snippet: "# Global Banking Compliance & Regulatory Framework 2026  ## Section 1: Executive Summary & Overview Financial institutio..."
-Diagnostic Note: BORDERLINE CASE OBSERVATION: Lexical Keyword Distractor. Top Rank #1 was Section 1 (Score: 0.5304), but Section 3 chunk received an elevated similarity score due to the shared word 'audit'. Demonstrates how shared domain terms across distinct sections can inflate similarity scores.
+Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_002
+Top Ranked Score: 0.024786
+Score Margin Over Runner-Up: +0.000916
+Top Text Snippet: " operational suspension, or revocation of banking licenses.  --- Page 2 --- ## Section 2: Liquidity and Capital Requirem..."
+Diagnostic Note: BORDERLINE CASE OBSERVATION: Lexical Keyword Distractor. Top Rank #1 was Section 1 (Score: 0.0248), but Section 3 chunk received an elevated similarity score due to the shared word 'audit'. Demonstrates how shared domain terms across distinct sections can inflate similarity scores.
 --------------------------------------------------
 
 ==================================================
@@ -74,7 +74,7 @@ TASK 3: FAILING OR SURPRISING CASE DETAILED ANALYSIS
 Case ID: TEST-004
 Title: Vector Embedding Negation Blindspot
 Query: "Which vendor disbursements do NOT require unanimous board approval?"
-Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_004 (Score: 0.6275)
+Top Ranked Chunk ID: sample_banking_regulation_txt#chunk_005 (Score: -0.0117)
 
 Relevance Finding:
   Cosine similarity on dense embeddings fails to enforce boolean negation ('NOT'). The model matches key topic tokens ('vendor disbursements', 'unanimous board approval') and ranks the positive requirement chunk top with a high similarity score (0.6275).
