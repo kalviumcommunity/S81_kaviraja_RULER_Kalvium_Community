@@ -83,6 +83,17 @@ A production-grade prompt assembly and context injection engine that formats ret
 
 ---
 
+## Hallucination Guardrails & Refusal Handling (`src/hallucination_guardrails.py`)
+
+A pre-generation quality guardrail and safe refusal engine that monitors retrieval signals, triggers deterministic safe refusals on weak context, and preserves confident grounded answers when strong evidence exists.
+
+- **Task 1 — Weak Retrieval Detection**: Detects weak retrieval using multi-signal checks (empty candidates, low similarity score, too few chunks above threshold, or weak lexical alignment).
+- **Task 2 — Safe Refusal Generation**: Returns an explicit, standardized refusal without invoking generative LLMs, eliminating hallucination risks.
+- **Task 3 — Multi-Criteria Thresholds**: Applies configurable decision rules (`min_similarity_threshold = 0.35`, `min_keyword_overlap_ratio = 0.15`, `min_chunks_above_threshold = 1`).
+- **Task 4 — Confident Answer Preservation**: Routes verified strong evidence to grounded generation with complete source citations.
+- **Task 5 — Output Artifacts & Reproducibility**: Exports structured JSON to [`outputs/hallucination_guardrail_results.json`](outputs/hallucination_guardrail_results.json), refusal inspection logs to [`outputs/guardrail_refusal_sample.txt`](outputs/guardrail_refusal_sample.txt), and report to [`outputs/guardrail_report.md`](outputs/guardrail_report.md).
+
+
 ## Prerequisites
 
 ## Source Citation & Attribution

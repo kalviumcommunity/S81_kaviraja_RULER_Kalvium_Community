@@ -1,0 +1,202 @@
+{
+  "guardrail_config": {
+    "min_similarity_threshold": 0.35,
+    "min_chunks_above_threshold": 1,
+    "min_keyword_overlap_ratio": 0.15,
+    "min_context_character_length": 40,
+    "standard_refusal_message": "I do not have sufficient information in the provided knowledge base to answer this question accurately."
+  },
+  "total_cases_evaluated": 4,
+  "refusal_cases_count": 3,
+  "confident_cases_count": 1,
+  "demonstrations": [
+    {
+      "case_id": "CASE_1_CONFIDENT_ANSWER",
+      "title": "Confident Grounded Answer (Strong Context)",
+      "description": "High semantic similarity score and exact entity match for customer encryption and data breach policies.",
+      "input_query": "What are the customer encryption standards and data breach reporting timeframe?",
+      "provided_chunks_count": 1,
+      "provided_similarity_scores": [
+        0.89,
+        0.76
+      ],
+      "result": {
+        "query": "What are the customer encryption standards and data breach reporting timeframe?",
+        "is_refusal": false,
+        "verdict": "PROCEED_CONFIDENT_ANSWER",
+        "final_answer": "Customer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher [1]. Additionally, any data breach must be reported to the regulatory oversight committee within 24 hours of initial detection [1].",
+        "cited_sources": [
+          {
+            "marker": "[1]",
+            "doc_id": "sample_banking_regulation_txt",
+            "filename": "sample_banking_regulation.txt",
+            "source_path": "data\\sample_banking_regulation.txt",
+            "section": "Section 3: Data Protection and Privacy Controls",
+            "page_number": 1,
+            "chunk_id": "sample_banking_regulation_txt#chunk_003",
+            "chunk_index": 2,
+            "start_char": 857,
+            "end_char": 1316,
+            "raw_text": "Daily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported"
+          }
+        ],
+        "token_usage": {
+          "prompt_tokens": 42,
+          "completion_tokens": 36,
+          "total_tokens": 78
+        },
+        "decision": {
+          "should_refuse": false,
+          "verdict": "PROCEED_CONFIDENT_ANSWER",
+          "refusal_reasons": [],
+          "primary_reason": null,
+          "confidence_score": 0.8593,
+          "quality_signals": {
+            "total_chunks_retrieved": 1,
+            "top_similarity_score": 0.89,
+            "mean_top_k_score": 0.825,
+            "chunks_above_threshold": 2,
+            "keyword_overlap_ratio": 0.7143,
+            "total_context_chars": 459,
+            "is_empty_retrieval": false,
+            "is_low_similarity": false,
+            "is_insufficient_chunks": false,
+            "is_weak_lexical_alignment": false
+          }
+        }
+      }
+    },
+    {
+      "case_id": "CASE_2_LOW_SIMILARITY_REFUSAL",
+      "title": "Safe Refusal on Low Similarity Score (Out-of-Domain Query)",
+      "description": "Quantum computing satellite encryption query matched against banking docs yields low similarity below threshold.",
+      "input_query": "What is the quantum encryption satellite key rotation protocol for deep-space missions?",
+      "provided_chunks_count": 2,
+      "provided_similarity_scores": [
+        0.12,
+        0.08
+      ],
+      "result": {
+        "query": "What is the quantum encryption satellite key rotation protocol for deep-space missions?",
+        "is_refusal": true,
+        "verdict": "SAFE_REFUSAL",
+        "final_answer": "I do not have sufficient information in the provided knowledge base to answer this question accurately.",
+        "cited_sources": [],
+        "token_usage": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        },
+        "decision": {
+          "should_refuse": true,
+          "verdict": "SAFE_REFUSAL",
+          "refusal_reasons": [
+            "LOW_SIMILARITY_SCORE: Top score (0.1200) is below minimum threshold (0.35).",
+            "INSUFFICIENT_CHUNKS_ABOVE_THRESHOLD: Only 0 chunk(s) met threshold (required: 1).",
+            "WEAK_LEXICAL_ALIGNMENT: Keyword overlap (0.0%) is below minimum required (15.0%)."
+          ],
+          "primary_reason": "LOW_SIMILARITY_SCORE: Top score (0.1200) is below minimum threshold (0.35).",
+          "confidence_score": 0.06,
+          "quality_signals": {
+            "total_chunks_retrieved": 2,
+            "top_similarity_score": 0.12,
+            "mean_top_k_score": 0.1,
+            "chunks_above_threshold": 0,
+            "keyword_overlap_ratio": 0.0,
+            "total_context_chars": 1036,
+            "is_empty_retrieval": false,
+            "is_low_similarity": true,
+            "is_insufficient_chunks": true,
+            "is_weak_lexical_alignment": true
+          }
+        }
+      }
+    },
+    {
+      "case_id": "CASE_3_EMPTY_RETRIEVAL_REFUSAL",
+      "title": "Safe Refusal on Empty Retrieval Results",
+      "description": "Knowledge search returns zero candidate chunks.",
+      "input_query": "What are the rules regarding Mars planetary mineral mining royalties?",
+      "provided_chunks_count": 0,
+      "provided_similarity_scores": [],
+      "result": {
+        "query": "What are the rules regarding Mars planetary mineral mining royalties?",
+        "is_refusal": true,
+        "verdict": "SAFE_REFUSAL",
+        "final_answer": "I do not have sufficient information in the provided knowledge base to answer this question accurately.",
+        "cited_sources": [],
+        "token_usage": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        },
+        "decision": {
+          "should_refuse": true,
+          "verdict": "SAFE_REFUSAL",
+          "refusal_reasons": [
+            "EMPTY_RETRIEVAL_RESULTS"
+          ],
+          "primary_reason": "EMPTY_RETRIEVAL_RESULTS: Zero candidate chunks were returned from knowledge base.",
+          "confidence_score": 0.0,
+          "quality_signals": {
+            "total_chunks_retrieved": 0,
+            "top_similarity_score": 0.0,
+            "mean_top_k_score": 0.0,
+            "chunks_above_threshold": 0,
+            "keyword_overlap_ratio": 0.0,
+            "total_context_chars": 0,
+            "is_empty_retrieval": true,
+            "is_low_similarity": true,
+            "is_insufficient_chunks": true,
+            "is_weak_lexical_alignment": true
+          }
+        }
+      }
+    },
+    {
+      "case_id": "CASE_4_WEAK_KEYWORD_ALIGNMENT_REFUSAL",
+      "title": "Safe Refusal on Weak Lexical Keyword Overlap",
+      "description": "Query with unrelated domain terminology matched loosely on general stopword density.",
+      "input_query": "Explain quantum teleportation error correction rates and cryogenic qubit stability.",
+      "provided_chunks_count": 1,
+      "provided_similarity_scores": [
+        0.28
+      ],
+      "result": {
+        "query": "Explain quantum teleportation error correction rates and cryogenic qubit stability.",
+        "is_refusal": true,
+        "verdict": "SAFE_REFUSAL",
+        "final_answer": "I do not have sufficient information in the provided knowledge base to answer this question accurately.",
+        "cited_sources": [],
+        "token_usage": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        },
+        "decision": {
+          "should_refuse": true,
+          "verdict": "SAFE_REFUSAL",
+          "refusal_reasons": [
+            "LOW_SIMILARITY_SCORE: Top score (0.2800) is below minimum threshold (0.35).",
+            "INSUFFICIENT_CHUNKS_ABOVE_THRESHOLD: Only 0 chunk(s) met threshold (required: 1).",
+            "WEAK_LEXICAL_ALIGNMENT: Keyword overlap (11.1%) is below minimum required (15.0%)."
+          ],
+          "primary_reason": "LOW_SIMILARITY_SCORE: Top score (0.2800) is below minimum threshold (0.35).",
+          "confidence_score": 0.1733,
+          "quality_signals": {
+            "total_chunks_retrieved": 1,
+            "top_similarity_score": 0.28,
+            "mean_top_k_score": 0.28,
+            "chunks_above_threshold": 0,
+            "keyword_overlap_ratio": 0.1111,
+            "total_context_chars": 575,
+            "is_empty_retrieval": false,
+            "is_low_similarity": true,
+            "is_insufficient_chunks": true,
+            "is_weak_lexical_alignment": true
+          }
+        }
+      }
+    }
+  ]
+}

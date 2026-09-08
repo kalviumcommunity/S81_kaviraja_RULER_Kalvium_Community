@@ -2,21 +2,34 @@ class PromptTemplate:
     """
     A simple wrapper around a string template to allow named placeholder formatting.
     """
-    def __init__(self, template: str):
+    def __init__(self, template: str, default_kwargs: dict = None):
         self.template = template
+        self.default_kwargs = default_kwargs or {}
 
     def render(self, **kwargs) -> str:
         """
-        Inject dynamic values into the template.
+        Inject dynamic values into the template with flexible placeholder aliasing.
         """
+        merged = {**self.default_kwargs, **kwargs}
+        if "context_str" in merged and "context" not in merged:
+            merged["context"] = merged["context_str"]
+        elif "context" in merged and "context_str" not in merged:
+            merged["context_str"] = merged["context"]
+
+        if "query" in merged and "question" not in merged:
+            merged["question"] = merged["query"]
+        elif "question" in merged and "query" not in merged:
+            merged["query"] = merged["question"]
+
         try:
-            return self.template.format(**kwargs)
+            return self.template.format(**merged)
         except KeyError as e:
             raise ValueError(f"Missing required template variable: {e}")
 
 # Predefined templates
 RAG_SYSTEM_PROMPT = PromptTemplate(
-    "You are a helpful {role} specialized AI assistant."
+    "You are a helpful {role} specialized AI assistant.",
+    default_kwargs={"role": "RAG"}
 )
 #explain me the funtion
 RAG_USER_PROMPT = PromptTemplate(
@@ -35,7 +48,8 @@ GROUNDING_INSTRUCTIONS = (
 
 RAG_GROUNDED_SYSTEM_PROMPT = PromptTemplate(
     "You are an expert AI assistant specialized in {role}.\n\n"
-    f"{GROUNDING_INSTRUCTIONS}"
+    f"{GROUNDING_INSTRUCTIONS}",
+    default_kwargs={"role": "Banking Regulation & Financial Compliance"}
 )
 
 RAG_CONTEXT_INJECTION_USER_PROMPT = PromptTemplate(
@@ -45,4 +59,21 @@ RAG_CONTEXT_INJECTION_USER_PROMPT = PromptTemplate(
     "{question}\n\n"
     "[ANSWER]"
 )
+
+# Aliases for grounded generator
+RAG_GROUNDED_USER_PROMPT = PromptTemplate(
+    "[CONTEXT]\n"
+    "{context_str}\n\n"
+    "[QUESTION]\n"
+    "{query}\n\n"
+    "[ANSWER]"
+)
+
+RAG_UNGROUNDED_USER_PROMPT = PromptTemplate(
+    "[QUESTION]\n"
+    "{query}\n\n"
+    "[ANSWER]"
+)
+
+
 

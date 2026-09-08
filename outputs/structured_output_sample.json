@@ -10,14 +10,14 @@
       "confidence"
     ],
     "sample_parsed_object": {
-      "answer": "Retrieval-Augmented Generation (RAG) is a machine learning framework that combines retrieval-based and generative approaches to improve the performance of natural language processing tasks. It utilizes a retriever component to fetch relevant documents or information from a large corpus and a generator component to produce coherent and contextually relevant text based on the retrieved information. This approach enhances the model's ability to generate accurate and informative responses by leveraging external knowledge.",
+      "answer": "Retrieval-Augmented Generation (RAG) is a framework that combines retrieval-based methods with generative models to improve the quality and relevance of generated text. It works by first retrieving relevant documents or information from a large corpus and then using that information to inform and enhance the text generation process. This approach allows for more accurate and contextually relevant outputs, as the generative model can leverage real-world data during generation.",
       "source": "OpenAI Research Papers and Documentation",
       "confidence": "high"
     },
     "token_usage": {
       "prompt_tokens": 84,
-      "completion_tokens": 79,
-      "total_tokens": 163
+      "completion_tokens": 91,
+      "total_tokens": 175
     }
   },
   "task_3_malformed_json_recovered": {
@@ -55,8 +55,8 @@
     "api_usage_tracking_supported": true,
     "latest_api_token_usage": {
       "prompt_tokens": 84,
-      "completion_tokens": 79,
-      "total_tokens": 163
+      "completion_tokens": 91,
+      "total_tokens": 175
     }
   },
   "application_chat_history": {
@@ -82,7 +82,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\"answer\": \"Retrieval-Augmented Generation (RAG) is a machine learning framework that combines retrieval-based and generative approaches to improve the performance of natural language processing tasks. It utilizes a retriever component to fetch relevant documents or information from a large corpus and a generator component to produce coherent and contextually relevant text based on the retrieved information. This approach enhances the model's ability to generate accurate and informative responses by leveraging external knowledge.\", \"source\": \"OpenAI Research Papers and Documentation\", \"confidence\": \"high\"}"
+        "content": "{\"answer\": \"Retrieval-Augmented Generation (RAG) is a framework that combines retrieval-based methods with generative models to improve the quality and relevance of generated text. It works by first retrieving relevant documents or information from a large corpus and then using that information to inform and enhance the text generation process. This approach allows for more accurate and contextually relevant outputs, as the generative model can leverage real-world data during generation.\", \"source\": \"OpenAI Research Papers and Documentation\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -90,7 +90,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\"answer\": \"Retrieval-Augmented Generation (RAG) is a machine learning framework that combines retrieval-based and generative approaches to improve the performance of natural language processing tasks. It utilizes a retriever component to fetch relevant documents or information from a large corpus and a generator component to produce coherent and contextually relevant text based on the retrieved information. This approach enhances the model's ability to generate accurate and informative responses by leveraging external knowledge.\", \"source\": \"OpenAI Research Papers and Documentation\", \"confidence\": \"high\"}"
+        "content": "{\"answer\": \"Retrieval-Augmented Generation (RAG) is a framework that combines retrieval-based methods with generative models to improve the quality and relevance of generated text. It works by first retrieving relevant documents or information from a large corpus and then using that information to inform and enhance the text generation process. This approach allows for more accurate and contextually relevant outputs, as the generative model can leverage real-world data during generation.\", \"source\": \"OpenAI Research Papers and Documentation\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -98,7 +98,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\"answer\": \"ChromaDB assists in a RAG (Retrieval-Augmented Generation) pipeline by providing a vector database that enables efficient storage and retrieval of embeddings. This allows the system to quickly access relevant information from large datasets, improving the quality and relevance of generated responses. ChromaDB supports similarity search, which is crucial for retrieving contextually appropriate data to augment the generative model's output.\", \"source\": \"ChromaDB documentation and RAG pipeline literature\", \"confidence\": \"high\"}"
+        "content": "{\"answer\": \"ChromaDB assists in a RAG (Retrieval-Augmented Generation) pipeline by providing a vector database that enables efficient storage and retrieval of embeddings generated from documents. This allows the RAG model to quickly access relevant information during the generation process, improving the quality and relevance of the generated responses. ChromaDB's capabilities in managing and querying large datasets of embeddings make it an essential component for enhancing the performance of RAG systems.\", \"source\": \"ChromaDB documentation and RAG literature\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -106,7 +106,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\"answer\": \"ChromaDB assists in a RAG (Retrieval-Augmented Generation) pipeline by providing a vector database that enables efficient storage and retrieval of embeddings. This allows the system to quickly access relevant information from large datasets, improving the quality and relevance of generated responses. ChromaDB supports similarity search, which is crucial for retrieving contextually appropriate data to augment the generative model's output.\", \"source\": \"ChromaDB documentation and RAG pipeline literature\", \"confidence\": \"high\"}"
+        "content": "{\"answer\": \"ChromaDB assists in a RAG (Retrieval-Augmented Generation) pipeline by providing a vector database that enables efficient storage and retrieval of embeddings generated from documents. This allows the RAG model to quickly access relevant information during the generation process, improving the quality and relevance of the generated responses. ChromaDB's capabilities in managing and querying large datasets of embeddings make it an essential component for enhancing the performance of RAG systems.\", \"source\": \"ChromaDB documentation and RAG literature\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -114,7 +114,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\"answer\": \"The JSON response format is useful in LLM applications because it provides a structured way to organize data, making it easier to parse and manipulate programmatically. This format allows for clear separation of different types of information, such as the main answer, source references, and confidence levels, which can enhance the usability and integration of the output in various applications. Additionally, JSON is widely supported across programming languages and platforms, facilitating interoperability and data exchange.\", \"source\": \"General knowledge on JSON and its applications in programming and AI.\", \"confidence\": \"high\"}"
+        "content": "{\"answer\": \"The JSON response format is useful in LLM applications because it provides a structured way to present data, making it easier for developers to parse and utilize the information programmatically. JSON's lightweight nature allows for efficient data transmission, and its compatibility with various programming languages facilitates integration into different systems. Additionally, using JSON can enhance clarity and organization of responses, which is crucial for applications that require precise data handling and manipulation.\", \"source\": \"General knowledge on JSON and LLM applications\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -122,7 +122,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\"answer\": \"The JSON response format is useful in LLM applications because it provides a structured way to organize data, making it easier to parse and manipulate programmatically. This format allows for clear separation of different types of information, such as the main answer, source references, and confidence levels, which can enhance the usability and integration of the output in various applications. Additionally, JSON is widely supported across programming languages and platforms, facilitating interoperability and data exchange.\", \"source\": \"General knowledge on JSON and its applications in programming and AI.\", \"confidence\": \"high\"}"
+        "content": "{\"answer\": \"The JSON response format is useful in LLM applications because it provides a structured way to present data, making it easier for developers to parse and utilize the information programmatically. JSON's lightweight nature allows for efficient data transmission, and its compatibility with various programming languages facilitates integration into different systems. Additionally, using JSON can enhance clarity and organization of responses, which is crucial for applications that require precise data handling and manipulation.\", \"source\": \"General knowledge on JSON and LLM applications\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -130,7 +130,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\"answer\": \"To handle malformed JSON gracefully in Python, you can use a try-except block when parsing JSON with the `json` module. If the JSON is malformed, a `json.JSONDecodeError` will be raised, which you can catch and handle appropriately. Here's an example:\\n\\n```python\\nimport json\\n\\nmalformed_json = '{\\\"key\\\": \\\"value\\\"}'  # Example of malformed JSON\\n\\ntry:\\n    data = json.loads(malformed_json)\\nexcept json.JSONDecodeError as e:\\n    print(f'Failed to decode JSON: {e}')\\n    data = None  # Handle the error by setting data to None or any other default value\\n\\n# Continue processing with the data variable\\n```\", \"source\": \"Python Official Documentation\", \"confidence\": \"high\"}"
+        "content": "{\"answer\": \"To handle malformed JSON gracefully in Python, you can use a try-except block when parsing JSON with the `json` module. If the JSON is malformed, a `json.JSONDecodeError` will be raised, which you can catch and handle appropriately. Here's an example:\\n\\n```python\\nimport json\\n\\nmalformed_json = '{\\\"key\\\": \\\"value\\\"}'  # Example of malformed JSON\\n\\ntry:\\n    data = json.loads(malformed_json)\\nexcept json.JSONDecodeError as e:\\n    print(f\\\"Failed to decode JSON: {e}\\\")\\n    data = None  # Handle the error by setting data to None or any default value\\n```\\n\\nThis way, your program can continue running without crashing, and you can implement any fallback logic as needed.\", \"source\": \"Python Official Documentation on json module\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -138,7 +138,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\"answer\": \"To handle malformed JSON gracefully in Python, you can use a try-except block when parsing JSON with the `json` module. If the JSON is malformed, a `json.JSONDecodeError` will be raised, which you can catch and handle appropriately. Here's an example:\\n\\n```python\\nimport json\\n\\nmalformed_json = '{\\\"key\\\": \\\"value\\\"}'  # Example of malformed JSON\\n\\ntry:\\n    data = json.loads(malformed_json)\\nexcept json.JSONDecodeError as e:\\n    print(f'Failed to decode JSON: {e}')\\n    data = None  # Handle the error by setting data to None or any other default value\\n\\n# Continue processing with the data variable\\n```\", \"source\": \"Python Official Documentation\", \"confidence\": \"high\"}"
+        "content": "{\"answer\": \"To handle malformed JSON gracefully in Python, you can use a try-except block when parsing JSON with the `json` module. If the JSON is malformed, a `json.JSONDecodeError` will be raised, which you can catch and handle appropriately. Here's an example:\\n\\n```python\\nimport json\\n\\nmalformed_json = '{\\\"key\\\": \\\"value\\\"}'  # Example of malformed JSON\\n\\ntry:\\n    data = json.loads(malformed_json)\\nexcept json.JSONDecodeError as e:\\n    print(f\\\"Failed to decode JSON: {e}\\\")\\n    data = None  # Handle the error by setting data to None or any default value\\n```\\n\\nThis way, your program can continue running without crashing, and you can implement any fallback logic as needed.\", \"source\": \"Python Official Documentation on json module\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -146,7 +146,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\"answer\": \"One common strategy to handle missing required fields in parsed data is to implement validation checks during the data parsing process. If a required field is missing, the system can either throw an error, log a warning, or use default values to fill in the gaps. Additionally, data can be flagged for review or sent to a fallback process for further handling.\", \"source\": \"Data Parsing Best Practices\", \"confidence\": \"high\"}"
+        "content": "{\"answer\": \"One common strategy to handle missing required fields in parsed data is to implement a validation and error handling mechanism. This involves checking for the presence of required fields during the parsing process and taking appropriate actions such as throwing an error, logging a warning, or providing default values. Additionally, using data schemas or validation libraries can help enforce the presence of required fields and ensure data integrity.\", \"source\": \"General knowledge on data parsing and validation strategies\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -154,7 +154,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\"answer\": \"One common strategy to handle missing required fields in parsed data is to implement validation checks during the data parsing process. If a required field is missing, the system can either throw an error, log a warning, or use default values to fill in the gaps. Additionally, data can be flagged for review or sent to a fallback process for further handling.\", \"source\": \"Data Parsing Best Practices\", \"confidence\": \"high\"}"
+        "content": "{\"answer\": \"One common strategy to handle missing required fields in parsed data is to implement a validation and error handling mechanism. This involves checking for the presence of required fields during the parsing process and taking appropriate actions such as throwing an error, logging a warning, or providing default values. Additionally, using data schemas or validation libraries can help enforce the presence of required fields and ensure data integrity.\", \"source\": \"General knowledge on data parsing and validation strategies\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -162,7 +162,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\"answer\": \"Token usage tracking in LLM clients is essential for managing and optimizing the costs associated with API calls, ensuring compliance with usage limits, and providing insights into user behavior and model performance. It helps clients monitor their consumption, allocate resources effectively, and make informed decisions about scaling and usage patterns.\", \"source\": \"OpenAI documentation and industry best practices\", \"confidence\": \"high\"}"
+        "content": "{\"answer\": \"Token usage tracking in LLM clients is essential for monitoring and managing the consumption of tokens during interactions with language models. It helps in optimizing costs, ensuring compliance with usage limits, and providing insights into user behavior and model performance. By tracking token usage, clients can also analyze the efficiency of their queries and adjust their strategies accordingly.\", \"source\": \"OpenAI documentation and best practices for LLM usage\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -170,7 +170,7 @@
       },
       {
         "role": "assistant",
-        "content": "{\"answer\": \"Token usage tracking in LLM clients is essential for managing and optimizing the costs associated with API calls, ensuring compliance with usage limits, and providing insights into user behavior and model performance. It helps clients monitor their consumption, allocate resources effectively, and make informed decisions about scaling and usage patterns.\", \"source\": \"OpenAI documentation and industry best practices\", \"confidence\": \"high\"}"
+        "content": "{\"answer\": \"Token usage tracking in LLM clients is essential for monitoring and managing the consumption of tokens during interactions with language models. It helps in optimizing costs, ensuring compliance with usage limits, and providing insights into user behavior and model performance. By tracking token usage, clients can also analyze the efficiency of their queries and adjust their strategies accordingly.\", \"source\": \"OpenAI documentation and best practices for LLM usage\", \"confidence\": \"high\"}"
       },
       {
         "role": "user",
@@ -187,6 +187,70 @@
       {
         "role": "assistant",
         "content": "According to the banking regulatory compliance framework, any single capital expenditure exceeding $50,000 requires unanimous board approval and an independent audit report prior to disbursement [1]. Failure to obtain prior authorization results in an immediate suspension of procurement privileges [1]."
+      },
+      {
+        "role": "user",
+        "content": "[CONTEXT]\n[Chunk #1 | ID: sample_banking_regulation_txt#chunk_003]\nSource: sample_banking_regulation.txt | Section: Section 3: Data Protection and Privacy Controls\nContent: \"\"\"\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported\n\"\"\"\n\n[QUESTION]\nWhat are the rules and approval thresholds for high-value transaction payments?\n\n[ANSWER]"
+      },
+      {
+        "role": "assistant",
+        "content": "The provided context does not contain sufficient information to answer this question."
+      },
+      {
+        "role": "user",
+        "content": "[CONTEXT]\n[Chunk #1 | ID: sample_banking_regulation_txt#chunk_003]\nSource: sample_banking_regulation.txt | Section: Section 3: Data Protection and Privacy Controls\nContent: \"\"\"\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported\n\"\"\"\n\n[QUESTION]\nWhat are the rules and approval thresholds for high-value transaction payments?\n\n[ANSWER]"
+      },
+      {
+        "role": "assistant",
+        "content": "The provided context does not contain sufficient information to answer this question."
+      },
+      {
+        "role": "user",
+        "content": "[CONTEXT]\n[Chunk #1 | ID: sample_banking_regulation_txt#chunk_003]\nSource: sample_banking_regulation.txt | Section: Section 3: Data Protection and Privacy Controls\nContent: \"\"\"\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported\n\"\"\"\n\n[QUESTION]\nWhat are the rules and approval thresholds for high-value transaction payments?\n\n[ANSWER]"
+      },
+      {
+        "role": "assistant",
+        "content": "The provided context does not contain sufficient information to answer this question."
+      },
+      {
+        "role": "user",
+        "content": "[CONTEXT]\n[Chunk #1 | ID: sample_banking_regulation_txt#chunk_003]\nSource: sample_banking_regulation.txt | Section: Section 3: Data Protection and Privacy Controls\nContent: \"\"\"\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported\n\"\"\"\n\n[QUESTION]\nWhat are the rules and approval thresholds for high-value transaction payments?\n\n[ANSWER]"
+      },
+      {
+        "role": "assistant",
+        "content": "The provided context does not contain sufficient information to answer this question."
+      },
+      {
+        "role": "user",
+        "content": "[QUESTION]\nWhat are the rules and approval thresholds for high-value transaction payments?\n\n[ANSWER]"
+      },
+      {
+        "role": "assistant",
+        "content": "The rules and approval thresholds for high-value transaction payments can vary significantly depending on the organization, industry, and jurisdiction. However, here are some common elements that are typically considered:\n\n### 1. **Definition of High-Value Transactions**\n   - High-value transactions are often defined based on a specific monetary threshold, which can vary by organization (e.g., $10,000, $50,000, etc.).\n   - The threshold may differ for different types of transactions (e.g., domestic vs. international payments).\n\n### 2. **Approval Hierarchy**\n   - **Tiered Approval Levels**: Organizations often establish a tiered approval system where higher-value transactions require more senior-level approvals.\n     - **Example**: \n       - Transactions up to $10,000 may require manager approval.\n       - Transactions between $10,000 and $50,000 may require director approval.\n       - Transactions above $50,000 may require executive or board approval.\n   - **Dual Approval**: Some organizations may require dual approvals for high-value transactions, meaning two individuals must authorize the payment.\n\n### 3. **Documentation Requirements**\n   - High-value transactions typically require more extensive documentation to justify the payment, including:\n     - Invoices or contracts\n     - Purchase orders\n     - Supporting documentation for the transaction's purpose\n\n### 4. **Risk Assessment**\n   - Organizations may conduct a risk assessment for high-value transactions, which can include:\n     - Evaluating the counterparty's creditworthiness\n     - Assessing the transaction's compliance with regulatory requirements\n     - Reviewing potential fraud risks\n\n### 5. **Compliance and Regulatory Considerations**\n   - Organizations must comply with relevant laws and regulations, such as anti-money laundering (AML) and know your customer (KYC) regulations.\n   - High-value transactions may trigger additional reporting requirements to regulatory authorities.\n\n### 6. **Internal Controls**\n   - Organizations often implement internal controls to prevent fraud and ensure proper handling of high-value transactions, including:\n     - Segregation of duties (ensuring that no single individual has control over all aspects of a transaction)\n     - Regular audits and reviews of high-value transactions\n\n### 7. **Technology and Payment Systems**\n   - Many organizations use automated systems to manage approvals and track high-value transactions, which can streamline the process and enhance security.\n\n### Conclusion\nOrganizations should establish clear policies and procedures regarding high-value transaction payments, tailored to their specific needs and regulatory environment. Regular reviews and updates to these policies can help ensure they remain effective and compliant."
+      },
+      {
+        "role": "user",
+        "content": "[QUESTION]\nWhat are the rules and approval thresholds for high-value transaction payments?\n\n[ANSWER]"
+      },
+      {
+        "role": "assistant",
+        "content": "The rules and approval thresholds for high-value transaction payments can vary significantly depending on the organization, industry, and jurisdiction. However, here are some common elements that are typically considered:\n\n### 1. **Definition of High-Value Transactions**\n   - High-value transactions are often defined based on a specific monetary threshold, which can vary by organization (e.g., $10,000, $50,000, etc.).\n   - The threshold may differ for different types of transactions (e.g., domestic vs. international payments).\n\n### 2. **Approval Hierarchy**\n   - **Tiered Approval Levels**: Organizations often establish a tiered approval system where higher-value transactions require more senior-level approvals.\n     - **Example**: \n       - Transactions up to $10,000 may require manager approval.\n       - Transactions between $10,000 and $50,000 may require director approval.\n       - Transactions above $50,000 may require executive or board approval.\n   - **Dual Approval**: Some organizations may require dual approvals for high-value transactions, meaning two individuals must authorize the payment.\n\n### 3. **Documentation Requirements**\n   - High-value transactions typically require more extensive documentation to justify the payment, including:\n     - Invoices or contracts\n     - Purchase orders\n     - Supporting documentation for the transaction's purpose\n\n### 4. **Risk Assessment**\n   - Organizations may conduct a risk assessment for high-value transactions, which can include:\n     - Evaluating the counterparty's creditworthiness\n     - Assessing the transaction's compliance with regulatory requirements\n     - Reviewing potential fraud risks\n\n### 5. **Compliance and Regulatory Considerations**\n   - Organizations must comply with relevant laws and regulations, such as anti-money laundering (AML) and know your customer (KYC) regulations.\n   - High-value transactions may trigger additional reporting requirements to regulatory authorities.\n\n### 6. **Internal Controls**\n   - Organizations often implement internal controls to prevent fraud and ensure proper handling of high-value transactions, including:\n     - Segregation of duties (ensuring that no single individual has control over all aspects of a transaction)\n     - Regular audits and reviews of high-value transactions\n\n### 7. **Technology and Payment Systems**\n   - Many organizations use automated systems to manage approvals and track high-value transactions, which can streamline the process and enhance security.\n\n### Conclusion\nOrganizations should establish clear policies and procedures regarding high-value transaction payments, tailored to their specific needs and regulatory environment. Regular reviews and updates to these policies can help ensure they remain effective and compliant."
+      },
+      {
+        "role": "user",
+        "content": "[CONTEXT]\n--- [1] [Doc: sample_banking_regulation.txt | Section: Section 3: Data Protection and Privacy Controls | Page: 1 | ID: sample_banking_regulation_txt#chunk_003] ---\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported\n\n\n[QUESTION]\nWhat are the customer encryption standards and data breach reporting timeframe?\n\n[ANSWER]"
+      },
+      {
+        "role": "assistant",
+        "content": "Customer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher [1]. Additionally, any data breach must be reported to the regulatory oversight committee within 24 hours of initial detection [1]."
+      },
+      {
+        "role": "user",
+        "content": "[CONTEXT]\n--- [1] [Doc: sample_banking_regulation.txt | Section: Section 3: Data Protection and Privacy Controls | Page: 1 | ID: sample_banking_regulation_txt#chunk_003] ---\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported\n\n\n[QUESTION]\nWhat are the customer encryption standards and data breach reporting timeframe?\n\n[ANSWER]"
+      },
+      {
+        "role": "assistant",
+        "content": "Customer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher [1]. Additionally, any data breach must be reported to the regulatory oversight committee within 24 hours of initial detection [1]."
       }
     ]
   },
@@ -5240,13 +5304,13 @@
         "expected_target_section": "Section 1: Executive Summary & Overview",
         "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_001",
         "actual_top_section": "Section 1: Executive Overview and Scope",
-        "actual_top_score": -0.004944,
+        "actual_top_score": -0.004975,
         "actual_top_text_snippet": "# Banking Regulatory Compliance Framework (BRCF-2026)  --- Page 1 --- ## Section 1: Executive Overview and Scope This do...",
-        "score_margin_over_runner_up": 0.008296,
+        "score_margin_over_runner_up": 0.008302,
         "ranked_results": [
           {
             "rank": 1,
-            "score": -0.004944,
+            "score": -0.004975,
             "chunk_id": "sample_banking_regulation_txt#chunk_001",
             "source_text": "# Banking Regulatory Compliance Framework (BRCF-2026)\n\n--- Page 1 ---\n## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.\nFailure to maintain compliance may result in administrative penalties, operational suspension, or revocation of banking licenses.\n\n--- Page 2 ---\n## Section 2:",
             "metadata": {
@@ -5267,7 +5331,7 @@
           },
           {
             "rank": 2,
-            "score": -0.01324,
+            "score": -0.013277,
             "chunk_id": "sample_banking_regulation_txt#chunk_002",
             "source_text": " operational suspension, or revocation of banking licenses.\n\n--- Page 2 ---\n## Section 2: Liquidity and Capital Requirements\nFinancial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times. \nAdditionally, liquidity coverage ratios (LCR) must be sustained above 100% to ensure short-term obligations can be met during high-stress market events.\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by",
             "metadata": {
@@ -5288,7 +5352,7 @@
           },
           {
             "rank": 3,
-            "score": -0.018476,
+            "score": -0.018517,
             "chunk_id": "sample_banking_regulation_txt#chunk_003",
             "source_text": "Daily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported",
             "metadata": {
@@ -5309,7 +5373,7 @@
           },
           {
             "rank": 4,
-            "score": -0.0194,
+            "score": -0.019426,
             "chunk_id": "sample_banking_regulation_txt#chunk_005",
             "source_text": "XAI) detailing primary factor weightings for any adverse credit decisions.\nModel training datasets must be archived for a minimum of 7 years to facilitate independent regulatory review.\n",
             "metadata": {
@@ -5330,7 +5394,7 @@
           },
           {
             "rank": 5,
-            "score": -0.031443,
+            "score": -0.031479,
             "chunk_id": "sample_banking_regulation_txt#chunk_004",
             "source_text": ") and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported to the regulatory oversight committee within 24 hours of initial detection.\n\n--- Page 4 ---\n## Section 4: AI Model Governance in Credit Risk\nAI and machine learning models used for credit scoring and loan origination must undergo quarterly bias audits.\nAll automated decision-making pipelines must provide explainable outputs (XAI) detailing primary factor weightings for any adverse credit decisions.\nModel training datasets must be archived",
             "metadata": {
@@ -5350,7 +5414,7 @@
             "vector_preview": "[0.2500, 0.2510, 0.2520, 0.2530, ...]"
           }
         ],
-        "diagnostic_note": "FAIL: Expected section 'Section 1: Executive Summary & Overview', but top rank was 'Section 1: Executive Overview and Scope' (Chunk ID: sample_banking_regulation_txt#chunk_001, Score: -0.0049)."
+        "diagnostic_note": "FAIL: Expected section 'Section 1: Executive Summary & Overview', but top rank was 'Section 1: Executive Overview and Scope' (Chunk ID: sample_banking_regulation_txt#chunk_001, Score: -0.0050)."
       },
       {
         "test_id": "TEST-002",
@@ -5361,13 +5425,13 @@
         "expected_target_section": "Section 2: Capital Reserves & Liquidity Ratios",
         "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_004",
         "actual_top_section": "Section 4: AI Model Governance in Credit Risk",
-        "actual_top_score": 0.004565,
+        "actual_top_score": 0.004563,
         "actual_top_text_snippet": ") and require multi-factor authentication (MFA) for administrative operations. Any data breach must be reported to the r...",
-        "score_margin_over_runner_up": 0.00651,
+        "score_margin_over_runner_up": 0.006511,
         "ranked_results": [
           {
             "rank": 1,
-            "score": 0.004565,
+            "score": 0.004563,
             "chunk_id": "sample_banking_regulation_txt#chunk_004",
             "source_text": ") and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported to the regulatory oversight committee within 24 hours of initial detection.\n\n--- Page 4 ---\n## Section 4: AI Model Governance in Credit Risk\nAI and machine learning models used for credit scoring and loan origination must undergo quarterly bias audits.\nAll automated decision-making pipelines must provide explainable outputs (XAI) detailing primary factor weightings for any adverse credit decisions.\nModel training datasets must be archived",
             "metadata": {
@@ -5388,7 +5452,7 @@
           },
           {
             "rank": 2,
-            "score": -0.001945,
+            "score": -0.001948,
             "chunk_id": "sample_banking_regulation_txt#chunk_005",
             "source_text": "XAI) detailing primary factor weightings for any adverse credit decisions.\nModel training datasets must be archived for a minimum of 7 years to facilitate independent regulatory review.\n",
             "metadata": {
@@ -5409,7 +5473,7 @@
           },
           {
             "rank": 3,
-            "score": -0.011824,
+            "score": -0.01183,
             "chunk_id": "sample_banking_regulation_txt#chunk_003",
             "source_text": "Daily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported",
             "metadata": {
@@ -5430,7 +5494,7 @@
           },
           {
             "rank": 4,
-            "score": -0.011921,
+            "score": -0.011935,
             "chunk_id": "sample_banking_regulation_txt#chunk_002",
             "source_text": " operational suspension, or revocation of banking licenses.\n\n--- Page 2 ---\n## Section 2: Liquidity and Capital Requirements\nFinancial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times. \nAdditionally, liquidity coverage ratios (LCR) must be sustained above 100% to ensure short-term obligations can be met during high-stress market events.\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by",
             "metadata": {
@@ -5451,7 +5515,7 @@
           },
           {
             "rank": 5,
-            "score": -0.014138,
+            "score": -0.014149,
             "chunk_id": "sample_banking_regulation_txt#chunk_001",
             "source_text": "# Banking Regulatory Compliance Framework (BRCF-2026)\n\n--- Page 1 ---\n## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.\nFailure to maintain compliance may result in administrative penalties, operational suspension, or revocation of banking licenses.\n\n--- Page 2 ---\n## Section 2:",
             "metadata": {
@@ -5883,9 +5947,9 @@
               "doc_type": "Regulatory Framework"
             },
             "matched_keywords": [
+              "and",
               "the",
-              "for",
-              "and"
+              "for"
             ],
             "vector_preview": "[0.2500, 0.2510, 0.2520, 0.2530, ...]"
           },
@@ -5911,9 +5975,9 @@
               "doc_type": "Regulatory Framework"
             },
             "matched_keywords": [
+              "and",
               "the",
-              "for",
-              "and"
+              "for"
             ],
             "vector_preview": "[0.2000, 0.2010, 0.2020, 0.2030, ...]"
           }
@@ -5945,9 +6009,9 @@
               "doc_type": "Regulatory Framework"
             },
             "matched_keywords": [
+              "and",
               "the",
-              "for",
-              "and"
+              "for"
             ],
             "vector_preview": "[0.2000, 0.2010, 0.2020, 0.2030, ...]"
           }
@@ -5978,9 +6042,9 @@
               "doc_type": "Regulatory Framework"
             },
             "matched_keywords": [
+              "and",
               "the",
-              "for",
-              "and"
+              "for"
             ],
             "vector_preview": "[0.2500, 0.2510, 0.2520, 0.2530, ...]"
           }
@@ -6878,8 +6942,12 @@
             "chunk_id": "sample_banking_regulation_txt#chunk_003",
             "doc_id": "sample_banking_regulation_txt",
             "filename": "sample_banking_regulation.txt",
+            "source_path": "data\\sample_banking_regulation.txt",
             "section": "Section 3: Data Protection and Privacy Controls",
             "page_number": 1,
+            "source_chunk_index": 2,
+            "start_char": 857,
+            "end_char": 1316,
             "raw_text": "Daily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported",
             "formatted_text": "--- [1] [Doc: sample_banking_regulation.txt | Section: Section 3: Data Protection and Privacy Controls | Page: 1 | ID: sample_banking_regulation_txt#chunk_003] ---\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported\n",
             "token_count": 146,
@@ -6904,6 +6972,28 @@
     "generation_result": {
       "question": "What is the authorization policy for single capital expenditures exceeding $50,000?",
       "grounded_answer": "According to the banking regulatory compliance framework, any single capital expenditure exceeding $50,000 requires unanimous board approval and an independent audit report prior to disbursement [1]. Failure to obtain prior authorization results in an immediate suspension of procurement privileges [1].",
+      "is_grounded": true,
+      "citation_status": "VERIFIED",
+      "citations": [
+        {
+          "marker": "[1]",
+          "doc_id": "sample_banking_regulation_txt",
+          "filename": "sample_banking_regulation.txt",
+          "source_path": "data\\sample_banking_regulation.txt",
+          "section": "Section 3: Data Protection and Privacy Controls",
+          "page_number": 1,
+          "chunk_id": "sample_banking_regulation_txt#chunk_003",
+          "chunk_index": 2,
+          "start_char": 857,
+          "end_char": 1316,
+          "original_retrieved_text": "Daily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported",
+          "verification": {
+            "matches_original_retrieved_text": true,
+            "status": "VERIFIED_AGAINST_RETRIEVED_CHUNK"
+          }
+        }
+      ],
+      "invalid_citations": [],
       "token_usage": {
         "prompt_tokens": 42,
         "completion_tokens": 36,
@@ -6914,8 +7004,14 @@
           "marker": "[1]",
           "doc_id": "sample_banking_regulation_txt",
           "filename": "sample_banking_regulation.txt",
+          "source_path": "data\\sample_banking_regulation.txt",
           "section": "Section 3: Data Protection and Privacy Controls",
-          "chunk_id": "sample_banking_regulation_txt#chunk_003"
+          "page_number": 1,
+          "chunk_id": "sample_banking_regulation_txt#chunk_003",
+          "chunk_index": 2,
+          "start_char": 857,
+          "end_char": 1316,
+          "raw_text": "Daily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported"
         }
       ],
       "skipped_sources_count": 0,
@@ -6932,5 +7028,305 @@
         "is_within_budget": true
       }
     }
+  },
+  "context_grounded_generation": {
+    "grounded_answer": {
+      "query": "What are the rules and approval thresholds for high-value transaction payments?",
+      "answer": "The provided context does not contain sufficient information to answer this question.",
+      "cited_chunk_ids": [
+        "sample_banking_regulation_txt#chunk_003"
+      ],
+      "supporting_chunks": [
+        {
+          "chunk_id": "sample_banking_regulation_txt#chunk_003",
+          "section": "Section 3: Data Protection and Privacy Controls",
+          "snippet": "Daily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.  --- Page 3 --- ## ..."
+        }
+      ],
+      "context_text": "[Chunk #1 | ID: sample_banking_regulation_txt#chunk_003]\nSource: sample_banking_regulation.txt | Section: Section 3: Data Protection and Privacy Controls\nContent: \"\"\"\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported\n\"\"\"",
+      "token_usage": {
+        "prompt_tokens": 305,
+        "completion_tokens": 14,
+        "total_tokens": 319
+      },
+      "is_grounded": true,
+      "fallback_triggered": false,
+      "fallback_reason": null
+    },
+    "source_accuracy_audit": {
+      "query": "",
+      "answer": "The provided context does not contain sufficient information to answer this question.",
+      "total_claims": 1,
+      "supported_claims": 0,
+      "unsupported_claims": 1,
+      "faithfulness_score_percentage": 0.0,
+      "verdict": "CONTAINS_1_UNSUPPORTED_CLAIMS",
+      "claims": [
+        {
+          "claim_id": 1,
+          "claim_text": "The provided context does not contain sufficient information to answer this question.",
+          "is_supported": false,
+          "supporting_chunk_ids": [],
+          "matched_entities": [],
+          "unsupported_reason": "Insufficient context support (lexical overlap 0.0%)"
+        }
+      ]
+    },
+    "missing_context_fallback": {
+      "query": "What is the policy for employee vacation allowances and airline baggage fees?",
+      "answer": "I do not have enough information in the provided context to answer this question. The available regulatory documentation does not contain policies regarding 'What is the policy for employee vacation allowances and airline baggage fees?'. The current knowledge base strictly covers high-value transaction approval thresholds ($50,000 board authorization), liquidity coverage ratios (LCR), and anti-money laundering (AML) compliance rules.",
+      "cited_chunk_ids": [],
+      "supporting_chunks": [],
+      "context_text": "[Chunk #1 | ID: sample_banking_regulation_txt#chunk_003]\nSource: sample_banking_regulation.txt | Section: Section 3: Data Protection and Privacy Controls\nContent: \"\"\"\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported\n\"\"\"",
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 58,
+        "total_tokens": 58
+      },
+      "is_grounded": true,
+      "fallback_triggered": true,
+      "fallback_reason": "INSUFFICIENT_OR_IRRELEVANT_CONTEXT"
+    },
+    "with_vs_without_comparison": {
+      "query": "What are the rules and approval thresholds for high-value transaction payments?",
+      "with_retrieval_grounded": {
+        "answer": "The provided context does not contain sufficient information to answer this question.",
+        "cited_chunks": [
+          "sample_banking_regulation_txt#chunk_003"
+        ],
+        "supporting_chunks_count": 1,
+        "faithfulness_score": 0.0,
+        "hallucination_risk": "VERY LOW (Anchored directly in institutional text)",
+        "exact_policy_terms_found": [],
+        "token_usage": {
+          "prompt_tokens": 305,
+          "completion_tokens": 13,
+          "total_tokens": 318
+        }
+      },
+      "without_retrieval_ungrounded": {
+        "answer": "The rules and approval thresholds for high-value transaction payments can vary significantly depending on the organization, industry, and jurisdiction. However, here are some common elements that are typically considered:\n\n### 1. **Definition of High-Value Transactions**\n   - High-value transactions are often defined based on a specific monetary threshold, which can vary by organization (e.g., $10,000, $50,000, etc.).\n   - The threshold may differ for different types of transactions (e.g., domestic vs. international payments).\n\n### 2. **Approval Hierarchy**\n   - **Tiered Approval Levels**: Organizations often establish a tiered approval system where higher-value transactions require more senior-level approvals.\n     - **Example**: \n       - Transactions up to $10,000 may require manager approval.\n       - Transactions between $10,000 and $50,000 may require director approval.\n       - Transactions above $50,000 may require executive or board approval.\n   - **Dual Approval**: Some organizations may require dual approvals for high-value transactions, meaning two individuals must authorize the payment.\n\n### 3. **Documentation Requirements**\n   - High-value transactions typically require more extensive documentation to justify the payment, including:\n     - Invoices or contracts\n     - Purchase orders\n     - Supporting documentation for the transaction's purpose\n\n### 4. **Risk Assessment**\n   - Organizations may conduct a risk assessment for high-value transactions, which can include:\n     - Evaluating the counterparty's creditworthiness\n     - Assessing the transaction's compliance with regulatory requirements\n     - Reviewing potential fraud risks\n\n### 5. **Compliance and Regulatory Considerations**\n   - Organizations must comply with relevant laws and regulations, such as anti-money laundering (AML) and know your customer (KYC) regulations.\n   - High-value transactions may trigger additional reporting requirements to regulatory authorities.\n\n### 6. **Internal Controls**\n   - Organizations often implement internal controls to prevent fraud and ensure proper handling of high-value transactions, including:\n     - Segregation of duties (ensuring that no single individual has control over all aspects of a transaction)\n     - Regular audits and reviews of high-value transactions\n\n### 7. **Technology and Payment Systems**\n   - Many organizations use automated systems to manage approvals and track high-value transactions, which can streamline the process and enhance security.\n\n### Conclusion\nOrganizations should establish clear policies and procedures regarding high-value transaction payments, tailored to their specific needs and regulatory environment. Regular reviews and updates to these policies can help ensure they remain effective and compliant.",
+        "cited_chunks": [],
+        "supporting_chunks_count": 0,
+        "faithfulness_score": "N/A (No ground-truth context provided)",
+        "hallucination_risk": "HIGH (Generates plausible-sounding but generic/inaccurate limits)",
+        "exact_policy_terms_found": [
+          "$50,000"
+        ],
+        "token_usage": {
+          "prompt_tokens": 38,
+          "completion_tokens": 515,
+          "total_tokens": 553
+        }
+      },
+      "grounding_delta_analysis": {
+        "exact_terms_unlocked": [],
+        "specificity_comparison": "Grounded answer specifies exact $50,000 threshold, unanimous board approval requirement, and sanctions. Ungrounded answer offers generic $10,000/$25,000 guesses.",
+        "verifiable_citations": true,
+        "verdict": "Grounding in retrieved context transformed vague, generic speculation into 100% compliant, auditable institutional policy."
+      }
+    }
+  },
+  "hallucination_guardrails_and_refusal": {
+    "guardrail_config": {
+      "min_similarity_threshold": 0.35,
+      "min_chunks_above_threshold": 1,
+      "min_keyword_overlap_ratio": 0.15,
+      "min_context_character_length": 40,
+      "standard_refusal_message": "I do not have sufficient information in the provided knowledge base to answer this question accurately."
+    },
+    "total_cases_evaluated": 4,
+    "refusal_cases_count": 3,
+    "confident_cases_count": 1,
+    "demonstrations": [
+      {
+        "case_id": "CASE_1_CONFIDENT_ANSWER",
+        "title": "Confident Grounded Answer (Strong Context)",
+        "description": "High semantic similarity score and exact entity match for customer encryption and data breach policies.",
+        "input_query": "What are the customer encryption standards and data breach reporting timeframe?",
+        "provided_chunks_count": 1,
+        "provided_similarity_scores": [
+          0.89,
+          0.76
+        ],
+        "result": {
+          "query": "What are the customer encryption standards and data breach reporting timeframe?",
+          "is_refusal": false,
+          "verdict": "PROCEED_CONFIDENT_ANSWER",
+          "final_answer": "Customer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher [1]. Additionally, any data breach must be reported to the regulatory oversight committee within 24 hours of initial detection [1].",
+          "cited_sources": [
+            {
+              "marker": "[1]",
+              "doc_id": "sample_banking_regulation_txt",
+              "filename": "sample_banking_regulation.txt",
+              "source_path": "data\\sample_banking_regulation.txt",
+              "section": "Section 3: Data Protection and Privacy Controls",
+              "page_number": 1,
+              "chunk_id": "sample_banking_regulation_txt#chunk_003",
+              "chunk_index": 2,
+              "start_char": 857,
+              "end_char": 1316,
+              "raw_text": "Daily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported"
+            }
+          ],
+          "token_usage": {
+            "prompt_tokens": 42,
+            "completion_tokens": 36,
+            "total_tokens": 78
+          },
+          "decision": {
+            "should_refuse": false,
+            "verdict": "PROCEED_CONFIDENT_ANSWER",
+            "refusal_reasons": [],
+            "primary_reason": null,
+            "confidence_score": 0.8593,
+            "quality_signals": {
+              "total_chunks_retrieved": 1,
+              "top_similarity_score": 0.89,
+              "mean_top_k_score": 0.825,
+              "chunks_above_threshold": 2,
+              "keyword_overlap_ratio": 0.7143,
+              "total_context_chars": 459,
+              "is_empty_retrieval": false,
+              "is_low_similarity": false,
+              "is_insufficient_chunks": false,
+              "is_weak_lexical_alignment": false
+            }
+          }
+        }
+      },
+      {
+        "case_id": "CASE_2_LOW_SIMILARITY_REFUSAL",
+        "title": "Safe Refusal on Low Similarity Score (Out-of-Domain Query)",
+        "description": "Quantum computing satellite encryption query matched against banking docs yields low similarity below threshold.",
+        "input_query": "What is the quantum encryption satellite key rotation protocol for deep-space missions?",
+        "provided_chunks_count": 2,
+        "provided_similarity_scores": [
+          0.12,
+          0.08
+        ],
+        "result": {
+          "query": "What is the quantum encryption satellite key rotation protocol for deep-space missions?",
+          "is_refusal": true,
+          "verdict": "SAFE_REFUSAL",
+          "final_answer": "I do not have sufficient information in the provided knowledge base to answer this question accurately.",
+          "cited_sources": [],
+          "token_usage": {
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 0
+          },
+          "decision": {
+            "should_refuse": true,
+            "verdict": "SAFE_REFUSAL",
+            "refusal_reasons": [
+              "LOW_SIMILARITY_SCORE: Top score (0.1200) is below minimum threshold (0.35).",
+              "INSUFFICIENT_CHUNKS_ABOVE_THRESHOLD: Only 0 chunk(s) met threshold (required: 1).",
+              "WEAK_LEXICAL_ALIGNMENT: Keyword overlap (0.0%) is below minimum required (15.0%)."
+            ],
+            "primary_reason": "LOW_SIMILARITY_SCORE: Top score (0.1200) is below minimum threshold (0.35).",
+            "confidence_score": 0.06,
+            "quality_signals": {
+              "total_chunks_retrieved": 2,
+              "top_similarity_score": 0.12,
+              "mean_top_k_score": 0.1,
+              "chunks_above_threshold": 0,
+              "keyword_overlap_ratio": 0.0,
+              "total_context_chars": 1036,
+              "is_empty_retrieval": false,
+              "is_low_similarity": true,
+              "is_insufficient_chunks": true,
+              "is_weak_lexical_alignment": true
+            }
+          }
+        }
+      },
+      {
+        "case_id": "CASE_3_EMPTY_RETRIEVAL_REFUSAL",
+        "title": "Safe Refusal on Empty Retrieval Results",
+        "description": "Knowledge search returns zero candidate chunks.",
+        "input_query": "What are the rules regarding Mars planetary mineral mining royalties?",
+        "provided_chunks_count": 0,
+        "provided_similarity_scores": [],
+        "result": {
+          "query": "What are the rules regarding Mars planetary mineral mining royalties?",
+          "is_refusal": true,
+          "verdict": "SAFE_REFUSAL",
+          "final_answer": "I do not have sufficient information in the provided knowledge base to answer this question accurately.",
+          "cited_sources": [],
+          "token_usage": {
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 0
+          },
+          "decision": {
+            "should_refuse": true,
+            "verdict": "SAFE_REFUSAL",
+            "refusal_reasons": [
+              "EMPTY_RETRIEVAL_RESULTS"
+            ],
+            "primary_reason": "EMPTY_RETRIEVAL_RESULTS: Zero candidate chunks were returned from knowledge base.",
+            "confidence_score": 0.0,
+            "quality_signals": {
+              "total_chunks_retrieved": 0,
+              "top_similarity_score": 0.0,
+              "mean_top_k_score": 0.0,
+              "chunks_above_threshold": 0,
+              "keyword_overlap_ratio": 0.0,
+              "total_context_chars": 0,
+              "is_empty_retrieval": true,
+              "is_low_similarity": true,
+              "is_insufficient_chunks": true,
+              "is_weak_lexical_alignment": true
+            }
+          }
+        }
+      },
+      {
+        "case_id": "CASE_4_WEAK_KEYWORD_ALIGNMENT_REFUSAL",
+        "title": "Safe Refusal on Weak Lexical Keyword Overlap",
+        "description": "Query with unrelated domain terminology matched loosely on general stopword density.",
+        "input_query": "Explain quantum teleportation error correction rates and cryogenic qubit stability.",
+        "provided_chunks_count": 1,
+        "provided_similarity_scores": [
+          0.28
+        ],
+        "result": {
+          "query": "Explain quantum teleportation error correction rates and cryogenic qubit stability.",
+          "is_refusal": true,
+          "verdict": "SAFE_REFUSAL",
+          "final_answer": "I do not have sufficient information in the provided knowledge base to answer this question accurately.",
+          "cited_sources": [],
+          "token_usage": {
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 0
+          },
+          "decision": {
+            "should_refuse": true,
+            "verdict": "SAFE_REFUSAL",
+            "refusal_reasons": [
+              "LOW_SIMILARITY_SCORE: Top score (0.2800) is below minimum threshold (0.35).",
+              "INSUFFICIENT_CHUNKS_ABOVE_THRESHOLD: Only 0 chunk(s) met threshold (required: 1).",
+              "WEAK_LEXICAL_ALIGNMENT: Keyword overlap (11.1%) is below minimum required (15.0%)."
+            ],
+            "primary_reason": "LOW_SIMILARITY_SCORE: Top score (0.2800) is below minimum threshold (0.35).",
+            "confidence_score": 0.1733,
+            "quality_signals": {
+              "total_chunks_retrieved": 1,
+              "top_similarity_score": 0.28,
+              "mean_top_k_score": 0.28,
+              "chunks_above_threshold": 0,
+              "keyword_overlap_ratio": 0.1111,
+              "total_context_chars": 575,
+              "is_empty_retrieval": false,
+              "is_low_similarity": true,
+              "is_insufficient_chunks": true,
+              "is_weak_lexical_alignment": true
+            }
+          }
+        }
+      }
+    ]
   }
 }

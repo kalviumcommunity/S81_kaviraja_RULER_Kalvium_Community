@@ -11,13 +11,13 @@ UNFILTERED RETRIEVAL RESULTS (All Corpus Chunks Considered)
 Rank #1 | Hybrid Score: 0.1659 (Vec: 0.0000, KW: 0.4147)
 Chunk ID: sample_banking_regulation_txt#chunk_004
 Section:  Section 4: AI Model Governance in Credit Risk
-Matched Keywords: ['the', 'for', 'and']
+Matched Keywords: ['and', 'the', 'for']
 Text: ") and require multi-factor authentication (MFA) for administrative operations. Any data breach must be reported to the r..."
 ----------------------------------------
 Rank #2 | Hybrid Score: 0.1550 (Vec: 0.0000, KW: 0.3874)
 Chunk ID: sample_banking_regulation_txt#chunk_003
 Section:  Section 3: Data Protection and Privacy Controls
-Matched Keywords: ['the', 'for', 'and']
+Matched Keywords: ['and', 'the', 'for']
 Text: "Daily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.  --- Page 3 --- ## ..."
 ----------------------------------------
 
@@ -29,7 +29,7 @@ Chunks Filtered Out: 4
 Rank #1 | Hybrid Score: 0.1550 (Vec: 0.0000, KW: 0.3874)
 Chunk ID: sample_banking_regulation_txt#chunk_003
 Section:  Section 3: Data Protection and Privacy Controls
-Matched Keywords: ['the', 'for', 'and']
+Matched Keywords: ['and', 'the', 'for']
 Text: "Daily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.  --- Page 3 --- ## ..."
 ----------------------------------------
 
