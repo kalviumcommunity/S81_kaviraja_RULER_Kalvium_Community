@@ -1,0 +1,26 @@
+[
+  {
+    "source_id": "doc1.txt",
+    "chunk_index": 0,
+    "text": "# Document 1: Introduction to AI\n\nArtificial Intelligence (AI) refers to the simulation of human intelligence in machines that are programmed to think like humans and mimic their actions. The term may also be applied to any machine that exhibits traits associated with a human mind such as learning and problem-solving.",
+    "char_length": 319
+  },
+  {
+    "source_id": "doc1.txt",
+    "chunk_index": 1,
+    "text": "The ideal characteristic of artificial intelligence is its ability to rationalize and take actions that have the best chance of achieving a specific goal. A subset of artificial intelligence is machine learning, which refers to the concept that computer programs can automatically learn from and adapt to new data without being assisted by humans.",
+    "char_length": 347
+  },
+  {
+    "source_id": "doc2.txt",
+    "chunk_index": 0,
+    "text": "# Document 2: What is RAG?\n\nRetrieval-Augmented Generation (RAG) is an AI framework for retrieving facts from an external knowledge base to ground large language models (LLMs) on the most accurate, up-to-date information and to give users insight into LLMs' generative process.",
+    "char_length": 277
+  },
+  {
+    "source_id": "doc2.txt",
+    "chunk_index": 1,
+    "text": "By using RAG, companies can customize LLMs to their specific data without needing to fine-tune the model, which is expensive and time-consuming. It works by first converting documents into embeddings, storing them in a vector database, and then retrieving the most relevant documents when a user query is received.",
+    "char_length": 314
+  }
+]

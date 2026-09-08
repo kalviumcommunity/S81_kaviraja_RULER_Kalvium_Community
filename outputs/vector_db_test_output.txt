@@ -1,0 +1,12 @@
+--- Readback Output ---
+ID: doc1_chunk1
+Vector Length: 1536
+Text: This is a test document chunk that contains information about vector databases.
+Metadata:
+{
+  "section": "Introduction",
+  "chunk_index": 1,
+  "source_document": "vector_db_guide.pdf",
+  "page": 2
+}
+Total Collection Count: 1

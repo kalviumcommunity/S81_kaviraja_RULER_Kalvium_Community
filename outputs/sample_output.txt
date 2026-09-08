@@ -192,154 +192,76 @@
 [2026-09-07 15:13:00] [INFO] --- MODEL REPLY (choices[0].message.content) ---
 [2026-09-07 15:13:00] [INFO] {"answer": "Token usage tracking in LLM clients helps monitor and manage the consumption of tokens during interactions with language models. This tracking is essential for optimizing costs, ensuring compliance with usage limits, and providing insights into user behavior and model performance. It allows clients to analyze usage patterns, adjust their queries for efficiency, and manage their budgets effectively.", "source": "General knowledge on LLM operations and token management practices.", "confidence": "high"}
 
-[2026-09-07 15:13:00] [INFO] ✅ [JSON Parse Success]: Raw response successfully parsed into Python dict.
-[2026-09-07 15:13:00] [INFO] ✅ [Validation Passed]: All required fields present: ['answer', 'source', 'confidence']
-[2026-09-07 15:13:00] [INFO] 🎉 [Structured Output Success]: JSON parsed, recovered, and validated successfully.
-[2026-09-07 15:13:00] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
-[2026-09-07 15:13:00] [INFO] ✅ [Malformed JSON Recovered]: Successfully cleaned and parsed malformed JSON object.
-[2026-09-07 15:13:00] [INFO] ✅ [Validation Passed]: All required fields present: ['answer', 'source']
-[2026-09-07 15:13:00] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
-[2026-09-07 15:13:00] [ERROR] ❌ [Malformed JSON Error]: Failed to parse JSON after recovery attempts: Expecting value: line 1 column 1 (char 0)
-[2026-09-07 15:13:00] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['source']
-[2026-09-07 15:13:00] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'source': 'Fallback_Knowledge_Store'}
-[2026-09-07 15:13:00] [INFO] ==================================================
-[2026-09-07 15:13:00] [INFO]    APPLICATION CHAT HISTORY (6 Questions Asked)
-[2026-09-07 15:13:00] [INFO] ==================================================
-[2026-09-07 15:13:00] [INFO] [Question #1 - USER]: What is Retrieval-Augmented Generation (RAG)?
-[2026-09-07 15:13:00] [INFO] [Answer #1 - ASSISTANT]: {"answer": "Retrieval-Augmented Generation (RAG) is a framework that combines retrieval-based and generative approaches to improve the performance of natural language processing tasks. It utilizes a retriever to fetch relevant documents or information from a large corpus and then employs a generator to produce coherent and contextually relevant responses based on the retrieved data. This method enhances the model's ability to generate accurate and informative answers by grounding its responses in real-world knowledge.", "source": "OpenAI Research Papers and Documentation", "confidence": "high"}
-[2026-09-07 15:13:00] [INFO] [Question #2 - USER]: How does ChromaDB assist in a RAG pipeline?
-[2026-09-07 15:13:00] [INFO] [Answer #2 - ASSISTANT]: {"answer": "ChromaDB assists in a RAG (Retrieval-Augmented Generation) pipeline by providing a vector database that enables efficient storage and retrieval of embeddings. It allows for fast similarity searches, which is crucial for retrieving relevant documents or data that can augment the generative model's responses. This integration enhances the overall performance of the RAG system by ensuring that the most pertinent information is accessed quickly, thereby improving the quality and relevance of the generated outputs.", "source": "ChromaDB Documentation and RAG Framework Overview", "confidence": "high"}
-[2026-09-07 15:13:00] [INFO] [Question #3 - USER]: Why is JSON response format mode useful in LLM applications?
-[2026-09-07 15:13:00] [INFO] [Answer #3 - ASSISTANT]: {"answer": "The JSON response format is useful in LLM applications because it provides a structured way to organize data, making it easier to parse and manipulate programmatically. This format allows for clear separation of different types of information, such as the main answer, source references, and confidence levels, which can enhance the usability and integration of the responses in various applications. Additionally, JSON is widely supported across programming languages and platforms, facilitating interoperability.", "source": "General knowledge on data formats and LLM applications.", "confidence": "high"}
-[2026-09-07 15:13:00] [INFO] [Question #4 - USER]: How do we handle malformed JSON gracefully in Python?
-[2026-09-07 15:13:00] [INFO] [Answer #4 - ASSISTANT]: {"answer": "To handle malformed JSON gracefully in Python, you can use a try-except block when parsing JSON data with the `json` module. If the JSON is malformed, a `json.JSONDecodeError` will be raised, which you can catch and handle appropriately. Here's an example:\n\n```python\nimport json\n\nmalformed_json = '{\"name\": \"John\", \"age\": 30,}'  # Note the trailing comma\n\ntry:\n    data = json.loads(malformed_json)\nexcept json.JSONDecodeError as e:\n    print(f\"Failed to decode JSON: {e}\")\n    data = None  # Handle the error gracefully\n\n# Continue with the rest of your code\n```\n\nThis way, your program can continue running even if the JSON is not valid.", "source": "Python documentation on json module", "confidence": "high"}
-[2026-09-07 15:13:00] [INFO] [Question #5 - USER]: What strategy handles missing required fields in parsed data?
-[2026-09-07 15:13:00] [INFO] [Answer #5 - ASSISTANT]: {"answer": "One common strategy for handling missing required fields in parsed data is to implement a validation and error handling mechanism. This can involve checking for the presence of required fields during the parsing process and either throwing an error, logging a warning, or providing default values for missing fields. Additionally, using data schemas or validation libraries can help enforce the presence of required fields and ensure data integrity.", "source": "General knowledge on data validation strategies", "confidence": "high"}
-[2026-09-07 15:13:00] [INFO] [Question #6 - USER]: What is the role of token usage tracking in LLM clients?
-[2026-09-07 15:13:00] [INFO] [Answer #6 - ASSISTANT]: {"answer": "Token usage tracking in LLM clients helps monitor and manage the consumption of tokens during interactions with language models. This tracking is essential for optimizing costs, ensuring compliance with usage limits, and providing insights into user behavior and model performance. It allows clients to analyze usage patterns, adjust their queries for efficiency, and manage their budgets effectively.", "source": "General knowledge on LLM operations and token management practices.", "confidence": "high"}
-[2026-09-07 15:13:00] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:00] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:00] [INFO] Input Texts Count: 3
-[2026-09-07 15:13:01] [INFO] Successfully generated 3 embedding vectors.
-[2026-09-07 15:13:01] [INFO] Vector Dimension: 1536
-[2026-09-07 15:13:01] [INFO] Starting Chunk Embedding Pipeline for 1 document(s)...
-[2026-09-07 15:13:01] [INFO] Generated 4 text chunks across corpus.
-[2026-09-07 15:13:01] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:01] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:01] [INFO] Input Texts Count: 4
-[2026-09-07 15:13:02] [INFO] Successfully generated 4 embedding vectors.
-[2026-09-07 15:13:02] [INFO] Vector Dimension: 1536
-[2026-09-07 15:13:02] [INFO] Generating query embedding for query: 'What are the rules and approval thresholds for high-value transaction payments?'
-[2026-09-07 15:13:02] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:02] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:02] [INFO] Input Texts Count: 1
-[2026-09-07 15:13:03] [INFO] Successfully generated 1 embedding vectors.
-[2026-09-07 15:13:03] [INFO] Vector Dimension: 1536
-[2026-09-07 15:13:03] [INFO] Generating query embedding for query: 'How are suspicious transactions and beneficiary country risk scores monitored?'
-[2026-09-07 15:13:03] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:03] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:03] [INFO] Input Texts Count: 1
-[2026-09-07 15:13:03] [INFO] Successfully generated 1 embedding vectors.
-[2026-09-07 15:13:03] [INFO] Vector Dimension: 1536
-[2026-09-07 15:13:03] [INFO] Generating query embedding for query: 'What minimum Tier 1 common equity capital ratio is required under Basel IV?'
-[2026-09-07 15:13:03] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:03] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:03] [INFO] Input Texts Count: 1
-[2026-09-07 15:13:04] [INFO] Successfully generated 1 embedding vectors.
-[2026-09-07 15:13:04] [INFO] Vector Dimension: 1536
-[2026-09-07 15:13:04] [INFO] Generating query embedding for query: 'What are the rules and approval thresholds for high-value transaction payments?'
-[2026-09-07 15:13:04] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:04] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:04] [INFO] Input Texts Count: 1
-[2026-09-07 15:13:04] [INFO] Successfully generated 1 embedding vectors.
-[2026-09-07 15:13:04] [INFO] Vector Dimension: 1536
-[2026-09-07 15:13:04] [INFO] Generating query embedding for query: 'Which vendor disbursements do NOT require unanimous board approval?'
-[2026-09-07 15:13:04] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:04] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:04] [INFO] Input Texts Count: 1
-[2026-09-07 15:13:05] [INFO] Successfully generated 1 embedding vectors.
-[2026-09-07 15:13:05] [INFO] Vector Dimension: 1536
-[2026-09-07 15:13:05] [INFO] Generating query embedding for query: 'What audit procedures are required for anti-money laundering compliance?'
-[2026-09-07 15:13:05] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:05] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:05] [INFO] Input Texts Count: 1
-[2026-09-07 15:13:05] [INFO] Successfully generated 1 embedding vectors.
-[2026-09-07 15:13:05] [INFO] Vector Dimension: 1536
-[2026-09-07 15:13:05] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:05] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:05] [INFO] Input Texts Count: 1
-[2026-09-07 15:13:06] [INFO] Successfully generated 1 embedding vectors.
-[2026-09-07 15:13:06] [INFO] Vector Dimension: 1536
-[2026-09-07 15:13:06] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:06] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:06] [INFO] Input Texts Count: 1
-[2026-09-07 15:13:06] [INFO] Successfully generated 1 embedding vectors.
-[2026-09-07 15:13:06] [INFO] Vector Dimension: 1536
-[2026-09-07 15:13:06] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:06] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:06] [INFO] Input Texts Count: 1
-[2026-09-07 15:13:07] [INFO] Successfully generated 1 embedding vectors.
-[2026-09-07 15:13:07] [INFO] Vector Dimension: 1536
-[2026-09-07 15:13:07] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:07] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:07] [INFO] Input Texts Count: 1
-[2026-09-07 15:13:07] [INFO] Successfully generated 1 embedding vectors.
-[2026-09-07 15:13:07] [INFO] Vector Dimension: 1536
-[2026-09-07 15:13:07] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:07] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:07] [INFO] Input Texts Count: 1
-[2026-09-07 15:13:08] [INFO] Successfully generated 1 embedding vectors.
-[2026-09-07 15:13:08] [INFO] Vector Dimension: 1536
-[2026-09-07 15:13:08] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:08] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:08] [INFO] Input Texts Count: 1
-[2026-09-07 15:13:08] [INFO] Successfully generated 1 embedding vectors.
-[2026-09-07 15:13:08] [INFO] Vector Dimension: 1536
-[2026-09-07 15:13:08] [INFO] Generating query embedding for query: 'How are suspicious transactions and beneficiary country risk scores monitored under AML directives?'
-[2026-09-07 15:13:08] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:08] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:08] [INFO] Input Texts Count: 1
-[2026-09-07 15:13:09] [INFO] Successfully generated 1 embedding vectors.
-[2026-09-07 15:13:09] [INFO] Vector Dimension: 1536
-[2026-09-07 15:13:09] [INFO] Generating query embedding for query: 'What minimum Tier 1 capital adequacy ratio is required under Basel IV?'
-[2026-09-07 15:13:09] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:09] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:09] [INFO] Input Texts Count: 1
-[2026-09-07 15:13:09] [INFO] Successfully generated 1 embedding vectors.
-[2026-09-07 15:13:09] [INFO] Vector Dimension: 1536
-[2026-09-07 15:13:09] [INFO] Generating query embedding for query: 'What are the rules and approval thresholds for high-value transaction payments?'
-[2026-09-07 15:13:09] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:09] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:09] [INFO] Input Texts Count: 1
-[2026-09-07 15:13:10] [INFO] Successfully generated 1 embedding vectors.
-[2026-09-07 15:13:10] [INFO] Vector Dimension: 1536
-[2026-09-07 15:13:10] [INFO] Generating query embedding for query: 'Which vendor disbursements do NOT require unanimous board approval?'
-[2026-09-07 15:13:10] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:10] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:10] [INFO] Input Texts Count: 1
-[2026-09-07 15:13:10] [INFO] Successfully generated 1 embedding vectors.
-[2026-09-07 15:13:10] [INFO] Vector Dimension: 1536
-[2026-09-07 15:13:10] [INFO] Generating query embedding for query: 'What audit procedures and compliance checks are required for transaction authorization?'
-[2026-09-07 15:13:10] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:10] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:10] [INFO] Input Texts Count: 1
-[2026-09-07 15:13:11] [INFO] Successfully generated 1 embedding vectors.
-[2026-09-07 15:13:11] [INFO] Vector Dimension: 1536
-[2026-09-07 15:13:11] [INFO] Generating query embedding for query: 'How often must institutions calculate and submit the Liquidity Coverage Ratio (LCR)?'
-[2026-09-07 15:13:11] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:11] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:11] [INFO] Input Texts Count: 1
-[2026-09-07 15:13:11] [INFO] Successfully generated 1 embedding vectors.
-[2026-09-07 15:13:11] [INFO] Vector Dimension: 1536
-[2026-09-07 15:13:11] [INFO] Generating query embedding for query: 'What consequences follow a failure to obtain board authorization for high-value expenditures?'
-[2026-09-07 15:13:11] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:11] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:11] [INFO] Input Texts Count: 1
-[2026-09-07 15:13:12] [INFO] Successfully generated 1 embedding vectors.
-[2026-09-07 15:13:12] [INFO] Vector Dimension: 1536
-[2026-09-07 15:13:12] [INFO] Generating query embedding for query: 'What automated screening protocols verify transaction velocity and entity sanction status?'
-[2026-09-07 15:13:12] [INFO] --- GENERATING EMBEDDINGS ---
-[2026-09-07 15:13:12] [INFO] Target Model: text-embedding-3-small
-[2026-09-07 15:13:12] [INFO] Input Texts Count: 1
-[2026-09-07 15:13:12] [INFO] Successfully generated 1 embedding vectors.
-[2026-09-07 15:13:12] [INFO] Vector Dimension: 1536
+[2026-08-31 13:14:57] [INFO] ✅ [JSON Parse Success]: Raw response successfully parsed into Python dict.
+[2026-08-31 13:14:57] [INFO] ✅ [Validation Passed]: All required fields present: ['answer', 'source', 'confidence']
+[2026-08-31 13:14:57] [INFO] 🎉 [Structured Output Success]: JSON parsed, recovered, and validated successfully.
+[2026-08-31 13:14:57] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
+[2026-08-31 13:14:57] [INFO] ✅ [Malformed JSON Recovered]: Successfully cleaned and parsed malformed JSON object.
+[2026-08-31 13:14:57] [INFO] ✅ [Validation Passed]: All required fields present: ['answer', 'source']
+[2026-08-31 13:14:57] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
+[2026-08-31 13:14:57] [ERROR] ❌ [Malformed JSON Error]: Failed to parse JSON after recovery attempts: Expecting value: line 1 column 1 (char 0)
+[2026-08-31 13:14:57] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['source']
+[2026-08-31 13:14:57] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'source': 'Fallback_Knowledge_Store'}
+[2026-08-31 13:15:08] [INFO] ==================================================
+[2026-08-31 13:15:08] [INFO]    APPLICATION CHAT HISTORY (6 Questions Asked)
+[2026-08-31 13:15:08] [INFO] ==================================================
+[2026-08-31 13:15:08] [INFO] [Question #1 - USER]: What is Retrieval-Augmented Generation (RAG)?
+[2026-08-31 13:15:08] [INFO] [Answer #1 - ASSISTANT]: {
+  "answer": "Retrieval-Augmented Generation (RAG) retrieves relevant document context from external knowledge bases before generating LLM responses.",
+  "source": "RAG_Overview_Doc_v1.pdf",
+  "confidence": 0.99
+}
+[2026-08-31 13:15:08] [INFO] [Question #2 - USER]: How does ChromaDB assist in a RAG pipeline?
+[2026-08-31 13:15:08] [INFO] [Answer #2 - ASSISTANT]: {
+  "answer": "ChromaDB stores high-dimensional document vector embeddings and executes fast semantic similarity searches to retrieve context chunks.",
+  "source": "ChromaDB_Integration_Guide.pdf",
+  "confidence": 0.96
+}
+[2026-08-31 13:15:08] [INFO] [Question #3 - USER]: Why is JSON response format mode useful in LLM applications?
+[2026-08-31 13:15:08] [INFO] [Answer #3 - ASSISTANT]: {
+  "answer": "JSON response format mode enforces strict JSON schema adherence, enabling downstream code to parse responses directly into dictionary objects.",
+  "source": "LLM_Structured_Output_Spec.pdf",
+  "confidence": 0.98
+}
+[2026-08-31 13:15:08] [INFO] [Question #4 - USER]: How do we handle malformed JSON gracefully in Python?
+[2026-08-31 13:15:08] [INFO] [Answer #4 - ASSISTANT]: {
+  "answer": "Malformed JSON is caught using json.JSONDecodeError and cleaned via regex pattern recovery for markdown fences and trailing commas without crashing.",
+  "source": "JSON_Recovery_Module.py",
+  "confidence": 0.97
+}
+[2026-08-31 13:15:08] [INFO] [Question #5 - USER]: What strategy handles missing required fields in parsed data?
+[2026-08-31 13:15:08] [INFO] [Answer #5 - ASSISTANT]: {
+  "answer": "Required field validation checks mandatory schema keys and applies pre-configured fallback default values when non-critical fields are missing.",
+  "source": "Data_Validation_Pipeline.pdf",
+  "confidence": 0.95
+}
+[2026-08-31 13:15:08] [INFO] [Question #6 - USER]: What is the role of token usage tracking in LLM clients?
+[2026-08-31 13:15:08] [INFO] [Answer #6 - ASSISTANT]: {
+  "answer": "Token tracking measures prompt, completion, and total tokens per request to monitor API costs, throughput, and context window limits.",
+  "source": "LLM_Telemetry_Spec.pdf",
+  "confidence": 0.99
+}
+[2026-09-07 15:49:19] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-07 15:49:19] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-07 15:49:19] [INFO]  - Model Name: openai/gpt-4o-mini
+[2026-09-07 15:49:19] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-07 15:49:20] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
+[2026-09-07 15:49:20] [INFO] ✅ [Malformed JSON Recovered]: Successfully cleaned and parsed malformed JSON object.
+[2026-09-07 15:49:20] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['confidence']
+[2026-09-07 15:49:20] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'confidence': 'high'}
+[2026-09-07 15:51:42] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-07 15:51:42] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-07 15:51:42] [INFO]  - Model Name: openai/gpt-4o-mini
+[2026-09-07 15:51:42] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-07 15:51:43] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
+[2026-09-07 15:51:43] [INFO] ✅ [Malformed JSON Recovered]: Successfully cleaned and parsed malformed JSON object.
+[2026-09-07 15:51:43] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['confidence']
+[2026-09-07 15:51:43] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'confidence': 'high'}
+[2026-09-07 15:52:03] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-07 15:52:03] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-07 15:52:03] [INFO]  - Model Name: openai/gpt-4o-mini
+[2026-09-07 15:52:03] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-07 15:52:04] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
+[2026-09-07 15:52:04] [INFO] ✅ [Malformed JSON Recovered]: Successfully cleaned and parsed malformed JSON object.
+[2026-09-07 15:52:04] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['confidence']
+[2026-09-07 15:52:04] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'confidence': 'high'}
