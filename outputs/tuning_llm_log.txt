@@ -22,3 +22,13 @@
 [2026-09-07 15:41:30] [INFO] --- EMBEDDINGS SUCCESS (Generated 3 embeddings, Tokens used: 158) ---
 [2026-09-07 15:41:30] [INFO] --- REQUESTING EMBEDDINGS (Batch Size: 2) ---
 [2026-09-07 15:41:31] [INFO] --- EMBEDDINGS SUCCESS (Generated 2 embeddings, Tokens used: 14) ---
+[2026-09-08 13:35:29] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-08 13:35:29] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-08 13:35:29] [INFO]  - Model Name: openai/gpt-4o-mini
+[2026-09-08 13:35:29] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-08 13:35:31] [INFO] --- REQUESTING EMBEDDINGS (Batch Size: 6) ---
+[2026-09-08 13:35:36] [INFO] --- EMBEDDINGS SUCCESS (Generated 6 embeddings, Tokens used: 168) ---
+[2026-09-08 13:35:36] [INFO] --- REQUESTING EMBEDDINGS (Batch Size: 3) ---
+[2026-09-08 13:35:37] [INFO] --- EMBEDDINGS SUCCESS (Generated 3 embeddings, Tokens used: 158) ---
+[2026-09-08 13:35:37] [INFO] --- REQUESTING EMBEDDINGS (Batch Size: 2) ---
+[2026-09-08 13:35:37] [INFO] --- EMBEDDINGS SUCCESS (Generated 2 embeddings, Tokens used: 14) ---

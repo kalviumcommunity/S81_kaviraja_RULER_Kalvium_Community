@@ -1,0 +1,17 @@
+{
+  "query": "What is Retrieval-Augmented Generation and how does it work?",
+  "answer": "RAG retrieves relevant facts from an external knowledge base and supplies them to a language model as context. It converts documents into embeddings, stores them in a vector database, and retrieves the most relevant documents for a user query.",
+  "sources": [
+    {
+      "source_id": "doc2.txt",
+      "chunk_index": 0,
+      "distance": 0.6083698272705078
+    },
+    {
+      "source_id": "doc1.txt",
+      "chunk_index": 0,
+      "distance": 0.7587908506393433
+    }
+  ],
+  "mode": "offline_demo"
+}

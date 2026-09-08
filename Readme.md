@@ -133,3 +133,13 @@ rag-app-starter/
 
 > **Verification Status: PASSED**
 > The workspace setup, virtual environment creation (`.venv`), dependency installation (`openai`, `chromadb`, `python-dotenv`), package imports, and script execution (`python src/main.py`) were tested and verified in a clean isolated Python environment.
+
+## End-to-End RAG Pipeline
+
+Run the connected query-to-answer flow:
+
+```bash
+python scripts/run_rag_pipeline.py
+```
+
+The runner performs four explicit stages: query embedding, ChromaDB retrieval, grounded context assembly, and answer generation. It prints the answer and returned sources and saves the structured result to `outputs/rag_pipeline_sample.json`. Without `OPENAI_API_KEY`, it runs with deterministic offline adapters; with a configured key, it uses the existing OpenAI-compatible client for embeddings and generation. See [docs/rag-pipeline.md](docs/rag-pipeline.md) for the flow description.

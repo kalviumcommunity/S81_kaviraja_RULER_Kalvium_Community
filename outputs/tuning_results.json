@@ -16,11 +16,11 @@
       "k_results": {
         "k=1": {
           "hit_rate": 1.0,
-          "avg_similarity": 0.6892347931861877
+          "avg_similarity": 0.6894111335277557
         },
         "k=2": {
           "hit_rate": 1.0,
-          "avg_similarity": 0.6892347931861877
+          "avg_similarity": 0.6894111335277557
         }
       }
     },
@@ -28,11 +28,11 @@
       "k_results": {
         "k=1": {
           "hit_rate": 1.0,
-          "avg_similarity": 0.6615250706672668
+          "avg_similarity": 0.6615740358829498
         },
         "k=2": {
           "hit_rate": 1.0,
-          "avg_similarity": 0.6615250706672668
+          "avg_similarity": 0.6615740358829498
         }
       }
     }
