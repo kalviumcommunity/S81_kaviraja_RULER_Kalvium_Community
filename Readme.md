@@ -80,6 +80,12 @@ A production-grade prompt assembly and context injection engine that formats ret
 
 ## Prerequisites
 
+## Source Citation & Attribution
+
+Generated answers are validated against the chunks injected into the grounded prompt. A valid marker such as `[1]` maps to the retrieved chunk's document ID, filename, section, page, chunk ID, character span, and exact original retrieved text. The API returns these mappings in `parsed_object.citations`, and the UI source drawer uses the returned character span for verification.
+
+Answers with no retrieved evidence, missing citations, or unknown citation markers return the explicit no-source fallback and an empty `citations` list. See [`outputs/citation_demo.json`](outputs/citation_demo.json) and [`outputs/citation_demo.md`](outputs/citation_demo.md) for cited and fallback examples.
+
 - **Python**: Version 3.10 or higher
 - **pip**: Package installer for Python
 - **Git**: Version control system

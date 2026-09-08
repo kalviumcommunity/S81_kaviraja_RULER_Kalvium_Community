@@ -395,6 +395,19 @@ function highlightSourceFromChatAnswer(parsedObj) {
   let section = 'Section 1: Executive Overview and Scope';
   let page = 1;
 
+  const citation = parsedObj.citations && parsedObj.citations[0];
+  if (citation && Number.isInteger(citation.start_char) && Number.isInteger(citation.end_char)) {
+    renderSourceDrawerText(
+      fullText,
+      citation.start_char,
+      citation.end_char,
+      citation.doc_id,
+      citation.section,
+      citation.page_number,
+    );
+    return;
+  }
+
   // Smart section determination based on source or content
   const src = (parsedObj.source || '').toLowerCase();
   const ans = (parsedObj.answer || '').toLowerCase();
