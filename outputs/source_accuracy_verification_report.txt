@@ -1,0 +1,23 @@
+================================================================================
+                   SOURCE ACCURACY & FAITHFULNESS AUDIT REPORT                  
+================================================================================
+Query: "What are the rules and approval thresholds for high-value transaction payments?"
+Faithfulness Score: 100.00%
+Verdict: 100% FAITHFUL & SOURCE-ACCURATE
+
+Verified Claims Breakdown:
+  [PASS] Claim #1: The rules and approval thresholds for high-value transaction payments are as follows:
+
+1.
+         Entities: [] | Supporting Chunks: ['sample_banking_regulation_txt#chunk_003']
+  [PASS] Claim #2: Routine vendor payments under $50,000 may be approved directly by designated department heads without requiring senior executive approval.
+         Entities: ['department heads', '$50,000'] | Supporting Chunks: ['sample_banking_regulation_txt#chunk_003']
+  [PASS] Claim #3: 2.
+         Entities: [] | Supporting Chunks: []
+  [PASS] Claim #4: Any single capital expenditure or vendor disbursement exceeding $50,000 requires:
+   - Unanimous board authorization
+   - An independent audit report prior to disbursement
+
+Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and a mandatory compliance audit review .
+         Entities: ['independent audit report', 'unanimous board authorization', '$50,000', 'capital expenditure', 'suspension of procurement privileges'] | Supporting Chunks: ['sample_banking_regulation_txt#chunk_003', 'sample_banking_regulation_txt#chunk_004']
+================================================================================

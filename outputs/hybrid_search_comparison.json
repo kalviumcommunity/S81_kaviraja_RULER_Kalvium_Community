@@ -3,8 +3,8 @@
   "demonstration": "Exact entity and threshold matching ($50,000, board authorization)",
   "vector_search_top_1": {
     "rank": 1,
-    "hybrid_score": 0.701288,
-    "vector_score": 0.701288,
+    "hybrid_score": 0.701274,
+    "vector_score": 0.701274,
     "keyword_score": 0.0,
     "chunk_id": "sample_banking_regulation_txt#chunk_004",
     "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
@@ -23,7 +23,7 @@
       "doc_type": "Regulatory Framework"
     },
     "matched_keywords": [],
-    "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
+    "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
   },
   "keyword_search_top_1": {
     "rank": 1,
@@ -47,17 +47,17 @@
       "doc_type": "Regulatory Framework"
     },
     "matched_keywords": [
-      "authorization",
       "$50,000",
       "board",
-      "exceeding"
+      "exceeding",
+      "authorization"
     ],
-    "vector_preview": "[-0.0133, 0.0157, 0.0560, 0.0023, ...]"
+    "vector_preview": "[-0.0132, 0.0157, 0.0560, 0.0023, ...]"
   },
   "hybrid_search_top_1": {
     "rank": 1,
-    "hybrid_score": 0.589344,
-    "vector_score": 0.701288,
+    "hybrid_score": 0.589336,
+    "vector_score": 0.701274,
     "keyword_score": 0.421429,
     "chunk_id": "sample_banking_regulation_txt#chunk_004",
     "source_text": ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review.",
@@ -79,7 +79,7 @@
       "authorization",
       "board"
     ],
-    "vector_preview": "[-0.0163, 0.0081, 0.0813, 0.0109, ...]"
+    "vector_preview": "[-0.0163, 0.0081, 0.0812, 0.0109, ...]"
   },
   "hybrid_fusion_weights": {
     "alpha_vector": 0.6,
