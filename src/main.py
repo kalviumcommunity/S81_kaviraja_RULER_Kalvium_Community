@@ -48,6 +48,7 @@ except ImportError:
 
 
 
+
 def main():
     log_output_path = os.path.join("outputs", "sample_output.txt")
     sample_results_path = os.path.join("outputs", "structured_output_sample.json")
@@ -590,11 +591,55 @@ def main():
 
 
     # ----------------------------------------------------
+    # CONTEXT-GROUNDED GENERATION (Tasks 1 to 5)
+    # ----------------------------------------------------
+    print("\n[Grounded Generation] Executing Context-Grounded Answer Generation & Source Accuracy...")
+    grounded_generator = GroundedRAGGenerator(client=client, retriever=filtered_engine)
+
+    # Task 1: Generate from injected context
+    target_q = "What are the rules and approval thresholds for high-value transaction payments?"
+    sec3_filter = MetadataFilter(criteria={"section__contains": "Section 3"})
+    ret_res = filtered_engine.search(target_q, embedded_chunks_list, metadata_filter=sec3_filter, top_k=2)
+    top_chunks = ret_res["ranked_chunks"]
+
+    grounded_ans = grounded_generator.generate_grounded_answer(target_q, top_chunks)
+    print(f" -> Task 1: Grounded answer generated (Cited Chunks: {grounded_ans.cited_chunk_ids})")
+
+    # Task 2: Check source accuracy
+    acc_audit = grounded_generator.verify_source_accuracy(grounded_ans.answer, top_chunks)
+    print(f" -> Task 2: Source accuracy verified: {acc_audit.faithfulness_score}% faithfulness ({acc_audit.verdict})")
+
+    # Task 3: Missing-context fallback
+    unrelated_q = "What is the policy for employee vacation allowances and airline baggage fees?"
+    fallback_res = grounded_generator.generate_with_fallback_handling(unrelated_q, top_chunks)
+    print(f" -> Task 3: Fallback handling tested: Triggered={fallback_res.fallback_triggered} ({fallback_res.fallback_reason})")
+
+    # Task 4: Compare with and without retrieval
+    comp_eval = grounded_generator.compare_with_and_without_retrieval(target_q, top_chunks)
+    print(f" -> Task 4: Retrieval comparison evaluated (Exact terms: {comp_eval['with_retrieval_grounded']['exact_policy_terms_found']})")
+
+    # Task 5: Export sample reports
+    grounded_generator.export_grounded_reports(
+        grounded_answer=grounded_ans,
+        accuracy_report=acc_audit,
+        fallback_demo=fallback_res,
+        comparison_demo=comp_eval
+    )
+    sample_results["context_grounded_generation"] = {
+        "grounded_answer": grounded_ans.to_dict(),
+        "source_accuracy_audit": acc_audit.to_dict(),
+        "missing_context_fallback": fallback_res.to_dict(),
+        "with_vs_without_comparison": comp_eval
+    }
+    print(" -> Task 5: Grounded generation reports exported to outputs/.")
+
+    # ----------------------------------------------------
     # TASK 5: Save Sample Parsed Results
     # ----------------------------------------------------
     print(f"[Task 5] Writing Sample Parsed Results to '{sample_results_path}'...")
     with open(sample_results_path, "w", encoding="utf-8") as f:
         json.dump(sample_results, f, indent=2)
+
 
     # ----------------------------------------------------
     # BATCH/CLI PATH (Task 3 Reuse & Task 5 Render Example)

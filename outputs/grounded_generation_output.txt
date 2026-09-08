@@ -1,0 +1,105 @@
+================================================================================
+                 CONTEXT-GROUNDED RAG GENERATION DEMONSTRATION                  
+================================================================================
+Query: "What are the rules and approval thresholds for high-value transaction payments?"
+
+--------------------------------------------------------------------------------
+TASK 1: GROUNDED ANSWER GENERATED FROM INJECTED CONTEXT
+--------------------------------------------------------------------------------
+Grounded Answer:
+The rules and approval thresholds for high-value transaction payments are as follows:
+
+1. Routine vendor payments under $50,000 may be approved directly by designated department heads without requiring senior executive approval.
+2. Any single capital expenditure or vendor disbursement exceeding $50,000 requires:
+   - Unanimous board authorization
+   - An independent audit report prior to disbursement
+
+Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and a mandatory compliance audit review [Chunk #1][Chunk #2].
+
+Cited Chunk IDs: ['sample_banking_regulation_txt#chunk_003', 'sample_banking_regulation_txt#chunk_004']
+Supporting Chunks:
+  - [sample_banking_regulation_txt#chunk_003] (Section 3: High-Value Transaction Authorization Thresholds): 30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial re...
+  - [sample_banking_regulation_txt#chunk_004] (Section 3: High-Value Transaction Authorization Thresholds): ,000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain boa...
+
+--------------------------------------------------------------------------------
+TASK 2: SOURCE ACCURACY & FAITHFULNESS AUDIT
+--------------------------------------------------------------------------------
+Faithfulness Score:   100.00%
+Total Claims Tested:  4
+Supported Claims:     4
+Unsupported Claims:   0
+Audit Verdict:        100% FAITHFUL & SOURCE-ACCURATE
+
+Claim-by-Claim Verification:
+  Claim #1 [SUPPORTED]: "The rules and approval thresholds for high-value transaction payments are as follows:
+
+1."
+    -> Chunks: ['sample_banking_regulation_txt#chunk_003']
+  Claim #2 [SUPPORTED]: "Routine vendor payments under $50,000 may be approved directly by designated department heads without requiring senior executive approval."
+    -> Matched Entities: ['department heads', '$50,000']
+    -> Chunks: ['sample_banking_regulation_txt#chunk_003']
+  Claim #3 [SUPPORTED]: "2."
+  Claim #4 [SUPPORTED]: "Any single capital expenditure or vendor disbursement exceeding $50,000 requires:
+   - Unanimous board authorization
+   - An independent audit report prior to disbursement
+
+Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and a mandatory compliance audit review ."
+    -> Matched Entities: ['independent audit report', 'unanimous board authorization', '$50,000', 'capital expenditure', 'suspension of procurement privileges']
+    -> Chunks: ['sample_banking_regulation_txt#chunk_003', 'sample_banking_regulation_txt#chunk_004']
+
+--------------------------------------------------------------------------------
+TASK 3: MISSING-CONTEXT FALLBACK DEMONSTRATION
+--------------------------------------------------------------------------------
+Out-of-Domain Query: "What is the policy for employee vacation allowances and airline baggage fees?"
+Fallback Triggered:  True (INSUFFICIENT_OR_IRRELEVANT_CONTEXT)
+Graceful Response:
+I do not have enough information in the provided context to answer this question. The available regulatory documentation does not contain policies regarding 'What is the policy for employee vacation allowances and airline baggage fees?'. The current knowledge base strictly covers high-value transaction approval thresholds ($50,000 board authorization), liquidity coverage ratios (LCR), and anti-money laundering (AML) compliance rules.
+
+--------------------------------------------------------------------------------
+TASK 4: WITH VS. WITHOUT RETRIEVAL COMPARISON
+--------------------------------------------------------------------------------
+WITH RETRIEVAL (GROUNDED):
+  The rules and approval thresholds for high-value transaction payments are as follows:
+
+1. Routine vendor payments under $50,000 may be approved directly by designated department heads without requiring senior executive approval.
+2. Any single capital expenditure or vendor disbursement exceeding $50,000 requires:
+   - Unanimous board authorization
+   - An independent audit report prior to disbursement.
+
+Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and a mandatory compliance audit review [Chunk #1][Chunk #2].
+  Exact Policies Identified: ['$50,000', 'unanimous board authorization', 'independent audit report', 'suspension of procurement privileges']
+
+WITHOUT RETRIEVAL (UNGROUNDED):
+  High-value transaction payments typically refer to transactions that exceed a certain monetary threshold, which can vary by organization, industry, or regulatory framework. The rules and approval thresholds for these transactions can differ significantly based on the context, but here are some common considerations:
+
+1. **Approval Hierarchy**: Organizations often establish a tiered approval process based on the value of the transaction. For example:
+   - Transactions below a certain threshold (e.g., $1,000) may require only one approval.
+   - Transactions between $1,000 and $10,000 may require two approvals.
+   - Transactions above $10,000 may require multiple levels of approval, including senior management or finance department oversight.
+
+2. **Documentation Requirements**: High-value transactions usually require more extensive documentation to justify the expenditure. This may include:
+   - Purchase orders
+   - Invoices
+   - Contracts or agreements
+   - Supporting documentation that outlines the necessity and benefits of the transaction.
+
+3. **Risk Assessment**: Organizations may conduct a risk assessment for high-value transactions to evaluate potential financial, operational, or reputational risks. This could involve:
+   - Reviewing the vendor's background and financial stability.
+   - Assessing the impact of the transaction on the organization's budget and cash flow.
+
+4. **Compliance and Regulatory Considerations**: Depending on the industry, high-value transactions may be subject to specific regulatory requirements. For example:
+   - Financial institutions may have to comply with anti-money laundering (AML) regulations.
+   - Public sector organizations may need to adhere to procurement laws and transparency requirements.
+
+5. **Segregation of Duties**: To prevent fraud and errors, organizations often implement a segregation of duties policy, ensuring that different individuals are responsible for initiating, approving, and processing high-value transactions.
+
+6. **Audit and Review**: High-value transactions may be subject to internal or external audits to ensure compliance with policies and regulations. Regular reviews can help identify any discrepancies or areas for improvement.
+
+7. **Threshold Variability**: The specific monetary thresholds for high-value transactions can vary widely between organizations and industries. For example, a high-value transaction in a small business might be $5,000, while in a multinational corporation, it could be $100,000 or more.
+
+In summary, the rules and approval thresholds for high-value transaction payments are designed to ensure proper oversight, mitigate risks, and maintain compliance with relevant regulations. Organizations typically tailor these rules to fit their specific operational needs and risk profiles.
+  Exact Policies Identified: []
+
+GROUNDING DELTA VERDICT:
+  Grounding in retrieved context transformed vague, generic speculation into 100% compliant, auditable institutional policy.
+================================================================================
