@@ -62,8 +62,6 @@ A quantitative evaluation engine that benchmarks retrieval recall, precision, MR
 - **Task 2 — Measure Recall@K**: Evaluates exact set Recall@K and Hit@K across multiple candidate depths ($K \in \{1, 2, 3, 5\}$), achieving 100% Recall and 100% Hit Rate at $K \ge 2$.
 - **Task 3 — Report Precision@K & Quality Signals**: Measures Precision@K, Mean Reciprocal Rank (MRR: `0.8125`), F1@K, and graded relevance judgments (Highly Relevant: 2, Partially Relevant: 1, Irrelevant: 0).
 - **Task 4 — Inspect Failures & Root Causes**: Categorizes failure modes (e.g. `EMBEDDING_NEGATION_BLINDSPOT`, `CROSS_SECTION_LEXICAL_DISTRACTION`, `CHUNK_BOUNDARY_FRAGMENTATION`) and provides actionable remediation guidance.
-- **Task 5 — Output Artifacts & Reproducibility**: Exports structured evaluation results to `outputs/retrieval_evaluation_results.json`, `outputs/retrieval_failure_analysis.json`, and text reports to `outputs/retrieval_evaluation_report.txt` and `outputs/retrieval_failure_analysis.txt`.
-
 ---
 
 ## Context Injection & Prompt Augmentation Engine (`src/context_injection.py`)
@@ -77,6 +75,13 @@ A production-grade prompt assembly and context injection engine that formats ret
 - **Task 5 — Output Artifacts & Reproducibility**: Generates structured JSON samples ([`outputs/augmented_prompt_sample.json`](outputs/augmented_prompt_sample.json)), prompt inspection logs ([`outputs/augmented_prompt_sample.txt`](outputs/augmented_prompt_sample.txt)), and comprehensive reports ([`outputs/context_injection_report.md`](outputs/context_injection_report.md)).
 
 
+- **Task 1 — Injected Context Generation**: Synthesizes responses strictly using facts from retrieved chunks, enforcing inline chunk citations (`[sample_banking_regulation_txt#chunk_003]`) and forbidding external hallucination.
+- **Task 2 — Source Accuracy Auditing**: Programmatically decomposes generated answers into atomic proposition claims, cross-checks numerical thresholds (`$50,000`), percentages, and governance terms against context, achieving **100.0% Faithfulness**.
+- **Task 3 — Missing-Context Fallback**: Detects out-of-domain queries lacking supporting evidence and returns an explicit, polite refusal without fabricating information (`fallback_triggered: True`).
+- **Task 4 — With vs. Without Retrieval Comparison**: Directly demonstrates how grounding transforms vague, generic guesses ($10,000/$25,000) into 100% compliant, auditable institutional policy ($50,000 unanimous board vote + independent audit).
+- **Task 5 — Output Artifacts & Reproducibility**: Exports structured JSON to `outputs/grounded_generation_results.json`, `outputs/with_without_retrieval_comparison.json`, and text logs to `outputs/grounded_generation_output.txt`, `outputs/source_accuracy_verification_report.txt`, and `outputs/missing_context_fallback_report.txt`.
+
+---
 
 ## Prerequisites
 

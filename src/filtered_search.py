@@ -815,15 +815,14 @@ def run_filtered_search_demonstration(
 
 if __name__ == "__main__":
     demo_out = run_filtered_search_demonstration()
-    print("\n==================================================")
-    print("   FILTERED & HYBRID SEARCH DEMO EXECUTED         ")
-    print("==================================================")
-    comp = demo_out["comparison_results"]
-    print(f"Query: \"{comp['query']}\"")
-    print(f"Filter: {comp['filter_applied']['description']}")
-    print(f"Unfiltered Chunks Scored: {comp['unfiltered_results']['total_chunks_scored']}")
-    print(f"Filtered Chunks Scored:   {comp['filtered_results']['total_chunks_scored']}")
-    print(f"Chunks Eliminated:        {comp['filtered_results']['filtered_out_chunks']}")
-    prec = demo_out["precision_demo"]
-    print(f"Precision Gain:           +{prec['precision_improvement']['precision_gain_percentage']}%")
-    print("==================================================")
+    report_file = os.path.join("outputs", "filtered_search_output.txt")
+    precision_file = os.path.join("outputs", "precision_demonstration_report.txt")
+
+    if os.path.exists(report_file):
+        with open(report_file, "r", encoding="utf-8") as f:
+            print("\n" + f.read())
+
+    if os.path.exists(precision_file):
+        with open(precision_file, "r", encoding="utf-8") as f:
+            print("\n" + f.read())
+
