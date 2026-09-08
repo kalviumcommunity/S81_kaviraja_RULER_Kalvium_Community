@@ -4,18 +4,17 @@
 Query: "What are the rules and approval thresholds for high-value transaction payments?"
 Target Evaluation Depth: Top-3
 
-Unfiltered Vector Precision@3: 66.67%
+Unfiltered Vector Precision@3: 0.0%
 Filtered Hybrid Precision@3:   100.0%
-Net Precision Gain:                     +33.33%
+Net Precision Gain:                     +100.0%
 
 Unfiltered Ranking Breakdown:
-  Rank #1 [RELEVANT] (Score: 0.5849) - Chunk: sample_banking_regulation_txt#chunk_003 | Section: Section 3: High-Value Transaction Authorization Thresholds
-  Rank #2 [RELEVANT] (Score: 0.4953) - Chunk: sample_banking_regulation_txt#chunk_004 | Section: Section 3: High-Value Transaction Authorization Thresholds
-  Rank #3 [IRRELEVANT / NOISE] (Score: 0.3661) - Chunk: sample_banking_regulation_txt#chunk_001 | Section: Section 1: Executive Summary & Overview
+  Rank #1 [IRRELEVANT / NOISE] (Score: 0.0066) - Chunk: sample_banking_regulation_txt#chunk_005 | Section: Section 4: AI Model Governance in Credit Risk
+  Rank #2 [IRRELEVANT / NOISE] (Score: 0.0021) - Chunk: sample_banking_regulation_txt#chunk_001 | Section: Section 1: Executive Overview and Scope
+  Rank #3 [IRRELEVANT / NOISE] (Score: 0.0000) - Chunk: sample_banking_regulation_txt#chunk_002 | Section: Section 2: Liquidity and Capital Requirements
 
 Filtered Hybrid Ranking Breakdown:
-  Rank #1 [RELEVANT] (Score: 0.5803) - Chunk: sample_banking_regulation_txt#chunk_003 | Section: Section 3: High-Value Transaction Authorization Thresholds
-  Rank #2 [RELEVANT] (Score: 0.4444) - Chunk: sample_banking_regulation_txt#chunk_004 | Section: Section 3: High-Value Transaction Authorization Thresholds
+  Rank #1 [RELEVANT] (Score: 0.1550) - Chunk: sample_banking_regulation_txt#chunk_003 | Section: Section 3: Data Protection and Privacy Controls
 
-Summary Verdict: Precision improved by +33.3% (66.7% -> 100.0%). Filtering eliminated loosely related chunks from non-target sections, yielding 100% precision among retrieved candidates.
+Summary Verdict: Precision improved by +100.0% (0.0% -> 100.0%). Filtering eliminated loosely related chunks from non-target sections, yielding 100% precision among retrieved candidates.
 ================================================================================

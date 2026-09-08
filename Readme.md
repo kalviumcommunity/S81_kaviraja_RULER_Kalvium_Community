@@ -64,9 +64,16 @@ A quantitative evaluation engine that benchmarks retrieval recall, precision, MR
 - **Task 4 — Inspect Failures & Root Causes**: Categorizes failure modes (e.g. `EMBEDDING_NEGATION_BLINDSPOT`, `CROSS_SECTION_LEXICAL_DISTRACTION`, `CHUNK_BOUNDARY_FRAGMENTATION`) and provides actionable remediation guidance.
 ---
 
-## Context-Grounded Generation & Source Accuracy (`src/grounded_generator.py`)
+## Context Injection & Prompt Augmentation Engine (`src/context_injection.py`)
 
-A production-grade generation pipeline that synthesizes answers strictly from injected retrieved context, audits source accuracy, handles missing context with graceful refusal fallbacks, and benchmarks grounded vs. ungrounded outputs.
+A production-grade prompt assembly and context injection engine that formats retrieved chunks with source markers, strictly enforces model token budgets with `tiktoken`, and injects grounding instructions to eliminate hallucinations.
+
+- **Task 1 — Inject Retrieved Chunks**: Formats retrieved chunks with clean metadata demarcation and injects them into the prompt context.
+- **Task 2 — Enforce Token Budget**: Calculates token headroom dynamically (`model_limit - system_tokens - question_tokens - max_answer_tokens - safety_margin`) using `tiktoken` (`cl100k_base`), fitting chunks sequentially and cleanly skipping overflow chunks.
+- **Task 3 — Include Source Markers**: Injects standardized citation markers (`[1]`, `[2]`, `[Source X: filename | Section]`) to enable direct, verifiable source citations in generated responses.
+- **Task 4 — Add Grounding Instructions**: Enforces strict instructions preventing hallucinations and mandating clear statements when the context is insufficient.
+- **Task 5 — Output Artifacts & Reproducibility**: Generates structured JSON samples ([`outputs/augmented_prompt_sample.json`](outputs/augmented_prompt_sample.json)), prompt inspection logs ([`outputs/augmented_prompt_sample.txt`](outputs/augmented_prompt_sample.txt)), and comprehensive reports ([`outputs/context_injection_report.md`](outputs/context_injection_report.md)).
+
 
 - **Task 1 — Injected Context Generation**: Synthesizes responses strictly using facts from retrieved chunks, enforcing inline chunk citations (`[sample_banking_regulation_txt#chunk_003]`) and forbidding external hallucination.
 - **Task 2 — Source Accuracy Auditing**: Programmatically decomposes generated answers into atomic proposition claims, cross-checks numerical thresholds (`$50,000`), percentages, and governance terms against context, achieving **100.0% Faithfulness**.

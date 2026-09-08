@@ -1,0 +1,36 @@
+[2026-09-07 15:50:43] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-07 15:50:43] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-07 15:50:43] [INFO]  - Model Name: openai/gpt-4o-mini
+[2026-09-07 15:50:43] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-07 15:50:44] [INFO] --- REQUESTING EMBEDDINGS (Batch Size: 13) ---
+[2026-09-07 15:50:50] [INFO] --- EMBEDDINGS SUCCESS (Generated 13 embeddings, Tokens used: 746) ---
+[2026-09-07 15:50:50] [INFO] [Task 1] Retrieving initial candidate set of 10 chunks for query: 'What are the data breach reporting timeframe and customer encryption standards?'
+[2026-09-07 15:50:50] [INFO] --- REQUESTING EMBEDDINGS (Batch Size: 1) ---
+[2026-09-07 15:50:51] [INFO] --- EMBEDDINGS SUCCESS (Generated 1 embeddings, Tokens used: 12) ---
+[2026-09-07 15:50:51] [INFO] [Task 1] Successfully retrieved 10 initial candidates.
+[2026-09-07 15:50:51] [INFO] [Task 2] Re-ranking 10 candidate chunks using method: 'hybrid' (final k=3)
+[2026-09-07 15:50:51] [INFO] [Task 2] Re-ranking complete. Selected top 3 chunks.
+[2026-09-07 15:51:21] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-07 15:51:21] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-07 15:51:21] [INFO]  - Model Name: openai/gpt-4o-mini
+[2026-09-07 15:51:21] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-07 15:51:23] [INFO] --- REQUESTING EMBEDDINGS (Batch Size: 13) ---
+[2026-09-07 15:51:26] [INFO] --- EMBEDDINGS SUCCESS (Generated 13 embeddings, Tokens used: 746) ---
+[2026-09-07 15:51:26] [INFO] [Task 1] Retrieving initial candidate set of 10 chunks for query: 'What are the data breach reporting timeframe and customer encryption standards?'
+[2026-09-07 15:51:26] [INFO] --- REQUESTING EMBEDDINGS (Batch Size: 1) ---
+[2026-09-07 15:51:27] [INFO] --- EMBEDDINGS SUCCESS (Generated 1 embeddings, Tokens used: 12) ---
+[2026-09-07 15:51:27] [INFO] [Task 1] Successfully retrieved 10 initial candidates.
+[2026-09-07 15:51:27] [INFO] [Task 2] Re-ranking 10 candidate chunks using method: 'hybrid' (final k=3)
+[2026-09-07 15:51:27] [INFO] [Task 2] Re-ranking complete. Selected top 3 chunks.
+[2026-09-07 15:51:27] [INFO] [Task 1] Retrieving initial candidate set of 10 chunks for query: 'What is the mandatory Tier 1 Capital Ratio and minimum Liquidity Coverage Ratio?'
+[2026-09-07 15:51:27] [INFO] --- REQUESTING EMBEDDINGS (Batch Size: 1) ---
+[2026-09-07 15:51:27] [INFO] --- EMBEDDINGS SUCCESS (Generated 1 embeddings, Tokens used: 16) ---
+[2026-09-07 15:51:27] [INFO] [Task 1] Successfully retrieved 10 initial candidates.
+[2026-09-07 15:51:27] [INFO] [Task 2] Re-ranking 10 candidate chunks using method: 'hybrid' (final k=3)
+[2026-09-07 15:51:27] [INFO] [Task 2] Re-ranking complete. Selected top 3 chunks.
+[2026-09-07 15:51:27] [INFO] [Task 1] Retrieving initial candidate set of 10 chunks for query: 'How frequently must credit risk AI models undergo bias audits and how long is dataset retention?'
+[2026-09-07 15:51:27] [INFO] --- REQUESTING EMBEDDINGS (Batch Size: 1) ---
+[2026-09-07 15:51:28] [INFO] --- EMBEDDINGS SUCCESS (Generated 1 embeddings, Tokens used: 17) ---
+[2026-09-07 15:51:28] [INFO] [Task 1] Successfully retrieved 10 initial candidates.
+[2026-09-07 15:51:28] [INFO] [Task 2] Re-ranking 10 candidate chunks using method: 'hybrid' (final k=3)
+[2026-09-07 15:51:28] [INFO] [Task 2] Re-ranking complete. Selected top 3 chunks.

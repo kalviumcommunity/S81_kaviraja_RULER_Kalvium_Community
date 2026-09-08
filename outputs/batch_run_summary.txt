@@ -1,0 +1,49 @@
+Batch Embedding Pipeline - Run Summary
+--------------------------------------
+This file demonstrates the capabilities of the batch embedding pipeline, including batching, retry handling, cost tracking, and skipping duplicate chunks.
+
+First Run (Initial Embedding):
+==================================================
+  Batch Embedding Pipeline Started
+==================================================
+Total chunks: 4
+Already embedded (skipping): 0
+Chunks to embed: 4
+
+Processing in batches of 5...
+ - Batch 1 succeeded: Embedded 4 chunks.
+
+Saved embeddings to outputs\embeddings_cache.json
+
+==================================================
+  Run Summary
+==================================================
+Total chunks processed: 4
+Embeddings generated:   4
+Skipped chunks:         0
+Failed chunks:          0
+Total tokens used:      243
+Approximate cost:       $0.000005
+==================================================
+
+
+Second Run (Skipping Already Embedded):
+==================================================
+  Batch Embedding Pipeline Started
+==================================================
+Total chunks: 4
+Already embedded (skipping): 4
+Chunks to embed: 0
+
+No new chunks to embed.
+
+==================================================
+  Run Summary
+==================================================
+Total chunks processed: 4
+Embeddings generated:   0
+Skipped chunks:         4
+Failed chunks:          0
+Total tokens used:      0
+Approximate cost:       $0.000000
+==================================================

@@ -1,32 +1,15 @@
 {
-  "total_failures": 3,
+  "total_failures": 5,
   "failure_cases": [
     {
-      "query_id": "Q-004",
-      "query": "Which vendor disbursements do NOT require unanimous board approval?",
-      "category": "Negation Blindspot (Known Failure)",
+      "query_id": "Q-002",
+      "query": "What minimum Tier 1 capital adequacy ratio is required under Basel IV?",
+      "category": "Standard Relevance",
       "is_failure": true,
       "top_rank_achieved": 2,
       "min_acceptable_rank": 1,
       "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_004",
-      "actual_top_section": "Section 3: High-Value Transaction Authorization Thresholds",
-      "expected_chunk_ids": [
-        "sample_banking_regulation_txt#chunk_003"
-      ],
-      "expected_section": "Section 3: High-Value Transaction Authorization Thresholds",
-      "failure_type": "EMBEDDING_NEGATION_BLINDSPOT",
-      "root_cause": "Dense embedding models map queries by topic keywords and fail to invert vector direction for logical negation. The model matched positive topic tokens ('disbursements', 'board approval') and mistakenly ranked 'sample_banking_regulation_txt#chunk_004' at rank #1.",
-      "pipeline_remediation": "Implement query transformation/rewriting to rephrase negative constraints, or apply structured metadata filtering on authorization tiers prior to vector search."
-    },
-    {
-      "query_id": "Q-006",
-      "query": "How often must institutions calculate and submit the Liquidity Coverage Ratio (LCR)?",
-      "category": "Specific Entity / Threshold",
-      "is_failure": true,
-      "top_rank_achieved": 2,
-      "min_acceptable_rank": 1,
-      "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_003",
-      "actual_top_section": "Section 3: High-Value Transaction Authorization Thresholds",
+      "actual_top_section": "Section 4: AI Model Governance in Credit Risk",
       "expected_chunk_ids": [
         "sample_banking_regulation_txt#chunk_002"
       ],
@@ -36,21 +19,74 @@
       "pipeline_remediation": "Expand queries using LLM query expansion (HyDE) or inject domain-specific synonyms into hybrid search."
     },
     {
-      "query_id": "Q-008",
-      "query": "What automated screening protocols verify transaction velocity and entity sanction status?",
-      "category": "Semantic Paraphrase",
+      "query_id": "Q-003",
+      "query": "What are the rules and approval thresholds for high-value transaction payments?",
+      "category": "Standard Relevance",
       "is_failure": true,
-      "top_rank_achieved": 2,
-      "min_acceptable_rank": 1,
-      "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_003",
-      "actual_top_section": "Section 3: High-Value Transaction Authorization Thresholds",
+      "top_rank_achieved": 3,
+      "min_acceptable_rank": 2,
+      "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_005",
+      "actual_top_section": "Section 4: AI Model Governance in Credit Risk",
       "expected_chunk_ids": [
-        "sample_banking_regulation_txt#chunk_001"
+        "sample_banking_regulation_txt#chunk_003",
+        "sample_banking_regulation_txt#chunk_004"
       ],
-      "expected_section": "Section 1: Executive Summary & Overview",
+      "expected_section": "Section 3: High-Value Transaction Authorization Thresholds",
       "failure_type": "VOCABULARY_OR_EMBEDDING_MISMATCH",
       "root_cause": "Query phrasing had a wide semantic distance from the exact terminology used in the regulatory corpus, causing the embedding model to assign suboptimal similarity.",
       "pipeline_remediation": "Expand queries using LLM query expansion (HyDE) or inject domain-specific synonyms into hybrid search."
+    },
+    {
+      "query_id": "Q-004",
+      "query": "Which vendor disbursements do NOT require unanimous board approval?",
+      "category": "Negation Blindspot (Known Failure)",
+      "is_failure": true,
+      "top_rank_achieved": 2,
+      "min_acceptable_rank": 1,
+      "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_005",
+      "actual_top_section": "Section 4: AI Model Governance in Credit Risk",
+      "expected_chunk_ids": [
+        "sample_banking_regulation_txt#chunk_003"
+      ],
+      "expected_section": "Section 3: High-Value Transaction Authorization Thresholds",
+      "failure_type": "EMBEDDING_NEGATION_BLINDSPOT",
+      "root_cause": "Dense embedding models map queries by topic keywords and fail to invert vector direction for logical negation. The model matched positive topic tokens ('disbursements', 'board approval') and mistakenly ranked 'sample_banking_regulation_txt#chunk_005' at rank #1.",
+      "pipeline_remediation": "Implement query transformation/rewriting to rephrase negative constraints, or apply structured metadata filtering on authorization tiers prior to vector search."
+    },
+    {
+      "query_id": "Q-005",
+      "query": "What audit procedures and compliance checks are required for transaction authorization?",
+      "category": "Cross-Section Lexical Distractor",
+      "is_failure": true,
+      "top_rank_achieved": 4,
+      "min_acceptable_rank": 2,
+      "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_005",
+      "actual_top_section": "Section 4: AI Model Governance in Credit Risk",
+      "expected_chunk_ids": [
+        "sample_banking_regulation_txt#chunk_003",
+        "sample_banking_regulation_txt#chunk_004"
+      ],
+      "expected_section": "Section 3: High-Value Transaction Authorization Thresholds",
+      "failure_type": "CROSS_SECTION_LEXICAL_DISTRACTION",
+      "root_cause": "Shared vocabulary ('compliance', 'audit') between Section 1 and Section 3 caused out-of-scope chunk 'sample_banking_regulation_txt#chunk_005' from 'Section 4: AI Model Governance in Credit Risk' to outrank target chunk 'sample_banking_regulation_txt#chunk_003' from 'Section 3: High-Value Transaction Authorization Thresholds'.",
+      "pipeline_remediation": "Apply pre-retrieval metadata filtering scoped to target document section, or utilize hybrid search with exact phrase matching to penalize cross-section false positives."
+    },
+    {
+      "query_id": "Q-007",
+      "query": "What consequences follow a failure to obtain board authorization for high-value expenditures?",
+      "category": "Boundary Consequence Clause",
+      "is_failure": true,
+      "top_rank_achieved": 3,
+      "min_acceptable_rank": 1,
+      "actual_top_chunk_id": "sample_banking_regulation_txt#chunk_001",
+      "actual_top_section": "Section 1: Executive Overview and Scope",
+      "expected_chunk_ids": [
+        "sample_banking_regulation_txt#chunk_004"
+      ],
+      "expected_section": "Section 3: High-Value Transaction Authorization Thresholds",
+      "failure_type": "CROSS_SECTION_LEXICAL_DISTRACTION",
+      "root_cause": "Shared vocabulary ('compliance', 'audit') between Section 1 and Section 3 caused out-of-scope chunk 'sample_banking_regulation_txt#chunk_001' from 'Section 1: Executive Overview and Scope' to outrank target chunk 'sample_banking_regulation_txt#chunk_004' from 'Section 3: High-Value Transaction Authorization Thresholds'.",
+      "pipeline_remediation": "Apply pre-retrieval metadata filtering scoped to target document section, or utilize hybrid search with exact phrase matching to penalize cross-section false positives."
     }
   ]
 }

@@ -28,14 +28,24 @@ try:
 except ImportError:
     from src.retrieval_evaluator import RetrievalEvaluator, load_labelled_queries
 try:
-    from grounded_generator import GroundedRAGGenerator
+    from prompts.templates import (
+        RAG_SYSTEM_PROMPT,
+        RAG_USER_PROMPT,
+        RAG_GROUNDED_SYSTEM_PROMPT,
+        RAG_CONTEXT_INJECTION_USER_PROMPT,
+    )
 except ImportError:
-    from src.grounded_generator import GroundedRAGGenerator
+    from src.prompts.templates import (
+        RAG_SYSTEM_PROMPT,
+        RAG_USER_PROMPT,
+        RAG_GROUNDED_SYSTEM_PROMPT,
+        RAG_CONTEXT_INJECTION_USER_PROMPT,
+    )
 try:
-    from prompts.templates import RAG_SYSTEM_PROMPT, RAG_USER_PROMPT
+    from context_injection import ContextInjector, TokenBudgetConfig, SourceMarkerStyle
 except ImportError:
-    RAG_SYSTEM_PROMPT = None
-    RAG_USER_PROMPT = None
+    from src.context_injection import ContextInjector, TokenBudgetConfig, SourceMarkerStyle
+
 
 
 
@@ -533,7 +543,52 @@ def main():
     print(f" -> Recall@1: {agg_d['k_1']['mean_recall']:.4f} | Precision@1: {agg_d['k_1']['mean_precision']:.4f} | Hit@1: {agg_d['k_1']['hit_rate_percentage']}%")
     print(f" -> Recall@3: {agg_d['k_3']['mean_recall']:.4f} | Precision@3: {agg_d['k_3']['mean_precision']:.4f} | Hit@3: {agg_d['k_3']['hit_rate_percentage']}%")
     print(f" -> Failure Cases Identified & Diagnosed: {eval_summary['failure_inspection_summary']['total_failures']}")
-    print(" -> Task 5: Retrieval evaluation reports & failure analysis exported to outputs/.")
+    # ----------------------------------------------------
+    # CONTEXT INJECTION & PROMPT AUGMENTATION (Tasks 1 to 5)
+    # ----------------------------------------------------
+    print("\n[Context Injection & Prompt Augmentation] Executing Context Assembly, Token Budgeting, & Grounding...")
+    context_injector = ContextInjector(
+        budget_config=TokenBudgetConfig(total_model_limit=4096, max_answer_tokens=500),
+        default_marker_style=SourceMarkerStyle.NUMBERED
+    )
+
+    aug_query = "What is the authorization policy for single capital expenditures exceeding $50,000?"
+    # Use top retrieved chunks from similarity ranker or embedded chunks
+    relevant_chunks = [c for c in embedded_chunks_list if "Section 3" in c.metadata.get("section", "")][:2]
+    if not relevant_chunks:
+        relevant_chunks = embedded_chunks_list[:2]
+
+    augmented_prompt = context_injector.build_augmented_prompt(
+        question=aug_query,
+        retrieved_chunks=relevant_chunks,
+        role="Banking Regulation & Compliance Officer",
+        marker_style=SourceMarkerStyle.NUMBERED,
+        enforce_grounding=True
+    )
+
+    mock_grounded_ans = (
+        "According to the banking regulatory compliance framework, any single capital expenditure "
+        "exceeding $50,000 requires unanimous board approval and an independent audit report prior to disbursement [1]. "
+        "Failure to obtain prior authorization results in an immediate suspension of procurement privileges [1]."
+    )
+
+    grounded_generation = context_injector.generate_grounded_answer(
+        augmented_prompt=augmented_prompt,
+        llm_client=client,
+        mock_response=mock_grounded_ans
+    )
+
+    sample_results["context_injection_and_prompt_augmentation"] = {
+        "augmented_prompt": augmented_prompt.to_dict(),
+        "generation_result": grounded_generation
+    }
+    print(f" -> Query: \"{aug_query}\"")
+    print(f" -> Injected Chunks: {augmented_prompt.assembled_context.total_injected_chunks} (Context Tokens: {augmented_prompt.assembled_context.context_tokens})")
+    print(f" -> Token Budget: Total Projected ({augmented_prompt.token_accounting['max_projected_total_tokens']}) <= Model Limit ({augmented_prompt.token_accounting['model_limit']})")
+    print(f" -> Source Markers: {[s['marker'] for s in grounded_generation['injected_sources']]}")
+    print(f" -> Grounded Answer: \"{grounded_generation['grounded_answer'][:120]}...\"")
+    print(" -> Task 5: Context-injected sample prompt and budget output generated.")
+
 
     # ----------------------------------------------------
     # CONTEXT-GROUNDED GENERATION (Tasks 1 to 5)
