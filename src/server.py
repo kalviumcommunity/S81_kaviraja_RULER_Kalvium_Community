@@ -27,6 +27,8 @@ sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 from llm_client import LLMClient
 from structured_output import parse_json_response, validate_required_fields, count_tokens
 from chunk_metadata import DocumentChunker, trace_chunk_to_source, verify_metadata_consistency, Chunk, ChunkMetadata
+from context_injection import ContextInjector, TokenBudgetConfig
+from citation_attribution import attribute_answer, NO_SOURCE_FALLBACK
 try:
     from src.token_chunker import TokenAwareChunker
 except ImportError:
@@ -120,6 +122,29 @@ class RerankRequest(BaseModel):
     candidates: Optional[List[Dict[str, Any]]] = None
 
 
+def _retrieve_sample_chunks(question: str) -> List[Chunk]:
+    """Retrieve local evidence for the demo chat without inventing source data."""
+    chunks = []
+    for filename in sorted(name for name in os.listdir(DATA_DIR) if name.endswith(".txt")):
+        sample_path = os.path.join(DATA_DIR, filename)
+        with open(sample_path, "r", encoding="utf-8") as source_file:
+            content = source_file.read()
+        chunks.extend(DocumentChunker(chunk_size=500, chunk_overlap=40).chunk_document(
+            content=content,
+            doc_id=os.path.splitext(filename)[0].upper(),
+            filename=filename,
+            source_path=os.path.join("data", filename),
+        ))
+    query_terms = {term.lower() for term in question.split() if len(term) > 2}
+    ranked = sorted(
+        chunks,
+        key=lambda chunk: sum(term in chunk.text.lower() for term in query_terms),
+        reverse=True,
+    )
+    matches = [chunk for chunk in ranked if any(term in chunk.text.lower() for term in query_terms)]
+    return matches[:3]
+
+
 # -------------------------------------------------------------
 # API ENDPOINTS
 # -------------------------------------------------------------
@@ -170,7 +195,28 @@ def get_sample_data():
 
 @app.post("/api/chat")
 def handle_chat(req: ChatRequest):
-    """Executes a structured JSON completion with live LLM client or smart mock fallback."""
+    """Generate a structured answer whose citations are checked against retrieved chunks."""
+    retrieved_chunks = _retrieve_sample_chunks(req.user_message)
+    if not retrieved_chunks:
+        return {
+            "success": True,
+            "was_fallback": True,
+            "parsed_object": {
+                "answer": NO_SOURCE_FALLBACK,
+                "source": None,
+                "confidence": "low",
+                "citations": [],
+                "citation_status": "NO_RETRIEVED_SOURCES",
+            },
+            "token_usage": {"prompt_tokens": count_tokens(req.user_message), "completion_tokens": 0, "total_tokens": count_tokens(req.user_message)},
+            "chat_history": llm_client.get_chat_history(),
+        }
+
+    injector = ContextInjector(budget_config=TokenBudgetConfig(max_answer_tokens=300))
+    augmented_prompt = injector.build_augmented_prompt(
+        question=req.user_message,
+        retrieved_chunks=retrieved_chunks,
+    )
     if RAG_SYSTEM_PROMPT and hasattr(RAG_SYSTEM_PROMPT, "render"):
         sys_prompt = RAG_SYSTEM_PROMPT.render(role=req.system_role or "RAG")
     else:
@@ -179,14 +225,14 @@ def handle_chat(req: ChatRequest):
     mock_resp = None
     if req.use_mock:
         mock_resp = json.dumps({
-            "answer": f"Simulated structured response for '{req.user_message}'. RAG retrieves grounded context from banking regulatory specifications.",
-            "source": "Banking_Regulation_Guideline_v2.0.pdf",
+            "answer": f"The retrieved regulation addresses '{req.user_message}'. [1]",
+            "source": "sample_banking_regulation.txt",
             "confidence": "high"
         }, indent=2)
 
     res, usage = llm_client.create_structured_completion(
-        system_message=sys_prompt,
-        user_message=req.user_message,
+        system_message=augmented_prompt.system_prompt,
+        user_message=augmented_prompt.user_prompt,
         required_fields=req.required_fields or ["answer", "source", "confidence"],
         default_values={"source": "Regulatory_Store_v1", "confidence": "high"},
         temperature=req.temperature or 0.2,
@@ -195,11 +241,7 @@ def handle_chat(req: ChatRequest):
 
     if not res:
         # Fallback if external API is unreachable or rate limited
-        fallback_answer = {
-            "answer": f"RAG framework successfully grounded the query: '{req.user_message}'. Document context was extracted and indexed.",
-            "source": "Sample_Banking_Regulation_Doc",
-            "confidence": "high"
-        }
+        fallback_answer = {"answer": NO_SOURCE_FALLBACK, "source": None, "confidence": "low", "citations": [], "citation_status": "LLM_UNAVAILABLE"}
         return {
             "success": True,
             "was_fallback": True,
@@ -207,6 +249,21 @@ def handle_chat(req: ChatRequest):
             "token_usage": {"prompt_tokens": count_tokens(req.user_message), "completion_tokens": 40, "total_tokens": count_tokens(req.user_message) + 40},
             "chat_history": llm_client.get_chat_history()
         }
+
+    source_records = [
+        {"marker": f"[{index}]", "doc_id": chunk.metadata.doc_id, "filename": chunk.metadata.filename,
+         "source_path": chunk.metadata.source_path, "section": chunk.metadata.section,
+         "page_number": chunk.metadata.page_number, "chunk_id": chunk.chunk_id,
+         "chunk_index": chunk.metadata.chunk_index, "start_char": chunk.metadata.start_char,
+         "end_char": chunk.metadata.end_char, "raw_text": chunk.text}
+        for index, chunk in enumerate(retrieved_chunks, start=1)
+    ]
+    attribution = attribute_answer(res.get("answer", ""), source_records)
+    res["answer"] = attribution["answer"]
+    res["citations"] = attribution["citations"]
+    res["citation_status"] = attribution["citation_status"]
+    res["is_grounded"] = attribution["is_grounded"]
+    res["source"] = ", ".join(citation["filename"] for citation in attribution["citations"]) or None
 
     return {
         "success": True,

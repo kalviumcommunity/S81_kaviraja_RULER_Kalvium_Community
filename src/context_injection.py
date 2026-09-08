@@ -19,6 +19,11 @@ from typing import List, Dict, Any, Optional, Union, Tuple
 import tiktoken
 
 try:
+    from citation_attribution import attribute_answer
+except ImportError:
+    from src.citation_attribution import attribute_answer
+
+try:
     from prompts.templates import (
         PromptTemplate,
         RAG_GROUNDED_SYSTEM_PROMPT,
@@ -61,8 +66,12 @@ class InjectedChunkInfo:
     chunk_id: str
     doc_id: str
     filename: str
+    source_path: str
     section: str
     page_number: Optional[int]
+    source_chunk_index: Optional[int]
+    start_char: Optional[int]
+    end_char: Optional[int]
     raw_text: str
     formatted_text: str
     token_count: int
@@ -255,8 +264,12 @@ class ContextInjector:
             "chunk_id": chunk_id,
             "doc_id": doc_id,
             "filename": filename,
+            "source_path": meta.get("source_path", ""),
             "section": section,
             "page_number": page_number,
+            "chunk_index": meta.get("chunk_index"),
+            "start_char": meta.get("start_char"),
+            "end_char": meta.get("end_char"),
         }
 
         marker = self.format_source_marker(index=index, chunk_metadata=chunk_meta, style=style)
@@ -347,8 +360,12 @@ class ContextInjector:
                         chunk_id=meta["chunk_id"],
                         doc_id=meta["doc_id"],
                         filename=meta["filename"],
+                        source_path=meta.get("source_path", ""),
                         section=meta["section"],
                         page_number=meta.get("page_number"),
+                        source_chunk_index=meta.get("chunk_index"),
+                        start_char=meta.get("start_char"),
+                        end_char=meta.get("end_char"),
                         raw_text=raw_text,
                         formatted_text=formatted_text,
                         token_count=chunk_token_count,
@@ -372,8 +389,12 @@ class ContextInjector:
                             chunk_id=meta["chunk_id"],
                             doc_id=meta["doc_id"],
                             filename=meta["filename"],
+                            source_path=meta.get("source_path", ""),
                             section=meta["section"],
                             page_number=meta.get("page_number"),
+                            source_chunk_index=meta.get("chunk_index"),
+                            start_char=meta.get("start_char"),
+                            end_char=meta.get("end_char"),
                             raw_text=raw_text,
                             formatted_text=truncated_text,
                             token_count=actual_tokens,
@@ -507,20 +528,33 @@ class ContextInjector:
             mock_response=mock_response,
         )
 
+        injected_sources = [
+            {
+                "marker": chunk.source_marker,
+                "doc_id": chunk.doc_id,
+                "filename": chunk.filename,
+                "source_path": chunk.source_path,
+                "section": chunk.section,
+                "page_number": chunk.page_number,
+                "chunk_id": chunk.chunk_id,
+                "chunk_index": chunk.source_chunk_index,
+                "start_char": chunk.start_char,
+                "end_char": chunk.end_char,
+                "raw_text": chunk.raw_text,
+            }
+            for chunk in augmented_prompt.assembled_context.injected_chunks
+        ]
+        attribution = attribute_answer(content or "", injected_sources)
+
         return {
             "question": augmented_prompt.question,
-            "grounded_answer": content,
+            "grounded_answer": attribution["answer"],
+            "is_grounded": attribution["is_grounded"],
+            "citation_status": attribution["citation_status"],
+            "citations": attribution["citations"],
+            "invalid_citations": attribution["invalid_citations"],
             "token_usage": usage,
-            "injected_sources": [
-                {
-                    "marker": chunk.source_marker,
-                    "doc_id": chunk.doc_id,
-                    "filename": chunk.filename,
-                    "section": chunk.section,
-                    "chunk_id": chunk.chunk_id,
-                }
-                for chunk in augmented_prompt.assembled_context.injected_chunks
-            ],
+            "injected_sources": injected_sources,
             "skipped_sources_count": len(augmented_prompt.assembled_context.skipped_chunks),
             "token_accounting": augmented_prompt.token_accounting,
         }
