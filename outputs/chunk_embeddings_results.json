@@ -4,8 +4,8 @@
     "base_url": "https://openrouter.ai/api/v1",
     "embedding_model": "text-embedding-3-small",
     "source_documents": 1,
-    "chunks_received": 5,
-    "chunks_embedded": 5,
+    "chunks_received": 4,
+    "chunks_embedded": 4,
     "chunks_failed": 0,
     "vector_dimension": 1536,
     "dimension_consistency": "PASS"
@@ -17,7 +17,6 @@
       1536,
       1536,
       1536,
-      1536,
       1536
     ],
     "all_numeric": true,
@@ -26,7 +25,7 @@
   "sample_embedded_chunks": [
     {
       "chunk_id": "sample_banking_regulation_txt#chunk_001",
-      "source_text": "# Banking Regulatory Compliance Framework (BRCF-2026)\n\n--- Page 1 ---\n## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.\nFailure to maintain compliance may result in administrative penalties, operational suspension, or revocation of banking licenses.\n\n--- Page 2 ---\n## Section 2:",
+      "source_text": "# Global Banking Compliance & Regulatory Framework 2026\n\n## Section 1: Executive Summary & Overview\nFinancial institutions operating within international jurisdictions must establish automated compliance monitoring systems to detect, prevent, and report suspicious transactions under Anti-Money Laundering (AML) and Counter-Terrorism Financing (CTF) directives. All automated systems must evaluate transaction velocities, beneficiary country risk scores, and entity sanction lists in real time prior to authorization.\n\n## Section 2: Capital Reserves & Liquidity Rat",
       "embedding": [
         0.1,
         0.101,
@@ -1569,13 +1568,13 @@
       "metadata": {
         "doc_id": "sample_banking_regulation_txt",
         "filename": "sample_banking_regulation.txt",
-        "source_path": "data\\sample_banking_regulation.txt",
-        "section": "Section 1: Executive Overview and Scope",
+        "source_path": "data/sample_banking_regulation.txt",
+        "section": "Section 1: Executive Summary & Overview",
         "page_number": 1,
         "chunk_index": 0,
-        "total_chunks": 5,
+        "total_chunks": 4,
         "start_char": 0,
-        "end_char": 575,
+        "end_char": 565,
         "token_count": 100,
         "category": "Compliance & Regulation",
         "doc_type": "Regulatory Framework"
@@ -1583,7 +1582,7 @@
     },
     {
       "chunk_id": "sample_banking_regulation_txt#chunk_002",
-      "source_text": " operational suspension, or revocation of banking licenses.\n\n--- Page 2 ---\n## Section 2: Liquidity and Capital Requirements\nFinancial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times. \nAdditionally, liquidity coverage ratios (LCR) must be sustained above 100% to ensure short-term obligations can be met during high-stress market events.\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by",
+      "source_text": " lists in real time prior to authorization.\n\n## Section 2: Capital Reserves & Liquidity Ratios\nUnder Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times. In addition, institutions must hold high-quality liquid assets (HQLA) sufficient to cover total net cash outflows over a 30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted",
       "embedding": [
         0.15,
         0.151,
@@ -3126,13 +3125,13 @@
       "metadata": {
         "doc_id": "sample_banking_regulation_txt",
         "filename": "sample_banking_regulation.txt",
-        "source_path": "data\\sample_banking_regulation.txt",
-        "section": "Section 2: Liquidity and Capital Requirements",
+        "source_path": "data/sample_banking_regulation.txt",
+        "section": "Section 2: Capital Reserves & Liquidity Ratios",
         "page_number": 1,
         "chunk_index": 1,
-        "total_chunks": 5,
-        "start_char": 486,
-        "end_char": 946,
+        "total_chunks": 4,
+        "start_char": 474,
+        "end_char": 925,
         "token_count": 100,
         "category": "Compliance & Regulation",
         "doc_type": "Regulatory Framework"
@@ -3140,7 +3139,7 @@
     },
     {
       "chunk_id": "sample_banking_regulation_txt#chunk_003",
-      "source_text": "Daily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported",
+      "source_text": "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial regulatory bodies.\n\n## Section 3: High-Value Transaction Authorization Thresholds\nStandard retail banking policies mandate that routine vendor payments under $50,000 may be approved directly by designated department heads without requiring senior executive approval. However, any single capital expenditure or vendor disbursement exceeding $50,000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board",
       "embedding": [
         0.2,
         0.201,
@@ -4683,13 +4682,13 @@
       "metadata": {
         "doc_id": "sample_banking_regulation_txt",
         "filename": "sample_banking_regulation.txt",
-        "source_path": "data\\sample_banking_regulation.txt",
-        "section": "Section 3: Data Protection and Privacy Controls",
+        "source_path": "data/sample_banking_regulation.txt",
+        "section": "Section 3: High-Value Transaction Authorization Thresholds",
         "page_number": 1,
         "chunk_index": 2,
-        "total_chunks": 5,
-        "start_char": 857,
-        "end_char": 1316,
+        "total_chunks": 4,
+        "start_char": 830,
+        "end_char": 1413,
         "token_count": 100,
         "category": "Compliance & Regulation",
         "doc_type": "Regulatory Framework"
@@ -4697,7 +4696,7 @@
     }
   ],
   "token_usage": {
-    "prompt_tokens": 40,
-    "total_tokens": 40
+    "prompt_tokens": 32,
+    "total_tokens": 32
   }
 }

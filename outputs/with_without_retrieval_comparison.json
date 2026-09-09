@@ -1,22 +1,28 @@
 {
   "query": "What are the rules and approval thresholds for high-value transaction payments?",
   "with_retrieval_grounded": {
-    "answer": "The provided context does not contain sufficient information to answer this question.",
+    "answer": "For high-value transaction payments, the following rules and approval thresholds apply:\n\n1. Routine vendor payments under $50,000 may be approved directly by designated department heads without requiring senior executive approval.\n2. Any single capital expenditure or vendor disbursement exceeding $50,000 requires:\n   - Unanimous board authorization.\n   - An independent audit report prior to disbursement.\n3. Failure to obtain board authorization for high-value transactions results in:\n   - Immediate suspension of procurement privileges.\n   - Mandatory compliance audit review [1][2].",
     "cited_chunks": [
-      "sample_banking_regulation_txt#chunk_003"
+      "sample_banking_regulation_txt#chunk_003",
+      "sample_banking_regulation_txt#chunk_004"
     ],
-    "supporting_chunks_count": 1,
-    "faithfulness_score": 0.0,
+    "supporting_chunks_count": 2,
+    "faithfulness_score": 100.0,
     "hallucination_risk": "VERY LOW (Anchored directly in institutional text)",
-    "exact_policy_terms_found": [],
+    "exact_policy_terms_found": [
+      "$50,000",
+      "unanimous board authorization",
+      "independent audit report",
+      "suspension of procurement privileges"
+    ],
     "token_usage": {
-      "prompt_tokens": 305,
-      "completion_tokens": 13,
-      "total_tokens": 318
+      "prompt_tokens": 393,
+      "completion_tokens": 110,
+      "total_tokens": 503
     }
   },
   "without_retrieval_ungrounded": {
-    "answer": "The rules and approval thresholds for high-value transaction payments can vary significantly depending on the organization, industry, and jurisdiction. However, here are some common elements that are typically considered:\n\n### 1. **Definition of High-Value Transactions**\n   - High-value transactions are often defined based on a specific monetary threshold, which can vary by organization (e.g., $10,000, $50,000, etc.).\n   - The threshold may differ for different types of transactions (e.g., domestic vs. international payments).\n\n### 2. **Approval Hierarchy**\n   - **Tiered Approval Levels**: Organizations often establish a tiered approval system where higher-value transactions require more senior-level approvals.\n     - **Example**: \n       - Transactions up to $10,000 may require manager approval.\n       - Transactions between $10,000 and $50,000 may require director approval.\n       - Transactions above $50,000 may require executive or board approval.\n   - **Dual Approval**: Some organizations may require dual approvals for high-value transactions, meaning two individuals must authorize the payment.\n\n### 3. **Documentation Requirements**\n   - High-value transactions typically require more extensive documentation to justify the payment, including:\n     - Invoices or contracts\n     - Purchase orders\n     - Supporting documentation for the transaction's purpose\n\n### 4. **Risk Assessment**\n   - Organizations may conduct a risk assessment for high-value transactions, which can include:\n     - Evaluating the counterparty's creditworthiness\n     - Assessing the transaction's compliance with regulatory requirements\n     - Reviewing potential fraud risks\n\n### 5. **Compliance and Regulatory Considerations**\n   - Organizations must comply with relevant laws and regulations, such as anti-money laundering (AML) and know your customer (KYC) regulations.\n   - High-value transactions may trigger additional reporting requirements to regulatory authorities.\n\n### 6. **Internal Controls**\n   - Organizations often implement internal controls to prevent fraud and ensure proper handling of high-value transactions, including:\n     - Segregation of duties (ensuring that no single individual has control over all aspects of a transaction)\n     - Regular audits and reviews of high-value transactions\n\n### 7. **Technology and Payment Systems**\n   - Many organizations use automated systems to manage approvals and track high-value transactions, which can streamline the process and enhance security.\n\n### Conclusion\nOrganizations should establish clear policies and procedures regarding high-value transaction payments, tailored to their specific needs and regulatory environment. Regular reviews and updates to these policies can help ensure they remain effective and compliant.",
+    "answer": "The rules and approval thresholds for high-value transaction payments can vary significantly depending on the organization, industry, and jurisdiction. However, here are some common practices and considerations that organizations may implement:\n\n### General Rules for High-Value Transactions:\n\n1. **Definition of High-Value Transactions**:\n   - Organizations typically define a specific monetary threshold above which transactions are considered \"high-value.\" This threshold can vary widely (e.g., $10,000, $50,000, or more).\n\n2. **Approval Process**:\n   - High-value transactions often require multiple levels of approval. This may include:\n     - Initial approval from the department or individual initiating the transaction.\n     - Secondary approval from a manager or supervisor.\n     - Final approval from senior management or finance.\n\n3. **Documentation Requirements**:\n   - Detailed documentation is usually required to justify the transaction. This may include:\n     - Invoices or purchase orders.\n     - Contracts or agreements.\n     - Supporting documentation that outlines the necessity and benefits of the transaction.\n\n4. **Segregation of Duties**:\n   - To prevent fraud and errors, organizations often implement a segregation of duties policy. This means that different individuals are responsible for initiating, approving, and processing transactions.\n\n5. **Risk Assessment**:\n   - High-value transactions may undergo a risk assessment to evaluate potential financial, operational, and reputational risks associated with the payment.\n\n6. **Compliance and Regulatory Considerations**:\n   - Organizations must ensure compliance with relevant laws and regulations, such as anti-money laundering (AML) laws, tax regulations, and industry-specific guidelines.\n\n7. **Audit Trails**:\n   - Maintaining an audit trail is crucial. Organizations should keep records of all approvals, communications, and documentation related to high-value transactions for future reference and audits.\n\n### Approval Thresholds:\n\n1. **Tiered Approval Levels**:\n   - Organizations may establish tiered approval levels based on the transaction amount. For example:\n     - Transactions up to $10,000 may require one level of approval.\n     - Transactions between $10,001 and $50,000 may require two levels of approval.\n     - Transactions over $50,000 may require three or more levels of approval.\n\n2. **Emergency or Exception Procedures**:\n   - In some cases, organizations may have procedures for expedited approvals in emergencies, but these should be clearly defined and documented.\n\n3. **Periodic Review**:\n   - Approval thresholds and processes should be reviewed periodically to ensure they remain effective and relevant to the organization's needs.\n\n### Conclusion:\n\nOrganizations should tailor their rules and approval thresholds for high-value transactions to fit their specific operational, financial, and regulatory environments. It is essential to have clear policies in place to mitigate risks and ensure accountability in financial transactions.",
     "cited_chunks": [],
     "supporting_chunks_count": 0,
     "faithfulness_score": "N/A (No ground-truth context provided)",
@@ -26,12 +32,16 @@
     ],
     "token_usage": {
       "prompt_tokens": 38,
-      "completion_tokens": 515,
-      "total_tokens": 553
+      "completion_tokens": 554,
+      "total_tokens": 592
     }
   },
   "grounding_delta_analysis": {
-    "exact_terms_unlocked": [],
+    "exact_terms_unlocked": [
+      "unanimous board authorization",
+      "independent audit report",
+      "suspension of procurement privileges"
+    ],
     "specificity_comparison": "Grounded answer specifies exact $50,000 threshold, unanimous board approval requirement, and sanctions. Ungrounded answer offers generic $10,000/$25,000 guesses.",
     "verifiable_citations": true,
     "verdict": "Grounding in retrieved context transformed vague, generic speculation into 100% compliant, auditable institutional policy."

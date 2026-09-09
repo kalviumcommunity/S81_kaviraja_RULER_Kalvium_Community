@@ -7,8 +7,8 @@
     "standard_refusal_message": "I do not have sufficient information in the provided knowledge base to answer this question accurately."
   },
   "total_cases_evaluated": 4,
-  "refusal_cases_count": 3,
-  "confident_cases_count": 1,
+  "refusal_cases_count": 4,
+  "confident_cases_count": 0,
   "demonstrations": [
     {
       "case_id": "CASE_1_CONFIDENT_ANSWER",
@@ -22,46 +22,34 @@
       ],
       "result": {
         "query": "What are the customer encryption standards and data breach reporting timeframe?",
-        "is_refusal": false,
-        "verdict": "PROCEED_CONFIDENT_ANSWER",
-        "final_answer": "Customer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher [1]. Additionally, any data breach must be reported to the regulatory oversight committee within 24 hours of initial detection [1].",
-        "cited_sources": [
-          {
-            "marker": "[1]",
-            "doc_id": "sample_banking_regulation_txt",
-            "filename": "sample_banking_regulation.txt",
-            "source_path": "data\\sample_banking_regulation.txt",
-            "section": "Section 3: Data Protection and Privacy Controls",
-            "page_number": 1,
-            "chunk_id": "sample_banking_regulation_txt#chunk_003",
-            "chunk_index": 2,
-            "start_char": 857,
-            "end_char": 1316,
-            "raw_text": "Daily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported"
-          }
-        ],
+        "is_refusal": true,
+        "verdict": "SAFE_REFUSAL",
+        "final_answer": "I do not have sufficient information in the provided knowledge base to answer this question accurately.",
+        "cited_sources": [],
         "token_usage": {
-          "prompt_tokens": 42,
-          "completion_tokens": 36,
-          "total_tokens": 78
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
         },
         "decision": {
-          "should_refuse": false,
-          "verdict": "PROCEED_CONFIDENT_ANSWER",
-          "refusal_reasons": [],
-          "primary_reason": null,
-          "confidence_score": 0.8593,
+          "should_refuse": true,
+          "verdict": "SAFE_REFUSAL",
+          "refusal_reasons": [
+            "WEAK_LEXICAL_ALIGNMENT: Keyword overlap (14.3%) is below minimum required (15.0%)."
+          ],
+          "primary_reason": "WEAK_LEXICAL_ALIGNMENT: Keyword overlap (14.3%) is below minimum required (15.0%).",
+          "confidence_score": 0.3,
           "quality_signals": {
             "total_chunks_retrieved": 1,
             "top_similarity_score": 0.89,
             "mean_top_k_score": 0.825,
             "chunks_above_threshold": 2,
-            "keyword_overlap_ratio": 0.7143,
-            "total_context_chars": 459,
+            "keyword_overlap_ratio": 0.1429,
+            "total_context_chars": 565,
             "is_empty_retrieval": false,
             "is_low_similarity": false,
             "is_insufficient_chunks": false,
-            "is_weak_lexical_alignment": false
+            "is_weak_lexical_alignment": true
           }
         }
       }
@@ -103,7 +91,7 @@
             "mean_top_k_score": 0.1,
             "chunks_above_threshold": 0,
             "keyword_overlap_ratio": 0.0,
-            "total_context_chars": 1036,
+            "total_context_chars": 1017,
             "is_empty_retrieval": false,
             "is_low_similarity": true,
             "is_insufficient_chunks": true,
@@ -178,22 +166,21 @@
           "verdict": "SAFE_REFUSAL",
           "refusal_reasons": [
             "LOW_SIMILARITY_SCORE: Top score (0.2800) is below minimum threshold (0.35).",
-            "INSUFFICIENT_CHUNKS_ABOVE_THRESHOLD: Only 0 chunk(s) met threshold (required: 1).",
-            "WEAK_LEXICAL_ALIGNMENT: Keyword overlap (11.1%) is below minimum required (15.0%)."
+            "INSUFFICIENT_CHUNKS_ABOVE_THRESHOLD: Only 0 chunk(s) met threshold (required: 1)."
           ],
           "primary_reason": "LOW_SIMILARITY_SCORE: Top score (0.2800) is below minimum threshold (0.35).",
-          "confidence_score": 0.1733,
+          "confidence_score": 0.2067,
           "quality_signals": {
             "total_chunks_retrieved": 1,
             "top_similarity_score": 0.28,
             "mean_top_k_score": 0.28,
             "chunks_above_threshold": 0,
-            "keyword_overlap_ratio": 0.1111,
-            "total_context_chars": 575,
+            "keyword_overlap_ratio": 0.2222,
+            "total_context_chars": 565,
             "is_empty_retrieval": false,
             "is_low_similarity": true,
             "is_insufficient_chunks": true,
-            "is_weak_lexical_alignment": true
+            "is_weak_lexical_alignment": false
           }
         }
       }

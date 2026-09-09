@@ -26,12 +26,12 @@ This report documents the implementation and verification of the **Hallucination
 ### Case 1: Confident Grounded Answer (Strong Context)
 
 - **Query**: *"What are the customer encryption standards and data breach reporting timeframe?"*
-- **Verdict**: `PROCEED_CONFIDENT_ANSWER`
-- **Refusal Triggered?**: **`False`**
+- **Verdict**: `SAFE_REFUSAL`
+- **Refusal Triggered?**: **`True`**
 - **Top Similarity Score**: `0.89`
 - **Output Answer**:
 
-> Customer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher [1]. Additionally, any data breach must be reported to the regulatory oversight committee within 24 hours of initial detection [1].
+> I do not have sufficient information in the provided knowledge base to answer this question accurately.
 
 ---
 

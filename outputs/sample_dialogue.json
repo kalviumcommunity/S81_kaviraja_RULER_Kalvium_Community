@@ -1,0 +1,138 @@
+{
+  "demonstration_metadata": {
+    "title": "Conversational RAG Multi-Turn Dialogue Sample",
+    "domain": "Global Banking Compliance & Regulatory Framework",
+    "total_turns": 4,
+    "rewritten_turns": 3
+  },
+  "dialogue": [
+    {
+      "turn_id": 1,
+      "user_query": "What are the rules and approval thresholds for high-value transaction payments?",
+      "rewritten_standalone_query": "What are the rules and approval thresholds for high-value transaction payments?",
+      "was_rewritten": false,
+      "retrieved_chunks": [
+        "sample_banking_regulation_txt#chunk_003",
+        "sample_banking_regulation_txt#chunk_004",
+        "sample_banking_regulation_txt#chunk_001"
+      ],
+      "similarity_scores": [
+        0.2294,
+        0.1473,
+        0.1384
+      ],
+      "assistant_answer": "For high-value transaction payments, the following rules and approval thresholds apply:\n\n1. Routine vendor payments under $50,000 may be approved directly by designated department heads without requiring senior executive approval.\n2. Any single capital expenditure or vendor disbursement exceeding $50,000 requires:\n   - Unanimous board authorization.\n   - An independent audit report prior to disbursement.\n3. Failure to obtain board authorization for high-value transactions results in:\n   - Immediate suspension of procurement privileges.\n   - Mandatory compliance audit review [1][2].",
+      "citations": [
+        "sample_banking_regulation_txt#chunk_001",
+        "sample_banking_regulation_txt#chunk_003",
+        "sample_banking_regulation_txt#chunk_004"
+      ],
+      "retrieval_comparison": null
+    },
+    {
+      "turn_id": 2,
+      "user_query": "What happens if a bank fails to comply with them?",
+      "rewritten_standalone_query": "What are the consequences if a bank fails to comply with the rules and approval thresholds for high-value transaction payments?",
+      "was_rewritten": true,
+      "retrieved_chunks": [
+        "sample_banking_regulation_txt#chunk_003",
+        "sample_banking_regulation_txt#chunk_001",
+        "sample_banking_regulation_txt#chunk_004"
+      ],
+      "similarity_scores": [
+        0.1824,
+        0.1397,
+        0.1369
+      ],
+      "assistant_answer": "If a bank fails to obtain board authorization for high-value transactions, it results in immediate suspension of procurement privileges and a mandatory compliance audit review [3].",
+      "citations": [
+        "sample_banking_regulation_txt#chunk_001",
+        "sample_banking_regulation_txt#chunk_003",
+        "sample_banking_regulation_txt#chunk_004"
+      ],
+      "retrieval_comparison": {
+        "raw_query": "What happens if a bank fails to comply with them?",
+        "rewritten_query": "What are the consequences if a bank fails to comply with the rules and approval thresholds for high-value transaction payments?",
+        "raw_top_chunk_id": "sample_banking_regulation_txt#chunk_002",
+        "raw_top_similarity_score": 0.141,
+        "raw_top_snippet": " lists in real time prior to authorization.  ## Section 2: Capital Reserves & Liquidity Ratios Under Basel IV capital ad",
+        "rewritten_top_chunk_id": "sample_banking_regulation_txt#chunk_003",
+        "rewritten_top_similarity_score": 0.1824,
+        "rewritten_top_snippet": "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial re",
+        "similarity_score_gain": 0.0414,
+        "target_section_matched": true,
+        "relevance_verdict": "PASSED: Rewritten query successfully targeted 'Section 3' with a score gain of +0.0414 over the ambiguous raw query."
+      }
+    },
+    {
+      "turn_id": 3,
+      "user_query": "What about routine vendor payments under that threshold?",
+      "rewritten_standalone_query": "What are the rules and approval processes for routine vendor payments under the $50,000 threshold for high-value transaction payments?",
+      "was_rewritten": true,
+      "retrieved_chunks": [
+        "sample_banking_regulation_txt#chunk_003",
+        "sample_banking_regulation_txt#chunk_001",
+        "sample_banking_regulation_txt#chunk_004"
+      ],
+      "similarity_scores": [
+        0.2309,
+        0.1373,
+        0.1268
+      ],
+      "assistant_answer": "Routine vendor payments under $50,000 may be approved directly by designated department heads without requiring senior executive approval. However, any single capital expenditure or vendor disbursement exceeding $50,000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review [1][3].",
+      "citations": [
+        "sample_banking_regulation_txt#chunk_001",
+        "sample_banking_regulation_txt#chunk_003",
+        "sample_banking_regulation_txt#chunk_004"
+      ],
+      "retrieval_comparison": {
+        "raw_query": "What about routine vendor payments under that threshold?",
+        "rewritten_query": "What are the rules and approval processes for routine vendor payments under the $50,000 threshold for high-value transaction payments?",
+        "raw_top_chunk_id": "sample_banking_regulation_txt#chunk_003",
+        "raw_top_similarity_score": 0.2282,
+        "raw_top_snippet": "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial re",
+        "rewritten_top_chunk_id": "sample_banking_regulation_txt#chunk_003",
+        "rewritten_top_similarity_score": 0.2309,
+        "rewritten_top_snippet": "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial re",
+        "similarity_score_gain": 0.0027,
+        "target_section_matched": true,
+        "relevance_verdict": "PASSED: Rewritten query successfully targeted 'Section 3' with a score gain of +0.0027 over the ambiguous raw query."
+      }
+    },
+    {
+      "turn_id": 4,
+      "user_query": "Under Basel IV standards, what is the capital reserve requirement and how often must its ratio be calculated?",
+      "rewritten_standalone_query": "Under Basel IV standards, what is the capital reserve requirement, and how often must the capital reserve ratio be calculated?",
+      "was_rewritten": true,
+      "retrieved_chunks": [
+        "sample_banking_regulation_txt#chunk_002",
+        "sample_banking_regulation_txt#chunk_003",
+        "sample_banking_regulation_txt#chunk_001"
+      ],
+      "similarity_scores": [
+        0.2556,
+        0.2098,
+        0.1648
+      ],
+      "assistant_answer": "Under Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial regulatory bodies [1][2].",
+      "citations": [
+        "sample_banking_regulation_txt#chunk_001",
+        "sample_banking_regulation_txt#chunk_002",
+        "sample_banking_regulation_txt#chunk_003"
+      ],
+      "retrieval_comparison": {
+        "raw_query": "Under Basel IV standards, what is the capital reserve requirement and how often must its ratio be calculated?",
+        "rewritten_query": "Under Basel IV standards, what is the capital reserve requirement, and how often must the capital reserve ratio be calculated?",
+        "raw_top_chunk_id": "sample_banking_regulation_txt#chunk_002",
+        "raw_top_similarity_score": 0.2435,
+        "raw_top_snippet": " lists in real time prior to authorization.  ## Section 2: Capital Reserves & Liquidity Ratios Under Basel IV capital ad",
+        "rewritten_top_chunk_id": "sample_banking_regulation_txt#chunk_002",
+        "rewritten_top_similarity_score": 0.2556,
+        "rewritten_top_snippet": " lists in real time prior to authorization.  ## Section 2: Capital Reserves & Liquidity Ratios Under Basel IV capital ad",
+        "similarity_score_gain": 0.0121,
+        "target_section_matched": false,
+        "relevance_verdict": "INSPECT: Rewritten query scored 0.2556 vs raw 0.2435."
+      }
+    }
+  ]
+}

@@ -18,7 +18,7 @@ Vector dimension:
 1536
 
 Vector preview:
-[0.0205, -0.0090, -0.0027, 0.0113, ...]
+[0.8000, 0.6000, 0.1000, 0.0000, ...]
 
 --------------------------------------------------
 
@@ -29,7 +29,7 @@ Vector dimension:
 1536
 
 Vector preview:
-[-0.0145, -0.0394, -0.0029, 0.0435, ...]
+[0.7800, 0.6200, 0.0900, 0.0100, ...]
 
 --------------------------------------------------
 
@@ -40,7 +40,7 @@ Vector dimension:
 1536
 
 Vector preview:
-[-0.0359, 0.0031, -0.0037, -0.0266, ...]
+[0.0100, -0.0200, 0.9000, 0.4000, ...]
 
 ==================================================
 
@@ -57,10 +57,10 @@ All dimensions consistent: PASS
 Cosine Similarity
 
 Text A vs Text B (similar):
-0.5964
+0.9995
 
 Text A vs Text C (unrelated):
-0.0193
+0.0869
 
 Result:
 PASS — similar texts scored higher than unrelated texts
