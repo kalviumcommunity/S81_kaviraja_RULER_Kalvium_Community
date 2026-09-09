@@ -20,6 +20,10 @@ from chunk_embedding_pipeline import ChunkEmbeddingPipeline, EmbeddedChunk
 from similarity_ranker import SimilarityRanker
 from relevance_checker import RelevanceSanityChecker
 try:
+    from grounded_generator import GroundedRAGGenerator
+except ImportError:
+    from src.grounded_generator import GroundedRAGGenerator
+try:
     from filtered_search import FilteredSearchEngine, MetadataFilter
 except ImportError:
     from src.filtered_search import FilteredSearchEngine, MetadataFilter
