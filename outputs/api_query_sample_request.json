@@ -1,0 +1,6 @@
+{
+  "question": "What is the capital adequacy requirement for Tier 1 capital under the framework?",
+  "top_k": 3,
+  "temperature": 0.2,
+  "use_mock": false
+}
