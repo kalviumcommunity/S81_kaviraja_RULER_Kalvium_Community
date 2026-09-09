@@ -1,0 +1,196 @@
+
+[TASK 4] Loading and verifying environment-driven configuration...
+Status Code: 200
+Active Config: {
+  "status": "success",
+  "config": {
+    "openai_api_base_url": "https://openrouter.ai/api/v1",
+    "openai_api_key": "sk-or-v...27bf",
+    "chat_model": "openai/gpt-4o-mini",
+    "embedding_model": "text-embedding-3-small",
+    "chroma_db_path": "./chroma_db",
+    "vector_collection_name": "document_chunks",
+    "server_host": "0.0.0.0",
+    "server_port": 8000,
+    "debug_mode": false,
+    "default_top_k": 3,
+    "default_temperature": 0.2,
+    "max_answer_tokens": 300
+  }
+}
+
+[TASK 1 & TASK 2] Sending query to /api/query endpoint...
+Request Payload:
+{
+  "question": "What is the capital adequacy requirement for Tier 1 capital under the framework?",
+  "top_k": 3,
+  "temperature": 0.2,
+  "use_mock": false
+}
+Status Code: 200
+Structured JSON Response:
+{
+  "status": "success",
+  "question": "What is the capital adequacy requirement for Tier 1 capital under the framework?",
+  "answer": "The capital adequacy requirement for Tier 1 capital is a minimum of 10.5% at all times for financial institutions [1].",
+  "sources": [
+    {
+      "doc_id": "SAMPLE_BANKING_REGULATION",
+      "filename": "sample_banking_regulation.txt",
+      "section": "Section 2: Liquidity and Capital Requirements",
+      "page_number": 2,
+      "chunk_id": "SAMPLE_BANKING_REGULATION#chunk_003",
+      "text": "## Section 2: Liquidity and Capital Requirements\nFinancial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times. \nAdditionally, liquidity coverage ratios (LCR) must be sustained above 100% to ensure short-term obligations can be met during high-stress market events.\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.",
+      "similarity_score": 0.9,
+      "start_char": 561,
+      "end_char": 956
+    },
+    {
+      "doc_id": "DOC2",
+      "filename": "doc2.txt",
+      "section": "Document 2: What is RAG?",
+      "page_number": 1,
+      "chunk_id": "DOC2#chunk_001",
+      "text": "# Document 2: What is RAG?\n\nRetrieval-Augmented Generation (RAG) is an AI framework for retrieving facts from an external knowledge base to ground large language models (LLMs) on the most accurate, up-to-date information and to give users insight into LLMs' generative process.",
+      "similarity_score": 0.85,
+      "start_char": 0,
+      "end_char": 278
+    },
+    {
+      "doc_id": "SAMPLE_BANKING_REGULATION",
+      "filename": "sample_banking_regulation.txt",
+      "section": "Section 1: Executive Overview and Scope",
+      "page_number": 1,
+      "chunk_id": "SAMPLE_BANKING_REGULATION#chunk_001",
+      "text": "## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.",
+      "similarity_score": 0.8,
+      "start_char": 69,
+      "end_char": 414
+    }
+  ],
+  "confidence": "high",
+  "is_grounded": true,
+  "metadata": {
+    "model": "openai/gpt-4o-mini",
+    "latency_ms": 7486.81,
+    "tokens_used": {
+      "prompt_tokens": 495,
+      "completion_tokens": 29,
+      "total_tokens": 524
+    },
+    "total_sources_retrieved": 3,
+    "retrieval_strategy": "vector_hybrid",
+    "timestamp": "2026-09-09T09:31:38.609522+00:00"
+  }
+}
+
+[TASK 3] Demonstrating Input Validation & Error Handling...
+
+Case A: Empty question input -> Expected 400 Bad Request
+Status Code: 422
+Response Payload:
+{
+  "status": "error",
+  "error": "Validation Error",
+  "detail": [
+    {
+      "loc": [
+        "body",
+        "question"
+      ],
+      "msg": "Value error, Question cannot be empty or contain only whitespace.",
+      "type": "value_error"
+    }
+  ],
+  "message": "Invalid request payload format or parameters."
+}
+
+Case B: Out-of-bounds top_k (-5) -> Expected 422 Unprocessable Entity
+Status Code: 422
+Response Payload:
+{
+  "status": "error",
+  "error": "Validation Error",
+  "detail": [
+    {
+      "loc": [
+        "body",
+        "top_k"
+      ],
+      "msg": "Input should be greater than or equal to 1",
+      "type": "greater_than_equal"
+    }
+  ],
+  "message": "Invalid request payload format or parameters."
+}
+
+Case C: Missing required field 'question' -> Expected 422 Unprocessable Entity
+Status Code: 422
+Response Payload:
+{
+  "status": "error",
+  "error": "Validation Error",
+  "detail": [
+    {
+      "loc": [
+        "body",
+        "question"
+      ],
+      "msg": "Field required",
+      "type": "missing"
+    }
+  ],
+  "message": "Invalid request payload format or parameters."
+}
+
+Query 2: Cybersecurity breach notification timeframe
+Status Code: 200
+Query 2 Response:
+{
+  "status": "fallback",
+  "question": "What is the mandatory reporting timeframe for data breaches and cybersecurity incidents?",
+  "answer": "The provided context does not contain sufficient information to answer this question with a verifiable citation.",
+  "sources": [
+    {
+      "doc_id": "SAMPLE_BANKING_REGULATION",
+      "filename": "sample_banking_regulation.txt",
+      "section": "Section 3: Data Protection and Privacy Controls",
+      "page_number": 3,
+      "chunk_id": "SAMPLE_BANKING_REGULATION#chunk_004",
+      "text": "## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.",
+      "similarity_score": 0.9,
+      "start_char": 973,
+      "end_char": 1282
+    },
+    {
+      "doc_id": "DOC2",
+      "filename": "doc2.txt",
+      "section": "Document 2: What is RAG?",
+      "page_number": 1,
+      "chunk_id": "DOC2#chunk_001",
+      "text": "# Document 2: What is RAG?\n\nRetrieval-Augmented Generation (RAG) is an AI framework for retrieving facts from an external knowledge base to ground large language models (LLMs) on the most accurate, up-to-date information and to give users insight into LLMs' generative process.",
+      "similarity_score": 0.85,
+      "start_char": 0,
+      "end_char": 278
+    }
+  ],
+  "confidence": "low",
+  "is_grounded": false,
+  "metadata": {
+    "model": "openai/gpt-4o-mini",
+    "latency_ms": 2168.01,
+    "tokens_used": {
+      "prompt_tokens": 369,
+      "completion_tokens": 14,
+      "total_tokens": 383
+    },
+    "total_sources_retrieved": 2,
+    "retrieval_strategy": "vector_hybrid",
+    "timestamp": "2026-09-09T09:31:40.844942+00:00"
+  }
+}
+
+[TASK 5] Persisting sample request, response, and error artifacts...
+Saved: C:\Users\SAI KAUSIKI\OneDrive\Desktop\S81_kaviraja_RULER_Kalvium_Community\outputs\api_query_sample_request.json
+Saved: C:\Users\SAI KAUSIKI\OneDrive\Desktop\S81_kaviraja_RULER_Kalvium_Community\outputs\api_query_sample_response.json
+Saved: C:\Users\SAI KAUSIKI\OneDrive\Desktop\S81_kaviraja_RULER_Kalvium_Community\outputs\api_query_error_response.json

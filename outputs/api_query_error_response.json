@@ -1,0 +1,67 @@
+{
+  "empty_question_test": {
+    "request": {
+      "question": "   ",
+      "top_k": 3
+    },
+    "status_code": 422,
+    "response": {
+      "status": "error",
+      "error": "Validation Error",
+      "detail": [
+        {
+          "loc": [
+            "body",
+            "question"
+          ],
+          "msg": "Value error, Question cannot be empty or contain only whitespace.",
+          "type": "value_error"
+        }
+      ],
+      "message": "Invalid request payload format or parameters."
+    }
+  },
+  "invalid_top_k_test": {
+    "request": {
+      "question": "What is the incident notification SLA?",
+      "top_k": -5
+    },
+    "status_code": 422,
+    "response": {
+      "status": "error",
+      "error": "Validation Error",
+      "detail": [
+        {
+          "loc": [
+            "body",
+            "top_k"
+          ],
+          "msg": "Input should be greater than or equal to 1",
+          "type": "greater_than_equal"
+        }
+      ],
+      "message": "Invalid request payload format or parameters."
+    }
+  },
+  "missing_question_test": {
+    "request": {
+      "top_k": 5
+    },
+    "status_code": 422,
+    "response": {
+      "status": "error",
+      "error": "Validation Error",
+      "detail": [
+        {
+          "loc": [
+            "body",
+            "question"
+          ],
+          "msg": "Field required",
+          "type": "missing"
+        }
+      ],
+      "message": "Invalid request payload format or parameters."
+    }
+  }
+}

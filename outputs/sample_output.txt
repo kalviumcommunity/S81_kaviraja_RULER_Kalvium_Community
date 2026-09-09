@@ -689,3 +689,351 @@ Organizations should tailor their rules and approval thresholds for high-value t
 [2026-09-09 13:35:12] [INFO] Exported sample dialogue text to: outputs\sample_dialogue.txt
 [2026-09-09 13:35:12] [INFO] Exported results JSON to:         outputs\conversational_rag_results.json
 [2026-09-09 13:35:12] [INFO] Exported technical report to:      outputs\conversational_rag_report.md
+[2026-09-09 14:45:11] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-09 14:45:11] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-09 14:45:11] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-09 14:45:11] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-09 14:45:11] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-09 14:45:49] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
+[2026-09-09 14:45:49] [INFO] ✅ [Malformed JSON Recovered]: Successfully cleaned and parsed malformed JSON object.
+[2026-09-09 14:45:49] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['confidence']
+[2026-09-09 14:45:49] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'confidence': 'high'}
+[2026-09-09 15:01:30] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-09 15:01:30] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-09 15:01:30] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-09 15:01:30] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-09 15:01:30] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-09 15:01:31] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-09 15:01:31] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-09 15:01:31] [INFO] Response Format Mode: default
+[2026-09-09 15:01:31] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: sample_banking_regulation.txt | Section: Section 2: Liquidity and Capital Requirements | Page: 2 | ID: SAMPLE_BANKING_REGULATION#chunk_003] ---\n## Section 2: Liquidity and Capital Requirements\nFinancial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times. \nAdditionally, liquidity coverage ratios (LCR) must be sustained above 100% to ensure short-term obligations can be met during high-stress market events.\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- [2] [Doc: doc2.txt | Section: Document 2: What is RAG? | Page: 1 | ID: DOC2#chunk_001] ---\n# Document 2: What is RAG?\n\nRetrieval-Augmented Generation (RAG) is an AI framework for retrieving facts from an external knowledge base to ground large language models (LLMs) on the most accurate, up-to-date information and to give users insight into LLMs' generative process.\n\n--- [3] [Doc: sample_banking_regulation.txt | Section: Section 1: Executive Overview and Scope | Page: 1 | ID: SAMPLE_BANKING_REGULATION#chunk_001] ---\n## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.\n\n\n[QUESTION]\nWhat is the capital adequacy requirement for Tier 1 capital under the framework?\n\n[ANSWER]"
+  }
+]
+[2026-09-09 15:01:38] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-09 15:01:38] [INFO] Response ID: gen-1788946296-gxpHBNdIKstCEfZd5Pc1
+[2026-09-09 15:01:38] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-09 15:01:38] [INFO] Finish Reason: stop
+[2026-09-09 15:01:38] [INFO] Token Usage: {
+  "prompt_tokens": 495,
+  "completion_tokens": 29,
+  "total_tokens": 524
+}
+[2026-09-09 15:01:38] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-09 15:01:38] [INFO] The capital adequacy requirement for Tier 1 capital is a minimum of 10.5% at all times for financial institutions [1].
+
+[2026-09-09 15:01:38] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-09 15:01:38] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-09 15:01:38] [INFO] Response Format Mode: default
+[2026-09-09 15:01:38] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: sample_banking_regulation.txt | Section: Section 3: Data Protection and Privacy Controls | Page: 3 | ID: SAMPLE_BANKING_REGULATION#chunk_004] ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\n\n--- [2] [Doc: doc2.txt | Section: Document 2: What is RAG? | Page: 1 | ID: DOC2#chunk_001] ---\n# Document 2: What is RAG?\n\nRetrieval-Augmented Generation (RAG) is an AI framework for retrieving facts from an external knowledge base to ground large language models (LLMs) on the most accurate, up-to-date information and to give users insight into LLMs' generative process.\n\n\n[QUESTION]\nWhat is the mandatory reporting timeframe for data breaches and cybersecurity incidents?\n\n[ANSWER]"
+  }
+]
+[2026-09-09 15:01:40] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-09 15:01:40] [INFO] Response ID: gen-1788946298-Nl6DjNkybcdwcEKnVZUI
+[2026-09-09 15:01:40] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-09 15:01:40] [INFO] Finish Reason: stop
+[2026-09-09 15:01:40] [INFO] Token Usage: {
+  "prompt_tokens": 369,
+  "completion_tokens": 14,
+  "total_tokens": 383
+}
+[2026-09-09 15:01:40] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-09 15:01:40] [INFO] The provided context does not contain sufficient information to answer this question.
+
+[2026-09-09 15:02:03] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-09 15:02:03] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-09 15:02:03] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-09 15:02:03] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-09 15:02:03] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-09 15:02:03] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
+[2026-09-09 15:02:03] [INFO] ✅ [Malformed JSON Recovered]: Successfully cleaned and parsed malformed JSON object.
+[2026-09-09 15:02:03] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['confidence']
+[2026-09-09 15:02:03] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'confidence': 'high'}
+[2026-09-09 15:02:03] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-09 15:02:03] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-09 15:02:03] [INFO] Response Format Mode: default
+[2026-09-09 15:02:03] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: doc2.txt | Section: Document 2: What is RAG? | Page: 1 | ID: DOC2#chunk_001] ---\n# Document 2: What is RAG?\n\nRetrieval-Augmented Generation (RAG) is an AI framework for retrieving facts from an external knowledge base to ground large language models (LLMs) on the most accurate, up-to-date information and to give users insight into LLMs' generative process.\n\n--- [2] [Doc: sample_banking_regulation.txt | Section: Section 2: Liquidity and Capital Requirements | Page: 2 | ID: SAMPLE_BANKING_REGULATION#chunk_003] ---\n## Section 2: Liquidity and Capital Requirements\nFinancial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times. \nAdditionally, liquidity coverage ratios (LCR) must be sustained above 100% to ensure short-term obligations can be met during high-stress market events.\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- [3] [Doc: sample_banking_regulation.txt | Section: Section 1: Executive Overview and Scope | Page: 1 | ID: SAMPLE_BANKING_REGULATION#chunk_001] ---\n## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.\n\n\n[QUESTION]\nWhat is the capital adequacy requirement for Tier 1 capital?\n\n[ANSWER]"
+  }
+]
+[2026-09-09 15:02:07] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-09 15:02:07] [INFO] Response ID: gen-1788946326-MaLsr9K2Vnz8bwFZssfJ
+[2026-09-09 15:02:07] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-09 15:02:07] [INFO] Finish Reason: stop
+[2026-09-09 15:02:07] [INFO] Token Usage: {
+  "prompt_tokens": 492,
+  "completion_tokens": 24,
+  "total_tokens": 516
+}
+[2026-09-09 15:02:07] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-09 15:02:07] [INFO] Financial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times [2].
+
+[2026-09-09 15:02:07] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-09 15:02:07] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-09 15:02:07] [INFO] Response Format Mode: default
+[2026-09-09 15:02:07] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: doc2.txt | Section: Document 2: What is RAG? | Page: 1 | ID: DOC2#chunk_001] ---\n# Document 2: What is RAG?\n\nRetrieval-Augmented Generation (RAG) is an AI framework for retrieving facts from an external knowledge base to ground large language models (LLMs) on the most accurate, up-to-date information and to give users insight into LLMs' generative process.\n\n--- [2] [Doc: doc2.txt | Section: Document 2: What is RAG? | Page: 1 | ID: DOC2#chunk_002] ---\nto fine-tune the model, which is expensive and time-consuming. It works by first converting documents into embeddings, storing them in a vector database, and then retrieving the most relevant documents when a user query is received.\n\n\n[QUESTION]\nWhat is the mandatory incident reporting SLA?\n\n[ANSWER]"
+  }
+]
+[2026-09-09 15:02:08] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-09 15:02:08] [INFO] Response ID: gen-1788946327-b7u4iYHXwPvVeNiW4Ske
+[2026-09-09 15:02:08] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-09 15:02:08] [INFO] Finish Reason: stop
+[2026-09-09 15:02:08] [INFO] Token Usage: {
+  "prompt_tokens": 339,
+  "completion_tokens": 13,
+  "total_tokens": 352
+}
+[2026-09-09 15:02:08] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-09 15:02:08] [INFO] The provided context does not contain sufficient information to answer this question.
+
+[2026-09-09 15:02:08] [INFO] ==================================================
+[2026-09-09 15:02:08] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
+[2026-09-09 15:02:08] [INFO] ==================================================
+[2026-09-09 15:02:08] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-09 15:02:08] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-09 15:02:08] [INFO] Response Format Mode: {'type': 'json_object'}
+[2026-09-09 15:02:08] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess.\n\nCRITICAL OUTPUT REQUIREMENT: You MUST return a JSON object matching this structure: {\"answer\": \"<answer_value>\", \"source\": \"<source_value>\", \"confidence\": \"<confidence_value>\"}. Required keys: [\"answer\", \"source\", \"confidence\"]."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: doc2.txt | Section: Document 2: What is RAG? | Page: 1 | ID: DOC2#chunk_001] ---\n# Document 2: What is RAG?\n\nRetrieval-Augmented Generation (RAG) is an AI framework for retrieving facts from an external knowledge base to ground large language models (LLMs) on the most accurate, up-to-date information and to give users insight into LLMs' generative process.\n\n--- [2] [Doc: doc2.txt | Section: Document 2: What is RAG? | Page: 1 | ID: DOC2#chunk_002] ---\nto fine-tune the model, which is expensive and time-consuming. It works by first converting documents into embeddings, storing them in a vector database, and then retrieving the most relevant documents when a user query is received.\n\n--- [3] [Doc: doc1.txt | Section: Document 1: Introduction to AI | Page: 1 | ID: DOC1#chunk_001] ---\n# Document 1: Introduction to AI\n\nArtificial Intelligence (AI) refers to the simulation of human intelligence in machines that are programmed to think like humans and mimic their actions. The term may also be applied to any machine that exhibits traits associated with a human mind such as learning and problem-solving.\n\n\n[QUESTION]\nWhat is the reserve requirement?\n\n[ANSWER]"
+  }
+]
+[2026-09-09 15:02:12] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-09 15:02:12] [INFO] Response ID: gen-1788946330-KLhW6ztedNNFGusi4rar
+[2026-09-09 15:02:12] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-09 15:02:12] [INFO] Finish Reason: stop
+[2026-09-09 15:02:12] [INFO] Token Usage: {
+  "prompt_tokens": 482,
+  "completion_tokens": 28,
+  "total_tokens": 510
+}
+[2026-09-09 15:02:12] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-09 15:02:12] [INFO] {"answer": "The provided context does not contain sufficient information to answer this question.", "source": "", "confidence": "0"}
+
+[2026-09-09 15:02:12] [INFO] ✅ [JSON Parse Success]: Raw response successfully parsed into Python dict.
+[2026-09-09 15:02:12] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['source']
+[2026-09-09 15:02:12] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'source': 'Regulatory_Store_v1', 'confidence': 'high'}
+[2026-09-09 15:02:12] [INFO] 🎉 [Structured Output Success]: JSON parsed, recovered, and validated successfully.
+[2026-09-09 15:09:32] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-09 15:09:32] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-09 15:09:32] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-09 15:09:32] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-09 15:09:32] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-09 15:09:33] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
+[2026-09-09 15:09:33] [INFO] ✅ [Malformed JSON Recovered]: Successfully cleaned and parsed malformed JSON object.
+[2026-09-09 15:09:33] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['confidence']
+[2026-09-09 15:09:33] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'confidence': 'high'}
+[2026-09-09 15:09:33] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-09 15:09:33] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-09 15:09:33] [INFO] Response Format Mode: default
+[2026-09-09 15:09:33] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: doc2.txt | Section: Document 2: What is RAG? | Page: 1 | ID: DOC2#chunk_001] ---\n# Document 2: What is RAG?\n\nRetrieval-Augmented Generation (RAG) is an AI framework for retrieving facts from an external knowledge base to ground large language models (LLMs) on the most accurate, up-to-date information and to give users insight into LLMs' generative process.\n\n--- [2] [Doc: sample_banking_regulation.txt | Section: Section 2: Liquidity and Capital Requirements | Page: 2 | ID: SAMPLE_BANKING_REGULATION#chunk_003] ---\n## Section 2: Liquidity and Capital Requirements\nFinancial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times. \nAdditionally, liquidity coverage ratios (LCR) must be sustained above 100% to ensure short-term obligations can be met during high-stress market events.\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- [3] [Doc: sample_banking_regulation.txt | Section: Section 1: Executive Overview and Scope | Page: 1 | ID: SAMPLE_BANKING_REGULATION#chunk_001] ---\n## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.\n\n\n[QUESTION]\nWhat is the capital adequacy requirement for Tier 1 capital?\n\n[ANSWER]"
+  }
+]
+[2026-09-09 15:09:38] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-09 15:09:38] [INFO] Response ID: gen-1788946775-KTzZtqSMYnfqfuUxFTpi
+[2026-09-09 15:09:38] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-09 15:09:38] [INFO] Finish Reason: stop
+[2026-09-09 15:09:38] [INFO] Token Usage: {
+  "prompt_tokens": 492,
+  "completion_tokens": 25,
+  "total_tokens": 517
+}
+[2026-09-09 15:09:38] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-09 15:09:38] [INFO] Financial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times [2].
+
+[2026-09-09 15:09:38] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-09 15:09:38] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-09 15:09:38] [INFO] Response Format Mode: default
+[2026-09-09 15:09:38] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: doc2.txt | Section: Document 2: What is RAG? | Page: 1 | ID: DOC2#chunk_001] ---\n# Document 2: What is RAG?\n\nRetrieval-Augmented Generation (RAG) is an AI framework for retrieving facts from an external knowledge base to ground large language models (LLMs) on the most accurate, up-to-date information and to give users insight into LLMs' generative process.\n\n--- [2] [Doc: doc2.txt | Section: Document 2: What is RAG? | Page: 1 | ID: DOC2#chunk_002] ---\nto fine-tune the model, which is expensive and time-consuming. It works by first converting documents into embeddings, storing them in a vector database, and then retrieving the most relevant documents when a user query is received.\n\n\n[QUESTION]\nWhat is the mandatory incident reporting SLA?\n\n[ANSWER]"
+  }
+]
+[2026-09-09 15:09:40] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-09 15:09:40] [INFO] Response ID: gen-1788946778-kzdh6QvmqtVz7JNzmHzX
+[2026-09-09 15:09:40] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-09 15:09:40] [INFO] Finish Reason: stop
+[2026-09-09 15:09:40] [INFO] Token Usage: {
+  "prompt_tokens": 339,
+  "completion_tokens": 14,
+  "total_tokens": 353
+}
+[2026-09-09 15:09:40] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-09 15:09:40] [INFO] The provided context does not contain sufficient information to answer this question.
+
+[2026-09-09 15:09:41] [INFO] ==================================================
+[2026-09-09 15:09:41] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
+[2026-09-09 15:09:41] [INFO] ==================================================
+[2026-09-09 15:09:41] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-09 15:09:41] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-09 15:09:41] [INFO] Response Format Mode: {'type': 'json_object'}
+[2026-09-09 15:09:41] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess.\n\nCRITICAL OUTPUT REQUIREMENT: You MUST return a JSON object matching this structure: {\"answer\": \"<answer_value>\", \"source\": \"<source_value>\", \"confidence\": \"<confidence_value>\"}. Required keys: [\"answer\", \"source\", \"confidence\"]."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: doc2.txt | Section: Document 2: What is RAG? | Page: 1 | ID: DOC2#chunk_001] ---\n# Document 2: What is RAG?\n\nRetrieval-Augmented Generation (RAG) is an AI framework for retrieving facts from an external knowledge base to ground large language models (LLMs) on the most accurate, up-to-date information and to give users insight into LLMs' generative process.\n\n--- [2] [Doc: doc2.txt | Section: Document 2: What is RAG? | Page: 1 | ID: DOC2#chunk_002] ---\nto fine-tune the model, which is expensive and time-consuming. It works by first converting documents into embeddings, storing them in a vector database, and then retrieving the most relevant documents when a user query is received.\n\n--- [3] [Doc: doc1.txt | Section: Document 1: Introduction to AI | Page: 1 | ID: DOC1#chunk_001] ---\n# Document 1: Introduction to AI\n\nArtificial Intelligence (AI) refers to the simulation of human intelligence in machines that are programmed to think like humans and mimic their actions. The term may also be applied to any machine that exhibits traits associated with a human mind such as learning and problem-solving.\n\n\n[QUESTION]\nWhat is the reserve requirement?\n\n[ANSWER]"
+  }
+]
+[2026-09-09 15:09:42] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-09 15:09:42] [INFO] Response ID: gen-1788946781-sJapiz3sCkjKjjlYKOZU
+[2026-09-09 15:09:42] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-09 15:09:42] [INFO] Finish Reason: stop
+[2026-09-09 15:09:42] [INFO] Token Usage: {
+  "prompt_tokens": 482,
+  "completion_tokens": 28,
+  "total_tokens": 510
+}
+[2026-09-09 15:09:42] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-09 15:09:42] [INFO] {"answer": "The provided context does not contain sufficient information to answer this question.", "source": "", "confidence": "0"}
+
+[2026-09-09 15:09:42] [INFO] ✅ [JSON Parse Success]: Raw response successfully parsed into Python dict.
+[2026-09-09 15:09:42] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['source']
+[2026-09-09 15:09:42] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'source': 'Regulatory_Store_v1', 'confidence': 'high'}
+[2026-09-09 15:09:42] [INFO] 🎉 [Structured Output Success]: JSON parsed, recovered, and validated successfully.
+[2026-09-09 15:21:19] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-09 15:21:19] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-09 15:21:19] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-09 15:21:19] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-09 15:21:19] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-09 15:21:20] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
+[2026-09-09 15:21:20] [INFO] ✅ [Malformed JSON Recovered]: Successfully cleaned and parsed malformed JSON object.
+[2026-09-09 15:21:20] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['confidence']
+[2026-09-09 15:21:20] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'confidence': 'high'}
+[2026-09-09 15:21:20] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-09 15:21:20] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-09 15:21:20] [INFO] Response Format Mode: default
+[2026-09-09 15:21:20] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: doc2.txt | Section: Document 2: What is RAG? | Page: 1 | ID: DOC2#chunk_001] ---\n# Document 2: What is RAG?\n\nRetrieval-Augmented Generation (RAG) is an AI framework for retrieving facts from an external knowledge base to ground large language models (LLMs) on the most accurate, up-to-date information and to give users insight into LLMs' generative process.\n\n--- [2] [Doc: sample_banking_regulation.txt | Section: Section 2: Liquidity and Capital Requirements | Page: 2 | ID: SAMPLE_BANKING_REGULATION#chunk_003] ---\n## Section 2: Liquidity and Capital Requirements\nFinancial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times. \nAdditionally, liquidity coverage ratios (LCR) must be sustained above 100% to ensure short-term obligations can be met during high-stress market events.\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- [3] [Doc: sample_banking_regulation.txt | Section: Section 1: Executive Overview and Scope | Page: 1 | ID: SAMPLE_BANKING_REGULATION#chunk_001] ---\n## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.\n\n\n[QUESTION]\nWhat is the capital adequacy requirement for Tier 1 capital?\n\n[ANSWER]"
+  }
+]
+[2026-09-09 15:21:26] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-09 15:21:26] [INFO] Response ID: gen-1788947485-zcPuEgz2yAPmuZwvFtHg
+[2026-09-09 15:21:26] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-09 15:21:26] [INFO] Finish Reason: stop
+[2026-09-09 15:21:26] [INFO] Token Usage: {
+  "prompt_tokens": 492,
+  "completion_tokens": 31,
+  "total_tokens": 523
+}
+[2026-09-09 15:21:26] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-09 15:21:26] [INFO] The capital adequacy requirement for Tier 1 capital is a minimum ratio of 10.5% that financial institutions must maintain at all times [2].
+
+[2026-09-09 15:21:26] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-09 15:21:26] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-09 15:21:26] [INFO] Response Format Mode: default
+[2026-09-09 15:21:26] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: doc2.txt | Section: Document 2: What is RAG? | Page: 1 | ID: DOC2#chunk_001] ---\n# Document 2: What is RAG?\n\nRetrieval-Augmented Generation (RAG) is an AI framework for retrieving facts from an external knowledge base to ground large language models (LLMs) on the most accurate, up-to-date information and to give users insight into LLMs' generative process.\n\n--- [2] [Doc: doc2.txt | Section: Document 2: What is RAG? | Page: 1 | ID: DOC2#chunk_002] ---\nto fine-tune the model, which is expensive and time-consuming. It works by first converting documents into embeddings, storing them in a vector database, and then retrieving the most relevant documents when a user query is received.\n\n\n[QUESTION]\nWhat is the mandatory incident reporting SLA?\n\n[ANSWER]"
+  }
+]
+[2026-09-09 15:21:29] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-09 15:21:29] [INFO] Response ID: gen-1788947486-qNfjSE6rUQAD8DQhrjRi
+[2026-09-09 15:21:29] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-09 15:21:29] [INFO] Finish Reason: stop
+[2026-09-09 15:21:29] [INFO] Token Usage: {
+  "prompt_tokens": 339,
+  "completion_tokens": 14,
+  "total_tokens": 353
+}
+[2026-09-09 15:21:29] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-09 15:21:29] [INFO] The provided context does not contain sufficient information to answer this question.
+
+[2026-09-09 15:21:29] [INFO] ==================================================
+[2026-09-09 15:21:29] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
+[2026-09-09 15:21:29] [INFO] ==================================================
+[2026-09-09 15:21:29] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-09 15:21:29] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-09 15:21:29] [INFO] Response Format Mode: {'type': 'json_object'}
+[2026-09-09 15:21:29] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess.\n\nCRITICAL OUTPUT REQUIREMENT: You MUST return a JSON object matching this structure: {\"answer\": \"<answer_value>\", \"source\": \"<source_value>\", \"confidence\": \"<confidence_value>\"}. Required keys: [\"answer\", \"source\", \"confidence\"]."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: doc2.txt | Section: Document 2: What is RAG? | Page: 1 | ID: DOC2#chunk_001] ---\n# Document 2: What is RAG?\n\nRetrieval-Augmented Generation (RAG) is an AI framework for retrieving facts from an external knowledge base to ground large language models (LLMs) on the most accurate, up-to-date information and to give users insight into LLMs' generative process.\n\n--- [2] [Doc: doc2.txt | Section: Document 2: What is RAG? | Page: 1 | ID: DOC2#chunk_002] ---\nto fine-tune the model, which is expensive and time-consuming. It works by first converting documents into embeddings, storing them in a vector database, and then retrieving the most relevant documents when a user query is received.\n\n--- [3] [Doc: doc1.txt | Section: Document 1: Introduction to AI | Page: 1 | ID: DOC1#chunk_001] ---\n# Document 1: Introduction to AI\n\nArtificial Intelligence (AI) refers to the simulation of human intelligence in machines that are programmed to think like humans and mimic their actions. The term may also be applied to any machine that exhibits traits associated with a human mind such as learning and problem-solving.\n\n\n[QUESTION]\nWhat is the reserve requirement?\n\n[ANSWER]"
+  }
+]
+[2026-09-09 15:21:30] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-09 15:21:30] [INFO] Response ID: gen-1788947489-CDD8gRKt2VtSclo95mIF
+[2026-09-09 15:21:30] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-09 15:21:30] [INFO] Finish Reason: stop
+[2026-09-09 15:21:30] [INFO] Token Usage: {
+  "prompt_tokens": 482,
+  "completion_tokens": 27,
+  "total_tokens": 509
+}
+[2026-09-09 15:21:30] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-09 15:21:30] [INFO] {"answer": "The provided context does not contain sufficient information to answer this question.", "source": "", "confidence": "0"}
+
+[2026-09-09 15:21:30] [INFO] ✅ [JSON Parse Success]: Raw response successfully parsed into Python dict.
+[2026-09-09 15:21:30] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['source']
+[2026-09-09 15:21:30] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'source': 'Regulatory_Store_v1', 'confidence': 'high'}
+[2026-09-09 15:21:30] [INFO] 🎉 [Structured Output Success]: JSON parsed, recovered, and validated successfully.
