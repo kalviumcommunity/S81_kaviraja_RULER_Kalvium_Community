@@ -46,3 +46,18 @@ RAG_CONTEXT_INJECTION_USER_PROMPT = PromptTemplate(
     "[ANSWER]"
 )
 
+RAG_GROUNDED_USER_PROMPT = PromptTemplate(
+    "[CONTEXT]\n"
+    "{context_str}\n\n"
+    "[QUESTION]\n"
+    "{query}\n\n"
+    "[ANSWER]"
+)
+
+RAG_UNGROUNDED_USER_PROMPT = PromptTemplate(
+    "Please answer the following question based on your general knowledge:\n\n"
+    "[QUESTION]\n"
+    "{query}\n\n"
+    "[ANSWER]"
+)
+

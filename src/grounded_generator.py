@@ -202,7 +202,7 @@ class GroundedRAGGenerator:
         """
         context_str = self.format_context_blocks(retrieved_chunks)
 
-        system_prompt = RAG_GROUNDED_SYSTEM_PROMPT.render()
+        system_prompt = RAG_GROUNDED_SYSTEM_PROMPT.render(role="RAG Assistant")
         user_prompt = RAG_GROUNDED_USER_PROMPT.render(
             context_str=context_str,
             query=query

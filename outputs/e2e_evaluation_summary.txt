@@ -1,0 +1,33 @@
+================================================================================
+                 E2E RAG EVALUATION SUMMARY REPORT                              
+================================================================================
+Total Queries Evaluated: 4
+Overall Pass Rate:       25.0%
+Mean Correctness Score:  75.00%
+Mean Citation Accuracy:  100.00%
+Mean Grounding Faith:    58.33%
+
+--------------------------------------------------------------------------------
+NOTABLE FAILURES
+--------------------------------------------------------------------------------
+
+Query ID: E2E-001 [HALLUCINATED_CITATION]
+Query: "What are the rules and approval thresholds for high-value transaction payments?"
+Correctness Missed: []
+Citation Missing: []
+Citation Hallucinated: ['sample_banking_regulation_txt#chunk_001']
+------------------------------------------------------------
+
+Query ID: E2E-002 [HALLUCINATED_CITATION]
+Query: "What happens if you fail to obtain board authorization for high-value expenditures?"
+Correctness Missed: []
+Citation Missing: []
+Citation Hallucinated: ['sample_banking_regulation_txt#chunk_003', 'sample_banking_regulation_txt#chunk_001']
+------------------------------------------------------------
+
+Query ID: E2E-003 [HALLUCINATED_CITATION]
+Query: "What automated screening protocols verify transaction velocity and entity sanction status?"
+Correctness Missed: ['Anti-Money Laundering', 'suspicious transactions']
+Citation Missing: []
+Citation Hallucinated: ['sample_banking_regulation_txt#chunk_003', 'sample_banking_regulation_txt#chunk_004']
+------------------------------------------------------------
