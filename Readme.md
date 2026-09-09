@@ -83,6 +83,30 @@ A production-grade prompt assembly and context injection engine that formats ret
 
 ---
 
+## Hallucination Guardrails & Refusal Handling (`src/hallucination_guardrails.py`)
+
+A pre-generation quality guardrail and safe refusal engine that monitors retrieval signals, triggers deterministic safe refusals on weak context, and preserves confident grounded answers when strong evidence exists.
+
+- **Task 1 — Weak Retrieval Detection**: Detects weak retrieval using multi-signal checks (empty candidates, low similarity score, too few chunks above threshold, or weak lexical alignment).
+- **Task 2 — Safe Refusal Generation**: Returns an explicit, standardized refusal without invoking generative LLMs, eliminating hallucination risks.
+- **Task 3 — Multi-Criteria Thresholds**: Applies configurable decision rules (`min_similarity_threshold = 0.35`, `min_keyword_overlap_ratio = 0.15`, `min_chunks_above_threshold = 1`).
+- **Task 4 — Confident Answer Preservation**: Routes verified strong evidence to grounded generation with complete source citations.
+- **Task 5 — Output Artifacts & Reproducibility**: Exports structured JSON to [`outputs/hallucination_guardrail_results.json`](outputs/hallucination_guardrail_results.json), refusal inspection logs to [`outputs/guardrail_refusal_sample.txt`](outputs/guardrail_refusal_sample.txt), and report to [`outputs/guardrail_report.md`](outputs/guardrail_report.md).
+
+---
+
+## Conversational RAG & Multi-Turn Query Rewriting (`src/conversational_rag.py`)
+
+A conversational RAG engine that tracks dialogue history across multiple turns, resolves ambiguous follow-up questions containing pronouns or ellipses into self-contained standalone search queries, and retrieves high-precision grounded context.
+
+- **Task 1 — Track Conversation History**: Tracks user questions, assistant answers, rewritten standalone queries, retrieved context chunks, and citations across turns using `ConversationTurn` and `ConversationHistoryTracker` with sliding-window FIFO management.
+- **Task 2 — Rewrite Follow-Up Questions**: Reformulates follow-up queries with coreference pronouns (*"them"*, *"it"*, *"under that threshold"*) into standalone queries using `ConversationalQueryRewriter` and `CONVERSATIONAL_QUERY_REWRITE_SYSTEM_PROMPT`, preserving independent queries without alteration.
+- **Task 3 — Retrieve Using Rewritten Query**: Proves quantitative retrieval precision and similarity score gains ($\Delta S > 0$) by benchmarking rewritten queries against raw follow-up queries via `ConversationalRetriever.compare_retrieval()`.
+- **Task 4 — Demonstrate Multi-Turn Dialogue**: Demonstrates an end-to-end 4-turn institutional regulatory dialogue where follow-ups are accurately answered and cited because conversational history was used to reformulate queries.
+- **Task 5 — Output Artifacts & Reproducibility**: Exports structured JSON to [`outputs/sample_dialogue.json`](outputs/sample_dialogue.json) and [`outputs/conversational_rag_results.json`](outputs/conversational_rag_results.json), human-readable dialogue transcripts to [`outputs/sample_dialogue.txt`](outputs/sample_dialogue.txt), and comprehensive report to [`outputs/conversational_rag_report.md`](outputs/conversational_rag_report.md). Detailed documentation in [`docs/conversational-rag.md`](docs/conversational-rag.md).
+
+---
+
 ## Prerequisites
 
 ## Source Citation & Attribution

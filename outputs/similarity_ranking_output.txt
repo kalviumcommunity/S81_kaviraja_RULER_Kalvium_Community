@@ -3,7 +3,7 @@ Vector Similarity Ranking Report
 
 Query: "What are the rules and approval thresholds for high-value transaction payments?"
 Metric Used: Cosine Similarity
-Total Chunks Scored: 5
+Total Chunks Scored: 4
 Query Dimension: 1536
 Query Vector Preview: [-0.0272, -0.0041, 0.0385, -0.0204, ...]
 
@@ -21,58 +21,46 @@ Verdict: Cosine similarity is the industry standard metric for comparing text em
 ================================
 Most Similar Chunks (Top Ranked)
 ================================
-Rank #1 | Score: 0.006636 | Chunk ID: sample_banking_regulation_txt#chunk_005
-Source Path: data\sample_banking_regulation.txt
+Rank #1 | Score: 0.002122 | Chunk ID: sample_banking_regulation_txt#chunk_001
+Source Path: data/sample_banking_regulation.txt
 Filename: sample_banking_regulation.txt
-Section: Section 4: AI Model Governance in Credit Risk
-Text: "XAI) detailing primary factor weightings for any adverse credit decisions.
-Model training datasets must be archived for a minimum of 7 years to facilitate independent regulatory review.
-"
-Vector Preview: [0.3000, 0.3010, 0.3020, 0.3030, ...]
---------------------------------------------------
-Rank #2 | Score: 0.002122 | Chunk ID: sample_banking_regulation_txt#chunk_001
-Source Path: data\sample_banking_regulation.txt
-Filename: sample_banking_regulation.txt
-Section: Section 1: Executive Overview and Scope
-Text: "# Banking Regulatory Compliance Framework (BRCF-2026)
+Section: Section 1: Executive Summary & Overview
+Text: "# Global Banking Compliance & Regulatory Framework 2026
 
---- Page 1 ---
-## Section 1: Executive Overview and Scope
-This document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. 
-All licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.
-Failure to maintain compliance may result in administrative penalties, operational suspension, or revocation of banking licenses.
+## Section 1: Executive Summary & Overview
+Financial institutions operating within international jurisdictions must establish automated compliance monitoring systems to detect, prevent, and report suspicious transactions under Anti-Money Laundering (AML) and Counter-Terrorism Financing (CTF) directives. All automated systems must evaluate transaction velocities, beneficiary country risk scores, and entity sanction lists in real time prior to authorization.
 
---- Page 2 ---
-## Section 2:"
+## Section 2: Capital Reserves & Liquidity Rat"
 Vector Preview: [0.1000, 0.1010, 0.1020, 0.1030, ...]
+--------------------------------------------------
+Rank #2 | Score: -0.005021 | Chunk ID: sample_banking_regulation_txt#chunk_004
+Source Path: data/sample_banking_regulation.txt
+Filename: sample_banking_regulation.txt
+Section: Section 3: High-Value Transaction Authorization Thresholds
+Text: ",000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board authorization for high-value transactions results in immediate suspension of procurement privileges and mandatory compliance audit review."
+Vector Preview: [0.2500, 0.2510, 0.2520, 0.2530, ...]
 --------------------------------------------------
 
 ================================
 Least Similar Chunks (Bottom Ranked)
 ================================
-Rank #5 | Score: -0.012768 | Chunk ID: sample_banking_regulation_txt#chunk_003
-Source Path: data\sample_banking_regulation.txt
+Rank #4 | Score: -0.012768 | Chunk ID: sample_banking_regulation_txt#chunk_003
+Source Path: data/sample_banking_regulation.txt
 Filename: sample_banking_regulation.txt
-Section: Section 3: Data Protection and Privacy Controls
-Text: "Daily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.
+Section: Section 3: High-Value Transaction Authorization Thresholds
+Text: "30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial regulatory bodies.
 
---- Page 3 ---
-## Section 3: Data Protection and Privacy Controls
-Customer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.
-Access control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.
-Any data breach must be reported"
+## Section 3: High-Value Transaction Authorization Thresholds
+Standard retail banking policies mandate that routine vendor payments under $50,000 may be approved directly by designated department heads without requiring senior executive approval. However, any single capital expenditure or vendor disbursement exceeding $50,000 requires unanimous board authorization and an independent audit report prior to disbursement. Failure to obtain board"
 Vector Preview: [0.2000, 0.2010, 0.2020, 0.2030, ...]
 --------------------------------------------------
-Rank #4 | Score: -0.008573 | Chunk ID: sample_banking_regulation_txt#chunk_002
-Source Path: data\sample_banking_regulation.txt
+Rank #3 | Score: -0.008573 | Chunk ID: sample_banking_regulation_txt#chunk_002
+Source Path: data/sample_banking_regulation.txt
 Filename: sample_banking_regulation.txt
-Section: Section 2: Liquidity and Capital Requirements
-Text: " operational suspension, or revocation of banking licenses.
+Section: Section 2: Capital Reserves & Liquidity Ratios
+Text: " lists in real time prior to authorization.
 
---- Page 2 ---
-## Section 2: Liquidity and Capital Requirements
-Financial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times. 
-Additionally, liquidity coverage ratios (LCR) must be sustained above 100% to ensure short-term obligations can be met during high-stress market events.
-Daily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by"
+## Section 2: Capital Reserves & Liquidity Ratios
+Under Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times. In addition, institutions must hold high-quality liquid assets (HQLA) sufficient to cover total net cash outflows over a 30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted"
 Vector Preview: [0.1500, 0.1510, 0.1520, 0.1530, ...]
 --------------------------------------------------

@@ -42,10 +42,10 @@
   "sample_chunks": [
     {
       "chunk_id": "DOC_TOKEN_AWARE_001#chunk_001",
-      "text": "# Banking Regulatory Compliance Framework (BRCF-2026)\n\n--- Page 1 ---\n## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.\nFailure to maintain compliance may result in administrative penalties, operational suspension, or revocation of banking licenses.\n\n--- Page 2 ---\n## Section 2: Liquidity and Capital Requirements\nFinancial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times. \nAdditionally, liquidity coverage ratios (LCR) must be sustained above 100% to ensure short-term obligations can be met during high-stress market events.\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported to the regulatory oversight committee within 24 hours of initial detection.\n\n--- Page 4 ---\n## Section 4: AI Model Governance in Credit Risk\nAI and machine learning models used for credit scoring and loan origination must undergo quarterly bias audits.\nAll automated decision-making pipelines must provide explainable outputs (XAI) detailing primary factor weightings for any adverse credit decisions.\nModel training datasets must be archived for a minimum of 7 years to facilitate independent regulatory review.\n",
-      "token_count": 353,
+      "text": "Under financial regulatory guidelines, all vendor transactions under $50,000 may be approved directly. However, any capital expenditure exceeding $50,000 requires unanimous board authorization and audit.",
+      "token_count": 35,
       "start_token": 0,
-      "end_token": 353,
+      "end_token": 35,
       "overlap_tokens": 0,
       "metadata": {
         "doc_id": "DOC_TOKEN_AWARE_001",
@@ -56,7 +56,7 @@
         "chunk_index": 0,
         "total_chunks": 1,
         "start_char": 0,
-        "end_char": 1830
+        "end_char": 203
       }
     }
   ]

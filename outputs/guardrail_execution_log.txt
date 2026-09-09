@@ -1,0 +1,72 @@
+[2026-09-08 17:10:24] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-08 17:10:24] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-08 17:10:24] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-08 17:10:24] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-08 17:10:24] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-08 17:11:47] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-08 17:11:47] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-08 17:11:47] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-08 17:11:47] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-08 17:11:47] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-08 17:12:16] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-08 17:12:16] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-08 17:12:16] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-08 17:12:16] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-08 17:12:16] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-08 17:12:16] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-08 17:12:16] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-08 17:12:16] [INFO] Response Format Mode: default
+[2026-09-08 17:12:16] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Compliance Officer.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: sample_banking_regulation.txt | Section: Section 3: High-Value Authorizations | Page: 1 | ID: DOC_BRCF_2026#chunk_003] ---\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported\n\n\n[QUESTION]\nWhat are the customer encryption standards and data breach reporting timeframe?\n\n[ANSWER]"
+  }
+]
+[2026-09-08 17:12:16] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-08 17:12:16] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-09-08 17:12:16] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-08 17:12:16] [INFO] Finish Reason: stop
+[2026-09-08 17:12:16] [INFO] Token Usage: {
+  "prompt_tokens": 42,
+  "completion_tokens": 36,
+  "total_tokens": 78
+}
+[2026-09-08 17:12:16] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-08 17:12:16] [INFO] Customer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher [1]. Additionally, any data breach must be reported to the regulatory oversight committee within 24 hours of initial detection [1].
+
+[2026-09-08 17:24:26] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-08 17:24:26] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-08 17:24:26] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-08 17:24:26] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-08 17:24:26] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-08 17:24:26] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-08 17:24:26] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-08 17:24:26] [INFO] Response Format Mode: default
+[2026-09-08 17:24:26] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Compliance Officer.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: sample_banking_regulation.txt | Section: Section 3: High-Value Authorizations | Page: 1 | ID: DOC_BRCF_2026#chunk_003] ---\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported\n\n\n[QUESTION]\nWhat are the customer encryption standards and data breach reporting timeframe?\n\n[ANSWER]"
+  }
+]
+[2026-09-08 17:24:26] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-08 17:24:26] [INFO] Response ID: chatcmpl-mock-987654321
+[2026-09-08 17:24:26] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-08 17:24:26] [INFO] Finish Reason: stop
+[2026-09-08 17:24:26] [INFO] Token Usage: {
+  "prompt_tokens": 42,
+  "completion_tokens": 36,
+  "total_tokens": 78
+}
+[2026-09-08 17:24:26] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-08 17:24:26] [INFO] Customer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher [1]. Additionally, any data breach must be reported to the regulatory oversight committee within 24 hours of initial detection [1].
+
