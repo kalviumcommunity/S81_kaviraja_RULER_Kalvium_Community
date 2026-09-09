@@ -10,33 +10,19 @@ Query: "What are the customer encryption standards and data breach reporting tim
 Candidate Chunks: 1 | Scores: [0.89, 0.76]
 
 --- [GUARDRAIL EVALUATION SIGNALS] ---
-  * Verdict:         PROCEED_CONFIDENT_ANSWER
-  * Should Refuse:   False
-  * Confidence:      0.8593
+  * Verdict:         SAFE_REFUSAL
+  * Should Refuse:   True
+  * Confidence:      0.3
   * Top Score:       0.89
-  * Keyword Overlap: 71.4%
+  * Keyword Overlap: 14.3%
+  * Refusal Reasons: [
+    "WEAK_LEXICAL_ALIGNMENT: Keyword overlap (14.3%) is below minimum required (15.0%)."
+]
 
 --- [FINAL GENERATED OUTPUT] ---
-Is Refusal: False
+Is Refusal: True
 Answer:
-"Customer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher [1]. Additionally, any data breach must be reported to the regulatory oversight committee within 24 hours of initial detection [1]."
-
-Cited Sources:
-[
-  {
-    "marker": "[1]",
-    "doc_id": "sample_banking_regulation_txt",
-    "filename": "sample_banking_regulation.txt",
-    "source_path": "data\\sample_banking_regulation.txt",
-    "section": "Section 3: Data Protection and Privacy Controls",
-    "page_number": 1,
-    "chunk_id": "sample_banking_regulation_txt#chunk_003",
-    "chunk_index": 2,
-    "start_char": 857,
-    "end_char": 1316,
-    "raw_text": "Daily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.\n\n--- Page 3 ---\n## Section 3: Data Protection and Privacy Controls\nCustomer financial data must be encrypted at rest using AES-256 and in transit using TLS 1.3 or higher.\nAccess control mechanisms must follow the Principle of Least Privilege (PoLP) and require multi-factor authentication (MFA) for administrative operations.\nAny data breach must be reported"
-  }
-]
+"I do not have sufficient information in the provided knowledge base to answer this question accurately."
 
 ================================================================================
 
@@ -100,13 +86,12 @@ Candidate Chunks: 1 | Scores: [0.28]
 --- [GUARDRAIL EVALUATION SIGNALS] ---
   * Verdict:         SAFE_REFUSAL
   * Should Refuse:   True
-  * Confidence:      0.1733
+  * Confidence:      0.2067
   * Top Score:       0.28
-  * Keyword Overlap: 11.1%
+  * Keyword Overlap: 22.2%
   * Refusal Reasons: [
     "LOW_SIMILARITY_SCORE: Top score (0.2800) is below minimum threshold (0.35).",
-    "INSUFFICIENT_CHUNKS_ABOVE_THRESHOLD: Only 0 chunk(s) met threshold (required: 1).",
-    "WEAK_LEXICAL_ALIGNMENT: Keyword overlap (11.1%) is below minimum required (15.0%)."
+    "INSUFFICIENT_CHUNKS_ABOVE_THRESHOLD: Only 0 chunk(s) met threshold (required: 1)."
 ]
 
 --- [FINAL GENERATED OUTPUT] ---

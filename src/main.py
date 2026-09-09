@@ -53,6 +53,20 @@ try:
     from grounded_generator import GroundedRAGGenerator
 except ImportError:
     from src.grounded_generator import GroundedRAGGenerator
+try:
+    from conversational_rag import (
+        ConversationalRAGEngine,
+        ConversationalQueryRewriter,
+        ConversationalRetriever,
+        ConversationHistoryTracker,
+    )
+except ImportError:
+    from src.conversational_rag import (
+        ConversationalRAGEngine,
+        ConversationalQueryRewriter,
+        ConversationalRetriever,
+        ConversationHistoryTracker,
+    )
 
 
 
@@ -669,6 +683,30 @@ def main():
     print(f" -> Safe Refusal Cases:              {guardrail_demo_summary['refusal_cases_count']}")
     print(f" -> Confident Grounded Cases:        {guardrail_demo_summary['confident_cases_count']}")
     print(" -> Task 5: Hallucination guardrail reports exported to outputs/.")
+
+    # ----------------------------------------------------
+    # CONVERSATIONAL RAG & QUERY REWRITING (Tasks 1 to 5)
+    # ----------------------------------------------------
+    print("\n[Conversational RAG] Executing Multi-Turn Dialogue & Query Rewriting...")
+    conv_rag_engine = ConversationalRAGEngine(
+        client=client,
+        generator=grounded_generator,
+    )
+    conv_demo_summary = conv_rag_engine.run_multi_turn_demonstration(
+        embedded_chunks=embedded_chunks_list
+    )
+    conv_rag_engine.export_sample_artifacts(
+        demo_summary=conv_demo_summary,
+        output_json_path=os.path.join("outputs", "sample_dialogue.json"),
+        output_txt_path=os.path.join("outputs", "sample_dialogue.txt"),
+        output_results_path=os.path.join("outputs", "conversational_rag_results.json"),
+        output_report_path=os.path.join("outputs", "conversational_rag_report.md"),
+    )
+    sample_results["conversational_rag_query_rewriting"] = conv_demo_summary
+    print(f" -> Total Dialogue Turns:     {conv_demo_summary['total_turns']}")
+    print(f" -> Rewritten Turns:          {conv_demo_summary['rewritten_turns_count']}")
+    print(f" -> Avg Semantic Lift:        +{conv_demo_summary['average_similarity_score_gain']:.4f}")
+    print(" -> Task 5: Conversational RAG sample dialogue & reports exported to outputs/.")
 
     # ----------------------------------------------------
     # TASK 5: Save Sample Parsed Results
