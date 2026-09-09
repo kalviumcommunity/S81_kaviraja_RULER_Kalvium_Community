@@ -20,6 +20,10 @@ from chunk_embedding_pipeline import ChunkEmbeddingPipeline, EmbeddedChunk
 from similarity_ranker import SimilarityRanker
 from relevance_checker import RelevanceSanityChecker
 try:
+    from grounded_generator import GroundedRAGGenerator
+except ImportError:
+    from src.grounded_generator import GroundedRAGGenerator
+try:
     from filtered_search import FilteredSearchEngine, MetadataFilter
 except ImportError:
     from src.filtered_search import FilteredSearchEngine, MetadataFilter
@@ -27,6 +31,13 @@ try:
     from retrieval_evaluator import RetrievalEvaluator, load_labelled_queries
 except ImportError:
     from src.retrieval_evaluator import RetrievalEvaluator, load_labelled_queries
+try:
+    from e2e_evaluator import E2EEvaluator, load_e2e_queries
+except ImportError:
+    try:
+        from src.e2e_evaluator import E2EEvaluator, load_e2e_queries
+    except ImportError:
+        pass
 try:
     from prompts.templates import (
         RAG_SYSTEM_PROMPT,
@@ -714,6 +725,31 @@ def main():
     print(f"[Task 5] Writing Sample Parsed Results to '{sample_results_path}'...")
     with open(sample_results_path, "w", encoding="utf-8") as f:
         json.dump(sample_results, f, indent=2)
+
+    # ----------------------------------------------------
+    # END-TO-END RAG EVALUATION SUITE
+    # ----------------------------------------------------
+    print("\n[E2E Evaluator] Executing End-to-End RAG Evaluation (Retrieval + Generation + Citations)...")
+    try:
+        e2e_evaluator = E2EEvaluator(client=client)
+        # Use existing chunks but limit to what's needed or just use embedded_chunks_list
+        e2e_queries = load_e2e_queries()
+        e2e_summary = e2e_evaluator.run_evaluation_suite(
+            embedded_chunks=embedded_chunks_list,
+            queries=e2e_queries
+        )
+        e2e_evaluator.export_evaluation_reports(
+            eval_summary=e2e_summary,
+            output_txt_path=os.path.join("outputs", "e2e_evaluation_summary.txt"),
+            output_json_path=os.path.join("outputs", "e2e_evaluation_results.json")
+        )
+        print(f" -> Total E2E Queries: {e2e_summary['evaluation_metadata']['total_queries_evaluated']}")
+        print(f" -> Overall E2E Pass Rate: {e2e_summary['evaluation_metadata']['overall_pass_rate_percentage']}%")
+        print(f" -> Mean Correctness Score: {e2e_summary['aggregate_metrics']['mean_correctness_score_percentage']}%")
+        print(f" -> Mean Citation Accuracy: {e2e_summary['aggregate_metrics']['mean_citation_accuracy_percentage']}%")
+        print(" -> E2E Evaluation results exported to outputs/e2e_evaluation_summary.txt")
+    except Exception as e:
+        print(f" -> Failed to run E2E Evaluator: {e}")
 
 
     # ----------------------------------------------------

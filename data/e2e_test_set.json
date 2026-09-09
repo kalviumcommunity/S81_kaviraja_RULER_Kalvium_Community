@@ -1,0 +1,56 @@
+{
+  "queries": [
+    {
+      "query_id": "E2E-001",
+      "query": "What are the rules and approval thresholds for high-value transaction payments?",
+      "category": "Standard Retrieval & Grounding",
+      "expected_chunk_ids": [
+        "sample_banking_regulation_txt#chunk_003",
+        "sample_banking_regulation_txt#chunk_004"
+      ],
+      "expected_answer_snippets": [
+        "unanimous board authorization",
+        "50,000",
+        "independent audit report"
+      ],
+      "description": "Standard query requiring exact thresholds and board approval policies."
+    },
+    {
+      "query_id": "E2E-002",
+      "query": "What happens if you fail to obtain board authorization for high-value expenditures?",
+      "category": "Consequence Clause Grounding",
+      "expected_chunk_ids": [
+        "sample_banking_regulation_txt#chunk_004"
+      ],
+      "expected_answer_snippets": [
+        "suspension of procurement privileges",
+        "compliance audit"
+      ],
+      "description": "Tests if consequence clauses are accurately retrieved and grounded."
+    },
+    {
+      "query_id": "E2E-003",
+      "query": "What automated screening protocols verify transaction velocity and entity sanction status?",
+      "category": "Semantic Matching",
+      "expected_chunk_ids": [
+        "sample_banking_regulation_txt#chunk_001"
+      ],
+      "expected_answer_snippets": [
+        "Anti-Money Laundering",
+        "suspicious transactions"
+      ],
+      "description": "Tests semantic matching capabilities."
+    },
+    {
+      "query_id": "E2E-004",
+      "query": "What is the corporate reimbursement policy for employee vacation travel and flight expenses?",
+      "category": "Missing-Context Fallback",
+      "expected_chunk_ids": [],
+      "expected_answer_snippets": [
+        "I do not have enough information",
+        "not contain policies regarding"
+      ],
+      "description": "Out of domain query. Should trigger fallback and not hallucinate."
+    }
+  ]
+}
