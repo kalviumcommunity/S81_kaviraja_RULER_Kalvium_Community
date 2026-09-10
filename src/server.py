@@ -15,7 +15,7 @@ import logging
 from datetime import datetime, timezone
 from typing import Dict, Any, List, Optional, Union
 
-from fastapi import FastAPI, HTTPException, Request, status
+from fastapi import FastAPI, HTTPException, Request, status, File, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, JSONResponse
@@ -87,6 +87,34 @@ except ImportError:
         from grounded_generator import GroundedRAGGenerator
     except ImportError:
         GroundedRAGGenerator = None
+
+try:
+    from document_uploader import (
+        document_uploader_service,
+        UnsupportedFormatError,
+        EmptyFileError,
+        OversizedFileError,
+        DocumentProcessingError,
+        IndexingSummary,
+    )
+except ImportError:
+    try:
+        from src.document_uploader import (
+            document_uploader_service,
+            UnsupportedFormatError,
+            EmptyFileError,
+            OversizedFileError,
+            DocumentProcessingError,
+            IndexingSummary,
+        )
+    except ImportError:
+        document_uploader_service = None
+        UnsupportedFormatError = Exception
+        EmptyFileError = Exception
+        OversizedFileError = Exception
+        DocumentProcessingError = Exception
+        IndexingSummary = None
+
 
 
 # Base paths
@@ -297,32 +325,51 @@ def _retrieve_evidence_chunks(
 ) -> List[Chunk]:
     """
     Retrieves the most relevant chunks for a question.
-    Checks vector DB if available and falls back to deterministic local chunking.
+    Searches both base corpus documents and newly uploaded/indexed runtime chunks without restart (Task 3).
     """
     chunks: List[Chunk] = []
     
-    # Load and chunk all data documents
-    if os.path.exists(DATA_DIR):
-        for filename in sorted(name for name in os.listdir(DATA_DIR) if name.endswith(".txt")):
-            sample_path = os.path.join(DATA_DIR, filename)
-            doc_id = os.path.splitext(filename)[0].upper()
-            
-            if filter_doc_id and filter_doc_id.upper() not in doc_id:
+    # 1. Include runtime indexed chunks from document upload service (Task 3: Instant runtime searchability)
+    if document_uploader_service is not None:
+        runtime_chunks = document_uploader_service.get_runtime_chunks()
+        for rc in runtime_chunks:
+            if filter_doc_id and filter_doc_id.upper() not in rc.metadata.doc_id.upper():
                 continue
+            chunks.append(rc)
 
-            try:
-                with open(sample_path, "r", encoding="utf-8") as source_file:
-                    content = source_file.read()
-                
-                doc_chunks = DocumentChunker(chunk_size=400, chunk_overlap=40).chunk_document(
-                    content=content,
-                    doc_id=doc_id,
-                    filename=filename,
-                    source_path=os.path.join("data", filename),
-                )
-                chunks.extend(doc_chunks)
-            except Exception as e:
-                logging.getLogger("Server").warning(f"Failed to read/chunk {filename}: {e}")
+    # 2. Load and chunk documents from data directory and uploads subdirectory
+    dirs_to_scan = [DATA_DIR]
+    uploads_sub = os.path.join(DATA_DIR, "uploads")
+    if os.path.exists(uploads_sub):
+        dirs_to_scan.append(uploads_sub)
+
+    seen_source_paths = {c.metadata.source_path for c in chunks if c.metadata and c.metadata.source_path}
+
+    for dir_path in dirs_to_scan:
+        if os.path.exists(dir_path):
+            for filename in sorted(name for name in os.listdir(dir_path) if name.endswith((".txt", ".md"))):
+                sample_path = os.path.join(dir_path, filename)
+                if sample_path in seen_source_paths:
+                    continue
+                seen_source_paths.add(sample_path)
+
+                doc_id = os.path.splitext(filename)[0].upper()
+                if filter_doc_id and filter_doc_id.upper() not in doc_id:
+                    continue
+
+                try:
+                    with open(sample_path, "r", encoding="utf-8") as source_file:
+                        content = source_file.read()
+                    
+                    doc_chunks = DocumentChunker(chunk_size=400, chunk_overlap=40).chunk_document(
+                        content=content,
+                        doc_id=doc_id,
+                        filename=filename,
+                        source_path=os.path.join("data", filename),
+                    )
+                    chunks.extend(doc_chunks)
+                except Exception as e:
+                    logging.getLogger("Server").warning(f"Failed to read/chunk {filename}: {e}")
 
     if not chunks:
         return []
@@ -348,6 +395,7 @@ def _retrieve_evidence_chunks(
     matches = [chunk for chunk in ranked if score_chunk(chunk) > 0]
 
     return matches[:top_k] if matches else ranked[:top_k]
+
 
 
 def execute_rag_pipeline(
@@ -598,6 +646,91 @@ def get_sample_data():
         "character_count": len(doc_content),
         "estimated_tokens": count_tokens(doc_content),
         "structured_sample": sample_json
+    }
+
+
+# -------------------------------------------------------------
+# TASK 1, 2, 3, 4: DOCUMENT UPLOAD & INGESTION ENDPOINTS
+# -------------------------------------------------------------
+
+@app.post("/api/upload", tags=["Document Ingestion"])
+@app.post("/upload", tags=["Document Ingestion"])
+async def upload_document(
+    file: UploadFile = File(...),
+    doc_id: Optional[str] = Form(None),
+    category: Optional[str] = Form("Institutional Regulation"),
+    chunk_size: Optional[int] = Form(512),
+    chunk_overlap: Optional[int] = Form(64),
+):
+    """
+    Task 1: Safely uploads a document file.
+    Task 2: Cleans, chunks, embeds, and indexes it into the vector database.
+    Task 3: Immediately registers content for zero-restart query searchability.
+    Task 4: Validates file formats, sizes, and content with standard error codes:
+            - 400 Bad Request (empty file)
+            - 413 Payload Too Large (exceeds 10MB)
+            - 415 Unsupported Media Type (unsupported format)
+            - 422 Unprocessable Entity (corrupted text)
+    """
+    if document_uploader_service is None:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Document Uploader Service is unavailable."
+        )
+
+    filename = file.filename or "uploaded_document.txt"
+    try:
+        content_bytes = await file.read()
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Failed to read uploaded file stream: {str(e)}"
+        )
+
+    try:
+        summary = document_uploader_service.process_and_index_document(
+            filename=filename,
+            content_bytes=content_bytes,
+            category=category or "Institutional Regulation",
+            chunk_size=chunk_size or 512,
+            chunk_overlap=chunk_overlap or 64,
+            explicit_doc_id=doc_id,
+        )
+        return JSONResponse(
+            status_code=status.HTTP_201_CREATED,
+            content={
+                "status": "success",
+                "message": f"Document '{filename}' uploaded, chunked, embedded, and indexed successfully.",
+                "data": summary.to_dict(),
+            }
+        )
+    except UnsupportedFormatError as e:
+        raise HTTPException(status_code=e.status_code, detail=e.message)
+    except EmptyFileError as e:
+        raise HTTPException(status_code=e.status_code, detail=e.message)
+    except OversizedFileError as e:
+        raise HTTPException(status_code=e.status_code, detail=e.message)
+    except DocumentProcessingError as e:
+        raise HTTPException(status_code=e.status_code, detail=e.message)
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Unexpected error during document indexing: {str(e)}"
+        )
+
+
+@app.get("/api/documents", tags=["Document Ingestion"])
+def list_documents():
+    """Returns list of uploaded and indexed documents in this runtime session."""
+    if document_uploader_service is None:
+        return {"total_documents": 0, "documents": []}
+    docs = document_uploader_service.list_indexed_documents()
+    return {
+        "total_documents": len(docs),
+        "total_runtime_chunks": len(document_uploader_service.get_runtime_chunks()),
+        "documents": docs,
     }
 
 

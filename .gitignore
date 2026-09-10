@@ -15,6 +15,7 @@ node_modules/
 data/*
 !data/.gitkeep
 !data/labelled_queries.json
+!data/sample_banking_regulation.txt
 
 # Python cache & build outputs
 __pycache__/
