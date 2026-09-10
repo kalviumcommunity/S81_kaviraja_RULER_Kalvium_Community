@@ -107,6 +107,18 @@ A conversational RAG engine that tracks dialogue history across multiple turns, 
 
 ---
 
+## Document Upload, Ingestion, and Vector Database Indexing (`src/document_uploader.py`)
+
+An enterprise-grade document ingestion subsystem supporting secure file uploads, multi-stage sanitization and cleaning, token-aware chunking, dense vector embeddings, ChromaDB indexing, and zero-downtime runtime searchability.
+
+- **Task 1 — Create Upload Endpoint**: Implements `POST /api/upload` (and alias `POST /upload`) accepting document files via multipart form data, safely storing them in `data/uploads/` with traversal-resistant sanitization.
+- **Task 2 — Ingest, Embed, and Index**: Normalizes whitespace, strips control characters, segments content with `TokenAwareChunker`, generates dense embeddings with `LLMClient`, and persists vectors and metadata into ChromaDB.
+- **Task 3 — Confirm Runtime Searchability**: Integrates an in-memory runtime chunk registry with ChromaDB queries so newly indexed documents are immediately searchable via `POST /api/query` without application restarts.
+- **Task 4 — Comprehensive Error Handling**: Detects and gracefully handles unsupported formats (`415 Unsupported Media Type`), empty or whitespace-only files (`400 Bad Request`), and oversized payloads (`413 Payload Too Large`, >10MB limit) with descriptive error payloads.
+- **Task 5 — Output Artifacts & Demonstration**: Exports sample upload request to [`outputs/upload_sample_request.json`](outputs/upload_sample_request.json), indexing metrics to [`outputs/upload_indexing_summary.json`](outputs/upload_indexing_summary.json), runtime query results to [`outputs/upload_followup_query_result.json`](outputs/upload_followup_query_result.json), error specs to [`outputs/upload_error_responses.json`](outputs/upload_error_responses.json), and comprehensive report to [`outputs/upload_indexing_report.md`](outputs/upload_indexing_report.md). Detailed documentation in [`docs/document-upload-and-indexing.md`](docs/document-upload-and-indexing.md).
+
+---
+
 ## Prerequisites
 
 ## Source Citation & Attribution

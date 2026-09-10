@@ -1,0 +1,34 @@
+{
+  "unsupported_format_exe": {
+    "status_code": 415,
+    "response": {
+      "status": "error",
+      "error": "Unsupported file format '.exe'. Allowed formats are: .csv, .json, .md, .pdf, .txt.",
+      "detail": "Unsupported file format '.exe'. Allowed formats are: .csv, .json, .md, .pdf, .txt."
+    }
+  },
+  "empty_file": {
+    "status_code": 400,
+    "response": {
+      "status": "error",
+      "error": "The uploaded file 'empty_manifest.txt' is empty or contains no readable text.",
+      "detail": "The uploaded file 'empty_manifest.txt' is empty or contains no readable text."
+    }
+  },
+  "whitespace_only_file": {
+    "status_code": 400,
+    "response": {
+      "status": "error",
+      "error": "The uploaded file 'blank_document.txt' is empty or contains no readable text.",
+      "detail": "The uploaded file 'blank_document.txt' is empty or contains no readable text."
+    }
+  },
+  "oversized_file": {
+    "status_code": 413,
+    "response": {
+      "status": "error",
+      "error": "The uploaded file 'massive_dump.txt' (10.0 MB) exceeds the maximum allowed limit of 10.0 MB.",
+      "detail": "The uploaded file 'massive_dump.txt' (10.0 MB) exceeds the maximum allowed limit of 10.0 MB."
+    }
+  }
+}

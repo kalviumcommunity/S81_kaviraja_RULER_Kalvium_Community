@@ -1,0 +1,33 @@
+{
+  "doc_id": "SAMPLE_ESG_REGULATORY_DIRECTIVES_20260910_035228",
+  "filename": "sample_esg_regulatory_directives.txt",
+  "status": "indexed_successfully",
+  "chunks_indexed": 1,
+  "embedding_model": "text-embedding-3-small",
+  "vector_dimension": 1536,
+  "processing_time_ms": 2998.05,
+  "chunk_ids": [
+    "SAMPLE_ESG_REGULATORY_DIRECTIVES_20260910_035228#chunk_001"
+  ],
+  "sample_chunk_preview": {
+    "chunk_id": "SAMPLE_ESG_REGULATORY_DIRECTIVES_20260910_035228#chunk_001",
+    "token_count": 352,
+    "snippet": "REGULATORY DIRECTIVE: ESG-2026-CLIMATE-RISK-ASSESSMENT Issuing Authority: Global Sustainable Finance Oversight Board (GS...",
+    "metadata": {
+      "doc_id": "SAMPLE_ESG_REGULATORY_DIRECTIVES_20260910_035228",
+      "filename": "sample_esg_regulatory_directives_20260910_035228.txt",
+      "original_filename": "sample_esg_regulatory_directives.txt",
+      "section": "Document: sample_esg_regulatory_directives.txt",
+      "category": "Institutional Regulation",
+      "token_count": 352,
+      "chunk_index": 0,
+      "indexed_at": "2026-09-10T03:52:30.985653+00:00"
+    }
+  },
+  "metadata": {
+    "stored_filename": "sample_esg_regulatory_directives_20260910_035228.txt",
+    "file_size_bytes": 1570,
+    "total_tokens": 352,
+    "category": "Institutional Regulation"
+  }
+}
