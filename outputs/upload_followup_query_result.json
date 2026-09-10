@@ -1,0 +1,58 @@
+{
+  "query_request": {
+    "question": "What is the penalty for Level 3 Severe Violations under the ESG directive?",
+    "top_k": 3,
+    "temperature": 0.0
+  },
+  "response_status_code": 200,
+  "answer": "The penalty for Level 3 Severe Violations under the ESG directive is a non-negotiable statutory fine of 12,500,000 USD, accompanied by an immediate 90-day suspension of new sovereign debt syndication privileges [1].",
+  "is_grounded": true,
+  "confidence": "high",
+  "retrieved_sources": [
+    {
+      "doc_id": "SAMPLE_ESG_REGULATORY_DIRECTIVES_20260910_035228",
+      "filename": "sample_esg_regulatory_directives_20260910_035228.txt",
+      "section": "Document: sample_esg_regulatory_directives.txt",
+      "page_number": 1,
+      "chunk_id": "SAMPLE_ESG_REGULATORY_DIRECTIVES_20260910_035228#chunk_001",
+      "text": "REGULATORY DIRECTIVE: ESG-2026-CLIMATE-RISK-ASSESSMENT\nIssuing Authority: Global Sustainable Finance Oversight Board (GSFOB)\nEffective Date: January 15, 2026\n\nSection 1: Mandatory Scope and Applicability\nAll Tier 1 banking institutions and investment funds managing assets in excess of 50 billion USD\nmust conduct quarterly Scope 1, Scope 2, and Scope 3 greenhouse gas carbon exposure audits.\nFailure to submit complete climate stress disclosures within 45 calendar days following quarter-end\ntriggers an immediate Level 2 non-compliance sanction.\n\nSection 2: Penalty Structure and Escalation Matrix\n1. Level 1 Minor Infractions: Deficiencies in Scope 1 reporting incur a civil penalty of 250,000 USD\nand require an amended filing within 14 calendar days.\n2. Level 2 Moderate Violations: Failure to measure Scope 2 indirect energy emissions or missing\nquarterly stress audits results in a mandatory fine of 1,500,000 USD plus statutory interest.\n3. Level 3 Severe Violations: Intentional misstatement, concealment, or omission of Scope 3 supply-chain\ncarbon liabilities incurs a non-negotiable statutory fine of 12,500,000 USD, accompanied by an\nimmediate 90-day suspension of new sovereign debt syndication privileges.\n\nSection 3: Greenwashing Audit and Whistleblower Protection\nThird-party environmental attestation must be conducted annually by an accredited audit body.\nWhistleblowers reporting fraudulent ESG metric inflation receive statutory protection under\nDirective ESG-2026-Article 12 and are entitled to 20% of recovered administrative penalties.",
+      "similarity_score": 0.9,
+      "start_char": 0,
+      "end_char": 1558
+    },
+    {
+      "doc_id": "SAMPLE_ESG_REGULATORY_DIRECTIVES_20260910_034800",
+      "filename": "sample_esg_regulatory_directives_20260910_034800.txt",
+      "section": "Section 1: Green Asset Ratio (GAR) Mandates",
+      "page_number": 1,
+      "chunk_id": "SAMPLE_ESG_REGULATORY_DIRECTIVES_20260910_034800#chunk_002",
+      "text": "## Section 1: Green Asset Ratio (GAR) Mandates\nAll commercial banking institutions with assets under management exceeding $10 billion must report their verified Green Asset Ratio (GAR) on a quarterly basis to regional sustainability boards. The mandatory minimum target for the Green Asset Ratio is set strictly at 18.5% of total eligible balance sheet assets.",
+      "similarity_score": 0.85,
+      "start_char": 62,
+      "end_char": 422
+    },
+    {
+      "doc_id": "SAMPLE_ESG_REGULATORY_DIRECTIVES_20260910_034847",
+      "filename": "sample_esg_regulatory_directives_20260910_034847.txt",
+      "section": "Section 1: Green Asset Ratio (GAR) Mandates",
+      "page_number": 1,
+      "chunk_id": "SAMPLE_ESG_REGULATORY_DIRECTIVES_20260910_034847#chunk_002",
+      "text": "## Section 1: Green Asset Ratio (GAR) Mandates\nAll commercial banking institutions with assets under management exceeding $10 billion must report their verified Green Asset Ratio (GAR) on a quarterly basis to regional sustainability boards. The mandatory minimum target for the Green Asset Ratio is set strictly at 18.5% of total eligible balance sheet assets.",
+      "similarity_score": 0.8,
+      "start_char": 62,
+      "end_char": 422
+    }
+  ],
+  "metadata": {
+    "model": "gpt-4o-mini",
+    "latency_ms": 1713.61,
+    "tokens_used": {
+      "prompt_tokens": 843,
+      "completion_tokens": 48,
+      "total_tokens": 891
+    },
+    "total_sources_retrieved": 3,
+    "retrieval_strategy": "vector_hybrid",
+    "timestamp": "2026-09-10T03:52:32.797753+00:00"
+  }
+}

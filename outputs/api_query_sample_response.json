@@ -1,0 +1,54 @@
+{
+  "status": "success",
+  "question": "What is the capital adequacy requirement for Tier 1 capital under the framework?",
+  "answer": "The capital adequacy requirement for Tier 1 capital is a minimum of 10.5% at all times for financial institutions [1].",
+  "sources": [
+    {
+      "doc_id": "SAMPLE_BANKING_REGULATION",
+      "filename": "sample_banking_regulation.txt",
+      "section": "Section 2: Liquidity and Capital Requirements",
+      "page_number": 2,
+      "chunk_id": "SAMPLE_BANKING_REGULATION#chunk_003",
+      "text": "## Section 2: Liquidity and Capital Requirements\nFinancial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times. \nAdditionally, liquidity coverage ratios (LCR) must be sustained above 100% to ensure short-term obligations can be met during high-stress market events.\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.",
+      "similarity_score": 0.9,
+      "start_char": 561,
+      "end_char": 956
+    },
+    {
+      "doc_id": "DOC2",
+      "filename": "doc2.txt",
+      "section": "Document 2: What is RAG?",
+      "page_number": 1,
+      "chunk_id": "DOC2#chunk_001",
+      "text": "# Document 2: What is RAG?\n\nRetrieval-Augmented Generation (RAG) is an AI framework for retrieving facts from an external knowledge base to ground large language models (LLMs) on the most accurate, up-to-date information and to give users insight into LLMs' generative process.",
+      "similarity_score": 0.85,
+      "start_char": 0,
+      "end_char": 278
+    },
+    {
+      "doc_id": "SAMPLE_BANKING_REGULATION",
+      "filename": "sample_banking_regulation.txt",
+      "section": "Section 1: Executive Overview and Scope",
+      "page_number": 1,
+      "chunk_id": "SAMPLE_BANKING_REGULATION#chunk_001",
+      "text": "## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.",
+      "similarity_score": 0.8,
+      "start_char": 69,
+      "end_char": 414
+    }
+  ],
+  "confidence": "high",
+  "is_grounded": true,
+  "metadata": {
+    "model": "openai/gpt-4o-mini",
+    "latency_ms": 7486.81,
+    "tokens_used": {
+      "prompt_tokens": 495,
+      "completion_tokens": 29,
+      "total_tokens": 524
+    },
+    "total_sources_retrieved": 3,
+    "retrieval_strategy": "vector_hybrid",
+    "timestamp": "2026-09-09T09:31:38.609522+00:00"
+  }
+}

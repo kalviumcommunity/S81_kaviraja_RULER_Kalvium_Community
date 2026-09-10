@@ -107,6 +107,18 @@ A conversational RAG engine that tracks dialogue history across multiple turns, 
 
 ---
 
+## Document Upload, Ingestion, and Vector Database Indexing (`src/document_uploader.py`)
+
+An enterprise-grade document ingestion subsystem supporting secure file uploads, multi-stage sanitization and cleaning, token-aware chunking, dense vector embeddings, ChromaDB indexing, and zero-downtime runtime searchability.
+
+- **Task 1 — Create Upload Endpoint**: Implements `POST /api/upload` (and alias `POST /upload`) accepting document files via multipart form data, safely storing them in `data/uploads/` with traversal-resistant sanitization.
+- **Task 2 — Ingest, Embed, and Index**: Normalizes whitespace, strips control characters, segments content with `TokenAwareChunker`, generates dense embeddings with `LLMClient`, and persists vectors and metadata into ChromaDB.
+- **Task 3 — Confirm Runtime Searchability**: Integrates an in-memory runtime chunk registry with ChromaDB queries so newly indexed documents are immediately searchable via `POST /api/query` without application restarts.
+- **Task 4 — Comprehensive Error Handling**: Detects and gracefully handles unsupported formats (`415 Unsupported Media Type`), empty or whitespace-only files (`400 Bad Request`), and oversized payloads (`413 Payload Too Large`, >10MB limit) with descriptive error payloads.
+- **Task 5 — Output Artifacts & Demonstration**: Exports sample upload request to [`outputs/upload_sample_request.json`](outputs/upload_sample_request.json), indexing metrics to [`outputs/upload_indexing_summary.json`](outputs/upload_indexing_summary.json), runtime query results to [`outputs/upload_followup_query_result.json`](outputs/upload_followup_query_result.json), error specs to [`outputs/upload_error_responses.json`](outputs/upload_error_responses.json), and comprehensive report to [`outputs/upload_indexing_report.md`](outputs/upload_indexing_report.md). Detailed documentation in [`docs/document-upload-and-indexing.md`](docs/document-upload-and-indexing.md).
+
+---
+
 ## Prerequisites
 
 ## Source Citation & Attribution
@@ -207,16 +219,47 @@ python src/main.py
 
 ---
 
+## Backend REST API for the RAG Service (`src/server.py` & `src/config.py`)
+
+A production-ready FastAPI REST API service for Retrieval-Augmented Generation, supporting query execution, evidence chunk retrieval, strict schema validation, structured error codes, and dynamic environment configuration.
+
+- **Task 1 — Query Endpoint**: Implements `POST /api/query` (and alias `POST /query`) accepting user questions and returning answers with supporting sources.
+- **Task 2 — Structured JSON**: Returns a standardized JSON schema with `status`, `question`, `answer`, `sources` (including metadata, character spans, and similarity scores), `confidence`, `is_grounded`, and `metadata` (model, latency, token usage, timestamp).
+- **Task 3 — Input Validation & Error Handling**: Validates input fields with Pydantic and returns clean HTTP status codes (`400 Bad Request` for blank questions, `422 Unprocessable Entity` for invalid parameters/types, and `500 Internal Server Error` for execution errors).
+- **Task 4 — Environment-Driven Configuration**: Loads API keys, model names, vector database paths, server settings, and retrieval hyperparameters dynamically from environment variables (`.env`) via `src/config.py`.
+- **Task 5 — Output Artifacts & Documentation**: Exports sample request/response payloads to `outputs/api_query_sample_request.json`, `outputs/api_query_sample_response.json`, `outputs/api_query_error_response.json`, `outputs/api_query_execution_log.txt`, and [`docs/backend-rag-api.md`](docs/backend-rag-api.md).
+
+### Start the REST API Server
+```bash
+python -m uvicorn src.server:app --host 0.0.0.0 --port 8000 --reload
+```
+
+### Run API Demo Script
+```bash
+python scripts/run_api_demo.py
+```
+
+### Run API Unit Tests
+```bash
+pytest tests/test_api_endpoints.py -v
+```
+
+---
+
 ## Project Structure
 
 ```text
 rag-app-starter/
 ├── data/               # Documents and knowledge-base source data
-├── docs/               # Technical documentation & extraction specs
-├── outputs/            # Generated outputs and processing results
+├── docs/               # Technical documentation & architecture specs
+├── outputs/            # Generated outputs, sample JSONs, and evaluation reports
 ├── prompts/            # LLM prompts and instruction templates
-├── src/                # Application source code
+├── scripts/            # Standalone demonstration runners & evaluation scripts
+├── src/                # Application source code & API services
+│   ├── config.py       # Environment configuration loader
+│   ├── server.py       # FastAPI REST API server
 │   └── main.py         # Entry point script
+├── tests/              # Comprehensive test suites
 ├── .env.example        # Template for environment configuration
 ├── .gitignore          # Files and folders excluded from Git
 ├── README.md           # Workspace documentation
@@ -228,4 +271,5 @@ rag-app-starter/
 ## Setup Verification Note
 
 > **Verification Status: PASSED**
-> The workspace setup, virtual environment creation (`.venv`), dependency installation (`openai`, `chromadb`, `python-dotenv`), package imports, and script execution (`python src/main.py`) were tested and verified in a clean isolated Python environment.
+> The workspace setup, virtual environment creation (`.venv`), dependency installation, package imports, and script execution (`python scripts/run_api_demo.py` & `pytest tests/test_api_endpoints.py`) were tested and verified with 100% test pass rate.
+
