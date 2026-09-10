@@ -1,0 +1,103 @@
+================================================================================
+         HALLUCINATION GUARDRAILS & REFUSAL HANDLING VERIFICATION REPORT         
+================================================================================
+
+################################################################################
+CASE #1: Confident Grounded Answer (Strong Context)
+Description: High semantic similarity score and exact entity match for customer encryption and data breach policies.
+################################################################################
+Query: "What are the customer encryption standards and data breach reporting timeframe?"
+Candidate Chunks: 1 | Scores: [0.89, 0.76]
+
+--- [GUARDRAIL EVALUATION SIGNALS] ---
+  * Verdict:         SAFE_REFUSAL
+  * Should Refuse:   True
+  * Confidence:      0.3
+  * Top Score:       0.89
+  * Keyword Overlap: 14.3%
+  * Refusal Reasons: [
+    "WEAK_LEXICAL_ALIGNMENT: Keyword overlap (14.3%) is below minimum required (15.0%)."
+]
+
+--- [FINAL GENERATED OUTPUT] ---
+Is Refusal: True
+Answer:
+"I do not have sufficient information in the provided knowledge base to answer this question accurately."
+
+================================================================================
+
+################################################################################
+CASE #2: Safe Refusal on Low Similarity Score (Out-of-Domain Query)
+Description: Quantum computing satellite encryption query matched against banking docs yields low similarity below threshold.
+################################################################################
+Query: "What is the quantum encryption satellite key rotation protocol for deep-space missions?"
+Candidate Chunks: 2 | Scores: [0.12, 0.08]
+
+--- [GUARDRAIL EVALUATION SIGNALS] ---
+  * Verdict:         SAFE_REFUSAL
+  * Should Refuse:   True
+  * Confidence:      0.06
+  * Top Score:       0.12
+  * Keyword Overlap: 0.0%
+  * Refusal Reasons: [
+    "LOW_SIMILARITY_SCORE: Top score (0.1200) is below minimum threshold (0.35).",
+    "INSUFFICIENT_CHUNKS_ABOVE_THRESHOLD: Only 0 chunk(s) met threshold (required: 1).",
+    "WEAK_LEXICAL_ALIGNMENT: Keyword overlap (0.0%) is below minimum required (15.0%)."
+]
+
+--- [FINAL GENERATED OUTPUT] ---
+Is Refusal: True
+Answer:
+"I do not have sufficient information in the provided knowledge base to answer this question accurately."
+
+================================================================================
+
+################################################################################
+CASE #3: Safe Refusal on Empty Retrieval Results
+Description: Knowledge search returns zero candidate chunks.
+################################################################################
+Query: "What are the rules regarding Mars planetary mineral mining royalties?"
+Candidate Chunks: 0 | Scores: []
+
+--- [GUARDRAIL EVALUATION SIGNALS] ---
+  * Verdict:         SAFE_REFUSAL
+  * Should Refuse:   True
+  * Confidence:      0.0
+  * Top Score:       0.0
+  * Keyword Overlap: 0.0%
+  * Refusal Reasons: [
+    "EMPTY_RETRIEVAL_RESULTS"
+]
+
+--- [FINAL GENERATED OUTPUT] ---
+Is Refusal: True
+Answer:
+"I do not have sufficient information in the provided knowledge base to answer this question accurately."
+
+================================================================================
+
+################################################################################
+CASE #4: Safe Refusal on Weak Lexical Keyword Overlap
+Description: Query with unrelated domain terminology matched loosely on general stopword density.
+################################################################################
+Query: "Explain quantum teleportation error correction rates and cryogenic qubit stability."
+Candidate Chunks: 1 | Scores: [0.28]
+
+--- [GUARDRAIL EVALUATION SIGNALS] ---
+  * Verdict:         SAFE_REFUSAL
+  * Should Refuse:   True
+  * Confidence:      0.2067
+  * Top Score:       0.28
+  * Keyword Overlap: 22.2%
+  * Refusal Reasons: [
+    "LOW_SIMILARITY_SCORE: Top score (0.2800) is below minimum threshold (0.35).",
+    "INSUFFICIENT_CHUNKS_ABOVE_THRESHOLD: Only 0 chunk(s) met threshold (required: 1)."
+]
+
+--- [FINAL GENERATED OUTPUT] ---
+Is Refusal: True
+Answer:
+"I do not have sufficient information in the provided knowledge base to answer this question accurately."
+
+================================================================================
+

@@ -3,18 +3,18 @@
 ================================================================================
 Retrieval Mode: VECTOR
 Total Queries Evaluated: 8
-Mean Reciprocal Rank (MRR): 0.6146
-Benchmark Pass Rate: 37.5%
-Average Graded Quality Signal: 0.5000 / 2.00
+Mean Reciprocal Rank (MRR): 0.7083
+Benchmark Pass Rate: 62.5%
+Average Graded Quality Signal: 0.6875 / 2.00
 
 --------------------------------------------------------------------------------
 AGGREGATE METRICS ACROSS RETRIEVAL DEPTH (K)
 --------------------------------------------------------------------------------
 Depth (K)    | Recall@K     | Precision@K    | Hit Rate %   | F1@K      
 ----------------------------------------------------------------------
-K=1          | 0.3750       | 0.3750         | 37.5       % | 0.3750    
-K=2          | 0.6250       | 0.3125         | 62.5       % | 0.4167    
-K=3          | 0.8125       | 0.2916         | 87.5       % | 0.4250    
+K=1          | 0.5000       | 0.5000         | 50.0       % | 0.5000    
+K=2          | 0.6875       | 0.3750         | 75.0       % | 0.4792    
+K=3          | 0.8750       | 0.3333         | 100.0      % | 0.4750    
 K=5          | 1.0000       | 0.2500         | 100.0      % | 0.3928    
 
 --------------------------------------------------------------------------------
@@ -37,28 +37,28 @@ Q-002: "What minimum Tier 1 capital adequacy ratio is required under Basel IV?" 
   Graded Relevance Scores: [0, 2, 0]
 ----------------------------------------
 
-Q-003: "What are the rules and approval thresholds for high-value transaction payments?" [FAIL - VOCABULARY_OR_EMBEDDING_MISMATCH]
+Q-003: "What are the rules and approval thresholds for high-value transaction payments?" [PASS]
   Category: Standard Relevance | Target Section: Section 3: High-Value Transaction Authorization Thresholds
   Expected Chunks: ['sample_banking_regulation_txt#chunk_003', 'sample_banking_regulation_txt#chunk_004']
-  Retrieved Chunks: ['sample_banking_regulation_txt#chunk_005', 'sample_banking_regulation_txt#chunk_001', 'sample_banking_regulation_txt#chunk_004']
-  MRR: 0.3333 | Recall@1: 0.00 | Precision@1: 0.00 | Recall@3: 0.50 | Precision@3: 0.33
-  Graded Relevance Scores: [0, 0, 2]
+  Retrieved Chunks: ['sample_banking_regulation_txt#chunk_001', 'sample_banking_regulation_txt#chunk_004', 'sample_banking_regulation_txt#chunk_002']
+  MRR: 0.5000 | Recall@1: 0.00 | Precision@1: 0.00 | Recall@3: 0.50 | Precision@3: 0.33
+  Graded Relevance Scores: [0, 2, 0]
 ----------------------------------------
 
-Q-004: "Which vendor disbursements do NOT require unanimous board approval?" [FAIL - EMBEDDING_NEGATION_BLINDSPOT]
+Q-004: "Which vendor disbursements do NOT require unanimous board approval?" [PASS]
   Category: Negation Blindspot (Known Failure) | Target Section: Section 3: High-Value Transaction Authorization Thresholds
   Expected Chunks: ['sample_banking_regulation_txt#chunk_003']
-  Retrieved Chunks: ['sample_banking_regulation_txt#chunk_005', 'sample_banking_regulation_txt#chunk_003', 'sample_banking_regulation_txt#chunk_004']
-  MRR: 0.5000 | Recall@1: 0.00 | Precision@1: 0.00 | Recall@3: 1.00 | Precision@3: 0.33
-  Graded Relevance Scores: [0, 2, 0]
+  Retrieved Chunks: ['sample_banking_regulation_txt#chunk_003', 'sample_banking_regulation_txt#chunk_004', 'sample_banking_regulation_txt#chunk_002']
+  MRR: 1.0000 | Recall@1: 1.00 | Precision@1: 1.00 | Recall@3: 1.00 | Precision@3: 0.33
+  Graded Relevance Scores: [2, 1, 0]
 ----------------------------------------
 
 Q-005: "What audit procedures and compliance checks are required for transaction authorization?" [FAIL - CROSS_SECTION_LEXICAL_DISTRACTION]
   Category: Cross-Section Lexical Distractor | Target Section: Section 3: High-Value Transaction Authorization Thresholds
   Expected Chunks: ['sample_banking_regulation_txt#chunk_003', 'sample_banking_regulation_txt#chunk_004']
-  Retrieved Chunks: ['sample_banking_regulation_txt#chunk_005', 'sample_banking_regulation_txt#chunk_001', 'sample_banking_regulation_txt#chunk_002']
-  MRR: 0.2500 | Recall@1: 0.00 | Precision@1: 0.00 | Recall@3: 0.00 | Precision@3: 0.00
-  Graded Relevance Scores: [0, 0, 0]
+  Retrieved Chunks: ['sample_banking_regulation_txt#chunk_001', 'sample_banking_regulation_txt#chunk_002', 'sample_banking_regulation_txt#chunk_003']
+  MRR: 0.3333 | Recall@1: 0.00 | Precision@1: 0.00 | Recall@3: 0.50 | Precision@3: 0.33
+  Graded Relevance Scores: [0, 0, 2]
 ----------------------------------------
 
 Q-006: "How often must institutions calculate and submit the Liquidity Coverage Ratio (LCR)?" [PASS]
