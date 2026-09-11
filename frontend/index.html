@@ -3,484 +3,89 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ruler — Banking Regulatory AI & RAG Dashboard</title>
-  <meta name="description" content="Ruler Banking Regulatory AI Assistant, Token-Aware Document Chunker, and Source Tracing Dashboard.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/static/styles.css">
+  <title>Ruler Intelligence — Banking Regulatory Platform</title>
+  <meta http-equiv="refresh" content="0; url=http://localhost:3000/">
+  <script>
+    // Immediate redirect to modern Next.js frontend
+    if (window.location.port === '8000') {
+      window.location.href = 'http://localhost:3000/';
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #FAF8F5;
+      color: #002147;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .card {
+      background-color: #FFFFFF;
+      border: 1px solid #D8CCBD;
+      border-radius: 12px;
+      padding: 32px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(0, 33, 71, 0.05);
+      text-align: center;
+      display: flex;
+      flex-col;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .logo {
+      padding: 6px 16px;
+      background-color: #002147;
+      color: #D2B48C;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      margin: 0 auto;
+    }
+    h1 { font-size: 20px; font-weight: 700; color: #002147; }
+    p { font-size: 13px; color: #6A5A4A; line-height: 1.5; }
+    .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+    .btn-primary {
+      background-color: #002147;
+      color: #D2B48C;
+      font-weight: bold;
+      padding: 12px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 13px;
+      transition: opacity 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-secondary {
+      background-color: #F5EFEB;
+      color: #002147;
+      border: 1px solid #D8CCBD;
+      font-weight: bold;
+      padding: 12px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 13px;
+    }
+    .btn-secondary:hover { background-color: #D2B48C; }
+  </style>
 </head>
 <body>
-  <!-- Top Navigation Bar -->
-  <header class="top-header" id="topHeader">
-    <div class="header-left">
-      <div class="logo-box">
-        <span class="logo-icon">⚖️</span>
-        <span class="logo-text">Ruler</span>
-      </div>
-      <span class="header-divider"></span>
-      <span class="platform-title">Banking Regulatory RAG Platform</span>
+  <div class="card">
+    <div class="logo">RULER</div>
+    <h1>Ruler Intelligence Platform</h1>
+    <p>The modern application runs on port <strong>3000</strong>. Redirecting you to the active dashboard...</p>
+    <div class="btn-group">
+      <a href="http://localhost:3000/" class="btn-primary">Open User Portal (http://localhost:3000/) →</a>
+      <a href="http://localhost:3000/ruler" class="btn-secondary">Open Admin Console (http://localhost:3000/ruler) →</a>
     </div>
-
-    <div class="header-right">
-      <div class="status-pill" id="statusPill" title="Connected LLM Endpoint">
-        <span class="status-dot pulse"></span>
-        <span class="status-text" id="statusModel">openai/gpt-4o-mini</span>
-      </div>
-      <div class="token-pill" id="tokenPill" title="Total Tokens in Session">
-        <span class="token-icon">⚡</span>
-        <span id="sessionTokensCount">0</span> tokens
-      </div>
-    </div>
-  </header>
-
-  <!-- App Body Layout -->
-  <div class="app-body">
-    <!-- Left Navigation Sidebar -->
-    <aside class="app-sidebar" id="appSidebar">
-      <div class="sidebar-nav">
-        <button class="nav-button active" data-view="view-home" id="btnNavHome">
-          <span class="nav-icon">🏠</span>
-          <span class="nav-label">HOME</span>
-        </button>
-        <button class="nav-button" data-view="view-chunker" id="btnNavChunker">
-          <span class="nav-icon">🧩</span>
-          <span class="nav-label">CHUNKER</span>
-        </button>
-        <button class="nav-button" data-view="view-history" id="btnNavHistory">
-          <span class="nav-icon">🔍</span>
-          <span class="nav-label">HISTORY</span>
-        </button>
-        <button class="nav-button" data-view="view-settings" id="btnNavSettings">
-          <span class="nav-icon">⚙️</span>
-          <span class="nav-label">SETTINGS</span>
-        </button>
-        <button class="nav-button" data-view="view-jsonlab" id="btnNavJsonLab">
-          <span class="nav-icon">🛠️</span>
-          <span class="nav-label">JSON LAB</span>
-        </button>
-      </div>
-
-      <!-- User Profile & Logout Box -->
-      <div class="sidebar-footer">
-        <div class="user-profile-card">
-          <div class="user-avatar-wrap">
-            <span class="user-avatar-icon">👤</span>
-          </div>
-          <div class="user-details">
-            <span class="user-name">Regulatory Officer</span>
-            <span class="user-role">Compliance Specialist</span>
-          </div>
-          <button class="btn-logout" id="btnLogout" title="Reset / Logout Session">
-            <span class="logout-icon">🚪</span>
-          </button>
-        </div>
-      </div>
-    </aside>
-
-    <!-- Center & Right Workspace -->
-    <main class="app-main">
-      
-      <!-- ======================================================== -->
-      <!-- VIEW 1: HOME (RAG Chat + Source Tracing Panel)           -->
-      <!-- ======================================================== -->
-      <section class="view-panel active" id="view-home">
-        <div class="chat-workspace-grid">
-          <!-- Chat Dialogue Column -->
-          <div class="chat-center-column">
-            <div class="workspace-header">
-              <div>
-                <h2 class="workspace-title">Regulatory Intelligence Assistant</h2>
-                <p class="workspace-subtitle">Grounded compliance answers with exact source attribution</p>
-              </div>
-              <div class="workspace-actions">
-                <button class="btn btn-secondary btn-sm" id="btnToggleSideSource">
-                  📑 Source Inspector
-                </button>
-                <button class="btn btn-ghost btn-sm" id="btnClearChat">
-                  🗑️ Clear
-                </button>
-              </div>
-            </div>
-
-            <!-- Messages Stream -->
-            <div class="chat-stream" id="chatMessages">
-              <div class="chat-welcome-banner">
-                <div class="welcome-badge">🏛️ Ruler Compliance Core</div>
-                <h3>Ask Banking Regulation Directives</h3>
-                <p>All answers are retrieved from <code>sample_banking_regulation.txt</code> and validated against structured schema.</p>
-                <div class="suggested-prompts" id="suggestedPromptsList">
-                  <button class="prompt-chip" data-query="What is Retrieval-Augmented Generation (RAG)?">
-                    What is Retrieval-Augmented Generation (RAG)?
-                  </button>
-                  <button class="prompt-chip" data-query="How does ChromaDB assist in a RAG pipeline?">
-                    How does ChromaDB assist in a RAG pipeline?
-                  </button>
-                  <button class="prompt-chip" data-query="What are the Capital Adequacy and Liquidity Reserve ratios?">
-                    What are Capital Adequacy & Liquidity ratios?
-                  </button>
-                  <button class="prompt-chip" data-query="What are the mandatory data encryption directives?">
-                    What are mandatory encryption directives?
-                  </button>
-                  <button class="prompt-chip" data-query="How do we handle malformed JSON gracefully in Python?">
-                    How do we handle malformed JSON gracefully?
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Input Bar -->
-            <div class="chat-input-bar">
-              <form id="chatForm" class="input-form">
-                <textarea 
-                  id="chatInput" 
-                  class="chat-input-field" 
-                  placeholder="Ask a regulatory compliance or RAG pipeline question... (Enter to send)"
-                  rows="2"
-                  required
-                ></textarea>
-                <button type="submit" class="btn btn-primary btn-submit-chat" id="btnSendChat">
-                  <span>Send</span>
-                  <svg class="send-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="22" y1="2" x2="11" y2="13"></line>
-                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                  </svg>
-                </button>
-              </form>
-            </div>
-          </div>
-
-          <!-- Right Source Inspector Drawer -->
-          <div class="source-drawer-column" id="sourceDrawer">
-            <div class="drawer-header">
-              <div class="drawer-title-wrap">
-                <span class="drawer-icon">🔍</span>
-                <div>
-                  <h3 class="drawer-heading">Source Grounding Inspector</h3>
-                  <p class="drawer-sub" id="drawerBreadcrumbs">Doc: sample_banking_regulation.txt</p>
-                </div>
-              </div>
-              <span class="badge badge-success" id="drawerMatchBadge">✓ 100% Character Match</span>
-            </div>
-
-            <div class="drawer-body">
-              <div class="source-viewport">
-                <div class="source-highlight-text" id="drawerSourceHighlightedText">
-                  <!-- Highlighted text snippet inserted here -->
-                </div>
-              </div>
-
-              <div class="drawer-meta-grid">
-                <div class="meta-box">
-                  <span class="meta-label">Document ID</span>
-                  <span class="meta-value" id="drawerDocId">DOC_BRCF_2026_001</span>
-                </div>
-                <div class="meta-box">
-                  <span class="meta-label">Section Tag</span>
-                  <span class="meta-value" id="drawerSection">Section 1: Executive Overview</span>
-                </div>
-                <div class="meta-box">
-                  <span class="meta-label">Page Location</span>
-                  <span class="meta-value" id="drawerPage">Page 1</span>
-                </div>
-                <div class="meta-box">
-                  <span class="meta-label">Character Span</span>
-                  <span class="meta-value" id="drawerSpan">[379, 544]</span>
-                </div>
-              </div>
-
-              <div class="drawer-json-preview">
-                <div class="preview-title">Raw Structured Response JSON</div>
-                <pre class="code-box" id="drawerJsonViewer"><code>{}</code></pre>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ======================================================== -->
-      <!-- VIEW 2: CHUNKER (Token-Aware Chunking Studio)            -->
-      <!-- ======================================================== -->
-      <section class="view-panel" id="view-chunker">
-        <div class="chunker-workspace">
-          <div class="workspace-header">
-            <div>
-              <h2 class="workspace-title">Token-Aware Document Chunker</h2>
-              <p class="workspace-subtitle">Exact token sizing (tiktoken cl100k_base) and controlled boundary overlap</p>
-            </div>
-            <div class="workspace-actions">
-              <button class="btn btn-primary" id="btnExecuteChunk">
-                ⚡ Partition Document into Chunks
-              </button>
-            </div>
-          </div>
-
-          <!-- Controls Bar -->
-          <div class="chunker-controls-panel">
-            <div class="control-col">
-              <label class="control-label" for="chunkModeSelect">Chunking Mode</label>
-              <select id="chunkModeSelect" class="form-select">
-                <option value="token">Token-Aware (tiktoken cl100k_base)</option>
-                <option value="char">Character-Based (Section / Heading)</option>
-              </select>
-            </div>
-
-            <div class="control-col">
-              <div class="label-val-row">
-                <label class="control-label" for="chunkSizeInput">Chunk Size</label>
-                <span class="val-badge" id="chunkSizeDisplay">512 tokens</span>
-              </div>
-              <input type="range" id="chunkSizeInput" class="form-range" min="100" max="1000" step="50" value="512">
-            </div>
-
-            <div class="control-col">
-              <div class="label-val-row">
-                <label class="control-label" for="chunkOverlapInput">Controlled Overlap</label>
-                <span class="val-badge" id="chunkOverlapDisplay">64 tokens (12.5%)</span>
-              </div>
-              <input type="range" id="chunkOverlapInput" class="form-range" min="0" max="200" step="16" value="64">
-            </div>
-
-            <div class="control-col">
-              <label class="control-label">Schema Consistency</label>
-              <div class="consistency-status-tag">
-                <span class="status-dot"></span>
-                <span id="consistencyLabel">100% Schema Valid</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Boundary Preservation Banner -->
-          <div class="boundary-card">
-            <div class="boundary-card-head">
-              <span class="badge badge-accent">Task 3 Technical Proof</span>
-              <h4>Context Preservation at Chunk Boundaries</h4>
-            </div>
-            <div class="boundary-grid">
-              <div class="boundary-cell severed">
-                <span class="cell-tag error">❌ Without Overlap (overlap = 0)</span>
-                <p class="cell-text">
-                  <span class="dim">...routine vendor payments under $50,000 may be approved directly. However, any single capital expenditure</span>
-                  <span class="cut-marker">[SEVERED]</span>
-                  <strong class="highlight-err">exceeding $50,000 requires unanimous board authorization...</strong>
-                </p>
-                <span class="cell-explain err">Subject lost: Chunk 2 cannot identify what exceeds $50,000.</span>
-              </div>
-
-              <div class="boundary-cell preserved">
-                <span class="cell-tag success">✅ With Controlled Overlap (overlap = 64 tokens)</span>
-                <p class="cell-text">
-                  <span class="dim">...routine vendor payments under $50,000 may be approved directly. However, any single capital expenditure</span>
-                  <span class="cut-marker overlap">[OVERLAP]</span>
-                  <strong class="highlight-ok">any single capital expenditure exceeding $50,000 requires unanimous board authorization...</strong>
-                </p>
-                <span class="cell-explain ok">Intact Context: Subject and condition preserved completely for RAG.</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Chunks Grid -->
-          <div class="chunks-section-title">
-            <h3>Generated Document Chunks (<span id="totalChunksCount">0</span> Chunks)</h3>
-          </div>
-          <div class="chunks-cards-grid" id="chunksGallery">
-            <!-- Chunk cards injected dynamically -->
-          </div>
-        </div>
-      </section>
-
-      <!-- ======================================================== -->
-      <!-- VIEW 3: HISTORY (Conversation Logs & Audit Trail)        -->
-      <!-- ======================================================== -->
-      <section class="view-panel" id="view-history">
-        <div class="history-workspace">
-          <div class="workspace-header">
-            <div>
-              <h2 class="workspace-title">Application Dialogue History & Telemetry</h2>
-              <p class="workspace-subtitle">Complete audit trail of all sequential user questions & structured responses</p>
-            </div>
-            <div class="workspace-actions">
-              <button class="btn btn-secondary btn-sm" id="btnExportJson">
-                📥 Export JSON
-              </button>
-            </div>
-          </div>
-
-          <div class="history-table-card">
-            <table class="history-table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Role</th>
-                  <th>User Question / Model Answer</th>
-                  <th>Source Document</th>
-                  <th>Confidence</th>
-                  <th>Tokens</th>
-                </tr>
-              </thead>
-              <tbody id="historyTableBody">
-                <!-- History rows injected dynamically -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- ======================================================== -->
-      <!-- VIEW 4: SETTINGS (Prompt Templates & Model Config)       -->
-      <!-- ======================================================== -->
-      <section class="view-panel" id="view-settings">
-        <div class="settings-workspace">
-          <div class="workspace-header">
-            <div>
-              <h2 class="workspace-title">System Settings & Prompt Templates</h2>
-              <p class="workspace-subtitle">Configure model endpoints, temperature, and prompt template parameters</p>
-            </div>
-          </div>
-
-          <div class="settings-grid">
-            <!-- Left Config -->
-            <div class="settings-card">
-              <h3 class="card-title">Prompt Template Configuration</h3>
-              
-              <div class="form-group mt-3">
-                <label class="form-label" for="settingsSystemRole">System Role Template Parameter ({role})</label>
-                <select id="settingsSystemRole" class="form-select">
-                  <option value="RAG">RAG Specialized Assistant</option>
-                  <option value="Banking Compliance Officer">Banking Compliance Officer</option>
-                  <option value="Data Pipeline Engineer">Data Pipeline Engineer</option>
-                  <option value="Batch">Batch Automation Assistant</option>
-                </select>
-              </div>
-
-              <div class="template-display-box mt-3">
-                <span class="template-tag">RAG_SYSTEM_PROMPT Template</span>
-                <code id="systemPromptTemplateCode">"You are a helpful {role} specialized AI assistant."</code>
-              </div>
-
-              <div class="template-display-box mt-3">
-                <span class="template-tag">RAG_USER_PROMPT Template</span>
-                <code>"Explain what {topic} is in {length} concise sentences."</code>
-              </div>
-
-              <div class="form-group mt-3">
-                <label class="form-label" for="settingsTempSlider">Sampling Temperature: <span id="settingsTempValue">0.2</span></label>
-                <input type="range" id="settingsTempSlider" class="form-range" min="0.0" max="1.0" step="0.05" value="0.2">
-              </div>
-            </div>
-
-            <!-- Right Config -->
-            <div class="settings-card">
-              <h3 class="card-title">LLM Gateway & Environment</h3>
-              
-              <div class="meta-row mt-3">
-                <span class="meta-name">Active Model:</span>
-                <span class="meta-val" id="settingsModelVal">openai/gpt-4o-mini</span>
-              </div>
-              <div class="meta-row">
-                <span class="meta-name">API Gateway:</span>
-                <span class="meta-val">https://openrouter.ai/api/v1</span>
-              </div>
-              <div class="meta-row">
-                <span class="meta-name">Tokenizer:</span>
-                <span class="meta-val">tiktoken (cl100k_base)</span>
-              </div>
-              <div class="meta-row">
-                <span class="meta-name">Response Format Mode:</span>
-                <span class="meta-val">{ "type": "json_object" }</span>
-              </div>
-
-              <div class="form-group mt-4">
-                <label class="form-label">Active Document Corpus</label>
-                <div class="corpus-tag">
-                  📄 data/sample_banking_regulation.txt (DOC_BRCF_2026_001)
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ======================================================== -->
-      <!-- VIEW 5: JSON LAB (Fault Recovery & Validation)           -->
-      <!-- ======================================================== -->
-      <section class="view-panel" id="view-jsonlab">
-        <div class="jsonlab-workspace">
-          <div class="workspace-header">
-            <div>
-              <h2 class="workspace-title">JSON Fault Recovery & Schema Validation Lab</h2>
-              <p class="workspace-subtitle">Test markdown stripping, trailing comma recovery, and missing field fallbacks</p>
-            </div>
-            <div class="workspace-actions">
-              <button class="btn btn-primary" id="btnRunJsonRecovery">
-                🧪 Test Recovery Pipeline
-              </button>
-            </div>
-          </div>
-
-          <div class="preset-buttons-row">
-            <span class="preset-title">Test Scenarios:</span>
-            <button class="btn-preset active" data-preset="markdown_trailing_comma">
-              Scenario A: Markdown Fences + Trailing Comma
-            </button>
-            <button class="btn-preset" data-preset="missing_field">
-              Scenario B: Missing Required Field ('source')
-            </button>
-            <button class="btn-preset" data-preset="embedded_noise">
-              Scenario C: Text Prefix & Suffix Noise
-            </button>
-            <button class="btn-preset" data-preset="unrecoverable_crash">
-              Scenario D: Unrecoverable Malformed String
-            </button>
-          </div>
-
-          <div class="jsonlab-grid">
-            <div class="jsonlab-col">
-              <label class="form-label" for="rawJsonInput">Raw Unparsed LLM Response String</label>
-              <textarea id="rawJsonInput" class="code-textarea" rows="12"></textarea>
-            </div>
-
-            <div class="jsonlab-col">
-              <label class="form-label">Recovery Pipeline Stage Results</label>
-              <div class="pipeline-stages">
-                <div class="stage-card" id="stageClean">
-                  <div class="stage-icon">1</div>
-                  <div>
-                    <div class="stage-name">Regex Cleaning & Markdown Stripping</div>
-                    <div class="stage-sub" id="statusClean">Waiting for run...</div>
-                  </div>
-                </div>
-                <div class="stage-card" id="stageParse">
-                  <div class="stage-icon">2</div>
-                  <div>
-                    <div class="stage-name">JSON Parser (json.loads)</div>
-                    <div class="stage-sub" id="statusParse">Waiting for run...</div>
-                  </div>
-                </div>
-                <div class="stage-card" id="stageValidate">
-                  <div class="stage-icon">3</div>
-                  <div>
-                    <div class="stage-name">Required Fields Validation & Default Recovery</div>
-                    <div class="stage-sub" id="statusValidate">Waiting for run...</div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="validated-output-box mt-3">
-                <div class="output-head">
-                  <span>Final Validated Python Dict</span>
-                  <span class="badge badge-success" id="jsonResultBadge">Valid</span>
-                </div>
-                <pre class="code-box" id="jsonResultViewer"><code>{}</code></pre>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </main>
   </div>
-
-  <script src="/static/app.js"></script>
 </body>
 </html>

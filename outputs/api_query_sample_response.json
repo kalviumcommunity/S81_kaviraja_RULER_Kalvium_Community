@@ -1,18 +1,18 @@
 {
   "status": "success",
   "question": "What is the capital adequacy requirement for Tier 1 capital under the framework?",
-  "answer": "The capital adequacy requirement for Tier 1 capital is a minimum of 10.5% at all times for financial institutions [1].",
+  "answer": "The capital adequacy requirement for Tier 1 common equity capital under the Basel IV capital adequacy standards is that it must remain above 10.5% of total risk-weighted assets at all times [1].",
   "sources": [
     {
       "doc_id": "SAMPLE_BANKING_REGULATION",
       "filename": "sample_banking_regulation.txt",
-      "section": "Section 2: Liquidity and Capital Requirements",
-      "page_number": 2,
-      "chunk_id": "SAMPLE_BANKING_REGULATION#chunk_003",
-      "text": "## Section 2: Liquidity and Capital Requirements\nFinancial institutions must maintain a Tier 1 Capital Ratio of at least 10.5% at all times. \nAdditionally, liquidity coverage ratios (LCR) must be sustained above 100% to ensure short-term obligations can be met during high-stress market events.\nDaily reporting of net cash outflows and high-quality liquid assets (HQLA) is required by 17:00 EST.",
+      "section": "Section 2: Capital Reserves & Liquidity Ratios",
+      "page_number": 1,
+      "chunk_id": "SAMPLE_BANKING_REGULATION#chunk_004",
+      "text": "## Section 2: Capital Reserves & Liquidity Ratios\nUnder Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times. In addition, institutions must hold high-quality liquid assets (HQLA) sufficient to cover total net cash outflows over a 30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and sub",
       "similarity_score": 0.9,
-      "start_char": 561,
-      "end_char": 956
+      "start_char": 509,
+      "end_char": 909
     },
     {
       "doc_id": "DOC2",
@@ -26,29 +26,29 @@
       "end_char": 278
     },
     {
-      "doc_id": "SAMPLE_BANKING_REGULATION",
-      "filename": "sample_banking_regulation.txt",
-      "section": "Section 1: Executive Overview and Scope",
+      "doc_id": "DOC2",
+      "filename": "doc2.txt",
+      "section": "Document 2: What is RAG?",
       "page_number": 1,
-      "chunk_id": "SAMPLE_BANKING_REGULATION#chunk_001",
-      "text": "## Section 1: Executive Overview and Scope\nThis document specifies mandatory compliance directives for financial institutions operating within digital banking infrastructure. \nAll licensed entities must implement strict risk controls, maintain detailed audit logs, and adhere to capital adequacy thresholds established by regulatory authorities.",
+      "chunk_id": "DOC2#chunk_002",
+      "text": "to fine-tune the model, which is expensive and time-consuming. It works by first converting documents into embeddings, storing them in a vector database, and then retrieving the most relevant documents when a user query is received.",
       "similarity_score": 0.8,
-      "start_char": 69,
-      "end_char": 414
+      "start_char": 360,
+      "end_char": 593
     }
   ],
   "confidence": "high",
   "is_grounded": true,
   "metadata": {
     "model": "openai/gpt-4o-mini",
-    "latency_ms": 7486.81,
+    "latency_ms": 4661.39,
     "tokens_used": {
-      "prompt_tokens": 495,
-      "completion_tokens": 29,
-      "total_tokens": 524
+      "prompt_tokens": 487,
+      "completion_tokens": 43,
+      "total_tokens": 530
     },
     "total_sources_retrieved": 3,
     "retrieval_strategy": "vector_hybrid",
-    "timestamp": "2026-09-09T09:31:38.609522+00:00"
+    "timestamp": "2026-09-10T07:48:11.787557+00:00"
   }
 }

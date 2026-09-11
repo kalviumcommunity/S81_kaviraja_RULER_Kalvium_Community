@@ -8,6 +8,7 @@ Provides REST endpoints for:
 """
 
 import os
+import re
 import sys
 import time
 import json
@@ -96,6 +97,9 @@ try:
         OversizedFileError,
         DocumentProcessingError,
         IndexingSummary,
+        extract_text_from_file_bytes,
+        clean_extracted_text,
+        ALLOWED_EXTENSIONS,
     )
 except ImportError:
     try:
@@ -106,6 +110,9 @@ except ImportError:
             OversizedFileError,
             DocumentProcessingError,
             IndexingSummary,
+            extract_text_from_file_bytes,
+            clean_extracted_text,
+            ALLOWED_EXTENSIONS,
         )
     except ImportError:
         document_uploader_service = None
@@ -113,6 +120,10 @@ except ImportError:
         EmptyFileError = Exception
         OversizedFileError = Exception
         DocumentProcessingError = Exception
+        IndexingSummary = None
+        extract_text_from_file_bytes = None
+        clean_extracted_text = None
+        ALLOWED_EXTENSIONS = {".txt", ".md", ".json", ".csv", ".pdf", ".docx"}
         IndexingSummary = None
 
 
@@ -345,11 +356,13 @@ def _retrieve_evidence_chunks(
 
     seen_source_paths = {c.metadata.source_path for c in chunks if c.metadata and c.metadata.source_path}
 
+    valid_exts = tuple(ALLOWED_EXTENSIONS) if ALLOWED_EXTENSIONS else (".txt", ".md", ".json", ".csv", ".pdf", ".docx")
+
     for dir_path in dirs_to_scan:
         if os.path.exists(dir_path):
-            for filename in sorted(name for name in os.listdir(dir_path) if name.endswith((".txt", ".md"))):
+            for filename in sorted(name for name in os.listdir(dir_path) if name.lower().endswith(valid_exts)):
                 sample_path = os.path.join(dir_path, filename)
-                if sample_path in seen_source_paths:
+                if sample_path in seen_source_paths or not os.path.isfile(sample_path):
                     continue
                 seen_source_paths.add(sample_path)
 
@@ -358,14 +371,25 @@ def _retrieve_evidence_chunks(
                     continue
 
                 try:
-                    with open(sample_path, "r", encoding="utf-8") as source_file:
-                        content = source_file.read()
+                    with open(sample_path, "rb") as source_file:
+                        raw_bytes = source_file.read()
                     
-                    doc_chunks = DocumentChunker(chunk_size=400, chunk_overlap=40).chunk_document(
+                    if extract_text_from_file_bytes:
+                        content = extract_text_from_file_bytes(filename, raw_bytes)
+                    else:
+                        content = raw_bytes.decode("utf-8", errors="ignore")
+
+                    if clean_extracted_text:
+                        content = clean_extracted_text(content)
+
+                    if not content or not content.strip():
+                        continue
+                    
+                    doc_chunks = DocumentChunker(chunk_size=450, chunk_overlap=45).chunk_document(
                         content=content,
                         doc_id=doc_id,
                         filename=filename,
-                        source_path=os.path.join("data", filename),
+                        source_path=os.path.join("data", "uploads" if "uploads" in dir_path else "", filename),
                     )
                     chunks.extend(doc_chunks)
                 except Exception as e:
@@ -380,7 +404,11 @@ def _retrieve_evidence_chunks(
         if filtered:
             chunks = filtered
 
-    query_terms = [term.lower() for term in question.split() if len(term) > 2]
+    stopwords = {"what", "is", "the", "are", "how", "to", "in", "of", "and", "a", "an", "this", "that", "it", "for", "on", "with", "as", "by", "at", "from", "tell", "me", "about", "give", "can", "you", "my", "uploaded", "document", "file"}
+    raw_words = re.findall(r"\w+", question.lower())
+    query_terms = [term for term in raw_words if len(term) > 1 and term not in stopwords]
+    if not query_terms:
+        query_terms = [term for term in raw_words if len(term) > 1]
     
     # Keyword & term overlap scoring
     def score_chunk(chunk: Chunk) -> float:
@@ -388,11 +416,21 @@ def _retrieve_evidence_chunks(
         score = 0.0
         for term in query_terms:
             if term in chunk_lower:
-                score += 1.0 + (chunk_lower.count(term) * 0.1)
+                score += 1.0 + (chunk_lower.count(term) * 0.2)
+        
+        # Exact multi-word query match bonus
+        clean_q = " ".join(query_terms)
+        if len(clean_q) > 4 and clean_q in chunk_lower:
+            score += 3.0
+
+        # Prioritize uploaded document chunks when querying
+        if chunk.metadata and ("uploads" in (chunk.metadata.source_path or "") or "UPLOAD" in (chunk.metadata.doc_id or "")):
+            score += 0.5
+
         return score
 
     ranked = sorted(chunks, key=score_chunk, reverse=True)
-    matches = [chunk for chunk in ranked if score_chunk(chunk) > 0]
+    matches = [chunk for chunk in ranked if score_chunk(chunk) > 0.5]
 
     return matches[:top_k] if matches else ranked[:top_k]
 
@@ -449,23 +487,28 @@ def execute_rag_pipeline(
     if use_mock or not llm_client.api_key or llm_client.api_key == "missing_api_key_placeholder":
         # Formulate grounded mock response based on retrieved chunk contents
         first_chunk_text = retrieved_chunks[0].text if retrieved_chunks else ""
-        if "10.5%" in first_chunk_text or "Capital Adequacy" in first_chunk_text or "Tier 1" in question:
+        if "Retrieval-Augmented Generation" in first_chunk_text or "What is RAG" in first_chunk_text or "RAG" in question:
             mock_resp = (
-                f"Under the Banking Regulatory Compliance Framework, financial institutions must maintain a minimum "
-                f"Tier 1 Capital Adequacy ratio of 10.5% and a total Capital Adequacy Ratio (CAR) of 13.0% of total risk-weighted assets [1]."
+                "Retrieval-Augmented Generation (RAG) is an AI framework for retrieving facts from an external "
+                "knowledge base to ground large language models (LLMs) on the most accurate, up-to-date information [1]."
+            )
+        elif "10.5%" in first_chunk_text or "Capital Adequacy" in first_chunk_text or "Tier 1" in question:
+            mock_resp = (
+                "Under the Banking Regulatory Compliance Framework, financial institutions must maintain a minimum "
+                "Tier 1 Capital Adequacy ratio of 10.5% and a total Capital Adequacy Ratio (CAR) of 13.0% of total risk-weighted assets [1]."
             )
         elif "24 hours" in first_chunk_text or "breach" in question.lower() or "incident" in question.lower():
             mock_resp = (
-                f"According to mandatory cybersecurity guidelines, all security incidents and data breaches must be reported "
-                f"to regulatory authorities within 24 hours of initial discovery [1]."
+                "According to mandatory cybersecurity guidelines, all security incidents and data breaches must be reported "
+                "to regulatory authorities within 24 hours of initial discovery [1]."
             )
         elif "50,000" in first_chunk_text or "procurement" in question.lower() or "disbursement" in question.lower():
             mock_resp = (
-                f"Vendor disbursements exceeding $50,000 strictly require unanimous board authorization and an independent audit report [1]."
+                "Vendor disbursements exceeding $50,000 strictly require unanimous board authorization and an independent audit report [1]."
             )
         else:
-            snippet = first_chunk_text[:140].replace("\n", " ").strip()
-            mock_resp = f"Based on the regulatory documents: {snippet} [1]."
+            snippet = first_chunk_text[:200].replace("\n", " ").strip()
+            mock_resp = f"Based on the provided regulatory documents: {snippet} [1]."
 
     # Generate answer via LLM client
     raw_answer, usage = llm_client.create_chat_completion(
@@ -718,6 +761,56 @@ async def upload_document(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Unexpected error during document indexing: {str(e)}"
+        )
+
+
+class UploadTextRequest(BaseModel):
+    text: str = Field(..., min_length=1, description="Raw text content of the policy/audit document.")
+    title: Optional[str] = "Regulation Document"
+    category: Optional[str] = "Institutional Regulation"
+    doc_id: Optional[str] = None
+    chunk_size: Optional[int] = 512
+    chunk_overlap: Optional[int] = 64
+
+
+@app.post("/api/upload-text", tags=["Document Ingestion"])
+def upload_document_text(req: UploadTextRequest):
+    """Admin endpoint for ingesting text-based policies, guidelines, or audits directly."""
+    if document_uploader_service is None:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Document Uploader Service is unavailable."
+        )
+
+    clean_text = req.text.strip()
+    if not clean_text:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Document text cannot be empty."
+        )
+
+    filename = f"{re.sub(r'[^a-zA-Z0-9_-]', '_', (req.title or 'document').lower())}.txt"
+    content_bytes = clean_text.encode("utf-8")
+
+    try:
+        summary = document_uploader_service.process_and_index_document(
+            filename=filename,
+            content_bytes=content_bytes,
+            category=req.category or "Institutional Regulation",
+            chunk_size=req.chunk_size or 512,
+            chunk_overlap=req.chunk_overlap or 64,
+            explicit_doc_id=req.doc_id,
+        )
+        return {
+            "status": "success",
+            "message": f"Policy document '{req.title}' indexed into knowledge base successfully.",
+            "data": summary.to_dict(),
+            "chunks_indexed": summary.total_chunks,
+        }
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Failed to index document text: {str(e)}"
         )
 
 
@@ -1018,6 +1111,77 @@ def handle_rerank(req: RerankRequest):
     )
 
     return comparison
+
+
+# -------------------------------------------------------------
+# USER FEEDBACK ENDPOINTS
+# -------------------------------------------------------------
+
+FEEDBACK_LOG_PATH = os.path.join(OUTPUTS_DIR, "user_feedback_log.json")
+_user_feedbacks: List[Dict[str, Any]] = []
+
+# Preload existing feedback if file exists
+if os.path.exists(FEEDBACK_LOG_PATH):
+    try:
+        with open(FEEDBACK_LOG_PATH, "r", encoding="utf-8") as f:
+            _user_feedbacks = json.load(f)
+    except Exception:
+        _user_feedbacks = []
+
+
+class FeedbackRequest(BaseModel):
+    turn_id: Optional[Union[int, str]] = None
+    question: Optional[str] = ""
+    answer: Optional[str] = ""
+    rating: Optional[str] = "helpful"
+    rating_score: Optional[int] = 5
+    thoughts: str = Field(..., description="User thoughts, observations or feedback text.")
+    category: Optional[str] = "General"
+    notes: Optional[str] = ""
+    tokens_generated: Optional[int] = 0
+
+
+@app.post("/api/feedback", tags=["User Feedback"])
+def submit_feedback(fb: FeedbackRequest):
+    """Saves user feedback and observations on AI generated responses."""
+    record = {
+        "id": len(_user_feedbacks) + 1,
+        "turn_id": fb.turn_id,
+        "question": fb.question,
+        "answer": fb.answer,
+        "rating": fb.rating,
+        "rating_score": fb.rating_score,
+        "thoughts": fb.thoughts,
+        "category": fb.category,
+        "notes": fb.notes,
+        "tokens_generated": fb.tokens_generated,
+        "timestamp": datetime.now(timezone.utc).isoformat()
+    }
+    _user_feedbacks.append(record)
+    
+    # Persist to disk
+    try:
+        os.makedirs(OUTPUTS_DIR, exist_ok=True)
+        with open(FEEDBACK_LOG_PATH, "w", encoding="utf-8") as f:
+            json.dump(_user_feedbacks, f, indent=2)
+    except Exception as e:
+        logging.getLogger("Server").warning(f"Could not persist feedback to disk: {e}")
+        
+    return {
+        "status": "success",
+        "message": "Feedback recorded successfully.",
+        "feedback": record
+    }
+
+
+@app.get("/api/feedback", tags=["User Feedback"])
+def get_feedbacks():
+    """Retrieves all submitted user feedback records."""
+    return {
+        "status": "success",
+        "total": len(_user_feedbacks),
+        "feedbacks": _user_feedbacks
+    }
 
 
 # -------------------------------------------------------------

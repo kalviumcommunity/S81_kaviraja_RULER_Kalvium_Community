@@ -39,7 +39,7 @@ except ImportError:
 
 
 # Supported extensions and size thresholds (Task 4)
-ALLOWED_EXTENSIONS = {".txt", ".md", ".json", ".csv", ".pdf"}
+ALLOWED_EXTENSIONS = {".txt", ".md", ".json", ".csv", ".pdf", ".docx"}
 MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024  # 10 MB limit
 
 
@@ -75,13 +75,13 @@ class EmptyFileError(DocumentUploadError):
         super().__init__(
             f"The uploaded file '{filename}' is empty or contains no readable text.",
             status_code=400,
-            error_type="Bad Request (Empty File)",
+            error_type="Empty File",
         )
 
 
 class OversizedFileError(DocumentUploadError):
-    def __init__(self, filename: str, size_bytes: int, max_bytes: int = MAX_FILE_SIZE_BYTES):
-        size_mb = round(size_bytes / (1024 * 1024), 2)
+    def __init__(self, filename: str, actual_bytes: int, max_bytes: int):
+        size_mb = round(actual_bytes / (1024 * 1024), 2)
         max_mb = round(max_bytes / (1024 * 1024), 2)
         super().__init__(
             f"The uploaded file '{filename}' ({size_mb} MB) exceeds the maximum allowed limit of {max_mb} MB.",
@@ -151,6 +151,58 @@ def sanitize_filename(filename: str) -> str:
     return safe
 
 
+def extract_text_from_file_bytes(filename: str, content_bytes: bytes) -> str:
+    """
+    Extract readable text from document bytes across PDF, DOCX, TXT, MD, JSON, CSV.
+    """
+    _, ext = os.path.splitext(filename.lower())
+    if ext == ".pdf":
+        try:
+            import pypdf
+            import io
+            reader = pypdf.PdfReader(io.BytesIO(content_bytes))
+            pages_text = []
+            for idx, page in enumerate(reader.pages):
+                page_text = page.extract_text() or ""
+                if page_text.strip():
+                    pages_text.append(f"[Page {idx + 1}]\n{page_text}")
+            text = "\n\n".join(pages_text)
+            if not text.strip():
+                raise DocumentProcessingError(f"PDF document '{filename}' contains no extractable text.")
+            return text
+        except DocumentProcessingError:
+            raise
+        except Exception as e:
+            raise DocumentProcessingError(f"Failed to extract text from PDF '{filename}': {str(e)}")
+    elif ext in {".docx", ".doc"}:
+        try:
+            import docx
+            import io
+            doc = docx.Document(io.BytesIO(content_bytes))
+            paragraphs = [p.text for p in doc.paragraphs if p.text.strip()]
+            for table in doc.tables:
+                for row in table.rows:
+                    row_text = " | ".join(c.text.strip() for c in row.cells if c.text.strip())
+                    if row_text:
+                        paragraphs.append(row_text)
+            text = "\n\n".join(paragraphs)
+            if not text.strip():
+                raise DocumentProcessingError(f"Word document '{filename}' contains no readable text.")
+            return text
+        except DocumentProcessingError:
+            raise
+        except Exception as e:
+            raise DocumentProcessingError(f"Failed to extract text from Word document '{filename}': {str(e)}")
+    else:
+        # Plain text, markdown, json, csv
+        for enc in ("utf-8", "utf-8-sig", "latin-1", "cp1252"):
+            try:
+                return content_bytes.decode(enc)
+            except UnicodeDecodeError:
+                continue
+        raise DocumentProcessingError(f"Could not decode document text for '{filename}'.")
+
+
 def clean_extracted_text(text: str) -> str:
     """
     Task 2: Ingestion cleaning - normalizes whitespace, removes null bytes,
@@ -160,6 +212,8 @@ def clean_extracted_text(text: str) -> str:
         return ""
     # Strip null characters
     text = text.replace("\x00", "")
+    # Normalize bullet points and non-standard unicode characters
+    text = re.sub(r"[\uf000-\uf0ff]", " • ", text)
     # Normalize carriage returns and excessive consecutive newlines
     text = text.replace("\r\n", "\n").replace("\r", "\n")
     text = re.sub(r"\n{3,}", "\n\n", text)
@@ -192,6 +246,65 @@ class DocumentUploaderService:
         self.indexed_documents: Dict[str, UploadedDocumentRecord] = {}
         self.indexed_chunks: List[Chunk] = []
 
+        # Load and index any pre-existing files in the upload directory on startup
+        self._load_existing_uploads()
+
+    def _load_existing_uploads(self):
+        """Scans upload_dir on initialization and indexes any existing uploaded files."""
+        if not os.path.exists(self.upload_dir):
+            return
+        for fname in sorted(os.listdir(self.upload_dir)):
+            fpath = os.path.join(self.upload_dir, fname)
+            if not os.path.isfile(fpath):
+                continue
+            _, ext = os.path.splitext(fname.lower())
+            if ext not in ALLOWED_EXTENSIONS:
+                continue
+            try:
+                with open(fpath, "rb") as f:
+                    content_bytes = f.read()
+                if not content_bytes:
+                    continue
+                raw_text = extract_text_from_file_bytes(fname, content_bytes)
+                cleaned_text = clean_extracted_text(raw_text)
+                if not cleaned_text.strip():
+                    continue
+
+                stem, _ = os.path.splitext(fname)
+                doc_id = stem.upper()
+                
+                if doc_id in self.indexed_documents:
+                    continue
+
+                doc_chunker = DocumentChunker(chunk_size=450, chunk_overlap=45)
+                generic_chunks = doc_chunker.chunk_document(
+                    content=cleaned_text,
+                    doc_id=doc_id,
+                    filename=fname,
+                    source_path=os.path.join("data", "uploads", fname),
+                )
+                
+                chunk_ids = [c.chunk_id for c in generic_chunks]
+                doc_record = UploadedDocumentRecord(
+                    doc_id=doc_id,
+                    original_filename=fname,
+                    stored_filename=fname,
+                    stored_path=fpath,
+                    file_size_bytes=len(content_bytes),
+                    content_hash=str(hash(cleaned_text)),
+                    category="Uploaded Document",
+                    upload_timestamp=datetime.now(timezone.utc).isoformat(),
+                    character_count=len(cleaned_text),
+                    token_count=sum(len(c.text.split()) for c in generic_chunks),
+                    chunks_count=len(generic_chunks),
+                    chunk_ids=chunk_ids,
+                )
+                self.indexed_documents[doc_id] = doc_record
+                self.indexed_chunks.extend(generic_chunks)
+                self.logger.info(f"Loaded and indexed existing upload: {fname} ({len(generic_chunks)} chunks)")
+            except Exception as e:
+                self.logger.warning(f"Failed to auto-index existing uploaded file {fname}: {e}")
+
     def validate_file(self, filename: str, content_bytes: bytes) -> str:
         """
         Task 4: Validates file format, size, and content emptiness.
@@ -209,14 +322,7 @@ class DocumentUploaderService:
             raise OversizedFileError(filename, size, self.max_file_size)
 
         # 3. Validate text extractability
-        try:
-            text = content_bytes.decode("utf-8")
-        except UnicodeDecodeError:
-            try:
-                text = content_bytes.decode("latin-1")
-            except Exception as e:
-                raise DocumentProcessingError(f"Could not decode document text: {e}")
-
+        text = extract_text_from_file_bytes(filename, content_bytes)
         if not text.strip():
             raise EmptyFileError(filename)
 
