@@ -12,31 +12,84 @@ NO_SOURCE_FALLBACK = (
 
 def _citation_markers(answer: str) -> List[str]:
     """Return citation markers in first-appearance order without duplicates."""
-    markers = re.findall(r"\[\d+\]|\[[A-Za-z0-9_.:-]+#chunk_[A-Za-z0-9_.:-]+\]", answer or "")
+    # Matches [1], [2], [doc.txt], [DOC_ID], [DOC#chunk_001]
+    markers = re.findall(r"\[\d+\]|\[[A-Za-z0-9_.:#/-]+\]", answer or "")
     return list(dict.fromkeys(markers))
 
 
 def attribute_answer(answer: str, injected_sources: Iterable[Any]) -> Dict[str, Any]:
     """Validate answer citations against the exact chunks supplied to the model."""
     sources = [source.to_dict() if hasattr(source, "to_dict") else dict(source) for source in injected_sources]
-    by_marker = {source.get("marker"): source for source in sources if source.get("marker")}
-    markers = _citation_markers(answer)
-    invalid_markers = [marker for marker in markers if marker not in by_marker]
-    cited_sources = [by_marker[marker] for marker in markers if marker in by_marker]
+    
+    # Map multiple potential marker aliases to the source record
+    by_marker = {}
+    for idx, source in enumerate(sources, start=1):
+        num_marker = f"[{idx}]"
+        source["marker"] = num_marker
+        by_marker[num_marker] = source
+        
+        # Also map chunk_id, filename, and doc_id aliases
+        if source.get("chunk_id"):
+            by_marker[f"[{source['chunk_id']}]"] = source
+        if source.get("filename"):
+            by_marker[f"[{source['filename']}]"] = source
+        if source.get("doc_id"):
+            by_marker[f"[{source['doc_id']}]"] = source
 
-    if not markers or invalid_markers or not cited_sources:
+    clean_answer = (answer or "").strip()
+    
+    # Check if answer is an explicit refusal
+    is_refusal = (
+        clean_answer == NO_SOURCE_FALLBACK or
+        "does not contain sufficient information" in clean_answer.lower() or
+        "no context available" in clean_answer.lower() or
+        "context does not mention" in clean_answer.lower()
+    )
+
+    if is_refusal:
+        return {
+            "answer": clean_answer or NO_SOURCE_FALLBACK,
+            "is_grounded": False,
+            "citation_status": "REFUSAL_FALLBACK",
+            "citations": [],
+            "invalid_citations": [],
+        }
+
+    raw_markers = _citation_markers(clean_answer)
+    if not raw_markers:
         return {
             "answer": NO_SOURCE_FALLBACK,
             "is_grounded": False,
-            "citation_status": "NO_VERIFIABLE_CITATIONS",
+            "citation_status": "MISSING_CITATION",
             "citations": [],
-            "invalid_citations": invalid_markers,
+            "invalid_citations": [],
         }
+
+    invalid_citations = [m for m in raw_markers if m not in by_marker]
+    if invalid_citations:
+        return {
+            "answer": clean_answer,
+            "is_grounded": False,
+            "citation_status": "INVALID_CITATION",
+            "citations": [],
+            "invalid_citations": invalid_citations,
+        }
+
+    cited_sources = []
+    seen_sources = set()
+
+    for m in raw_markers:
+        if m in by_marker:
+            src = by_marker[m]
+            src_key = src.get("chunk_id") or src.get("marker")
+            if src_key not in seen_sources:
+                seen_sources.add(src_key)
+                cited_sources.append(src)
 
     citations = []
     for source in cited_sources:
         citations.append({
-            "marker": source["marker"],
+            "marker": source.get("marker", "[1]"),
             "doc_id": source.get("doc_id"),
             "filename": source.get("filename"),
             "source_path": source.get("source_path"),
@@ -54,7 +107,7 @@ def attribute_answer(answer: str, injected_sources: Iterable[Any]) -> Dict[str, 
         })
 
     return {
-        "answer": answer,
+        "answer": clean_answer,
         "is_grounded": True,
         "citation_status": "VERIFIED",
         "citations": citations,
