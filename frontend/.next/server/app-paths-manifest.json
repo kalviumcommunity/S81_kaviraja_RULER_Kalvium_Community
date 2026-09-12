@@ -1,7 +1,8 @@
 {
   "/page": "app/page.js",
   "/ruler/page": "app/ruler/page.js",
-  "/api/admin/upload/route": "app/api/admin/upload/route.js",
   "/api/admin/documents/route": "app/api/admin/documents/route.js",
-  "/api/admin/config/route": "app/api/admin/config/route.js"
+  "/api/admin/config/route": "app/api/admin/config/route.js",
+  "/api/admin/login/route": "app/api/admin/login/route.js",
+  "/api/admin/session/route": "app/api/admin/session/route.js"
 }
