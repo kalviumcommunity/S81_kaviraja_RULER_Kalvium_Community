@@ -1972,3 +1972,558 @@ Organizations should tailor their rules and approval thresholds for high-value t
 [2026-09-12 23:12:40] [INFO] --- MODEL REPLY (choices[0].message.content) ---
 [2026-09-12 23:12:40] [INFO] The provided context does not contain sufficient information to answer this question.
 
+[2026-09-14 17:47:07] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-14 17:47:07] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-14 17:47:07] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-14 17:47:07] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-14 17:47:07] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-14 17:47:07] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
+[2026-09-14 17:47:07] [INFO] ✅ [Malformed JSON Recovered]: Successfully cleaned and parsed malformed JSON object.
+[2026-09-14 17:47:07] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['confidence']
+[2026-09-14 17:47:07] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'confidence': 'high'}
+[2026-09-14 17:47:08] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-14 17:47:08] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-14 17:47:08] [INFO] Response Format Mode: default
+[2026-09-14 17:47:08] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: labelled_queries.json | Section: General | Page: 1 | ID: LABELLED_QUERIES#chunk_003] ---\nQ-002\",\n\"query\": \"What minimum Tier 1 capital adequacy ratio is required under Basel IV?\",\n\"category\": \"Standard Relevance\",\n\"target_section\": \"Section 2: Capital Reserves & Liquidity Ratios\",\n\"expected_chunk_ids\": [\n\"sample_banking_regulation_txt#chunk_002\"\n],\n\"min_acceptable_rank\": 1,\n\"difficulty\": \"Easy\",\n\"description\": \"Validates that Basel IV capital adequacy queries rank Section 2 chunk at rank #1.\"\n},\n{\n\"query_id\": \"Q-003\",\n\n--- [2] [Doc: sample_banking_regulation.txt | Section: Section 2: Capital Reserves & Liquidity Ratios | Page: 1 | ID: SAMPLE_BANKING_REGULATION#chunk_004] ---\n## Section 2: Capital Reserves & Liquidity Ratios\nUnder Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times. In addition, institutions must hold high-quality liquid assets (HQLA) sufficient to cover total net cash outflows over a 30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial regulatory bodies.\n\n--- [3] [Doc: labelled_queries.json | Section: General | Page: 1 | ID: LABELLED_QUERIES#chunk_008] ---\nt institutions calculate and submit the Liquidity Coverage Ratio (LCR)?\",\n\"category\": \"Specific Entity / Threshold\",\n\"target_section\": \"Section 2: Capital Reserves & Liquidity Ratios\",\n\"expected_chunk_ids\": [\n\"sample_banking_regulation_txt#chunk_002\"\n],\n\"min_acceptable_rank\": 1,\n\"difficulty\": \"Easy\",\n\"description\": \"Tests retrieval precision for exact acronym (LCR) and 30-day stress period reporting requirements.\"\n},\n{\n\"query_id\": \"Q-007\",\n\n\n[QUESTION]\nWhat is the capital adequacy requirement for Tier 1 capital?\n\n[ANSWER]"
+  }
+]
+[2026-09-14 17:47:11] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-14 17:47:11] [INFO] Response ID: gen-1789388230-mqDemI1WLDopOZr2fnvN
+[2026-09-14 17:47:11] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-14 17:47:11] [INFO] Finish Reason: stop
+[2026-09-14 17:47:11] [INFO] Token Usage: {
+  "prompt_tokens": 598,
+  "completion_tokens": 34,
+  "total_tokens": 632
+}
+[2026-09-14 17:47:11] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-14 17:47:11] [INFO] Under Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times [2].
+
+[2026-09-14 17:47:12] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-14 17:47:12] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-14 17:47:12] [INFO] Response Format Mode: default
+[2026-09-14 17:47:12] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: sample_esg_regulatory_directives_20260911_090858.txt | Section: Section 1: Green Asset Ratio (GAR) Mandates | Page: 1 | ID: SAMPLE_ESG_REGULATORY_DIRECTIVES_20260911_090858#chunk_002] ---\n## Section 1: Green Asset Ratio (GAR) Mandates\nAll commercial banking institutions with assets under management exceeding $10 billion must report their verified Green Asset Ratio (GAR) on a quarterly basis to regional sustainability boards. The mandatory minimum target for the Green Asset Ratio is set strictly at 18.5% of total eligible balance sheet assets.\n\n--- [2] [Doc: sample_esg_regulatory_directives_20260911_090858.txt | Section: Section 2: Penalties for Non-Compliance | Page: 1 | ID: SAMPLE_ESG_REGULATORY_DIRECTIVES_20260911_090858#chunk_003] ---\n## Section 2: Penalties for Non-Compliance\nFinancial institutions that fail to meet the 18.5% Green Asset Ratio threshold for two consecutive quarters are subject to an automatic 2.5% surcharge on central bank reserve borrowing facilities and mandatory public disclosure in quarterly financial audit filings.\n\n\n[QUESTION]\nWhat is the mandatory incident reporting SLA?\n\n[ANSWER]"
+  }
+]
+[2026-09-14 17:47:13] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-14 17:47:13] [INFO] Response ID: gen-1789388232-CXJwkjxMZoASt2ME9bxe
+[2026-09-14 17:47:13] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-14 17:47:13] [INFO] Finish Reason: stop
+[2026-09-14 17:47:13] [INFO] Token Usage: {
+  "prompt_tokens": 415,
+  "completion_tokens": 14,
+  "total_tokens": 429
+}
+[2026-09-14 17:47:13] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-14 17:47:13] [INFO] The provided context does not contain sufficient information to answer this question.
+
+[2026-09-14 17:47:14] [INFO] ==================================================
+[2026-09-14 17:47:14] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
+[2026-09-14 17:47:14] [INFO] ==================================================
+[2026-09-14 17:47:14] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-14 17:47:14] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-14 17:47:14] [INFO] Response Format Mode: {'type': 'json_object'}
+[2026-09-14 17:47:14] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess.\n\nCRITICAL OUTPUT REQUIREMENT: You MUST return a JSON object matching this structure: {\"answer\": \"<answer_value>\", \"source\": \"<source_value>\", \"confidence\": \"<confidence_value>\"}. Required keys: [\"answer\", \"source\", \"confidence\"]."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: labelled_queries.json | Section: General | Page: 1 | ID: LABELLED_QUERIES#chunk_008] ---\nt institutions calculate and submit the Liquidity Coverage Ratio (LCR)?\",\n\"category\": \"Specific Entity / Threshold\",\n\"target_section\": \"Section 2: Capital Reserves & Liquidity Ratios\",\n\"expected_chunk_ids\": [\n\"sample_banking_regulation_txt#chunk_002\"\n],\n\"min_acceptable_rank\": 1,\n\"difficulty\": \"Easy\",\n\"description\": \"Tests retrieval precision for exact acronym (LCR) and 30-day stress period reporting requirements.\"\n},\n{\n\"query_id\": \"Q-007\",\n\n--- [2] [Doc: 01_KYC_Amendment_2025_Management_Summary_20260911_085220.pdf | Section: General | Page: 1 | ID: 01_KYC_AMENDMENT_2025_MANAGEMENT_SUMMARY_20260911_085220#chunk_006] ---\npersons, including Persons with Disabilities (PwDs), without application of mind;\nreasons for rejection must be recorded by the concerned officer.\n\u2022 CDD requirements were clarified for occasional transactions of \u20b950,000 or more,\nwhether a single transaction or connected transactions, and international money\ntransfer operations.\n\u2022 Aadhaar Face Authentication was expressly included in the relevant authentication\nprovision.\n\n--- [3] [Doc: sample_esg_regulatory_directives_20260911_090858.txt | Section: Section 2: Penalties for Non-Compliance | Page: 1 | ID: SAMPLE_ESG_REGULATORY_DIRECTIVES_20260911_090858#chunk_003] ---\n## Section 2: Penalties for Non-Compliance\nFinancial institutions that fail to meet the 18.5% Green Asset Ratio threshold for two consecutive quarters are subject to an automatic 2.5% surcharge on central bank reserve borrowing facilities and mandatory public disclosure in quarterly financial audit filings.\n\n\n[QUESTION]\nWhat is the reserve requirement?\n\n[ANSWER]"
+  }
+]
+[2026-09-14 17:47:15] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-14 17:47:15] [INFO] Response ID: gen-1789388234-YHMfce5HqPTAKrZ6RDWD
+[2026-09-14 17:47:15] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-14 17:47:15] [INFO] Finish Reason: stop
+[2026-09-14 17:47:15] [INFO] Token Usage: {
+  "prompt_tokens": 613,
+  "completion_tokens": 27,
+  "total_tokens": 640
+}
+[2026-09-14 17:47:15] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-14 17:47:15] [INFO] {"answer": "The provided context does not contain sufficient information to answer this question.", "source": "", "confidence": "low"}
+
+[2026-09-14 17:47:15] [INFO] ✅ [JSON Parse Success]: Raw response successfully parsed into Python dict.
+[2026-09-14 17:47:15] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['source']
+[2026-09-14 17:47:15] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'source': 'Regulatory_Store_v1', 'confidence': 'high'}
+[2026-09-14 17:47:15] [INFO] 🎉 [Structured Output Success]: JSON parsed, recovered, and validated successfully.
+[2026-09-14 17:48:15] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-14 17:48:15] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-14 17:48:15] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-14 17:48:15] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-14 17:48:15] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-14 17:54:43] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-14 17:54:43] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-14 17:54:43] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-14 17:54:43] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-14 17:54:43] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-14 17:54:43] [WARNING] ⚠️ [Malformed JSON Detected]: Raw output is invalid JSON. Attempting graceful recovery...
+[2026-09-14 17:54:43] [INFO] ✅ [Malformed JSON Recovered]: Successfully cleaned and parsed malformed JSON object.
+[2026-09-14 17:54:43] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['confidence']
+[2026-09-14 17:54:43] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'confidence': 'high'}
+[2026-09-14 17:54:44] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-14 17:54:44] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-14 17:54:44] [INFO] Response Format Mode: default
+[2026-09-14 17:54:44] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: labelled_queries.json | Section: General | Page: 1 | ID: LABELLED_QUERIES#chunk_003] ---\nQ-002\",\n\"query\": \"What minimum Tier 1 capital adequacy ratio is required under Basel IV?\",\n\"category\": \"Standard Relevance\",\n\"target_section\": \"Section 2: Capital Reserves & Liquidity Ratios\",\n\"expected_chunk_ids\": [\n\"sample_banking_regulation_txt#chunk_002\"\n],\n\"min_acceptable_rank\": 1,\n\"difficulty\": \"Easy\",\n\"description\": \"Validates that Basel IV capital adequacy queries rank Section 2 chunk at rank #1.\"\n},\n{\n\"query_id\": \"Q-003\",\n\n--- [2] [Doc: sample_banking_regulation.txt | Section: Section 2: Capital Reserves & Liquidity Ratios | Page: 1 | ID: SAMPLE_BANKING_REGULATION#chunk_004] ---\n## Section 2: Capital Reserves & Liquidity Ratios\nUnder Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times. In addition, institutions must hold high-quality liquid assets (HQLA) sufficient to cover total net cash outflows over a 30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial regulatory bodies.\n\n--- [3] [Doc: labelled_queries.json | Section: General | Page: 1 | ID: LABELLED_QUERIES#chunk_008] ---\nt institutions calculate and submit the Liquidity Coverage Ratio (LCR)?\",\n\"category\": \"Specific Entity / Threshold\",\n\"target_section\": \"Section 2: Capital Reserves & Liquidity Ratios\",\n\"expected_chunk_ids\": [\n\"sample_banking_regulation_txt#chunk_002\"\n],\n\"min_acceptable_rank\": 1,\n\"difficulty\": \"Easy\",\n\"description\": \"Tests retrieval precision for exact acronym (LCR) and 30-day stress period reporting requirements.\"\n},\n{\n\"query_id\": \"Q-007\",\n\n\n[QUESTION]\nWhat is the capital adequacy requirement for Tier 1 capital?\n\n[ANSWER]"
+  }
+]
+[2026-09-14 17:54:48] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-14 17:54:48] [INFO] Response ID: gen-1789388686-PX7OLh35Dm2mzcu03ifF
+[2026-09-14 17:54:48] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-14 17:54:48] [INFO] Finish Reason: stop
+[2026-09-14 17:54:48] [INFO] Token Usage: {
+  "prompt_tokens": 598,
+  "completion_tokens": 35,
+  "total_tokens": 633
+}
+[2026-09-14 17:54:48] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-14 17:54:48] [INFO] Under Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times [2].
+
+[2026-09-14 17:54:48] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-14 17:54:48] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-14 17:54:48] [INFO] Response Format Mode: default
+[2026-09-14 17:54:48] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: sample_esg_regulatory_directives_20260911_090858.txt | Section: Section 1: Green Asset Ratio (GAR) Mandates | Page: 1 | ID: SAMPLE_ESG_REGULATORY_DIRECTIVES_20260911_090858#chunk_002] ---\n## Section 1: Green Asset Ratio (GAR) Mandates\nAll commercial banking institutions with assets under management exceeding $10 billion must report their verified Green Asset Ratio (GAR) on a quarterly basis to regional sustainability boards. The mandatory minimum target for the Green Asset Ratio is set strictly at 18.5% of total eligible balance sheet assets.\n\n--- [2] [Doc: sample_esg_regulatory_directives_20260911_090858.txt | Section: Section 2: Penalties for Non-Compliance | Page: 1 | ID: SAMPLE_ESG_REGULATORY_DIRECTIVES_20260911_090858#chunk_003] ---\n## Section 2: Penalties for Non-Compliance\nFinancial institutions that fail to meet the 18.5% Green Asset Ratio threshold for two consecutive quarters are subject to an automatic 2.5% surcharge on central bank reserve borrowing facilities and mandatory public disclosure in quarterly financial audit filings.\n\n\n[QUESTION]\nWhat is the mandatory incident reporting SLA?\n\n[ANSWER]"
+  }
+]
+[2026-09-14 17:54:50] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-14 17:54:50] [INFO] Response ID: gen-1789388688-1vzQI8zBmhckykyGhb46
+[2026-09-14 17:54:50] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-14 17:54:50] [INFO] Finish Reason: stop
+[2026-09-14 17:54:50] [INFO] Token Usage: {
+  "prompt_tokens": 415,
+  "completion_tokens": 14,
+  "total_tokens": 429
+}
+[2026-09-14 17:54:50] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-14 17:54:50] [INFO] The provided context does not contain sufficient information to answer this question.
+
+[2026-09-14 17:54:50] [INFO] ==================================================
+[2026-09-14 17:54:50] [INFO]      EXECUTING STRUCTURED JSON COMPLETION CALL    
+[2026-09-14 17:54:50] [INFO] ==================================================
+[2026-09-14 17:54:50] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-14 17:54:50] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-14 17:54:50] [INFO] Response Format Mode: {'type': 'json_object'}
+[2026-09-14 17:54:50] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess.\n\nCRITICAL OUTPUT REQUIREMENT: You MUST return a JSON object matching this structure: {\"answer\": \"<answer_value>\", \"source\": \"<source_value>\", \"confidence\": \"<confidence_value>\"}. Required keys: [\"answer\", \"source\", \"confidence\"]."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: labelled_queries.json | Section: General | Page: 1 | ID: LABELLED_QUERIES#chunk_008] ---\nt institutions calculate and submit the Liquidity Coverage Ratio (LCR)?\",\n\"category\": \"Specific Entity / Threshold\",\n\"target_section\": \"Section 2: Capital Reserves & Liquidity Ratios\",\n\"expected_chunk_ids\": [\n\"sample_banking_regulation_txt#chunk_002\"\n],\n\"min_acceptable_rank\": 1,\n\"difficulty\": \"Easy\",\n\"description\": \"Tests retrieval precision for exact acronym (LCR) and 30-day stress period reporting requirements.\"\n},\n{\n\"query_id\": \"Q-007\",\n\n--- [2] [Doc: 01_KYC_Amendment_2025_Management_Summary_20260911_085220.pdf | Section: General | Page: 1 | ID: 01_KYC_AMENDMENT_2025_MANAGEMENT_SUMMARY_20260911_085220#chunk_006] ---\npersons, including Persons with Disabilities (PwDs), without application of mind;\nreasons for rejection must be recorded by the concerned officer.\n\u2022 CDD requirements were clarified for occasional transactions of \u20b950,000 or more,\nwhether a single transaction or connected transactions, and international money\ntransfer operations.\n\u2022 Aadhaar Face Authentication was expressly included in the relevant authentication\nprovision.\n\n--- [3] [Doc: sample_esg_regulatory_directives_20260911_090858.txt | Section: Section 2: Penalties for Non-Compliance | Page: 1 | ID: SAMPLE_ESG_REGULATORY_DIRECTIVES_20260911_090858#chunk_003] ---\n## Section 2: Penalties for Non-Compliance\nFinancial institutions that fail to meet the 18.5% Green Asset Ratio threshold for two consecutive quarters are subject to an automatic 2.5% surcharge on central bank reserve borrowing facilities and mandatory public disclosure in quarterly financial audit filings.\n\n\n[QUESTION]\nWhat is the reserve requirement?\n\n[ANSWER]"
+  }
+]
+[2026-09-14 17:54:52] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-14 17:54:52] [INFO] Response ID: gen-1789388690-74i77cfwM4xxOEuLWQ2U
+[2026-09-14 17:54:52] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-14 17:54:52] [INFO] Finish Reason: stop
+[2026-09-14 17:54:52] [INFO] Token Usage: {
+  "prompt_tokens": 613,
+  "completion_tokens": 27,
+  "total_tokens": 640
+}
+[2026-09-14 17:54:52] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-14 17:54:52] [INFO] {"answer": "The provided context does not contain sufficient information to answer this question.", "source": "", "confidence": "low"}
+
+[2026-09-14 17:54:52] [INFO] ✅ [JSON Parse Success]: Raw response successfully parsed into Python dict.
+[2026-09-14 17:54:52] [WARNING] ⚠️ [Validation Warning]: Missing required field(s): ['source']
+[2026-09-14 17:54:52] [INFO] ✅ [Validation Recovered]: Successfully recovered missing field(s) with defaults: {'source': 'Regulatory_Store_v1', 'confidence': 'high'}
+[2026-09-14 17:54:52] [INFO] 🎉 [Structured Output Success]: JSON parsed, recovered, and validated successfully.
+[2026-09-14 17:57:06] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-14 17:57:06] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-14 17:57:06] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-14 17:57:06] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-14 17:57:06] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-14 18:02:10] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-14 18:02:10] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-14 18:02:10] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-14 18:02:10] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-14 18:02:10] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-14 18:02:41] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-14 18:02:41] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-14 18:02:41] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-14 18:02:41] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-14 18:02:41] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-14 18:06:33] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-14 18:06:33] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-14 18:06:33] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-14 18:06:33] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-14 18:06:33] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-14 18:12:36] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-14 18:12:36] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-14 18:12:36] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-14 18:12:36] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-14 18:12:36] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-14 18:14:30] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-14 18:14:30] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-14 18:14:30] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-14 18:14:30] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-14 18:14:30] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-14 18:23:17] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-14 18:23:17] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-14 18:23:17] [INFO] Response Format Mode: default
+[2026-09-14 18:23:17] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: sample_banking_regulation.txt | Section: Section 2: Capital Reserves & Liquidity Ratios | Page: 1 | ID: SAMPLE_BANKING_REGULATION#chunk_004] ---\n## Section 2: Capital Reserves & Liquidity Ratios\nUnder Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times. In addition, institutions must hold high-quality liquid assets (HQLA) sufficient to cover total net cash outflows over a 30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial regulatory bodies.\n\n--- [2] [Doc: labelled_queries.json | Section: General | Page: 1 | ID: LABELLED_QUERIES#chunk_003] ---\nQ-002\",\n\"query\": \"What minimum Tier 1 capital adequacy ratio is required under Basel IV?\",\n\"category\": \"Standard Relevance\",\n\"target_section\": \"Section 2: Capital Reserves & Liquidity Ratios\",\n\"expected_chunk_ids\": [\n\"sample_banking_regulation_txt#chunk_002\"\n],\n\"min_acceptable_rank\": 1,\n\"difficulty\": \"Easy\",\n\"description\": \"Validates that Basel IV capital adequacy queries rank Section 2 chunk at rank #1.\"\n},\n{\n\"query_id\": \"Q-003\",\n\n--- [3] [Doc: sample_esg_regulatory_directives_20260911_090858.txt | Section: Section 1: Green Asset Ratio (GAR) Mandates | Page: 1 | ID: SAMPLE_ESG_REGULATORY_DIRECTIVES_20260911_090858#chunk_002] ---\n## Section 1: Green Asset Ratio (GAR) Mandates\nAll commercial banking institutions with assets under management exceeding $10 billion must report their verified Green Asset Ratio (GAR) on a quarterly basis to regional sustainability boards. The mandatory minimum target for the Green Asset Ratio is set strictly at 18.5% of total eligible balance sheet assets.\n\n\n[QUESTION]\nWhat is the mandatory Tier 1 capital adequacy ratio under the regulatory framework?\n\n[ANSWER]"
+  }
+]
+[2026-09-14 18:23:31] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-14 18:23:31] [INFO] Response ID: gen-1789390409-lRaHXPQ7g1djMShaG7dp
+[2026-09-14 18:23:31] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-14 18:23:31] [INFO] Finish Reason: stop
+[2026-09-14 18:23:31] [INFO] Token Usage: {
+  "prompt_tokens": 594,
+  "completion_tokens": 45,
+  "total_tokens": 639
+}
+[2026-09-14 18:23:31] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-14 18:23:31] [INFO] The mandatory Tier 1 capital adequacy ratio under the regulatory framework is required to remain above 10.5% of total risk-weighted assets at all times, according to Basel IV capital adequacy standards [1].
+
+[2026-09-14 22:17:47] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-14 22:17:47] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-14 22:17:47] [INFO] Response Format Mode: default
+[2026-09-14 22:17:47] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: sample_banking_regulation.txt | Section: Section 2: Capital Reserves & Liquidity Ratios | Page: 1 | ID: SAMPLE_BANKING_REGULATION#chunk_004] ---\n## Section 2: Capital Reserves & Liquidity Ratios\nUnder Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times. In addition, institutions must hold high-quality liquid assets (HQLA) sufficient to cover total net cash outflows over a 30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial regulatory bodies.\n\n--- [2] [Doc: labelled_queries.json | Section: General | Page: 1 | ID: LABELLED_QUERIES#chunk_003] ---\nQ-002\",\n\"query\": \"What minimum Tier 1 capital adequacy ratio is required under Basel IV?\",\n\"category\": \"Standard Relevance\",\n\"target_section\": \"Section 2: Capital Reserves & Liquidity Ratios\",\n\"expected_chunk_ids\": [\n\"sample_banking_regulation_txt#chunk_002\"\n],\n\"min_acceptable_rank\": 1,\n\"difficulty\": \"Easy\",\n\"description\": \"Validates that Basel IV capital adequacy queries rank Section 2 chunk at rank #1.\"\n},\n{\n\"query_id\": \"Q-003\",\n\n--- [3] [Doc: sample_esg_regulatory_directives_20260911_090858.txt | Section: Section 1: Green Asset Ratio (GAR) Mandates | Page: 1 | ID: SAMPLE_ESG_REGULATORY_DIRECTIVES_20260911_090858#chunk_002] ---\n## Section 1: Green Asset Ratio (GAR) Mandates\nAll commercial banking institutions with assets under management exceeding $10 billion must report their verified Green Asset Ratio (GAR) on a quarterly basis to regional sustainability boards. The mandatory minimum target for the Green Asset Ratio is set strictly at 18.5% of total eligible balance sheet assets.\n\n\n[QUESTION]\nWhat is the mandatory Tier 1 capital adequacy ratio under the regulatory framework?\n\n[ANSWER]"
+  }
+]
+[2026-09-14 22:17:50] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-14 22:17:50] [INFO] Response ID: gen-1789404468-W4HBGsvYY2C4TNt1v8Gt
+[2026-09-14 22:17:50] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-14 22:17:50] [INFO] Finish Reason: stop
+[2026-09-14 22:17:50] [INFO] Token Usage: {
+  "prompt_tokens": 594,
+  "completion_tokens": 37,
+  "total_tokens": 631
+}
+[2026-09-14 22:17:50] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-14 22:17:50] [INFO] The mandatory Tier 1 capital adequacy ratio under the Basel IV regulatory framework is required to remain above 10.5% of total risk-weighted assets at all times [1].
+
+[2026-09-14 22:23:38] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-14 22:23:38] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-14 22:23:38] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-14 22:23:38] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-14 22:23:38] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-14 22:24:19] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-14 22:24:19] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-14 22:24:19] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-14 22:24:19] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-14 22:24:19] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-14 22:26:21] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-14 22:26:21] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-14 22:26:21] [INFO] Response Format Mode: default
+[2026-09-14 22:26:21] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: labelled_queries.json | Section: General | Page: 1 | ID: LABELLED_QUERIES#chunk_003] ---\nQ-002\",\n\"query\": \"What minimum Tier 1 capital adequacy ratio is required under Basel IV?\",\n\"category\": \"Standard Relevance\",\n\"target_section\": \"Section 2: Capital Reserves & Liquidity Ratios\",\n\"expected_chunk_ids\": [\n\"sample_banking_regulation_txt#chunk_002\"\n],\n\"min_acceptable_rank\": 1,\n\"difficulty\": \"Easy\",\n\"description\": \"Validates that Basel IV capital adequacy queries rank Section 2 chunk at rank #1.\"\n},\n{\n\"query_id\": \"Q-003\",\n\n--- [2] [Doc: sample_banking_regulation.txt | Section: Section 2: Capital Reserves & Liquidity Ratios | Page: 1 | ID: SAMPLE_BANKING_REGULATION#chunk_004] ---\n## Section 2: Capital Reserves & Liquidity Ratios\nUnder Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times. In addition, institutions must hold high-quality liquid assets (HQLA) sufficient to cover total net cash outflows over a 30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial regulatory bodies.\n\n--- [3] [Doc: labelled_queries.json | Section: General | Page: 1 | ID: LABELLED_QUERIES#chunk_008] ---\nt institutions calculate and submit the Liquidity Coverage Ratio (LCR)?\",\n\"category\": \"Specific Entity / Threshold\",\n\"target_section\": \"Section 2: Capital Reserves & Liquidity Ratios\",\n\"expected_chunk_ids\": [\n\"sample_banking_regulation_txt#chunk_002\"\n],\n\"min_acceptable_rank\": 1,\n\"difficulty\": \"Easy\",\n\"description\": \"Tests retrieval precision for exact acronym (LCR) and 30-day stress period reporting requirements.\"\n},\n{\n\"query_id\": \"Q-007\",\n\n\n[QUESTION]\nWhat is Tier 1 capital adequacy ratio?\n\n[ANSWER]"
+  }
+]
+[2026-09-14 22:26:24] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-14 22:26:24] [INFO] Response ID: gen-1789404982-rInufuckWMtKhX6umH6E
+[2026-09-14 22:26:24] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-14 22:26:24] [INFO] Finish Reason: stop
+[2026-09-14 22:26:24] [INFO] Token Usage: {
+  "prompt_tokens": 595,
+  "completion_tokens": 36,
+  "total_tokens": 631
+}
+[2026-09-14 22:26:24] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-14 22:26:24] [INFO] Under Basel IV capital adequacy standards, the Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times [2].
+
+[2026-09-14 22:35:57] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-14 22:35:57] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-14 22:35:57] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-14 22:35:57] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-14 22:35:57] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-14 22:36:37] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-14 22:36:37] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-14 22:36:37] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-14 22:36:37] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-14 22:36:37] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-14 22:37:25] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-14 22:37:25] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-14 22:37:25] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-14 22:37:25] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-14 22:37:25] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-14 22:37:26] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-14 22:37:26] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-14 22:37:26] [INFO] Response Format Mode: default
+[2026-09-14 22:37:26] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: labelled_queries.json | Section: General | Page: 1 | ID: LABELLED_QUERIES#chunk_003] ---\nQ-002\",\n\"query\": \"What minimum Tier 1 capital adequacy ratio is required under Basel IV?\",\n\"category\": \"Standard Relevance\",\n\"target_section\": \"Section 2: Capital Reserves & Liquidity Ratios\",\n\"expected_chunk_ids\": [\n\"sample_banking_regulation_txt#chunk_002\"\n],\n\"min_acceptable_rank\": 1,\n\"difficulty\": \"Easy\",\n\"description\": \"Validates that Basel IV capital adequacy queries rank Section 2 chunk at rank #1.\"\n},\n{\n\"query_id\": \"Q-003\",\n\n--- [2] [Doc: sample_banking_regulation.txt | Section: Section 2: Capital Reserves & Liquidity Ratios | Page: 1 | ID: SAMPLE_BANKING_REGULATION#chunk_004] ---\n## Section 2: Capital Reserves & Liquidity Ratios\nUnder Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times. In addition, institutions must hold high-quality liquid assets (HQLA) sufficient to cover total net cash outflows over a 30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial regulatory bodies.\n\n\n[QUESTION]\nWhat is the capital adequacy requirement for Tier 1?\n\n[ANSWER]"
+  }
+]
+[2026-09-14 22:37:30] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-14 22:37:30] [INFO] Response ID: gen-1789405648-wFSC0oIrmwWhigYmjQIA
+[2026-09-14 22:37:30] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-14 22:37:30] [INFO] Finish Reason: stop
+[2026-09-14 22:37:30] [INFO] Token Usage: {
+  "prompt_tokens": 454,
+  "completion_tokens": 35,
+  "total_tokens": 489
+}
+[2026-09-14 22:37:30] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-14 22:37:30] [INFO] Under Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times [2].
+
+[2026-09-14 22:37:30] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-14 22:37:30] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-14 22:37:30] [INFO] Response Format Mode: default
+[2026-09-14 22:37:30] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: labelled_queries.json | Section: General | Page: 1 | ID: LABELLED_QUERIES#chunk_001] ---\n{\n\"dataset_metadata\": {\n\"name\": \"Banking Regulation Benchmark Dataset\",\n\"version\": \"1.0.0\",\n\"description\": \"Gold-standard labelled query dataset for evaluating RAG retrieval recall, precision, and edge-case failures on the banking regulation corpus.\",\n\"total_queries\": 8,\n\"corpus_source\": \"sample_banking_regulation.txt\"\n},\n\"queries\": [\n{\n\"query_id\": \"Q-001\",\n\n--- [2] [Doc: doc1.txt | Section: Document 1: Introduction to AI | Page: 1 | ID: DOC1#chunk_002] ---\nd take actions that have the best chance of achieving a specific goal. A subset of artificial intelligence is machine learning, which refers to the concept that computer programs can automatically learn from and adapt to new data without being assisted by humans.\n\n\n[QUESTION]\nWhat are the data breach reporting guidelines?\n\n[ANSWER]"
+  }
+]
+[2026-09-14 22:37:31] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-14 22:37:31] [INFO] Response ID: gen-1789405650-rWhldkarOr0rBzkVAguW
+[2026-09-14 22:37:31] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-14 22:37:31] [INFO] Finish Reason: stop
+[2026-09-14 22:37:31] [INFO] Token Usage: {
+  "prompt_tokens": 358,
+  "completion_tokens": 13,
+  "total_tokens": 371
+}
+[2026-09-14 22:37:31] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-14 22:37:31] [INFO] The provided context does not contain sufficient information to answer this question.
+
+[2026-09-14 22:38:01] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-14 22:38:01] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-14 22:38:01] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-14 22:38:01] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-14 22:38:01] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-14 22:47:45] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-14 22:47:45] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-14 22:47:45] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-14 22:47:45] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-14 22:47:45] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-14 22:48:02] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-14 22:48:02] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-14 22:48:02] [INFO] Response Format Mode: default
+[2026-09-14 22:48:02] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: labelled_queries.json | Section: General | Page: 1 | ID: LABELLED_QUERIES#chunk_008] ---\nt institutions calculate and submit the Liquidity Coverage Ratio (LCR)?\",\n\"category\": \"Specific Entity / Threshold\",\n\"target_section\": \"Section 2: Capital Reserves & Liquidity Ratios\",\n\"expected_chunk_ids\": [\n\"sample_banking_regulation_txt#chunk_002\"\n],\n\"min_acceptable_rank\": 1,\n\"difficulty\": \"Easy\",\n\"description\": \"Tests retrieval precision for exact acronym (LCR) and 30-day stress period reporting requirements.\"\n},\n{\n\"query_id\": \"Q-007\",\n\n--- [2] [Doc: sample_banking_regulation.txt | Section: Section 2: Capital Reserves & Liquidity Ratios | Page: 1 | ID: SAMPLE_BANKING_REGULATION#chunk_004] ---\n## Section 2: Capital Reserves & Liquidity Ratios\nUnder Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times. In addition, institutions must hold high-quality liquid assets (HQLA) sufficient to cover total net cash outflows over a 30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial regulatory bodies.\n\n\n[QUESTION]\nWhat are the Liquidity Coverage Ratio requirements?\n\n[ANSWER]"
+  }
+]
+[2026-09-14 22:48:08] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-14 22:48:08] [INFO] Response ID: gen-1789406284-BeqDcq524eGC8DycfIpd
+[2026-09-14 22:48:08] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-14 22:48:08] [INFO] Finish Reason: stop
+[2026-09-14 22:48:08] [INFO] Token Usage: {
+  "prompt_tokens": 444,
+  "completion_tokens": 59,
+  "total_tokens": 503
+}
+[2026-09-14 22:48:08] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-14 22:48:08] [INFO] The Liquidity Coverage Ratio (LCR) must be calculated daily and institutions must hold high-quality liquid assets (HQLA) sufficient to cover total net cash outflows over a 30-day stress period. Additionally, the LCR must be submitted to regional financial regulatory bodies [2].
+
+[2026-09-14 22:48:31] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-14 22:48:31] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-14 22:48:31] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-14 22:48:31] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-14 22:48:31] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-14 22:52:13] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-14 22:52:13] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-14 22:52:13] [INFO] Response Format Mode: default
+[2026-09-14 22:52:13] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: labelled_queries.json | Section: General | Page: 1 | ID: LABELLED_QUERIES#chunk_003] ---\nQ-002\",\n\"query\": \"What minimum Tier 1 capital adequacy ratio is required under Basel IV?\",\n\"category\": \"Standard Relevance\",\n\"target_section\": \"Section 2: Capital Reserves & Liquidity Ratios\",\n\"expected_chunk_ids\": [\n\"sample_banking_regulation_txt#chunk_002\"\n],\n\"min_acceptable_rank\": 1,\n\"difficulty\": \"Easy\",\n\"description\": \"Validates that Basel IV capital adequacy queries rank Section 2 chunk at rank #1.\"\n},\n{\n\"query_id\": \"Q-003\",\n\n--- [2] [Doc: sample_banking_regulation.txt | Section: Section 2: Capital Reserves & Liquidity Ratios | Page: 1 | ID: SAMPLE_BANKING_REGULATION#chunk_004] ---\n## Section 2: Capital Reserves & Liquidity Ratios\nUnder Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times. In addition, institutions must hold high-quality liquid assets (HQLA) sufficient to cover total net cash outflows over a 30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial regulatory bodies.\n\n--- [3] [Doc: sample_esg_regulatory_directives.txt | Section: Section 1: Green Asset Ratio (GAR) Mandates | Page: 1 | ID: SAMPLE_ESG_REGULATORY_DIRECTIVES#chunk_002] ---\n## Section 1: Green Asset Ratio (GAR) Mandates\nAll commercial banking institutions with assets under management exceeding $10 billion must report their verified Green Asset Ratio (GAR) on a quarterly basis to regional sustainability boards. The mandatory minimum target for the Green Asset Ratio is set strictly at 18.5% of total eligible balance sheet assets.\n\n\n[QUESTION]\nWhat is the minimum Tier 1 Capital Ratio?\n\n[ANSWER]"
+  }
+]
+[2026-09-14 22:52:15] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-14 22:52:15] [INFO] Response ID: gen-1789406534-4qn2iojjZulhKEBLvWrH
+[2026-09-14 22:52:15] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-14 22:52:15] [INFO] Finish Reason: stop
+[2026-09-14 22:52:15] [INFO] Token Usage: {
+  "prompt_tokens": 574,
+  "completion_tokens": 31,
+  "total_tokens": 605
+}
+[2026-09-14 22:52:15] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-14 22:52:15] [INFO] The minimum Tier 1 capital adequacy ratio required under Basel IV is 10.5% of total risk-weighted assets at all times [2].
+
+[2026-09-14 22:57:17] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-14 22:57:17] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-14 22:57:17] [INFO] Response Format Mode: default
+[2026-09-14 22:57:17] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: labelled_queries.json | Section: General | Page: 1 | ID: LABELLED_QUERIES#chunk_001] ---\n{\n\"dataset_metadata\": {\n\"name\": \"Banking Regulation Benchmark Dataset\",\n\"version\": \"1.0.0\",\n\"description\": \"Gold-standard labelled query dataset for evaluating RAG retrieval recall, precision, and edge-case failures on the banking regulation corpus.\",\n\"total_queries\": 8,\n\"corpus_source\": \"sample_banking_regulation.txt\"\n},\n\"queries\": [\n{\n\"query_id\": \"Q-001\",\n\n--- [2] [Doc: 01_KYC_Amendment_2025_Management_Summary_20260911_085220.pdf | Section: General | Page: 1 | ID: 01_KYC_AMENDMENT_2025_MANAGEMENT_SUMMARY_20260911_085220#chunk_004] ---\ne authorized Business Correspondents (BCs) to obtain self-declarations\nwhere there is no change in KYC information or only an address change, subject to the\nprescribed electronic/biometric process and bank controls.\n\u2022 The bank remains ultimately responsible for periodic KYC updation even when a BC is\nused.\n\u2022 Before the due date, at least three advance intimations are required, including at least\n\n--- [3] [Doc: 01_KYC_Amendment_2025_Management_Summary_20260911_085220.pdf | Section: General | Page: 1 | ID: 01_KYC_AMENDMENT_2025_MANAGEMENT_SUMMARY_20260911_085220#chunk_004] ---\ne authorized Business Correspondents (BCs) to obtain self-declarations\nwhere there is no change in KYC information or only an address change, subject to the\nprescribed electronic/biometric process and bank controls.\n\u2022 The bank remains ultimately responsible for periodic KYC updation even when a BC is\nused.\n\u2022 Before the due date, at least three advance intimations are required, including at least\n\n\n[QUESTION]\nWhat are the mandatory data encryption directives and security controls for bank transfers?\n\n[ANSWER]"
+  }
+]
+[2026-09-14 22:57:18] [ERROR] ❌ [Connection Error]: Failed to reach the LLM endpoint at 'https://openrouter.ai/api/v1'.
+[2026-09-14 22:57:18] [ERROR]    Details: Connection error.
+
+[2026-09-14 23:15:29] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-14 23:15:29] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-14 23:15:29] [INFO] Response Format Mode: default
+[2026-09-14 23:15:29] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: labelled_queries.json | Section: General | Page: 1 | ID: LABELLED_QUERIES#chunk_008] ---\nt institutions calculate and submit the Liquidity Coverage Ratio (LCR)?\",\n\"category\": \"Specific Entity / Threshold\",\n\"target_section\": \"Section 2: Capital Reserves & Liquidity Ratios\",\n\"expected_chunk_ids\": [\n\"sample_banking_regulation_txt#chunk_002\"\n],\n\"min_acceptable_rank\": 1,\n\"difficulty\": \"Easy\",\n\"description\": \"Tests retrieval precision for exact acronym (LCR) and 30-day stress period reporting requirements.\"\n},\n{\n\"query_id\": \"Q-007\",\n\n--- [2] [Doc: sample_banking_regulation.txt | Section: Section 2: Capital Reserves & Liquidity Ratios | Page: 1 | ID: SAMPLE_BANKING_REGULATION#chunk_004] ---\n## Section 2: Capital Reserves & Liquidity Ratios\nUnder Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times. In addition, institutions must hold high-quality liquid assets (HQLA) sufficient to cover total net cash outflows over a 30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial regulatory bodies.\n\n--- [3] [Doc: 01_KYC_Amendment_2025_Management_Summary_20260911_085220.pdf | Section: General | Page: 1 | ID: 01_KYC_AMENDMENT_2025_MANAGEMENT_SUMMARY_20260911_085220#chunk_006] ---\npersons, including Persons with Disabilities (PwDs), without application of mind;\nreasons for rejection must be recorded by the concerned officer.\n\u2022 CDD requirements were clarified for occasional transactions of \u20b950,000 or more,\nwhether a single transaction or connected transactions, and international money\ntransfer operations.\n\u2022 Aadhaar Face Authentication was expressly included in the relevant authentication\nprovision.\n\n\n[QUESTION]\nWhat are the Liquidity Coverage Ratio requirements?\n\n[ANSWER]"
+  }
+]
+[2026-09-14 23:15:32] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-14 23:15:32] [INFO] Response ID: gen-1789407930-6y8JmSd8OUiWuVe82V1N
+[2026-09-14 23:15:32] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-14 23:15:32] [INFO] Finish Reason: stop
+[2026-09-14 23:15:32] [INFO] Token Usage: {
+  "prompt_tokens": 588,
+  "completion_tokens": 60,
+  "total_tokens": 648
+}
+[2026-09-14 23:15:32] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-14 23:15:32] [INFO] Under Basel IV capital adequacy standards, institutions must hold high-quality liquid assets (HQLA) sufficient to cover total net cash outflows over a 30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial regulatory bodies [2].
+
+[2026-09-15 09:06:18] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-15 09:06:18] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-15 09:06:18] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-15 09:06:18] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-15 09:06:18] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-15 09:09:59] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-15 09:09:59] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-15 09:09:59] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-15 09:09:59] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-15 09:09:59] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-15 09:10:33] [INFO] Initializing LLM Client with environment configuration:
+[2026-09-15 09:10:33] [INFO]  - Base URL: https://openrouter.ai/api/v1
+[2026-09-15 09:10:33] [INFO]  - Chat Model Name: openai/gpt-4o-mini
+[2026-09-15 09:10:33] [INFO]  - Embedding Model Name: text-embedding-3-small
+[2026-09-15 09:10:33] [INFO]  - API Key: sk-or-v...27bf
+[2026-09-15 09:29:43] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-15 09:29:43] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-15 09:29:43] [INFO] Response Format Mode: default
+[2026-09-15 09:29:43] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: sample_banking_regulation.txt | Section: Section 2: Capital Reserves & Liquidity Ratios | Page: 1 | ID: SAMPLE_BANKING_REGULATION#chunk_004] ---\n## Section 2: Capital Reserves & Liquidity Ratios\nUnder Basel IV capital adequacy standards, Tier 1 common equity capital must remain above 10.5% of total risk-weighted assets at all times. In addition, institutions must hold high-quality liquid assets (HQLA) sufficient to cover total net cash outflows over a 30-day stress period. The Liquidity Coverage Ratio (LCR) must be calculated daily and submitted to regional financial regulatory bodies.\n\n--- [2] [Doc: labelled_queries.json | Section: General | Page: 1 | ID: LABELLED_QUERIES#chunk_003] ---\nQ-002\",\n\"query\": \"What minimum Tier 1 capital adequacy ratio is required under Basel IV?\",\n\"category\": \"Standard Relevance\",\n\"target_section\": \"Section 2: Capital Reserves & Liquidity Ratios\",\n\"expected_chunk_ids\": [\n\"sample_banking_regulation_txt#chunk_002\"\n],\n\"min_acceptable_rank\": 1,\n\"difficulty\": \"Easy\",\n\"description\": \"Validates that Basel IV capital adequacy queries rank Section 2 chunk at rank #1.\"\n},\n{\n\"query_id\": \"Q-003\",\n\n--- [3] [Doc: sample_esg_regulatory_directives.txt | Section: Section 1: Green Asset Ratio (GAR) Mandates | Page: 1 | ID: SAMPLE_ESG_REGULATORY_DIRECTIVES#chunk_002] ---\n## Section 1: Green Asset Ratio (GAR) Mandates\nAll commercial banking institutions with assets under management exceeding $10 billion must report their verified Green Asset Ratio (GAR) on a quarterly basis to regional sustainability boards. The mandatory minimum target for the Green Asset Ratio is set strictly at 18.5% of total eligible balance sheet assets.\n\n\n[QUESTION]\nWhat is the mandatory Tier 1 capital adequacy ratio under the regulatory framework?\n\n[ANSWER]"
+  }
+]
+[2026-09-15 09:29:52] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-15 09:29:52] [INFO] Response ID: gen-1789444791-Ln16Xhn97ByBMEgmel4E
+[2026-09-15 09:29:52] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-15 09:29:52] [INFO] Finish Reason: stop
+[2026-09-15 09:29:52] [INFO] Token Usage: {
+  "prompt_tokens": 580,
+  "completion_tokens": 44,
+  "total_tokens": 624
+}
+[2026-09-15 09:29:52] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-15 09:29:52] [INFO] The mandatory Tier 1 capital adequacy ratio under the regulatory framework is required to remain above 10.5% of total risk-weighted assets at all times, according to Basel IV capital adequacy standards [1].
+
+[2026-09-15 09:30:06] [INFO] --- OUTGOING REQUEST PAYLOAD ---
+[2026-09-15 09:30:06] [INFO] Target Model: openai/gpt-4o-mini
+[2026-09-15 09:30:06] [INFO] Response Format Mode: default
+[2026-09-15 09:30:06] [INFO] Outgoing Messages:
+[
+  {
+    "role": "system",
+    "content": "You are an expert AI assistant specialized in Banking Regulation & Financial Compliance.\n\nGROUNDING RULES:\n1. Answer the user's question ONLY using the factual information provided in the [CONTEXT] section below.\n2. Do NOT assume, extrapolate, or invent facts outside the provided context.\n3. Cite your sources using the chunk markers (e.g. [1], [2], or [Source X]) whenever stating a factual claim.\n4. If the provided context is insufficient or does not contain the answer, you MUST explicitly state: \"The provided context does not contain sufficient information to answer this question.\" Do not attempt to guess."
+  },
+  {
+    "role": "user",
+    "content": "[CONTEXT]\n--- [1] [Doc: labelled_queries.json | Section: General | Page: 1 | ID: LABELLED_QUERIES#chunk_005] ---\nion\": \"Validates that payment threshold queries rank Section 3 authorization chunks in top results.\"\n},\n{\n\"query_id\": \"Q-004\",\n\"query\": \"Which vendor disbursements do NOT require unanimous board approval?\",\n\"category\": \"Negation Blindspot (Known Failure)\",\n\"target_section\": \"Section 3: High-Value Transaction Authorization Thresholds\",\n\"expected_chunk_ids\": [\n\"sample_banking_regulation_txt#chunk_003\"\n],\n\"min_acceptable_rank\": 1,\n\n--- [2] [Doc: e2e_test_set.json | Section: General | Page: 1 | ID: E2E_TEST_SET#chunk_001] ---\n{\n\"queries\": [\n{\n\"query_id\": \"E2E-001\",\n\"query\": \"What are the rules and approval thresholds for high-value transaction payments?\",\n\"category\": \"Standard Retrieval & Grounding\",\n\"expected_chunk_ids\": [\n\"sample_banking_regulation_txt#chunk_003\",\n\"sample_banking_regulation_txt#chunk_004\"\n],\n\"expected_answer_snippets\": [\n\"unanimous board authorization\",\n\"50,000\",\n\"independent audit report\"\n],\n\n--- [3] [Doc: labelled_queries.json | Section: General | Page: 1 | ID: LABELLED_QUERIES#chunk_009] ---\nquirements.\"\n},\n{\n\"query_id\": \"Q-007\",\n\"query\": \"What consequences follow a failure to obtain board authorization for high-value expenditures?\",\n\"category\": \"Boundary Consequence Clause\",\n\"target_section\": \"Section 3: High-Value Transaction Authorization Thresholds\",\n\"expected_chunk_ids\": [\n\"sample_banking_regulation_txt#chunk_004\"\n],\n\"min_acceptable_rank\": 1,\n\"difficulty\": \"Medium\",\n\n\n[QUESTION]\nWhat transaction thresholds require unanimous board authorization and regulatory filing?\n\n[ANSWER]"
+  }
+]
+[2026-09-15 09:30:08] [INFO] --- INCOMING RESPONSE PAYLOAD ---
+[2026-09-15 09:30:08] [INFO] Response ID: gen-1789444807-BRPEOE3shor4HPbpW79t
+[2026-09-15 09:30:08] [INFO] Response Model: openai/gpt-4o-mini
+[2026-09-15 09:30:08] [INFO] Finish Reason: stop
+[2026-09-15 09:30:08] [INFO] Token Usage: {
+  "prompt_tokens": 559,
+  "completion_tokens": 13,
+  "total_tokens": 572
+}
+[2026-09-15 09:30:08] [INFO] --- MODEL REPLY (choices[0].message.content) ---
+[2026-09-15 09:30:08] [INFO] The provided context does not contain sufficient information to answer this question.
+

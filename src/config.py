@@ -1,7 +1,7 @@
 """
 Configuration Module for RAG Service.
-Loads all LLM settings, vector database configurations, and server parameters
-from environment variables (or .env file) without hardcoding values.
+Loads all LLM settings, vector database configurations, MongoDB database settings,
+and server parameters from environment variables (or .env file) without hardcoding values.
 """
 
 import os
@@ -23,6 +23,10 @@ class AppConfig:
     # Vector Database Settings
     chroma_db_path: str
     vector_collection_name: str
+
+    # MongoDB Database Settings
+    mongo_uri: str
+    mongo_db_name: str
 
     # Server Settings
     server_host: str
@@ -49,6 +53,8 @@ class AppConfig:
             embedding_model=os.getenv("EMBEDDING_MODEL", "text-embedding-3-small").strip(),
             chroma_db_path=os.getenv("CHROMA_DB_PATH", os.getenv("VECTOR_DB_PATH", "./chroma_db")).strip(),
             vector_collection_name=os.getenv("VECTOR_COLLECTION_NAME", "document_chunks").strip(),
+            mongo_uri=os.getenv("MONGO_URI", os.getenv("MONGODB_URI", "mongodb://localhost:27017")).strip(),
+            mongo_db_name=os.getenv("MONGO_DB_NAME", "ruler_rag_db").strip(),
             server_host=os.getenv("SERVER_HOST", "0.0.0.0").strip(),
             server_port=int(os.getenv("SERVER_PORT", "8000")),
             debug_mode=os.getenv("DEBUG", "false").lower() in ("true", "1", "yes"),
@@ -72,6 +78,8 @@ class AppConfig:
             "embedding_model": self.embedding_model,
             "chroma_db_path": self.chroma_db_path,
             "vector_collection_name": self.vector_collection_name,
+            "mongo_uri": self.mongo_uri,
+            "mongo_db_name": self.mongo_db_name,
             "server_host": self.server_host,
             "server_port": self.server_port,
             "debug_mode": self.debug_mode,
