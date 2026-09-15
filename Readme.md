@@ -268,6 +268,42 @@ rag-app-starter/
 
 ---
 
+## Deployment Notes
+
+The frontend and backend are designed to be deployed as two separate
+services. Before deploying, be aware of the following:
+
+- **`BACKEND_INTERNAL_URL` must be set on the frontend's host.** All
+  `/api/*` requests from the browser are proxied server-side by Next.js
+  (`next.config.js` rewrites + the `app/api/admin/*` routes) to this URL.
+  It should point at the backend's private/internal address — never a
+  public URL reachable from outside your infrastructure.
+- **The backend should not be publicly reachable.** Endpoints like
+  `/api/upload`, `/api/upload-text`, and `/api/query` on the FastAPI
+  service have no authentication of their own — admin auth is enforced
+  only in the Next.js `/api/admin/*` proxy routes. Put the backend on a
+  private network so only the frontend can reach it, or it can be uploaded
+  to / queried by anyone who finds the URL.
+- **Set `ALLOWED_ORIGINS`** on the backend to your deployed frontend's exact
+  origin(s) once you have one — leaving it at the local-dev default (`*`)
+  means the backend's CORS policy won't restrict browser callers.
+- **`ADMIN_PASSKEY` and `SESSION_SECRET` must be set** to long random
+  values in the deployment environment. If left unset, the app falls back
+  to hardcoded defaults present in the public source code.
+- **`data/uploads/` needs persistent storage.** Uploaded files are written
+  to local disk and re-indexed from there on every startup. Most
+  container/serverless platforms have an ephemeral filesystem — without a
+  mounted volume (or moving storage to S3/GCS/etc.), uploaded documents are
+  lost on every redeploy or restart.
+- **MongoDB must be a real, reachable instance** (e.g. MongoDB Atlas) with
+  `MONGO_URI` set in the backend's environment. If it's unreachable, the
+  app silently falls back to an in-memory store — data appears to work but
+  disappears on the next restart.
+- **In-memory state is per-process.** The runtime document/chunk registry,
+  the admin login rate-limiter, and the feedback list backup all live in
+  process memory, so they won't be shared across multiple replicas/
+  instances if you scale out.
+
 ## Setup Verification Note
 
 > **Verification Status: PASSED**

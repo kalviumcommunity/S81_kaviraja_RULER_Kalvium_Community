@@ -32,6 +32,7 @@ class AppConfig:
     server_host: str
     server_port: int
     debug_mode: bool
+    allowed_origins: list
 
     # RAG Generation Defaults
     default_top_k: int
@@ -58,6 +59,11 @@ class AppConfig:
             server_host=os.getenv("SERVER_HOST", "0.0.0.0").strip(),
             server_port=int(os.getenv("SERVER_PORT", "8000")),
             debug_mode=os.getenv("DEBUG", "false").lower() in ("true", "1", "yes"),
+            allowed_origins=[
+                origin.strip()
+                for origin in os.getenv("ALLOWED_ORIGINS", "*").split(",")
+                if origin.strip()
+            ] or ["*"],
             default_top_k=int(os.getenv("DEFAULT_TOP_K", "3")),
             default_temperature=float(os.getenv("DEFAULT_TEMPERATURE", "0.2")),
             max_answer_tokens=int(os.getenv("MAX_ANSWER_TOKENS", "300")),
@@ -83,6 +89,7 @@ class AppConfig:
             "server_host": self.server_host,
             "server_port": self.server_port,
             "debug_mode": self.debug_mode,
+            "allowed_origins": self.allowed_origins,
             "default_top_k": self.default_top_k,
             "default_temperature": self.default_temperature,
             "max_answer_tokens": self.max_answer_tokens,
