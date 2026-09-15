@@ -5,11 +5,20 @@ ENV/
 
 # Dependencies
 node_modules/
+frontend/node_modules/
+
+# Next.js build outputs & cache
+.next/
+frontend/.next/
+out/
+frontend/out/
 
 # Environment configuration & secrets
 .env
 .env.local
 .env.*.local
+frontend/.env.local
+frontend/.env.*.local
 
 # Data directory contents (keep folder structure via .gitkeep)
 data/*

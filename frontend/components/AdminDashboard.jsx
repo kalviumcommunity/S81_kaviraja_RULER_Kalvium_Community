@@ -1,7 +1,12 @@
-'use client';
-
 import React, { useState, useEffect, useRef } from 'react';
-import { uploadDocumentText, uploadDocumentFile, fetchDocuments, fetchServerConfig } from '../lib/api';
+import {
+  uploadDocumentText,
+  uploadDocumentFile,
+  fetchDocuments,
+  fetchServerConfig,
+  fetchFeedbackList,
+  fetchQueryLogs,
+} from '../lib/api';
 
 export default function AdminDashboard({
   currentUser,
@@ -13,6 +18,11 @@ export default function AdminDashboard({
   const [activeFilter, setActiveFilter] = useState('all'); // 'all' | 'positive' | 'negative' | 'thoughts'
   const [searchQuery, setSearchQuery] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  // Live Server Data from MongoDB
+  const [serverFeedbacks, setServerFeedbacks] = useState([]);
+  const [serverQueries, setServerQueries] = useState([]);
+  const [isRefreshingFeedback, setIsRefreshingFeedback] = useState(false);
 
   // Ingestion State
   const [uploadMode, setUploadMode] = useState('text'); // 'text' | 'file'
@@ -31,6 +41,9 @@ export default function AdminDashboard({
 
   useEffect(() => {
     loadServerData();
+    // Auto-poll MongoDB feedback every 10 seconds while admin is viewing
+    const interval = setInterval(loadServerData, 10000);
+    return () => clearInterval(interval);
   }, []);
 
   const loadServerData = async () => {
@@ -51,6 +64,25 @@ export default function AdminDashboard({
       console.warn('Doc fetch error:', e);
     } finally {
       setIsLoadingDocs(false);
+    }
+
+    try {
+      setIsRefreshingFeedback(true);
+      const [fbRes, queryRes] = await Promise.allSettled([
+        fetchFeedbackList(),
+        fetchQueryLogs(),
+      ]);
+
+      if (fbRes.status === 'fulfilled' && fbRes.value?.feedbacks) {
+        setServerFeedbacks(fbRes.value.feedbacks);
+      }
+      if (queryRes.status === 'fulfilled' && queryRes.value?.queries) {
+        setServerQueries(queryRes.value.queries);
+      }
+    } catch (e) {
+      console.warn('Feedback/queries fetch error:', e);
+    } finally {
+      setIsRefreshingFeedback(false);
     }
   };
 
@@ -116,23 +148,98 @@ export default function AdminDashboard({
     }
   };
 
-  // Process user conversations and metrics
-  const assistantEntries = chatHistory.filter((m) => m.role === 'assistant' && !m.isLoading);
-  const totalGenTokens = assistantEntries.reduce(
+  // Unify live server-persisted queries & feedbacks from MongoDB with local session chatHistory
+  const localAssistantEntries = chatHistory.filter((m) => m.role === 'assistant' && !m.isLoading);
+
+  const unifiedConversations = React.useMemo(() => {
+    const list = [];
+    const seen = new Set();
+
+    // 1. Add records from MongoDB serverFeedbacks (highest fidelity with user ratings & notes)
+    (serverFeedbacks || []).forEach((fb, idx) => {
+      const key = `${fb.question || ''}_${fb.created_at || fb.timestamp || idx}`;
+      seen.add(key);
+
+      const rLower = (fb.rating || '').toLowerCase();
+      const score = fb.rating_score !== undefined && fb.rating_score !== null ? Number(fb.rating_score) : null;
+      let fbRating = null;
+      if (rLower === 'helpful' || rLower === 'positive' || (score !== null && score > 0)) {
+        fbRating = 'positive';
+      } else if (rLower === 'average' || rLower === 'neutral' || rLower === 'satisfactory' || score === 0) {
+        fbRating = 'average';
+      } else if (rLower === 'needs_revision' || rLower === 'negative' || (score !== null && score < 0)) {
+        fbRating = 'negative';
+      }
+
+      list.push({
+        turnId: fb.turn_id || idx + 1,
+        userQuestion: fb.question || 'Officer Feedback Submission',
+        content: fb.answer || '(Officer Compliance Note & Feedback)',
+        feedback: fbRating,
+        userThoughts: fb.thoughts || fb.notes || '',
+        timestamp: fb.created_at
+          ? new Date(fb.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          : (fb.timestamp || 'Recent'),
+        tokens: { completion_tokens: fb.tokens_generated || 0 },
+        sources: [],
+        sourceType: 'MongoDB Feedback',
+      });
+    });
+
+    // 2. Add records from MongoDB serverQueries
+    (serverQueries || []).forEach((q, idx) => {
+      const key = `${q.question || ''}_${q.created_at || idx}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        list.push({
+          turnId: list.length + 1,
+          userQuestion: q.question,
+          content: q.answer,
+          feedback: null,
+          userThoughts: '',
+          timestamp: q.created_at
+            ? new Date(q.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            : 'Recent',
+          tokens: { completion_tokens: q.tokens_generated || 0 },
+          sources: q.sources || [],
+          sourceType: 'MongoDB Query',
+        });
+      }
+    });
+
+    // 3. Merge local session chatHistory
+    localAssistantEntries.forEach((localEntry) => {
+      const match = list.find((item) => item.userQuestion === localEntry.userQuestion);
+      if (match) {
+        if (localEntry.feedback && !match.feedback) match.feedback = localEntry.feedback;
+        if (localEntry.userThoughts && !match.userThoughts) match.userThoughts = localEntry.userThoughts;
+      } else {
+        list.push(localEntry);
+      }
+    });
+
+    return list;
+  }, [serverFeedbacks, serverQueries, localAssistantEntries]);
+
+  // Telemetry metrics calculated across unified records
+  const totalGenTokens = unifiedConversations.reduce(
     (acc, m) => acc + (m.tokens?.completion_tokens || 0),
     0
   );
-  const totalQueries = assistantEntries.length;
-  const positiveFeedbacks = assistantEntries.filter((m) => m.feedback === 'positive').length;
-  const negativeFeedbacks = assistantEntries.filter((m) => m.feedback === 'negative').length;
-  const thoughtsCount = assistantEntries.filter((m) => m.userThoughts && m.userThoughts.trim()).length;
-  const satisfactionRate = totalQueries > 0 && (positiveFeedbacks + negativeFeedbacks > 0)
-    ? Math.round((positiveFeedbacks / (positiveFeedbacks + negativeFeedbacks)) * 100)
+  const totalQueries = unifiedConversations.length;
+  const positiveFeedbacks = unifiedConversations.filter((m) => m.feedback === 'positive').length;
+  const averageFeedbacks = unifiedConversations.filter((m) => m.feedback === 'average').length;
+  const negativeFeedbacks = unifiedConversations.filter((m) => m.feedback === 'negative').length;
+  const thoughtsCount = unifiedConversations.filter((m) => m.userThoughts && m.userThoughts.trim()).length;
+  const totalRated = positiveFeedbacks + averageFeedbacks + negativeFeedbacks;
+  const satisfactionRate = totalRated > 0
+    ? Math.round(((positiveFeedbacks + (averageFeedbacks * 0.5)) / totalRated) * 100)
     : 100;
 
   // Filter conversations
-  const filteredConversations = assistantEntries.filter((entry) => {
+  const filteredConversations = unifiedConversations.filter((entry) => {
     if (activeFilter === 'positive' && entry.feedback !== 'positive') return false;
+    if (activeFilter === 'average' && entry.feedback !== 'average') return false;
     if (activeFilter === 'negative' && entry.feedback !== 'negative') return false;
     if (activeFilter === 'thoughts' && (!entry.userThoughts || !entry.userThoughts.trim())) return false;
 
@@ -347,7 +454,7 @@ export default function AdminDashboard({
               <div className="bg-white border border-[#D8CCBD] p-5 rounded-[12px] flex flex-col gap-1.5 shadow-sm">
                 <span className="text-xs text-[#6A5A4A] font-semibold">User Satisfaction</span>
                 <span className="text-3xl font-bold text-[#002147]">{satisfactionRate}%</span>
-                <span className="text-[11px] text-[#8C7A68]">👍 {positiveFeedbacks} Helpful / 👎 {negativeFeedbacks} Needs Revision</span>
+                <span className="text-[11px] text-[#8C7A68]">👍 {positiveFeedbacks} / 😐 {averageFeedbacks} / 👎 {negativeFeedbacks}</span>
               </div>
 
               <div className="bg-white border border-[#D8CCBD] p-5 rounded-[12px] flex flex-col gap-1.5 shadow-sm">
@@ -386,14 +493,24 @@ export default function AdminDashboard({
 
               {/* Filters & Search */}
               <div className="flex items-center gap-2 flex-wrap">
+                <button
+                  type="button"
+                  onClick={loadServerData}
+                  disabled={isRefreshingFeedback}
+                  className="bg-[#F5EFEB] hover:bg-[#D2B48C] border border-[#D8CCBD] text-[#002147] text-xs font-bold px-3 py-1.5 rounded-[12px] transition flex items-center gap-1 shadow-sm"
+                  title="Refresh queries and feedback from MongoDB"
+                >
+                  <span>{isRefreshingFeedback ? '⏳ Fetching...' : '🔄 Refresh Live Data'}</span>
+                </button>
+
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search queries or answers..."
-                  className="bg-white border border-[#D8CCBD] rounded-[12px] px-3 py-1.5 text-xs text-[#002147] focus:outline-none focus:border-[#002147] w-48 shadow-sm"
+                  className="bg-white border border-[#D8CCBD] rounded-[12px] px-3 py-1.5 text-xs text-[#002147] focus:outline-none focus:border-[#002147] w-44 shadow-sm"
                 />
-                <div className="flex bg-[#F5EFEB] border border-[#D8CCBD] rounded-[12px] p-0.5">
+                <div className="flex bg-[#F5EFEB] border border-[#D8CCBD] rounded-[12px] p-0.5 flex-wrap gap-0.5">
                   <button
                     type="button"
                     onClick={() => setActiveFilter('all')}
@@ -401,7 +518,7 @@ export default function AdminDashboard({
                       activeFilter === 'all' ? 'bg-[#002147] text-[#D2B48C]' : 'text-[#002147] hover:bg-[#D2B48C]'
                     }`}
                   >
-                    All ({assistantEntries.length})
+                    All ({unifiedConversations.length})
                   </button>
                   <button
                     type="button"
@@ -411,6 +528,15 @@ export default function AdminDashboard({
                     }`}
                   >
                     👍 Helpful ({positiveFeedbacks})
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveFilter('average')}
+                    className={`px-2.5 py-1 rounded-[10px] text-xs font-bold transition ${
+                      activeFilter === 'average' ? 'bg-[#002147] text-[#D2B48C]' : 'text-[#002147] hover:bg-[#D2B48C]'
+                    }`}
+                  >
+                    😐 Average ({averageFeedbacks})
                   </button>
                   <button
                     type="button"
@@ -439,8 +565,8 @@ export default function AdminDashboard({
               <div className="bg-white border border-[#D8CCBD] rounded-[12px] p-12 text-center flex flex-col items-center gap-3 shadow-sm my-auto">
                 <h3 className="text-sm font-bold text-[#002147]">No User Conversations Found</h3>
                 <p className="text-xs text-[#8C7A68] max-w-md">
-                  {assistantEntries.length === 0
-                    ? 'No queries have been submitted in this session yet. User conversations and their timestamps will appear here once officers ask questions in the User Portal.'
+                  {unifiedConversations.length === 0
+                    ? 'No queries have been submitted in this session or MongoDB yet. User conversations and their timestamps will appear here once officers ask questions in the User Portal.'
                     : 'No conversation entries match your current filter or search criteria.'}
                 </p>
                 {assistantEntries.length === 0 && (
@@ -511,6 +637,10 @@ export default function AdminDashboard({
                           {entry.feedback === 'positive' ? (
                             <span className="text-[#002147] bg-[#D2B48C] px-2.5 py-1 rounded-[12px]">
                               👍 Helpful
+                            </span>
+                          ) : entry.feedback === 'average' ? (
+                            <span className="text-[#002147] bg-[#E8DEC8] border border-[#D8CCBD] px-2.5 py-1 rounded-[12px]">
+                              😐 Average
                             </span>
                           ) : entry.feedback === 'negative' ? (
                             <span className="text-[#002147] bg-[#E5D9C8] border border-[#D8CCBD] px-2.5 py-1 rounded-[12px]">

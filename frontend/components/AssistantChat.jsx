@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { queryRAG } from '../lib/api';
+import { queryRAG, submitFeedback } from '../lib/api';
 
 const SUGGESTED_PROMPTS = [
   'What is the mandatory Tier 1 capital adequacy ratio under the regulatory framework?',
@@ -12,9 +12,16 @@ const SUGGESTED_PROMPTS = [
 ];
 
 export default function AssistantChat({
+  currentUser,
+  activeMessages,
+  setActiveMessages,
   chatHistory,
   setChatHistory,
+  onRecordQuery,
   onTokensUpdated,
+  onNewChat,
+  onUpdateFeedback,
+  onSaveThought,
 }) {
   const [inputText, setInputText] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -23,9 +30,12 @@ export default function AssistantChat({
   const [thoughtDrafts, setThoughtDrafts] = useState({});
   const streamEndRef = useRef(null);
 
+  const messages = activeMessages !== undefined ? activeMessages : chatHistory || [];
+  const setMessages = setActiveMessages || setChatHistory;
+
   useEffect(() => {
     streamEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [chatHistory]);
+  }, [messages]);
 
   const handleSendQuery = async (question) => {
     const q = (question || inputText).trim();
@@ -34,7 +44,8 @@ export default function AssistantChat({
     setInputText('');
     setIsSubmitting(true);
 
-    const turnIndex = chatHistory.length + 1;
+    const totalHistoricalQueries = (chatHistory || []).filter((m) => m.role === 'user').length;
+    const turnIndex = totalHistoricalQueries + 1;
     const timeStr = new Date().toLocaleTimeString();
 
     // Add User Message
@@ -55,10 +66,10 @@ export default function AssistantChat({
       tokens: null,
     };
 
-    setChatHistory((prev) => [...prev, userMsg, loadingMsg]);
+    setMessages((prev) => [...prev, userMsg, loadingMsg]);
 
     try {
-      const data = await queryRAG(q, 3, 0.2);
+      const data = await queryRAG(q, 3, 0.2, currentUser?.email);
 
       const tokensUsed = data.metadata?.tokens_used || {};
       const genTokens = tokensUsed.completion_tokens !== undefined
@@ -100,11 +111,15 @@ export default function AssistantChat({
         userThoughts: '',
       };
 
-      setChatHistory((prev) => {
+      setMessages((prev) => {
         const next = [...prev];
         next[next.length - 1] = assistantMsg;
         return next;
       });
+
+      if (onRecordQuery) {
+        onRecordQuery(userMsg, assistantMsg);
+      }
     } catch (err) {
       console.error('Query execution error:', err);
       const fallbackTokens = { completion_tokens: 15, prompt_tokens: 50, total_tokens: 65 };
@@ -126,35 +141,68 @@ export default function AssistantChat({
         feedback: null,
       };
 
-      setChatHistory((prev) => {
+      setMessages((prev) => {
         const next = [...prev];
         next[next.length - 1] = errorMsg;
         return next;
       });
+
+      if (onRecordQuery) {
+        onRecordQuery(userMsg, errorMsg);
+      }
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleFeedback = (turnId, rating) => {
-    setChatHistory((prev) =>
+  const handleFeedback = async (turnId, rating) => {
+    const targetMsg = messages.find((m) => m.turnId === turnId && m.role === 'assistant');
+    const newRating = targetMsg?.feedback === rating ? null : rating;
+
+    setMessages((prev) =>
       prev.map((msg) => {
         if (msg.turnId === turnId && msg.role === 'assistant') {
           return {
             ...msg,
-            feedback: msg.feedback === rating ? null : rating,
+            feedback: newRating,
           };
         }
         return msg;
       })
     );
+
+    if (onUpdateFeedback) {
+      onUpdateFeedback(turnId, rating);
+    } else if (targetMsg && newRating) {
+      // Fallback direct submission to MongoDB backend
+      try {
+        const ratingStr = newRating === 'positive' ? 'helpful' : newRating === 'average' ? 'average' : 'needs_revision';
+        const ratingScore = newRating === 'positive' ? 1 : newRating === 'average' ? 0 : -1;
+
+        await submitFeedback({
+          turn_id: turnId,
+          question: targetMsg.userQuestion || '',
+          answer: targetMsg.content || '',
+          rating: ratingStr,
+          rating_score: ratingScore,
+          thoughts: targetMsg.userThoughts || '',
+          category: 'User Portal Feedback',
+          user_email: currentUser?.email || null,
+          tokens_generated: targetMsg.tokens?.completion_tokens || 0,
+        });
+      } catch (err) {
+        console.warn('Failed to submit feedback to backend:', err);
+      }
+    }
   };
 
-  const handleSaveThought = (turnId) => {
+  const handleSaveThought = async (turnId) => {
     const text = thoughtDrafts[turnId]?.trim();
     if (!text) return;
 
-    setChatHistory((prev) =>
+    const targetMsg = messages.find((m) => m.turnId === turnId && m.role === 'assistant');
+
+    setMessages((prev) =>
       prev.map((msg) => {
         if (msg.turnId === turnId && msg.role === 'assistant') {
           return {
@@ -167,6 +215,38 @@ export default function AssistantChat({
     );
 
     setShowThoughtInput((prev) => ({ ...prev, [turnId]: false }));
+
+    if (onSaveThought) {
+      onSaveThought(turnId, text);
+    } else if (targetMsg) {
+      // Fallback direct thought submission
+      try {
+        const ratingStr = targetMsg.feedback === 'negative'
+          ? 'needs_revision'
+          : targetMsg.feedback === 'average'
+          ? 'average'
+          : 'helpful';
+        const ratingScore = targetMsg.feedback === 'negative'
+          ? -1
+          : targetMsg.feedback === 'average'
+          ? 0
+          : 1;
+
+        await submitFeedback({
+          turn_id: turnId,
+          question: targetMsg.userQuestion || '',
+          answer: targetMsg.content || '',
+          rating: ratingStr,
+          rating_score: ratingScore,
+          thoughts: text,
+          category: 'Officer Thought & Notes',
+          user_email: currentUser?.email || null,
+          tokens_generated: targetMsg.tokens?.completion_tokens || 0,
+        });
+      } catch (err) {
+        console.warn('Failed to submit thought to backend:', err);
+      }
+    }
   };
 
   const toggleSourceExpand = (msgIdx, srcIdx) => {
@@ -183,9 +263,32 @@ export default function AssistantChat({
 
   return (
     <div className="flex flex-col h-full w-full overflow-hidden bg-[#FAF8F5] font-sans text-[#002147]">
+      {/* Active Conversation Top Bar with New Chat Option */}
+      {messages.length > 0 && (
+        <div className="bg-white/80 backdrop-blur-sm border-b border-[#D8CCBD] px-6 py-2.5 flex items-center justify-between flex-shrink-0 z-10 shadow-xs">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span className="text-xs font-bold text-[#002147]">
+              Active Session ({messages.filter((m) => m.role === 'user').length} {messages.filter((m) => m.role === 'user').length === 1 ? 'query' : 'queries'})
+            </span>
+          </div>
+          {onNewChat && (
+            <button
+              type="button"
+              onClick={onNewChat}
+              className="flex items-center gap-1.5 px-3 py-1 rounded-[10px] bg-[#002147] hover:bg-[#001630] text-[#D2B48C] text-xs font-bold transition shadow-sm"
+              title="Start a fresh chat conversation (previous queries remain in Query History)"
+            >
+              <span className="text-sm font-black">+</span>
+              <span>New Chat</span>
+            </button>
+          )}
+        </div>
+      )}
+
       {/* Messages Stream */}
       <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-6 max-w-4xl w-full mx-auto">
-        {chatHistory.length === 0 ? (
+        {messages.length === 0 ? (
           <div className="bg-white border border-[#D8CCBD] rounded-[12px] p-8 text-center flex flex-col items-center gap-3 my-auto shadow-sm">
             <div className="w-11 h-11 rounded-[12px] bg-[#002147] text-[#D2B48C] flex items-center justify-center text-lg font-bold">
               R
@@ -208,7 +311,7 @@ export default function AssistantChat({
             </div>
           </div>
         ) : (
-          chatHistory.map((msg, idx) => (
+          messages.map((msg, idx) => (
             <div key={idx} className="w-full flex flex-col gap-1 transition-all duration-200">
               {msg.role === 'user' ? (
                 <div className="self-end max-w-[80%] ml-auto bg-[#002147] text-white px-5 py-3.5 rounded-[12px] text-sm leading-relaxed shadow-sm">
@@ -279,6 +382,18 @@ export default function AssistantChat({
                         >
                           <span>👍</span>
                           <span>Helpful</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleFeedback(msg.turnId, 'average')}
+                          className={`px-3 py-1.5 rounded-[12px] text-xs font-bold flex items-center gap-1.5 transition ${
+                            msg.feedback === 'average'
+                              ? 'bg-[#002147] text-[#D2B48C] shadow-sm'
+                              : 'bg-[#F5EFEB] text-[#002147] hover:bg-[#D2B48C] border border-[#D8CCBD]'
+                          }`}
+                        >
+                          <span>😐</span>
+                          <span>Average</span>
                         </button>
                         <button
                           type="button"

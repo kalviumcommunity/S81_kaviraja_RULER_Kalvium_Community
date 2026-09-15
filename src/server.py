@@ -128,6 +128,19 @@ except ImportError:
 
 
 
+try:
+    from database import db_client, QueryRecord, FeedbackRecord, DocumentRecord, ChunkRecord, UserRecord
+except ImportError:
+    try:
+        from src.database import db_client, QueryRecord, FeedbackRecord, DocumentRecord, ChunkRecord, UserRecord
+    except ImportError:
+        db_client = None
+        QueryRecord = None
+        FeedbackRecord = None
+        DocumentRecord = None
+        ChunkRecord = None
+        UserRecord = None
+
 # Base paths
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 DATA_DIR = os.path.join(PROJECT_ROOT, "data")
@@ -240,6 +253,14 @@ class QueryRequest(BaseModel):
     filter_section: Optional[str] = Field(
         default=None,
         description="Optional filter to restrict retrieval to a specific document section."
+    )
+    user_email: Optional[str] = Field(
+        default=None,
+        description="Optional authenticated user email address to attach to query record."
+    )
+    session_id: Optional[str] = Field(
+        default=None,
+        description="Optional conversational session ID."
     )
 
     @field_validator("question")
@@ -442,7 +463,9 @@ def execute_rag_pipeline(
     temperature: float = 0.2,
     use_mock: bool = False,
     filter_doc_id: Optional[str] = None,
-    filter_section: Optional[str] = None
+    filter_section: Optional[str] = None,
+    user_email: Optional[str] = None,
+    session_id: Optional[str] = None,
 ) -> Dict[str, Any]:
     """
     Core RAG Pipeline execution used by endpoints (Task 1 & Task 2).
@@ -468,9 +491,9 @@ def execute_rag_pipeline(
             "metadata": {
                 "model": llm_client.model_name,
                 "latency_ms": latency,
-                "tokens_used": {"prompt_tokens": count_tokens(question), "completion_tokens": 0, "total_tokens": count_tokens(question)},
+                "tokens_used": {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0},
                 "total_sources_retrieved": 0,
-                "retrieval_strategy": "keyword_semantic_hybrid",
+                "retrieval_strategy": "vector_hybrid",
                 "timestamp": datetime.now(timezone.utc).isoformat(),
             }
         }
@@ -565,7 +588,7 @@ def execute_rag_pipeline(
     if answer_text == NO_SOURCE_FALLBACK or not is_grounded:
         status_str = "fallback"
 
-    return {
+    result = {
         "status": status_str,
         "question": question,
         "answer": attribution.get("answer", answer_text),
@@ -585,6 +608,28 @@ def execute_rag_pipeline(
             "timestamp": datetime.now(timezone.utc).isoformat(),
         }
     }
+
+    # Persist query and grounding telemetry to MongoDB
+    if db_client is not None:
+        try:
+            tokens_total = result["metadata"]["tokens_used"].get("total_tokens", 0)
+            db_client.save_query(QueryRecord(
+                question=question,
+                answer=result["answer"],
+                status=status_str,
+                confidence=result["confidence"],
+                is_grounded=is_grounded,
+                user_email=user_email,
+                session_id=session_id,
+                sources=structured_sources,
+                metadata=result["metadata"],
+                tokens_generated=tokens_total,
+                latency_ms=latency,
+            ))
+        except Exception as e:
+            logging.getLogger("Server").warning(f"Could not persist query to MongoDB: {e}")
+
+    return result
 
 
 # -------------------------------------------------------------
@@ -613,7 +658,9 @@ def query_rag_pipeline(req: QueryRequest):
             temperature=req.temperature if req.temperature is not None else 0.2,
             use_mock=req.use_mock or False,
             filter_doc_id=req.filter_doc_id,
-            filter_section=req.filter_section
+            filter_section=req.filter_section,
+            user_email=req.user_email,
+            session_id=req.session_id,
         )
         return response_data
     except HTTPException:
@@ -739,6 +786,25 @@ async def upload_document(
             chunk_overlap=chunk_overlap or 64,
             explicit_doc_id=doc_id,
         )
+
+        # Persist document metadata to MongoDB
+        if db_client is not None:
+            try:
+                db_client.save_document(DocumentRecord(
+                    doc_id=summary.doc_id,
+                    filename=summary.filename,
+                    category=category or "Institutional Regulation",
+                    file_size_bytes=summary.file_size_bytes,
+                    character_count=summary.character_count,
+                    token_count=summary.token_count,
+                    chunk_count=summary.chunk_count,
+                    uploaded_by="Administrator",
+                    status="indexed",
+                    source_path=summary.saved_file_path,
+                ))
+            except Exception as e:
+                logging.getLogger("Server").warning(f"Could not persist document to MongoDB: {e}")
+
         return JSONResponse(
             status_code=status.HTTP_201_CREATED,
             content={
@@ -1134,10 +1200,12 @@ class FeedbackRequest(BaseModel):
     question: Optional[str] = ""
     answer: Optional[str] = ""
     rating: Optional[str] = "helpful"
-    rating_score: Optional[int] = 5
-    thoughts: str = Field(..., description="User thoughts, observations or feedback text.")
+    rating_score: Optional[int] = 1
+    thoughts: Optional[str] = ""
     category: Optional[str] = "General"
     notes: Optional[str] = ""
+    user_email: Optional[str] = None
+    query_id: Optional[str] = None
     tokens_generated: Optional[int] = 0
 
 
@@ -1151,15 +1219,35 @@ def submit_feedback(fb: FeedbackRequest):
         "answer": fb.answer,
         "rating": fb.rating,
         "rating_score": fb.rating_score,
-        "thoughts": fb.thoughts,
+        "thoughts": fb.thoughts or "",
         "category": fb.category,
         "notes": fb.notes,
+        "user_email": fb.user_email,
+        "query_id": fb.query_id,
         "tokens_generated": fb.tokens_generated,
         "timestamp": datetime.now(timezone.utc).isoformat()
     }
     _user_feedbacks.append(record)
     
-    # Persist to disk
+    # Persist to MongoDB
+    if db_client is not None:
+        try:
+            db_client.save_feedback(FeedbackRecord(
+                question=fb.question or "",
+                answer=fb.answer or "",
+                rating=fb.rating or "helpful",
+                rating_score=fb.rating_score or 1,
+                thoughts=fb.thoughts or "",
+                category=fb.category or "General",
+                notes=fb.notes or "",
+                user_email=fb.user_email,
+                query_id=fb.query_id,
+                tokens_generated=fb.tokens_generated or 0,
+            ))
+        except Exception as e:
+            logging.getLogger("Server").warning(f"Could not persist feedback to MongoDB: {e}")
+
+    # Persist to disk as backup
     try:
         os.makedirs(OUTPUTS_DIR, exist_ok=True)
         with open(FEEDBACK_LOG_PATH, "w", encoding="utf-8") as f:
@@ -1175,13 +1263,62 @@ def submit_feedback(fb: FeedbackRequest):
 
 
 @app.get("/api/feedback", tags=["User Feedback"])
-def get_feedbacks():
-    """Retrieves all submitted user feedback records."""
+def get_feedbacks(limit: int = 100):
+    """Retrieves all submitted user feedback records from MongoDB."""
+    if db_client is not None:
+        try:
+            mongo_feedbacks = db_client.get_feedbacks(limit=limit)
+            if mongo_feedbacks:
+                return {
+                    "status": "success",
+                    "total": len(mongo_feedbacks),
+                    "feedbacks": mongo_feedbacks
+                }
+        except Exception as e:
+            logging.getLogger("Server").warning(f"Could not fetch feedbacks from MongoDB: {e}")
+
     return {
         "status": "success",
         "total": len(_user_feedbacks),
         "feedbacks": _user_feedbacks
     }
+
+
+@app.get("/api/queries", tags=["Queries Telemetry"])
+def get_recent_queries(
+    limit: int = 100,
+    skip: int = 0,
+    user_email: Optional[str] = None
+):
+    """Retrieves recent user conversational queries and telemetry from MongoDB, optionally filtered by user_email."""
+    if db_client is not None:
+        try:
+            queries = db_client.get_queries(limit=limit, skip=skip, user_email=user_email)
+            return {
+                "status": "success",
+                "total": len(queries),
+                "queries": queries
+            }
+        except Exception as e:
+            logging.getLogger("Server").warning(f"Could not fetch queries from MongoDB: {e}")
+
+    return {
+        "status": "success",
+        "total": 0,
+        "queries": []
+    }
+
+
+@app.get("/api/db/status", tags=["Database"])
+def get_database_status():
+    """Returns MongoDB connectivity status and collection statistics."""
+    if db_client is None:
+        return {
+            "status": "offline",
+            "message": "MongoDB client is not initialized.",
+            "is_connected": False
+        }
+    return db_client.get_status()
 
 
 # -------------------------------------------------------------

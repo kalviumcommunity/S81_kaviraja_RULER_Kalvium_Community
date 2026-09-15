@@ -203,7 +203,8 @@ class TestRulerApiEndpoints(unittest.TestCase):
         cfg = data["config"]
         self.assertIn("chat_model", cfg)
         self.assertIn("embedding_model", cfg)
-        self.assertIn("chroma_db_path", cfg)
+        self.assertIn("mongo_uri", cfg)
+        self.assertIn("mongo_db_name", cfg)
 
     # -------------------------------------------------------------
     # LEGACY CHAT ENDPOINT
