@@ -19,7 +19,7 @@ from typing import Dict, Any, List, Optional, Union
 from fastapi import FastAPI, HTTPException, Request, status, File, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
 from fastapi.exceptions import RequestValidationError
 from pydantic import BaseModel, Field, field_validator
 
@@ -1336,7 +1336,12 @@ if os.path.exists(FRONTEND_DIR):
 def serve_index():
     index_file = os.path.join(FRONTEND_DIR, "index.html")
     if os.path.exists(index_file):
-        return FileResponse(index_file)
+        frontend_url = config.frontend_url if config else "http://localhost:3000"
+        with open(index_file, "r", encoding="utf-8") as f:
+            html = f.read()
+        # Rewrite the hardcoded local dev frontend URL to the deployed one.
+        html = html.replace("http://localhost:3000", frontend_url)
+        return HTMLResponse(content=html)
     return {"message": "RAG Application API running. Frontend index.html not found."}
 
 

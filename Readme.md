@@ -270,15 +270,34 @@ rag-app-starter/
 
 ## Deployment Notes
 
-The frontend and backend are designed to be deployed as two separate
-services. Before deploying, be aware of the following:
+The frontend (Next.js, e.g. Netlify) and backend (FastAPI, e.g. Render) are
+deployed as **two separate services with two separate env var sets** — do
+not copy the same `.env` into both. See `.env.example` for which variable
+belongs to which service.
+
+Example wiring (replace with your actual deployed URLs):
+
+| Service | Env var | Value |
+|---|---|---|
+| Frontend (Netlify) | `BACKEND_INTERNAL_URL` | `https://your-backend.onrender.com` |
+| Frontend (Netlify) | `ADMIN_PASSKEY`, `SESSION_SECRET` | long random secrets |
+| Backend (Render) | `FRONTEND_URL` | `https://your-frontend.netlify.app` |
+| Backend (Render) | `ALLOWED_ORIGINS` | `https://your-frontend.netlify.app` |
+| Backend (Render) | `OPENAI_API_KEY`, `MONGO_URI`, etc. | backend-only secrets |
+
+A repo-root `netlify.toml` configures the frontend build for Netlify
+(`base = "frontend"`, `@netlify/plugin-nextjs`) since this is a monorepo —
+without it, or without the frontend's Netlify site pointed at the `frontend`
+subdirectory, requests will 404 because Netlify won't know to build/serve
+the Next.js app.
 
 - **`BACKEND_INTERNAL_URL` must be set on the frontend's host.** All
   `/api/*` requests from the browser are proxied server-side by Next.js
   (`next.config.js` rewrites + the `app/api/admin/*` routes) to this URL.
-  It should point at the backend's private/internal address — never a
-  public URL reachable from outside your infrastructure.
-- **The backend should not be publicly reachable.** Endpoints like
+  It should point at the backend's actual deployed address (its Render
+  URL) — a value left at the local-dev default of `http://127.0.0.1:8000`
+  will fail once frontend and backend are on separate hosts.
+- **The backend should not be publicly reachable without restriction.** Endpoints like
   `/api/upload`, `/api/upload-text`, and `/api/query` on the FastAPI
   service have no authentication of their own — admin auth is enforced
   only in the Next.js `/api/admin/*` proxy routes. Put the backend on a
